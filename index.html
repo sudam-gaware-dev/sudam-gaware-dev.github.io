@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easode Studio | Android App Development</title>
+    
+    <!-- Import Space Grotesk and Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-main: #111111;
+            --text-muted: #555555;
+            --accent: #222222;
+            --card-bg: #ffffff;
+            --font-headings: 'Space Grotesk', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .logo { font-family: var(--font-headings); font-weight: 700; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* Navigation */
+        header { padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; text-decoration: none; color: var(--text-main); letter-spacing: -0.5px; }
+        nav a { margin-left: 24px; text-decoration: none; color: var(--text-muted); font-size: 0.95rem; }
+        nav a:hover { color: var(--text-main); }
+
+        /* Hero */
+        .hero { padding: 100px 0 80px; max-width: 700px; }
+        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); }
+
+        /* Sections */
+        .section-padding { padding: 40px 0 80px; }
+        .section-padding h2 { font-size: 2rem; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid #eaeaea;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.05); }
+        
+        /* Styled Placeholder App Icon */
+        .app-icon { 
+            width: 72px; 
+            height: 72px; 
+            border-radius: 18px; 
+            margin-bottom: 20px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-headings);
+            font-size: 1.2rem;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .streakio-icon { background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
+        .safar-icon { background: linear-gradient(135deg, #A770EF, #CF8BF3); }
+
+        .card h3 { font-size: 1.5rem; margin-bottom: 8px; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
+        
+        /* Badges & Links */
+        .status-badge { 
+            display: inline-block; padding: 4px 12px; border-radius: 100px; 
+            font-size: 0.8rem; font-weight: 500; margin-bottom: 16px; 
+        }
+        .live { background-color: #e8f5e9; color: #2e7d32; }
+        .upcoming { background-color: #fff3e0; color: #ef6c00; }
+        .store-link { 
+            display: inline-block; text-decoration: none; font-family: var(--font-headings);
+            color: var(--text-main); font-weight: 700; font-size: 0.95rem; 
+        }
+        .store-link:hover { text-decoration: underline; }
+
+        /* Footer */
+        footer { margin-top: auto; padding: 40px 0; border-top: 1px solid #eaeaea; text-align: center; }
+        .footer-links a { margin: 0 12px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+        .footer-links a:hover { color: var(--text-main); }
+        .copyright { margin-top: 16px; font-size: 0.85rem; color: #888; }
+
+        /* Modal Styles */
+        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); backdrop-filter: blur(4px); }
+        .modal-content { background-color: var(--card-bg); margin: 10vh auto; padding: 40px; border-radius: 16px; width: 90%; max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 1; }
+        .close:hover { color: var(--text-main); }
+        .modal-content h2 { margin-bottom: 24px; }
+        .modal-content p { color: var(--text-muted); margin-bottom: 16px; font-size: 0.95rem; }
+        .modal-content strong { color: var(--text-main); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Navigation -->
+        <header>
+            <a href="#" class="logo">Easode Studio.</a>
+            <nav>
+                <a href="#apps">Apps</a>
+                <a href="#about">About</a>
+                <a href="mailto:contact@easodestudio.com">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Crafting beautiful Android experiences.</h1>
+            <p>We build simple, purposeful applications designed to make everyday life a little bit better.</p>
+        </section>
+
+        <!-- Apps Portfolio -->
+        <section id="apps" class="section-padding">
+            <h2>Our Apps</h2>
+            <div class="grid">
+                
+                <!-- StreakIO Card -->
+                <div class="card">
+                    <div class="status-badge live">Available Now</div>
+                    
+                    <!-- To use your real icon, replace this div with: <img src="streakio-icon.png" class="app-icon" alt="StreakIO"> -->
+                    <div class="app-icon streakio-icon">S</div> 
+                    
+                    <h3>StreakIO</h3>
+                    <p>The simplest way to track your daily goals, build lasting habits, and stay accountable.</p>
+                    
+                    <!-- Integrated live Play Store Link -->
+                    <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio&pcampaignid=web_share" class="store-link" target="_blank" rel="noopener noreferrer">Get it on Google Play &rarr;</a>
+                </div>
+
+                <!-- Safar Card -->
+                <div class="card">
+                    <div class="status-badge upcoming">Coming Soon</div>
+                    
+                    <!-- To use your real icon, replace this div with: <img src="safar-icon.png" class="app-icon" alt="Safar"> -->
+                    <div class="app-icon safar-icon">Sa</div> 
+                    
+                    <h3>Safar</h3>
+                    <p>A dedicated relationship manager designed to help romantic couples stay connected and organized.</p>
+                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section-padding" style="padding-top: 0;">
+            <h2>About Us</h2>
+            <div class="card" style="max-width: 800px;">
+                <p style="font-size: 1.1rem; margin-bottom: 0;">
+                    Easode Studio is an independent Android development company dedicated to building simple, purposeful applications. Founded by Sudam Laxman Gaware, we focus on clean design and intuitive user experiences that make everyday life a little bit better. From tracking daily habits with StreakIO to strengthening relationships with Safar, we build digital tools that do one thing exceptionally well without unnecessary clutter.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a onclick="openModal('privacyModal')">Privacy Policy</a>
+                <a onclick="openModal('tosModal')">Terms of Service</a>
+                <a href="mailto:contact@easodestudio.com">Press Kit</a>
+            </div>
+            <p class="copyright">&copy; 2026 Easode Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('privacyModal')">&times;</span>
+            <h2>Privacy Policy</h2>
+            <p><strong>1. Information Collection:</strong> We collect non-identifiable data (such as crash logs and device IDs) to improve app functionality.</p>
+            <p><strong>2. Data Usage:</strong> Your data is used exclusively to provide and maintain the application. We do not sell your personal data to third parties.</p>
+            <p><strong>3. Third-Party Services:</strong> Our apps utilize third-party services (e.g., Google Play Services) that may collect information used to identify you.</p>
+            <p><strong>4. Security:</strong> We value your trust in providing your personal information and use commercially acceptable means of protecting it.</p>
+            <p><strong>5. Contact:</strong> If you have questions, please contact us at support@easodestudio.com.</p>
+        </div>
+    </div>
+
+    <!-- ToS Modal -->
+    <div id="tosModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('tosModal')">&times;</span>
+            <h2>Terms of Service</h2>
+            <p><strong>1. Acceptance:</strong> By downloading or using our apps, these terms automatically apply to you.</p>
+            <p><strong>2. License:</strong> Easode Studio grants you a personal, non-exclusive, non-transferable license to use the application on your Android devices.</p>
+            <p><strong>3. Restrictions:</strong> You may not extract the source code, translate the app into other languages, or make derivative versions.</p>
+            <p><strong>4. Updates:</strong> The apps are currently available on Android. The requirements for the system may change, and you must download updates to keep using the app.</p>
+            <p><strong>5. Termination:</strong> We may terminate use of the app at any time without giving notice of termination to you.</p>
+        </div>
+    </div>
+
+    <!-- Modal Script -->
+    <script>
+        function openModal(id) { 
+            document.getElementById(id).style.display = "block"; 
+            document.body.style.overflow = "hidden"; // Prevents scrolling behind the modal
+        }
+        function closeModal(id) { 
+            document.getElementById(id).style.display = "none"; 
+            document.body.style.overflow = "auto";
+        }
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) { 
+                event.target.style.display = "none"; 
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
+
+</body>
+</html>
