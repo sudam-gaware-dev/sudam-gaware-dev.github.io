@@ -10,166 +10,292 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
+    <!-- Import Map for Vanilla Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --text-main: #111111;
-            --text-muted: #555555;
-            --accent: #222222;
-            --card-bg: #ffffff;
+            /* Dark Theme Variables (Default) */
+            --bg-fallback: #030305;
+            --text-main: #ffffff;
+            --text-muted: #a0a0b0;
+            
+            --card-bg: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            --card-bg-hover: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --card-border-hover: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            
+            --modal-bg: #0d0d12;
+            
+            --badge-live-bg: rgba(46, 125, 50, 0.15);
+            --badge-live-text: #81c784;
+            --badge-live-border: rgba(76, 175, 80, 0.3);
+            
+            --badge-up-bg: rgba(255, 255, 255, 0.05);
+            --badge-up-text: #aaa;
+            --badge-up-border: rgba(255, 255, 255, 0.1);
+
             --font-headings: 'Space Grotesk', sans-serif;
             --font-body: 'Poppins', sans-serif;
+        }
+
+        /* Light Theme Variables */
+        body.light-theme {
+            --bg-fallback: #f4f6f8;
+            --text-main: #111111;
+            --text-muted: #555555;
+            
+            --card-bg: linear-gradient(145deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 100%);
+            --card-bg-hover: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 100%);
+            --card-border: rgba(0, 0, 0, 0.05);
+            --card-border-hover: rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            
+            --modal-bg: #ffffff;
+            
+            --badge-live-bg: rgba(46, 125, 50, 0.1);
+            --badge-live-text: #2e7d32;
+            --badge-live-border: rgba(46, 125, 50, 0.2);
+            
+            --badge-up-bg: rgba(0, 0, 0, 0.05);
+            --badge-up-text: #666;
+            --badge-up-border: rgba(0, 0, 0, 0.1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: var(--font-body);
-            background-color: var(--bg-color);
+            background-color: var(--bg-fallback);
             color: var(--text-main);
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* 3D Canvas fixed in the background */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none; 
         }
 
         h1, h2, h3, .logo { font-family: var(--font-headings); font-weight: 700; }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
         /* Navigation */
         header { padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; text-decoration: none; color: var(--text-main); letter-spacing: -0.5px; }
-        nav a { margin-left: 24px; text-decoration: none; color: var(--text-muted); font-size: 0.95rem; }
+        .logo { font-size: 1.5rem; text-decoration: none; color: var(--text-main); letter-spacing: -0.5px; transition: color 0.3s; }
+        nav { display: flex; align-items: center; }
+        nav a { margin-left: 24px; text-decoration: none; color: var(--text-muted); font-size: 0.95rem; transition: color 0.2s; }
         nav a:hover { color: var(--text-main); }
 
-        /* Hero */
-        .hero { padding: 100px 0 80px; max-width: 700px; }
-        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); }
-
-        /* Sections */
-        .section-padding { padding: 40px 0 80px; }
-        .section-padding h2 { font-size: 2rem; margin-bottom: 40px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
-
-        /* Cards */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 32px;
-            border: 1px solid #eaeaea;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.05); }
-        
-        /* Styled Placeholder App Icon */
-        .app-icon { 
-            width: 72px; 
-            height: 72px; 
-            border-radius: 18px; 
-            margin-bottom: 20px; 
-            display: flex;
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-headings);
-            font-size: 1.2rem;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            margin-left: 24px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 0;
         }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--card-bg-hover);
+            border: 1px solid var(--card-border-hover);
+        }
+
+        /* Hero */
+        .hero { padding: 15vh 0 20vh; max-width: 700px; }
+        .hero h1 { font-size: 4.5rem; line-height: 1.05; margin-bottom: 24px; letter-spacing: -1.5px; }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 550px; transition: color 0.3s; }
+
+        /* Sections */
+        .section-padding { padding: 60px 0 100px; }
+        .section-padding h2 { font-size: 2.5rem; margin-bottom: 40px; letter-spacing: -1px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+        /* Premium Glassmorphism Cards */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.4s, border 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { 
+            transform: translateY(-12px) scale(1.02); 
+            background: var(--card-bg-hover);
+            border: 1px solid var(--card-border-hover);
+        }
+        
+        .app-icon { 
+            width: 64px; height: 64px; border-radius: 16px; margin-bottom: 24px; 
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-headings); font-size: 1.5rem; color: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
         .streakio-icon { background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
         .safar-icon { background: linear-gradient(135deg, #A770EF, #CF8BF3); }
+        .cipher-icon { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .feedio-icon { background: linear-gradient(135deg, #f12711, #f5af19); }
+        .jobric-icon { background: linear-gradient(135deg, #4b6cb7, #182848); }
+        .ledgic-icon { background: linear-gradient(135deg, #00B4DB, #0083B0); }
 
-        .card h3 { font-size: 1.5rem; margin-bottom: 8px; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
+        .card h3 { font-size: 1.6rem; margin-bottom: 8px; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; flex-grow: 1; transition: color 0.3s; }
         
-        /* Badges & Links */
         .status-badge { 
-            display: inline-block; padding: 4px 12px; border-radius: 100px; 
-            font-size: 0.8rem; font-weight: 500; margin-bottom: 16px; 
+            display: inline-block; padding: 6px 14px; border-radius: 100px; 
+            font-size: 0.75rem; font-weight: 600; margin-bottom: 20px; align-self: flex-start;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            transition: all 0.3s;
         }
-        .live { background-color: #e8f5e9; color: #2e7d32; }
-        .upcoming { background-color: #fff3e0; color: #ef6c00; }
+        .live { background-color: var(--badge-live-bg); color: var(--badge-live-text); border: 1px solid var(--badge-live-border); }
+        .upcoming { background-color: var(--badge-up-bg); color: var(--badge-up-text); border: 1px solid var(--badge-up-border); }
+        
         .store-link { 
             display: inline-block; text-decoration: none; font-family: var(--font-headings);
-            color: var(--text-main); font-weight: 700; font-size: 0.95rem; 
+            color: var(--text-main); font-weight: 700; font-size: 0.95rem; margin-top: auto;
+            display: flex; align-items: center; gap: 8px; transition: color 0.3s;
         }
-        .store-link:hover { text-decoration: underline; }
+        .store-link:hover { opacity: 0.8; }
 
         /* Footer */
-        footer { margin-top: auto; padding: 40px 0; border-top: 1px solid #eaeaea; text-align: center; }
-        .footer-links a { margin: 0 12px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+        footer { padding: 60px 0 40px; text-align: center; border-top: 1px solid var(--card-border); margin-top: 40px; transition: border 0.3s; }
+        .footer-links a { margin: 0 16px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; transition: color 0.2s; }
         .footer-links a:hover { color: var(--text-main); }
-        .copyright { margin-top: 16px; font-size: 0.85rem; color: #888; }
+        .copyright { margin-top: 24px; font-size: 0.85rem; color: var(--text-muted); }
 
-        /* Modal Styles */
-        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); backdrop-filter: blur(4px); }
-        .modal-content { background-color: var(--card-bg); margin: 10vh auto; padding: 40px; border-radius: 16px; width: 90%; max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 1; }
+        /* Modals */
+        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .modal-content { background-color: var(--modal-bg); border: 1px solid var(--card-border); margin: 10vh auto; padding: 40px; border-radius: 24px; width: 90%; max-width: 600px; transition: background 0.3s; }
+        .close { color: var(--text-muted); float: right; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.2s; }
         .close:hover { color: var(--text-main); }
-        .modal-content h2 { margin-bottom: 24px; }
-        .modal-content p { color: var(--text-muted); margin-bottom: 16px; font-size: 0.95rem; }
+        .modal-content p { color: var(--text-muted); margin-bottom: 16px; }
         .modal-content strong { color: var(--text-main); }
     </style>
 </head>
 <body>
 
+    <!-- 3D Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
     <div class="container">
         <!-- Navigation -->
         <header>
-            <a href="#" class="logo">Easode Studio.</a>
+            <a href="#" class="logo">Easode.</a>
             <nav>
                 <a href="#apps">Apps</a>
-                <a href="#about">About</a>
+                <a href="#about">Studio</a>
                 <a href="mailto:contact@easodestudio.com">Contact</a>
+                
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <!-- Sun Icon (Visible in Dark Mode) -->
+                    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Moon Icon (Visible in Light Mode) -->
+                    <svg id="icon-moon" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
             </nav>
         </header>
 
         <!-- Hero Section -->
         <section class="hero">
-            <h1>Crafting beautiful Android experiences.</h1>
-            <p>We build simple, purposeful applications designed to make everyday life a little bit better.</p>
+            <h1>Engineering digital<br>momentum.</h1>
+            <p>We build beautiful, purposeful Android applications designed to make everyday life a little bit better, one interface at a time.</p>
         </section>
 
         <!-- Apps Portfolio -->
         <section id="apps" class="section-padding">
-            <h2>Our Apps</h2>
+            <h2>Ecosystem</h2>
             <div class="grid">
-                
-                <!-- StreakIO Card -->
                 <div class="card">
                     <div class="status-badge live">Available Now</div>
-                    
-                    <!-- To use your real icon, replace this div with: <img src="streakio-icon.png" class="app-icon" alt="StreakIO"> -->
                     <div class="app-icon streakio-icon">S</div> 
-                    
                     <h3>StreakIO</h3>
                     <p>The simplest way to track your daily goals, build lasting habits, and stay accountable.</p>
-                    
-                    <!-- Integrated live Play Store Link -->
-                    <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio&pcampaignid=web_share" class="store-link" target="_blank" rel="noopener noreferrer">Get it on Google Play &rarr;</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" class="store-link" target="_blank">Get it on Google Play &rarr;</a>
                 </div>
-
-                <!-- Safar Card -->
                 <div class="card">
                     <div class="status-badge upcoming">Coming Soon</div>
-                    
-                    <!-- To use your real icon, replace this div with: <img src="safar-icon.png" class="app-icon" alt="Safar"> -->
                     <div class="app-icon safar-icon">Sa</div> 
-                    
                     <h3>Safar</h3>
-                    <p>A dedicated relationship manager designed to help romantic couples stay connected and organized.</p>
+                    <p>A dedicated relationship manager designed to help romantic couples stay connected.</p>
                     <span class="store-link" style="color: var(--text-muted);">In Development</span>
                 </div>
-
+                <div class="card">
+                    <div class="status-badge upcoming">Concept</div>
+                    <div class="app-icon cipher-icon">C</div> 
+                    <h3>Cipher</h3>
+                    <p>A highly secure, offline-first password manager built to keep your credentials safe.</p>
+                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
+                </div>
+                <div class="card">
+                    <div class="status-badge upcoming">Concept</div>
+                    <div class="app-icon feedio-icon">F</div> 
+                    <h3>FeedIO</h3>
+                    <p>A completely new way to view your local media in a social media-style feed.</p>
+                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
+                </div>
+                <div class="card">
+                    <div class="status-badge upcoming">Concept</div>
+                    <div class="app-icon jobric-icon">J</div> 
+                    <h3>Jobric</h3>
+                    <p>A clean and professional resume builder that helps you craft outstanding CVs.</p>
+                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
+                </div>
+                <div class="card">
+                    <div class="status-badge upcoming">Concept</div>
+                    <div class="app-icon ledgic-icon">L</div> 
+                    <h3>Ledgic</h3>
+                    <p>An intuitive money manager to track your expenses and balance your budgets.</p>
+                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
+                </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="section-padding" style="padding-top: 0;">
-            <h2>About Us</h2>
+        <section id="about" class="section-padding">
+            <h2>The Studio</h2>
             <div class="card" style="max-width: 800px;">
-                <p style="font-size: 1.1rem; margin-bottom: 0;">
+                <p style="font-size: 1.15rem; margin-bottom: 0;">
                     Easode Studio is an independent Android development company dedicated to building simple, purposeful applications. Founded by Sudam Laxman Gaware, we focus on clean design and intuitive user experiences that make everyday life a little bit better. From tracking daily habits with StreakIO to strengthening relationships with Safar, we build digital tools that do one thing exceptionally well without unnecessary clutter.
                 </p>
             </div>
@@ -188,49 +314,251 @@
         </div>
     </footer>
 
-    <!-- Privacy Policy Modal -->
+    <!-- Modals (Privacy & ToS) -->
     <div id="privacyModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('privacyModal')">&times;</span>
             <h2>Privacy Policy</h2>
-            <p><strong>1. Information Collection:</strong> We collect non-identifiable data (such as crash logs and device IDs) to improve app functionality.</p>
-            <p><strong>2. Data Usage:</strong> Your data is used exclusively to provide and maintain the application. We do not sell your personal data to third parties.</p>
-            <p><strong>3. Third-Party Services:</strong> Our apps utilize third-party services (e.g., Google Play Services) that may collect information used to identify you.</p>
-            <p><strong>4. Security:</strong> We value your trust in providing your personal information and use commercially acceptable means of protecting it.</p>
-            <p><strong>5. Contact:</strong> If you have questions, please contact us at support@easodestudio.com.</p>
+            <p><strong>1. Information Collection:</strong> We collect non-identifiable data to improve functionality.</p>
+            <p><strong>2. Data Usage:</strong> Your data is used exclusively to maintain the application. We do not sell data.</p>
         </div>
     </div>
 
-    <!-- ToS Modal -->
     <div id="tosModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('tosModal')">&times;</span>
             <h2>Terms of Service</h2>
-            <p><strong>1. Acceptance:</strong> By downloading or using our apps, these terms automatically apply to you.</p>
-            <p><strong>2. License:</strong> Easode Studio grants you a personal, non-exclusive, non-transferable license to use the application on your Android devices.</p>
-            <p><strong>3. Restrictions:</strong> You may not extract the source code, translate the app into other languages, or make derivative versions.</p>
-            <p><strong>4. Updates:</strong> The apps are currently available on Android. The requirements for the system may change, and you must download updates to keep using the app.</p>
-            <p><strong>5. Termination:</strong> We may terminate use of the app at any time without giving notice of termination to you.</p>
+            <p><strong>1. Acceptance:</strong> By downloading our apps, these terms automatically apply.</p>
+            <p><strong>2. License:</strong> Personal, non-exclusive license for Android devices.</p>
         </div>
     </div>
 
-    <!-- Modal Script -->
+    <!-- UI Scripts -->
     <script>
-        function openModal(id) { 
-            document.getElementById(id).style.display = "block"; 
-            document.body.style.overflow = "hidden"; // Prevents scrolling behind the modal
-        }
-        function closeModal(id) { 
-            document.getElementById(id).style.display = "none"; 
-            document.body.style.overflow = "auto";
-        }
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) { 
-                event.target.style.display = "none"; 
-                document.body.style.overflow = "auto";
-            }
-        }
+        // Modal Logic
+        function openModal(id) { document.getElementById(id).style.display = "block"; document.body.style.overflow = "hidden"; }
+        function closeModal(id) { document.getElementById(id).style.display = "none"; document.body.style.overflow = "auto"; }
+        window.onclick = function(e) { if (e.target.classList.contains('modal')) { e.target.style.display = "none"; document.body.style.overflow = "auto"; } }
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const iconSun = document.getElementById('icon-sun');
+        const iconMoon = document.getElementById('icon-moon');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            const isLight = document.body.classList.contains('light-theme');
+            
+            // Swap Icons
+            iconSun.style.display = isLight ? 'none' : 'block';
+            iconMoon.style.display = isLight ? 'block' : 'none';
+            
+            // Dispatch event to notify the Three.js canvas
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isLight } }));
+        });
     </script>
 
+    <!-- Three.js Scroll-Scrubbing Logic -->
+    <script type="module">
+        import * as THREE from 'three';
+
+        // 1. Core Setup
+        const canvas = document.querySelector('#webgl-canvas');
+        const scene = new THREE.Scene();
+        
+        // Define base colors so we can transition them
+        const fogColorDark = 0x030305;
+        const fogColorLight = 0xf4f6f8;
+        
+        scene.fog = new THREE.FogExp2(fogColorDark, 0.03);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 10);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+
+        const masterGroup = new THREE.Group();
+        scene.add(masterGroup);
+
+        // 2. Objects: The Solar Core (Burning Sun)
+        const nexusGroup = new THREE.Group();
+        masterGroup.add(nexusGroup);
+
+        const coreGeo = new THREE.SphereGeometry(2, 64, 64);
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0xfff0dd });
+        const sunCore = new THREE.Mesh(coreGeo, coreMat);
+        nexusGroup.add(sunCore);
+
+        // Reintroduced the Orange Wireframe Layer
+        const plasmaGeo2 = new THREE.SphereGeometry(2.06, 32, 32);
+        const plasmaMat2 = new THREE.MeshBasicMaterial({
+            color: 0xffaa00, wireframe: true, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending
+        });
+        const plasma2 = new THREE.Mesh(plasmaGeo2, plasmaMat2);
+        nexusGroup.add(plasma2);
+
+        const sunLight = new THREE.PointLight(0xffaa00, 8, 20); 
+        nexusGroup.add(sunLight);
+
+        // 3. Orbital Data Rings & Wireframe Planets
+        const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.05, side: THREE.DoubleSide });
+        const rings = [];
+        const ringRadii = [3.5, 4.5, 5.5];
+        
+        ringRadii.forEach((radius, i) => {
+            const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.01, 32, 100), ringMaterial);
+            ring.rotation.x = Math.PI / 2 + (i * 0.2);
+            masterGroup.add(ring);
+            rings.push(ring);
+        });
+
+        const appColors = [0xffffff, 0xA770EF, 0x11998e, 0x0078d7, 0xf5af19, 0x00B4DB]; 
+        const nodes = [];
+        
+        // Reduced segments to 16x16 to make the wireframe grid crisp and distinct
+        const planetGeo = new THREE.SphereGeometry(0.25, 16, 16); 
+
+        appColors.forEach((color, i) => {
+            // Switched to BasicMaterial with wireframe: true for the planets
+            const nodeMat = new THREE.MeshBasicMaterial({ 
+                color: color, 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.9
+            });
+            const node = new THREE.Mesh(planetGeo, nodeMat);
+            const nodeLight = new THREE.PointLight(color, 1.5, 4);
+            node.add(nodeLight);
+            
+            const ringIndex = i % rings.length;
+            node.userData = { 
+                baseAngle: (Math.PI * 2 / appColors.length) * i, 
+                radius: ringRadii[ringIndex], 
+                ring: rings[ringIndex] 
+            };
+            masterGroup.add(node);
+            nodes.push(node);
+        });
+
+        // 4. Background Particles
+        const particleCount = 800;
+        const particlePos = new Float32Array(particleCount * 3);
+        for(let i = 0; i < particleCount * 3; i++) particlePos[i] = (Math.random() - 0.5) * 30;
+        const particleGeo = new THREE.BufferGeometry();
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+        const particleMat = new THREE.PointsMaterial({ size: 0.04, color: 0x88aaff, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending });
+        const particles = new THREE.Points(particleGeo, particleMat);
+        scene.add(particles);
+
+        // 5. Lighting
+        scene.add(new THREE.AmbientLight(0xffffff, 0.3)); 
+        const dirLight1 = new THREE.DirectionalLight(0x4488ff, 2); dirLight1.position.set(5, 5, 5); scene.add(dirLight1);
+        const dirLight2 = new THREE.DirectionalLight(0xff44aa, 1.5); dirLight2.position.set(-5, -5, -5); scene.add(dirLight2);
+
+        // Handle Theme Toggle Event within Three.js
+        window.addEventListener('themeChanged', (e) => {
+            const isLight = e.detail.isLight;
+            // Update Fog
+            scene.fog.color.setHex(isLight ? fogColorLight : fogColorDark);
+            
+            // Darken particles and rings slightly in Light mode so they don't vanish against white
+            particleMat.color.setHex(isLight ? 0x222233 : 0x88aaff);
+            rings.forEach(ring => {
+                ring.material.color.setHex(isLight ? 0x000000 : 0xffffff);
+                ring.material.opacity = isLight ? 0.08 : 0.05;
+            });
+        });
+
+        // 6. Scroll Tracking State
+        let scrollProgress = 0;
+        let smoothScroll = 0;
+        let targetMouseX = 0, targetMouseY = 0;
+
+        window.addEventListener('scroll', () => {
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            scrollProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            targetMouseX = (event.clientX - window.innerWidth/2) * 0.0005;
+            targetMouseY = (event.clientY - window.innerHeight/2) * 0.0005;
+        });
+
+        function lerp(start, end, amt) { return (1 - amt) * start + amt * end; }
+
+        const scrollKeyframes = [
+            { step: 0.0, pos: [2.5, 0, 1] },       
+            { step: 0.5, pos: [-3.5, 0.5, -4] },   
+            { step: 1.0, pos: [2.0, -1.0, -2] }    
+        ];
+
+        // 7. Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const t = clock.getElapsedTime();
+
+            smoothScroll += (scrollProgress - smoothScroll) * 0.1;
+            
+            sunCore.rotation.y = (smoothScroll * Math.PI * 4) + (t * 0.05);
+            sunCore.rotation.z = (smoothScroll * Math.PI * 2) + (t * 0.02);
+            
+            plasma2.rotation.y = -(t * 0.2);
+            plasma2.rotation.z = (t * 0.15) - (smoothScroll * Math.PI);
+
+            rings.forEach((ring, i) => {
+                ring.rotation.z = (smoothScroll * Math.PI * (1 + i * 0.5)) + (t * 0.05);
+            });
+
+            nodes.forEach(node => {
+                const currentAngle = node.userData.baseAngle + (smoothScroll * Math.PI * 8) + (t * 0.2);
+                const x = Math.cos(currentAngle) * node.userData.radius;
+                const y = Math.sin(currentAngle) * node.userData.radius;
+                
+                const pos = new THREE.Vector3(x, y, 0);
+                pos.applyEuler(node.userData.ring.rotation);
+                node.position.copy(pos);
+                
+                node.rotation.y += 0.01;
+                node.rotation.x += 0.005;
+            });
+
+            particles.rotation.y = t * 0.01; 
+
+            let targetX, targetY, targetZ;
+            if (smoothScroll <= scrollKeyframes[1].step) {
+                const progress = smoothScroll / scrollKeyframes[1].step;
+                targetX = lerp(scrollKeyframes[0].pos[0], scrollKeyframes[1].pos[0], progress);
+                targetY = lerp(scrollKeyframes[0].pos[1], scrollKeyframes[1].pos[1], progress);
+                targetZ = lerp(scrollKeyframes[0].pos[2], scrollKeyframes[1].pos[2], progress);
+            } else {
+                const progress = (smoothScroll - scrollKeyframes[1].step) / (scrollKeyframes[2].step - scrollKeyframes[1].step);
+                targetX = lerp(scrollKeyframes[1].pos[0], scrollKeyframes[2].pos[0], progress);
+                targetY = lerp(scrollKeyframes[1].pos[1], scrollKeyframes[2].pos[1], progress);
+                targetZ = lerp(scrollKeyframes[1].pos[2], scrollKeyframes[2].pos[2], progress);
+            }
+
+            masterGroup.position.set(targetX, targetY, targetZ);
+            masterGroup.rotation.x += (targetMouseY - masterGroup.rotation.x) * 0.05;
+            masterGroup.rotation.y += (targetMouseX - masterGroup.rotation.y) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>
+
