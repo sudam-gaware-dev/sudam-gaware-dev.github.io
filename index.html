@@ -1,564 +1,2786 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easode Studio | Android App Development</title>
-    
-    <!-- Import Space Grotesk and Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Easode — Mobile &amp; Cloud App Development Company</title>
+  <!-- Strictly the 3 requested Google Fonts: Space Grotesk, Poppins, and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #0f1624;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-strong: rgba(17, 24, 39, 0.94);
+      --bg-glass: rgba(255, 255, 255, 0.035);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-violet: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-glow: rgba(56, 189, 248, 0.35);
+      --shadow-card: 0 18px 40px rgba(0, 0, 0, 0.38);
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-sans: 'Poppins', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --phone-body: #0b1120;
+      --phone-bezel: #1e293b;
+    }
 
-    <!-- Import Map for Vanilla Three.js -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-            }
-        }
-    </script>
+    html[data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-card-strong: rgba(255, 255, 255, 0.98);
+      --bg-glass: rgba(15, 23, 42, 0.035);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-cyan: #0284c7;
+      --accent-indigo: #4f46e5;
+      --accent-violet: #7c3aed;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --border-subtle: rgba(15, 23, 42, 0.10);
+      --border-glow: rgba(2, 132, 199, 0.32);
+      --shadow-card: 0 14px 34px rgba(15, 23, 42, 0.07);
+      --phone-body: #0f172a;
+      --phone-bezel: #334155;
+    }
 
-    <style>
-        :root {
-            /* Dark Theme Variables (Default) */
-            --bg-fallback: #030305;
-            --text-main: #ffffff;
-            --text-muted: #a0a0b0;
-            
-            --card-bg: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-            --card-bg-hover: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
-            --card-border: rgba(255, 255, 255, 0.05);
-            --card-border-hover: rgba(255, 255, 255, 0.1);
-            --card-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            
-            --modal-bg: #0d0d12;
-            
-            --badge-live-bg: rgba(46, 125, 50, 0.15);
-            --badge-live-text: #81c784;
-            --badge-live-border: rgba(76, 175, 80, 0.3);
-            
-            --badge-up-bg: rgba(255, 255, 255, 0.05);
-            --badge-up-text: #aaa;
-            --badge-up-border: rgba(255, 255, 255, 0.1);
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-            --font-headings: 'Space Grotesk', sans-serif;
-            --font-body: 'Poppins', sans-serif;
-        }
+    html {
+      scroll-behavior: smooth;
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
 
-        /* Light Theme Variables */
-        body.light-theme {
-            --bg-fallback: #f4f6f8;
-            --text-main: #111111;
-            --text-muted: #555555;
-            
-            --card-bg: linear-gradient(145deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 100%);
-            --card-bg-hover: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 100%);
-            --card-border: rgba(0, 0, 0, 0.05);
-            --card-border-hover: rgba(0, 0, 0, 0.1);
-            --card-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            
-            --modal-bg: #ffffff;
-            
-            --badge-live-bg: rgba(46, 125, 50, 0.1);
-            --badge-live-text: #2e7d32;
-            --badge-live-border: rgba(46, 125, 50, 0.2);
-            
-            --badge-up-bg: rgba(0, 0, 0, 0.05);
-            --badge-up-text: #666;
-            --badge-up-border: rgba(0, 0, 0, 0.1);
-        }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background 0.3s ease, color 0.3s ease;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    h1, h2, h3, h4, .brand, .heading-font {
+      font-family: var(--font-heading);
+    }
 
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg-fallback);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
+    button, input, select, textarea {
+      font-family: var(--font-sans);
+    }
 
-        /* 3D Canvas fixed in the background */
-        #webgl-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none; 
-        }
+    /* Vector Icon Styling — Fixed Aspect Ratio */
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
 
-        h1, h2, h3, .logo { font-family: var(--font-headings); font-weight: 700; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .icon-sm { width: 15px; height: 15px; }
+    .icon-md { width: 20px; height: 20px; }
+    .icon-lg { width: 24px; height: 24px; }
 
-        /* Navigation */
-        header { padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; text-decoration: none; color: var(--text-main); letter-spacing: -0.5px; transition: color 0.3s; }
-        nav { display: flex; align-items: center; }
-        nav a { margin-left: 24px; text-decoration: none; color: var(--text-muted); font-size: 0.95rem; transition: color 0.2s; }
-        nav a:hover { color: var(--text-main); }
+    /* Minimal Ambient Cursor Glow */
+    .cursor-aura {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.07) 0%, rgba(99, 102, 241, 0.03) 45%, transparent 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* Theme Toggle Button */
-        .theme-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin-left: 24px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 0;
-        }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            background: var(--card-bg-hover);
-            border: 1px solid var(--card-border-hover);
-        }
+    /* Minimal Sticky Glass Navigation */
+    header.navbar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1180px, calc(100% - 32px));
+      height: 62px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-radius: 999px;
+      background: var(--bg-card-strong);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+    }
 
-        /* Hero */
-        .hero { padding: 15vh 0 20vh; max-width: 700px; }
-        .hero h1 { font-size: 4.5rem; line-height: 1.05; margin-bottom: 24px; letter-spacing: -1.5px; }
-        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 550px; transition: color 0.3s; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1.22rem;
+      letter-spacing: -0.03em;
+      flex-shrink: 0;
+    }
 
-        /* Sections */
-        .section-padding { padding: 60px 0 100px; }
-        .section-padding h2 { font-size: 2.5rem; margin-bottom: 40px; letter-spacing: -1px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .brand-cube {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+    }
 
-        /* Premium Glassmorphism Cards */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 32px;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--card-shadow);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.4s, border 0.4s;
-            display: flex;
-            flex-direction: column;
-        }
-        .card:hover { 
-            transform: translateY(-12px) scale(1.02); 
-            background: var(--card-bg-hover);
-            border: 1px solid var(--card-border-hover);
-        }
-        
-        .app-icon { 
-            width: 64px; height: 64px; border-radius: 16px; margin-bottom: 24px; 
-            display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-headings); font-size: 1.5rem; color: #fff;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        
-        .streakio-icon { background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
-        .safar-icon { background: linear-gradient(135deg, #A770EF, #CF8BF3); }
-        .cipher-icon { background: linear-gradient(135deg, #11998e, #38ef7d); }
-        .feedio-icon { background: linear-gradient(135deg, #f12711, #f5af19); }
-        .jobric-icon { background: linear-gradient(135deg, #4b6cb7, #182848); }
-        .ledgic-icon { background: linear-gradient(135deg, #00B4DB, #0083B0); }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-glow);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
 
-        .card h3 { font-size: 1.6rem; margin-bottom: 8px; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; flex-grow: 1; transition: color 0.3s; }
-        
-        .status-badge { 
-            display: inline-block; padding: 6px 14px; border-radius: 100px; 
-            font-size: 0.75rem; font-weight: 600; margin-bottom: 20px; align-self: flex-start;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            transition: all 0.3s;
-        }
-        .live { background-color: var(--badge-live-bg); color: var(--badge-live-text); border: 1px solid var(--badge-live-border); }
-        .upcoming { background-color: var(--badge-up-bg); color: var(--badge-up-text); border: 1px solid var(--badge-up-border); }
-        
-        .store-link { 
-            display: inline-block; text-decoration: none; font-family: var(--font-headings);
-            color: var(--text-main); font-weight: 700; font-size: 0.95rem; margin-top: auto;
-            display: flex; align-items: center; gap: 8px; transition: color 0.3s;
-        }
-        .store-link:hover { opacity: 0.8; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+      flex-shrink: 0;
+    }
 
-        /* Footer */
-        footer { padding: 60px 0 40px; text-align: center; border-top: 1px solid var(--card-border); margin-top: 40px; transition: border 0.3s; }
-        .footer-links a { margin: 0 16px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--text-main); }
-        .copyright { margin-top: 24px; font-size: 0.85rem; color: var(--text-muted); }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: color 0.2s ease;
+    }
 
-        /* Modals */
-        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
-        .modal-content { background-color: var(--modal-bg); border: 1px solid var(--card-border); margin: 10vh auto; padding: 40px; border-radius: 24px; width: 90%; max-width: 600px; transition: background 0.3s; }
-        .close { color: var(--text-muted); float: right; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.2s; }
-        .close:hover { color: var(--text-main); }
-        .modal-content p { color: var(--text-muted); margin-bottom: 16px; }
-        .modal-content strong { color: var(--text-main); }
-    </style>
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+      color: #060913;
+      font-weight: 600;
+      font-size: 0.86rem;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 6px 18px rgba(56, 189, 248, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    html[data-theme="light"] .btn-primary {
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.32);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.86rem;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    .btn-negotiate {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-amber);
+      font-weight: 600;
+      font-size: 0.86rem;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .btn-negotiate:hover {
+      background: rgba(245, 158, 11, 0.22);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.18);
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 104px 24px 64px;
+    }
+
+    /* HERO SECTION — Minimal & Product-Focused */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 44px;
+      align-items: center;
+      padding: 20px 0 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid var(--border-glow);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+
+    .eyebrow .pulse-dot {
+      width: 7px;
+      height: 7px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.55; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.45rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-indigo) 55%, var(--accent-violet) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p.lead {
+      font-size: 1rem;
+      line-height: 1.68;
+      color: var(--text-secondary);
+      margin-bottom: 26px;
+      max-width: 540px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      align-items: start;
+    }
+
+    .metric-pill {
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .metric-pill .val {
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-pill .lbl {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+
+    /* RIGHT HERO: MINIMAL INTERACTIVE 3D ISOMETRIC APP ILLUSTRATION */
+    .hero-iso-scene {
+      position: relative;
+      width: 100%;
+      height: 460px;
+      border-radius: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      perspective: 1200px;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .iso-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      z-index: 3;
+      flex-wrap: wrap;
+    }
+
+    .iso-tabs {
+      display: inline-flex;
+      gap: 6px;
+      background: var(--bg-secondary);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .iso-tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .iso-tab-btn.active {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+      color: #060913;
+    }
+
+    html[data-theme="light"] .iso-tab-btn.active {
+      color: #ffffff;
+    }
+
+    .iso-stage-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    .iso-illustration-rig {
+      width: 260px;
+      height: 300px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(18deg) rotateY(-22deg) rotateZ(4deg);
+      transition: transform 0.22s ease-out;
+    }
+
+    /* Base 3D Platform Slab */
+    .iso-slab-base {
+      position: absolute;
+      inset: 10px 16px;
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.96));
+      border: 2px solid rgba(56, 189, 248, 0.35);
+      box-shadow: -18px 24px 38px rgba(0, 0, 0, 0.45);
+      transform: translateZ(0px);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #f8fafc;
+    }
+
+    /* Floating 3D App Feature Cards inside Hero Illustration */
+    .iso-float-card {
+      position: absolute;
+      border-radius: 16px;
+      padding: 11px 14px;
+      background: var(--bg-card-strong);
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer;
+    }
+
+    .iso-float-card.card-top-left {
+      top: 12px;
+      left: -38px;
+      transform: translateZ(48px);
+    }
+
+    .iso-float-card.card-bottom-right {
+      bottom: 24px;
+      right: -42px;
+      transform: translateZ(68px);
+    }
+
+    .iso-float-card.card-top-right {
+      top: 64px;
+      right: -36px;
+      transform: translateZ(34px);
+    }
+
+    .iso-float-card:hover {
+      border-color: var(--accent-emerald);
+    }
+
+    .iso-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      z-index: 3;
+    }
+
+    /* SECTION HEADERS */
+    .section {
+      padding: 64px 0 20px;
+    }
+
+    .section-header {
+      max-width: 680px;
+      margin-bottom: 32px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.75rem, 2.8vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      line-height: 1.18;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+
+    /* SECTION 1: COMPANY PRODUCTS (APPS) & INTERACTIVE 3D PHONE SIMULATOR */
+    .device-showcase-grid {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .phone-3d-viewport {
+      perspective: 1400px;
+      width: 100%;
+      min-height: 570px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      user-select: none;
+    }
+
+    .phone-3d-rig {
+      width: 284px;
+      height: 520px;
+      flex-shrink: 0;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(6deg) rotateY(-14deg) rotateZ(1deg);
+      transition: transform 0.2s ease-out;
+    }
+
+    .phone-chassis {
+      position: absolute;
+      inset: 0;
+      border-radius: 38px;
+      background: var(--phone-body);
+      border: 4px solid var(--phone-bezel);
+      box-shadow:
+        -12px 18px 38px rgba(0, 0, 0, 0.5),
+        0 0 24px rgba(56, 189, 248, 0.14);
+      transform: translateZ(0px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-edge-right {
+      position: absolute;
+      top: 24px;
+      bottom: 24px;
+      right: -8px;
+      width: 14px;
+      background: linear-gradient(to bottom, #1e293b, #0f172a, #1e293b);
+      transform: rotateY(90deg) translateZ(2px);
+      border-radius: 4px;
+    }
+
+    .holo-layer {
+      position: absolute;
+      inset: 12px;
+      border-radius: 28px;
+      pointer-events: none;
+      border: 1px dashed rgba(56, 189, 248, 0.45);
+      background: rgba(56, 189, 248, 0.03);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+      opacity: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-cyan);
+    }
+
+    .phone-3d-rig.exploded .holo-layer.layer-1 {
+      transform: translateZ(42px);
+      opacity: 1;
+    }
+
+    .phone-3d-rig.exploded .holo-layer.layer-2 {
+      transform: translateZ(80px);
+      opacity: 1;
+      border-color: rgba(139, 92, 246, 0.45);
+      color: var(--accent-violet);
+    }
+
+    .phone-statusbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 16px 7px;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.94);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      flex-shrink: 0;
+    }
+
+    .phone-notch {
+      width: 68px;
+      height: 16px;
+      flex-shrink: 0;
+      background: #020617;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 7px;
+    }
+
+    .phone-camera-dot {
+      width: 6px;
+      height: 6px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #38bdf8;
+    }
+
+    .phone-screen-body {
+      flex: 1;
+      padding: 14px;
+      background: linear-gradient(180deg, #0b1120 0%, #070b14 100%);
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+    }
+
+    .app-sim-view {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      height: 100%;
+    }
+
+    .app-sim-view.active {
+      display: flex;
+    }
+
+    .sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .sim-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .sim-tag {
+      font-size: 0.62rem;
+      font-family: var(--font-mono);
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .sim-card {
+      background: rgba(30, 41, 59, 0.68);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 13px;
+      padding: 10px 12px;
+      flex-shrink: 0;
+    }
+
+    .habit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 9px;
+      border-radius: 9px;
+      background: rgba(15, 23, 42, 0.78);
+      margin-bottom: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .habit-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .habit-row:hover {
+      border-color: var(--accent-cyan);
+    }
+
+    .habit-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.73rem;
+      font-weight: 500;
+    }
+
+    .habit-streak {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #fbbf24;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .step-ring-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .mini-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-cyan);
+      font-size: 0.69rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s ease;
+    }
+
+    .mini-btn:hover {
+      background: rgba(56, 189, 248, 0.22);
+    }
+
+    .sim-canvas-box {
+      width: 100%;
+      height: 106px;
+      margin-top: 8px;
+      background: #060b16;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .sim-canvas-box canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .phone-rig-toolbar {
+      display: flex;
+      gap: 7px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Right Column: Company App Cards */
+    .project-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .project-tab-card {
+      padding: 20px 22px;
+      border-radius: 18px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .project-tab-card.active,
+    .project-tab-card:hover {
+      background: var(--bg-card-strong);
+      border-color: var(--accent-cyan);
+      transform: translateX(3px);
+    }
+
+    .project-tab-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .project-tab-top h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 11px;
+    }
+
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, 0.12);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(99, 102, 241, 0.24);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .project-links {
+      margin-top: 12px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .project-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* SECTION 2: MINIMAL 3D ILLUSTRATED SERVICES GRID */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      align-items: start;
+      perspective: 1200px;
+    }
+
+    .tilt-card {
+      position: relative;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, border-color 0.25s ease;
+      overflow: hidden;
+    }
+
+    .tilt-card:hover {
+      border-color: var(--accent-cyan);
+    }
+
+    .tilt-glare {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.1), transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .tilt-card:hover .tilt-glare {
+      opacity: 1;
+    }
+
+    /* Minimal 3D Isometric Mini-Illustration inside each Service Card */
+    .service-3d-illus {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      transform: translateZ(18px);
+    }
+
+    .card-icon-3d {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(99, 102, 241, 0.2));
+      border: 1px solid var(--border-glow);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      box-shadow: -6px 8px 16px rgba(0, 0, 0, 0.22);
+    }
+
+    .iso-mini-stack {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+    }
+
+    .tilt-card h3 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      transform: translateZ(14px);
+    }
+
+    .tilt-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.62;
+      margin-bottom: 14px;
+      transform: translateZ(10px);
+    }
+
+    .feature-checklist {
+      list-style: none;
+      display: grid;
+      gap: 7px;
+      transform: translateZ(12px);
+    }
+
+    .feature-checklist li {
+      font-size: 0.83rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-checklist li .icon-svg {
+      color: var(--accent-cyan);
+    }
+
+    /* SECTION 3: INTERACTIVE FEATURE-BASED PRICE CALCULATOR & NEGOTIATION */
+    .configurator-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      gap: 28px;
+      align-items: start;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .calc-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .currency-toggle {
+      display: inline-flex;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 3px;
+    }
+
+    .curr-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .curr-btn.active {
+      background: var(--accent-cyan);
+      color: #060913;
+    }
+
+    html[data-theme="light"] .curr-btn.active {
+      color: #ffffff;
+    }
+
+    .config-step {
+      margin-bottom: 22px;
+    }
+
+    .config-step label.step-title {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+    }
+
+    .option-chips {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .opt-chip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 11px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-glass);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .opt-chip .chip-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .opt-chip .chip-price {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .opt-chip.selected {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(99, 102, 241, 0.16));
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+    }
+
+    .opt-chip.selected .chip-price {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    /* Right Output: Live Price Breakdown & 3D Isometric Feature Stack */
+    .blueprint-output {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glow);
+      border-radius: 20px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      position: sticky;
+      top: 92px;
+    }
+
+    .bp-canvas-wrap {
+      width: 100%;
+      height: 156px;
+      border-radius: 14px;
+      background: rgba(9, 13, 22, 0.45);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      position: relative;
+    }
+
+    html[data-theme="light"] .bp-canvas-wrap {
+      background: rgba(15, 23, 42, 0.04);
+    }
+
+    #blueprint-cube-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .price-banner {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .price-banner .total-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .price-banner .total-val {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      letter-spacing: -0.03em;
+    }
+
+    .breakdown-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 145px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .breakdown-row strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .blueprint-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .bp-stat {
+      padding: 10px 12px;
+      border-radius: 11px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .bp-stat .k {
+      font-size: 0.67rem;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .bp-stat .v {
+      font-size: 0.98rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-top: 2px;
+    }
+
+    /* NEGOTIATION MODAL */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      background: rgba(6, 9, 19, 0.76);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(540px, 100%);
+      border-radius: 22px;
+      background: var(--bg-card-strong);
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-field label {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      padding: 10px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.86rem;
+    }
+
+    .negotiation-toast {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .negotiation-toast.visible {
+      display: block;
+    }
+
+    /* SECTION 4: STUDIO & LEADERSHIP CONTACT */
+    .studio-banner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 28px;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .studio-meta-card {
+      border-radius: 18px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glow);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .studio-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.84rem;
+    }
+
+    .studio-meta-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .studio-meta-row .lbl {
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .studio-meta-row .val {
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: right;
+    }
+
+    footer.site-footer {
+      margin-top: 64px;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .device-showcase-grid,
+      .configurator-box,
+      .studio-banner,
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .blueprint-output {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-metrics,
+      .option-chips {
+        grid-template-columns: 1fr;
+      }
+      .iso-float-card.card-top-left,
+      .iso-float-card.card-bottom-right,
+      .iso-float-card.card-top-right {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="cursor-aura" id="cursor-aura"></div>
 
-    <!-- 3D Canvas -->
-    <canvas id="webgl-canvas"></canvas>
-
-    <div class="container">
-        <!-- Navigation -->
-        <header>
-            <a href="#" class="logo">Easode.</a>
-            <nav>
-                <a href="#apps">Apps</a>
-                <a href="#about">Studio</a>
-                <a href="mailto:contact@easodestudio.com">Contact</a>
-                
-                <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
-                    <!-- Sun Icon (Visible in Dark Mode) -->
-                    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <!-- Moon Icon (Visible in Light Mode) -->
-                    <svg id="icon-moon" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-            </nav>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Engineering digital<br>momentum.</h1>
-            <p>We build beautiful, purposeful Android applications designed to make everyday life a little bit better, one interface at a time.</p>
-        </section>
-
-        <!-- Apps Portfolio -->
-        <section id="apps" class="section-padding">
-            <h2>Ecosystem</h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="status-badge live">Available Now</div>
-                    <div class="app-icon streakio-icon">S</div> 
-                    <h3>StreakIO</h3>
-                    <p>The simplest way to track your daily goals, build lasting habits, and stay accountable.</p>
-                    <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" class="store-link" target="_blank">Get it on Google Play &rarr;</a>
-                </div>
-                <div class="card">
-                    <div class="status-badge upcoming">Coming Soon</div>
-                    <div class="app-icon safar-icon">Sa</div> 
-                    <h3>Safar</h3>
-                    <p>A dedicated relationship manager designed to help romantic couples stay connected.</p>
-                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
-                </div>
-                <div class="card">
-                    <div class="status-badge upcoming">Concept</div>
-                    <div class="app-icon cipher-icon">C</div> 
-                    <h3>Cipher</h3>
-                    <p>A highly secure, offline-first password manager built to keep your credentials safe.</p>
-                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
-                </div>
-                <div class="card">
-                    <div class="status-badge upcoming">Concept</div>
-                    <div class="app-icon feedio-icon">F</div> 
-                    <h3>FeedIO</h3>
-                    <p>A completely new way to view your local media in a social media-style feed.</p>
-                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
-                </div>
-                <div class="card">
-                    <div class="status-badge upcoming">Concept</div>
-                    <div class="app-icon jobric-icon">J</div> 
-                    <h3>Jobric</h3>
-                    <p>A clean and professional resume builder that helps you craft outstanding CVs.</p>
-                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
-                </div>
-                <div class="card">
-                    <div class="status-badge upcoming">Concept</div>
-                    <div class="app-icon ledgic-icon">L</div> 
-                    <h3>Ledgic</h3>
-                    <p>An intuitive money manager to track your expenses and balance your budgets.</p>
-                    <span class="store-link" style="color: var(--text-muted);">In Development</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="section-padding">
-            <h2>The Studio</h2>
-            <div class="card" style="max-width: 800px;">
-                <p style="font-size: 1.15rem; margin-bottom: 0;">
-                    Easode Studio is an independent Android development company dedicated to building simple, purposeful applications. Founded by Sudam Laxman Gaware, we focus on clean design and intuitive user experiences that make everyday life a little bit better. From tracking daily habits with StreakIO to strengthening relationships with Safar, we build digital tools that do one thing exceptionally well without unnecessary clutter.
-                </p>
-            </div>
-        </section>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <a href="#top" class="brand">
+      <div class="brand-cube">
+        <i data-icon="smartphone" class="icon-md"></i>
+      </div>
+      <span>easode</span>
+      <span class="brand-badge">
+        <i data-icon="code" class="icon-sm"></i>
+        <span>APP DEVELOPMENT</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Our Apps</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#configurator">Price Calculator</a></li>
+      <li><a href="#studio">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="theme-toggle" title="Switch Dark / Light Theme" aria-label="Toggle theme">
+        <i data-icon="sun" id="theme-icon"></i>
+      </button>
+      <a href="#configurator" class="btn-primary">
+        <span>Calculate App Price</span>
+        <i data-icon="arrow-right" class="icon-sm"></i>
+      </a>
     </div>
+  </header>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a onclick="openModal('privacyModal')">Privacy Policy</a>
-                <a onclick="openModal('tosModal')">Terms of Service</a>
-                <a href="mailto:contact@easodestudio.com">Press Kit</a>
+  <main id="top">
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="pulse-dot"></span>
+          <span>EASODE • APP DEVELOPMENT COMPANY</span>
+        </div>
+        <h1>
+          We Build Reliable <span class="gradient-text">Mobile &amp; Cloud Apps</span> Tailored to Your Vision.
+        </h1>
+        <p class="lead">
+          <strong>Easode</strong> is an app development company founded by <strong>Sudam Gaware</strong>. We build consumer and business applications—like our flagship <strong>StreakIO</strong> app on Google Play—and provide end-to-end custom app development services with transparent, feature-based pricing.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#products" class="btn-primary">
+            <i data-icon="smartphone" class="icon-sm"></i>
+            <span>Explore Our Apps</span>
+          </a>
+          <a href="#configurator" class="btn-secondary">
+            <i data-icon="sliders" class="icon-sm"></i>
+            <span>App Price Calculator</span>
+          </a>
+          <button type="button" class="btn-negotiate" onclick="openNegotiationModal()">
+            <i data-icon="message-square" class="icon-sm"></i>
+            <span>Request for Negotiation</span>
+          </button>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric-pill">
+            <span class="val">
+              <i data-icon="smartphone" class="icon-md"></i>
+              <span>Native Apps</span>
+            </span>
+            <span class="lbl">Kotlin &amp; Jetpack Compose</span>
+          </div>
+          <div class="metric-pill">
+            <span class="val">
+              <i data-icon="shield" class="icon-md"></i>
+              <span>Offline + Cloud</span>
+            </span>
+            <span class="lbl">Local DB &amp; Firebase Sync</span>
+          </div>
+          <div class="metric-pill">
+            <span class="val">
+              <i data-icon="tag" class="icon-md"></i>
+              <span>Pay Per Feature</span>
+            </span>
+            <span class="lbl">Transparent &amp; Negotiable</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MINIMAL INTERACTIVE 3D ISOMETRIC APP ILLUSTRATION (Replaces old sphere/holo-phone/lattice) -->
+      <div class="hero-iso-scene" id="hero-stage-container">
+        <div class="iso-top-bar">
+          <div class="iso-tabs" role="tablist" aria-label="App Illustration Preview">
+            <button type="button" class="iso-tab-btn active" data-preview="streakio" onclick="switchHeroAppCard('streakio', this)">StreakIO App</button>
+            <button type="button" class="iso-tab-btn" data-preview="iot" onclick="switchHeroAppCard('iot', this)">IoT Cloud App</button>
+            <button type="button" class="iso-tab-btn" data-preview="custom" onclick="switchHeroAppCard('custom', this)">Custom Client App</button>
+          </div>
+          <span class="brand-badge" id="stage-telemetry">3D ISOMETRIC VIEW</span>
+        </div>
+
+        <div class="iso-stage-center" id="iso-stage-center">
+          <div class="iso-illustration-rig" id="iso-illustration-rig">
+            <!-- Base 3D Isometric App Screen Slab -->
+            <div class="iso-slab-base" id="iso-slab-content">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-family:var(--font-mono);font-size:0.68rem;color:#38bdf8;" id="iso-card-tag">GOOGLE PLAY PRODUCT</span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span>
+              </div>
+
+              <div style="my:auto;">
+                <div style="font-family:var(--font-heading);font-size:1.22rem;font-weight:700;margin-bottom:4px;" id="iso-card-title">StreakIO Habit &amp; Steps</div>
+                <div style="font-size:0.75rem;color:#94a3b8;line-height:1.45;" id="iso-card-sub">Offline-first habit streaks, active-hour step counter &amp; instant PDF/CSV reports.</div>
+              </div>
+
+              <!-- Mini 3D Isometric Progress Bars -->
+              <div style="display:grid;gap:8px;background:rgba(15,23,42,0.75);padding:11px;border-radius:14px;border:1px solid rgba(148,163,184,0.15);">
+                <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.68rem;">
+                  <span id="iso-metric-label">DAILY STEP GOAL</span>
+                  <span style="color:#38bdf8;" id="iso-metric-val">7,840 / 10k</span>
+                </div>
+                <div style="height:6px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden;">
+                  <div id="iso-metric-bar" style="width:78%;height:100%;background:linear-gradient(90deg,#38bdf8,#6366f1);border-radius:999px;transition:width 0.3s ease;"></div>
+                </div>
+              </div>
+
+              <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.66rem;color:#94a3b8;">
+                <span>Kotlin • Jetpack Compose</span>
+                <span style="color:#34d399;">v2.4 Shipped</span>
+              </div>
             </div>
-            <p class="copyright">&copy; 2026 Easode Studio. All rights reserved.</p>
-        </div>
-    </footer>
 
-    <!-- Modals (Privacy & ToS) -->
-    <div id="privacyModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('privacyModal')">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p><strong>1. Information Collection:</strong> We collect non-identifiable data to improve functionality.</p>
-            <p><strong>2. Data Usage:</strong> Your data is used exclusively to maintain the application. We do not sell data.</p>
+            <!-- Floating 3D Layer 1 -->
+            <div class="iso-float-card card-top-left" onclick="pulseIsoCard(this)">
+              <div style="font-family:var(--font-mono);font-size:0.64rem;color:var(--text-secondary);">ACTIVE STREAK</div>
+              <div style="font-family:var(--font-heading);font-size:0.95rem;font-weight:700;color:var(--accent-amber);display:flex;align-items:center;gap:5px;">
+                <i data-icon="flame" class="icon-sm"></i>
+                <span id="iso-float-1">42 Days</span>
+              </div>
+            </div>
+
+            <!-- Floating 3D Layer 2 -->
+            <div class="iso-float-card card-top-right" onclick="pulseIsoCard(this)">
+              <div style="font-family:var(--font-mono);font-size:0.64rem;color:var(--text-secondary);">ARCHITECTURE</div>
+              <div style="font-family:var(--font-heading);font-size:0.86rem;font-weight:700;color:var(--accent-cyan);" id="iso-float-2">Offline + Cloud</div>
+            </div>
+
+            <!-- Floating 3D Layer 3 -->
+            <div class="iso-float-card card-bottom-right" onclick="pulseIsoCard(this)">
+              <div style="font-family:var(--font-mono);font-size:0.64rem;color:var(--text-secondary);">CLIENT DELIVERY</div>
+              <div style="font-family:var(--font-heading);font-size:0.88rem;font-weight:700;color:var(--accent-emerald);display:flex;align-items:center;gap:5px;">
+                <i data-icon="check-circle" class="icon-sm"></i>
+                <span id="iso-float-3">Play Store Ready</span>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="iso-bottom-bar">
+          <span>Move cursor to tilt 3D illustration</span>
+          <a href="#products" style="color:var(--accent-cyan);text-decoration:none;font-weight:600;">Try Interactive App Demo ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: COMPANY PRODUCTS (APPS) & INTERACTIVE 3D DEVICE SIMULATOR -->
+    <section class="section" id="products">
+      <div class="section-header">
+        <div class="eyebrow">
+          <i data-icon="smartphone" class="icon-sm"></i>
+          <span>OUR APPS &amp; LIVE SIMULATOR</span>
+        </div>
+        <h2>Explore the Apps Built by <span class="gradient-text">Easode</span></h2>
+        <p>
+          Test our shipped mobile and cloud applications right inside the interactive 3D phone preview, or click any product card to switch apps.
+        </p>
+      </div>
+
+      <div class="device-showcase-grid">
+        <!-- Left: 3D Phone Viewport -->
+        <div class="phone-3d-viewport" id="phone-viewport">
+          <div class="phone-3d-rig" id="phone-rig">
+            <div class="phone-edge-right"></div>
+            <div class="holo-layer layer-1">LAYER 01 // JETPACK COMPOSE UI</div>
+            <div class="holo-layer layer-2">LAYER 02 // LOCAL DB &amp; CLOUD SYNC</div>
+
+            <div class="phone-chassis">
+              <div class="phone-statusbar">
+                <span>9:41</span>
+                <div class="phone-notch"><div class="phone-camera-dot"></div></div>
+                <span>5G • 100%</span>
+              </div>
+
+              <!-- Screen Content: 3 Interactive App Product Simulations -->
+              <div class="phone-screen-body">
+                <!-- App 1: StreakIO -->
+                <div class="app-sim-view active" id="sim-streakio">
+                  <div class="sim-header">
+                    <div>
+                      <div class="sim-title">StreakIO: Habit Tracker</div>
+                      <div style="font-size:0.66rem;color:#94a3b8;">com.sudam.streakio • Offline-First</div>
+                    </div>
+                    <span class="sim-tag">GOOGLE PLAY</span>
+                  </div>
+
+                  <div class="sim-card">
+                    <div style="font-size:0.65rem;color:#94a3b8;margin-bottom:5px;font-family:var(--font-mono);">STEP COUNTER (ACTIVE HOURS)</div>
+                    <div class="step-ring-box">
+                      <div>
+                        <div style="font-size:1.25rem;font-weight:700;font-family:var(--font-heading);color:#38bdf8;" id="sim-step-count">7,840</div>
+                        <div style="font-size:0.66rem;color:#94a3b8;">Daily Goal: 10,000 steps</div>
+                      </div>
+                      <button type="button" class="mini-btn" onclick="simulateSteps()">
+                        <i data-icon="plus" class="icon-sm"></i>
+                        <span>250 Steps</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="sim-card">
+                    <div style="font-size:0.65rem;color:#94a3b8;margin-bottom:7px;font-family:var(--font-mono);">TAP HABIT TO LOG STREAK</div>
+                    <div class="habit-row" onclick="bumpStreak(this, 'streak-1')">
+                      <span class="habit-name">
+                        <i data-icon="check-circle" class="icon-sm" style="color:#38bdf8;"></i>
+                        <span>Morning 5K Walk &amp; Steps</span>
+                      </span>
+                      <span class="habit-streak" id="streak-1">
+                        <i data-icon="flame" class="icon-sm"></i>
+                        <span class="streak-val">42d</span>
+                      </span>
+                    </div>
+                    <div class="habit-row" onclick="bumpStreak(this, 'streak-2')">
+                      <span class="habit-name">
+                        <i data-icon="check-circle" class="icon-sm" style="color:#a855f7;"></i>
+                        <span>Deep Work &amp; Reading</span>
+                      </span>
+                      <span class="habit-streak" id="streak-2">
+                        <i data-icon="flame" class="icon-sm"></i>
+                        <span class="streak-val">29d</span>
+                      </span>
+                    </div>
+                    <div class="habit-row" onclick="bumpStreak(this, 'streak-3')">
+                      <span class="habit-name">
+                        <i data-icon="check-circle" class="icon-sm" style="color:#10b981;"></i>
+                        <span>Daily Habit Journal Entry</span>
+                      </span>
+                      <span class="habit-streak" id="streak-3">
+                        <i data-icon="flame" class="icon-sm"></i>
+                        <span class="streak-val">18d</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="sim-card" style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                    <span style="font-size:0.68rem;color:#cbd5e1;">PDF / CSV / JSON Backup</span>
+                    <button type="button" class="mini-btn" onclick="triggerExportToast(this)">
+                      <i data-icon="download" class="icon-sm"></i>
+                      <span class="btn-lbl">Export PDF</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- App 2: Easode IoT Cloud & Smart Telemetry Companion -->
+                <div class="app-sim-view" id="sim-iot">
+                  <div class="sim-header">
+                    <div>
+                      <div class="sim-title">Easode IoT Cloud Monitor</div>
+                      <div style="font-size:0.66rem;color:#94a3b8;">Firebase Realtime DB Telemetry</div>
+                    </div>
+                    <span class="sim-tag">CLOUD APP</span>
+                  </div>
+
+                  <div class="sim-card">
+                    <div style="display:flex;justify-content:space-between;font-size:0.7rem;margin-bottom:6px;">
+                      <span>Setpoint: <strong id="pid-target-lbl" style="color:#38bdf8;">185°C</strong></span>
+                      <span>Live Sensor: <strong id="pid-pv-lbl" style="color:#34d399;">184.6°C</strong></span>
+                    </div>
+                    <input type="range" id="pid-setpoint-slider" min="80" max="280" value="185" style="width:100%;accent-color:#38bdf8;" oninput="updatePidSetpoint(this.value)" />
+                    <div class="sim-canvas-box">
+                      <canvas id="pid-mini-canvas"></canvas>
+                    </div>
+                  </div>
+
+                  <div class="sim-card" style="font-family:var(--font-mono);font-size:0.66rem;color:#94a3b8;display:grid;gap:5px;">
+                    <div>Sync Engine: <span style="color:#38bdf8;">Firebase Realtime DB</span></div>
+                    <div>Control Mode: Closed-Loop PID Telemetry</div>
+                    <div>Features: Threshold Alerts &amp; Cloud Logs</div>
+                  </div>
+                </div>
+
+                <!-- App 3: Easode OrderFlow & Business Suite -->
+                <div class="app-sim-view" id="sim-uiengine">
+                  <div class="sim-header">
+                    <div>
+                      <div class="sim-title">Easode OrderFlow POS</div>
+                      <div style="font-size:0.66rem;color:#94a3b8;">Retail, Café &amp; Business App</div>
+                    </div>
+                    <span class="sim-tag">BUSINESS APP</span>
+                  </div>
+
+                  <div class="sim-card">
+                    <div style="font-size:0.65rem;color:#94a3b8;margin-bottom:6px;font-family:var(--font-mono);">LIVE REVENUE &amp; ORDER PULSE</div>
+                    <div class="sim-canvas-box">
+                      <canvas id="cafe-mini-canvas"></canvas>
+                    </div>
+                  </div>
+
+                  <div class="sim-card" style="font-size:0.7rem;color:#cbd5e1;display:grid;gap:6px;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <i data-icon="check" class="icon-sm" style="color:#38bdf8;"></i>
+                      <span>Instant Table &amp; Counter Order Sync</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <i data-icon="check" class="icon-sm" style="color:#38bdf8;"></i>
+                      <span>Offline Billing + PDF Invoice Receipts</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <i data-icon="check" class="icon-sm" style="color:#38bdf8;"></i>
+                      <span>Daily Sales Analytics &amp; Inventory Alerts</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phone-rig-toolbar">
+            <button type="button" class="mini-btn" onclick="rotatePhonePreset(-14, 6)">
+              <i data-icon="compass" class="icon-sm"></i>
+              <span>Iso View</span>
+            </button>
+            <button type="button" class="mini-btn" onclick="rotatePhonePreset(0, 0)">
+              <i data-icon="smartphone" class="icon-sm"></i>
+              <span>Front View</span>
+            </button>
+            <button type="button" class="mini-btn" onclick="rotatePhonePreset(20, -6)">
+              <i data-icon="sliders" class="icon-sm"></i>
+              <span>Side Tilt</span>
+            </button>
+            <button type="button" class="mini-btn" id="explode-btn" onclick="togglePhoneExplode()">
+              <i data-icon="layers" class="icon-sm"></i>
+              <span id="explode-btn-text">Explode 3D Layers</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Company App Product Cards -->
+        <div class="project-tabs">
+          <div class="project-tab-card active" onclick="selectShowcaseApp('streakio', this)">
+            <div class="project-tab-top">
+              <h3>
+                <i data-icon="flame" class="icon-md" style="color:var(--accent-cyan);"></i>
+                <span>StreakIO: Habit &amp; Step Tracker</span>
+              </h3>
+              <span class="brand-badge">LIVE ON GOOGLE PLAY</span>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
+              Easode's flagship consumer Android app. Built with an offline-first architecture and Jetpack Compose, StreakIO features daily habit tracking, a battery-smart background step counter with active hours, full-screen reminders, journaling, milestone badges, and one-tap PDF, CSV, and JSON data exports.
+            </p>
+            <div class="tech-pills">
+              <span class="tech-pill">Kotlin</span>
+              <span class="tech-pill">Jetpack Compose</span>
+              <span class="tech-pill">Offline-First DB</span>
+              <span class="tech-pill">Step Sensor</span>
+              <span class="tech-pill">PDF / CSV / JSON Export</span>
+            </div>
+            <div class="project-links">
+              <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener">
+                <i data-icon="external-link" class="icon-sm"></i>
+                <span>Download StreakIO on Google Play</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="project-tab-card" onclick="selectShowcaseApp('iot', this)">
+            <div class="project-tab-top">
+              <h3>
+                <i data-icon="wifi" class="icon-md" style="color:var(--accent-cyan);"></i>
+                <span>Easode IoT Cloud &amp; Telemetry App</span>
+              </h3>
+              <span class="brand-badge">CLOUD &amp; HARDWARE APP</span>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
+              A real-time mobile monitoring and closed-loop control application powered by Firebase Realtime Database. Connects smartphones directly with smart hardware controllers and industrial sensors for live setpoint tuning, automated cloud logging, and instant threshold alerts.
+            </p>
+            <div class="tech-pills">
+              <span class="tech-pill">Android App</span>
+              <span class="tech-pill">Firebase Realtime DB</span>
+              <span class="tech-pill">Live Telemetry Charts</span>
+              <span class="tech-pill">Hardware Sync</span>
+            </div>
+          </div>
+
+          <div class="project-tab-card" onclick="selectShowcaseApp('uiengine', this)">
+            <div class="project-tab-top">
+              <h3>
+                <i data-icon="briefcase" class="icon-md" style="color:var(--accent-cyan);"></i>
+                <span>Easode OrderFlow &amp; Business Apps</span>
+              </h3>
+              <span class="brand-badge">CUSTOM CLIENT APPS</span>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
+              Fast, modern mobile and web applications tailored for retail, cafés, and growing businesses—complete with live order queues, digital invoicing, inventory tracking, and responsive customer portals.
+            </p>
+            <div class="tech-pills">
+              <span class="tech-pill">Custom Android &amp; Web</span>
+              <span class="tech-pill">POS &amp; Billing</span>
+              <span class="tech-pill">Realtime Sync</span>
+              <span class="tech-pill">Admin Dashboards</span>
+            </div>
+            <div class="project-links">
+              <a href="https://codersudam.github.io" target="_blank" rel="noopener">
+                <i data-icon="github" class="icon-sm"></i>
+                <span>View More Projects on GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: APP DEVELOPMENT SERVICES -->
+    <section class="section" id="services">
+      <div class="section-header">
+        <div class="eyebrow">
+          <i data-icon="code" class="icon-sm"></i>
+          <span>WHAT WE BUILD FOR YOU</span>
+        </div>
+        <h2>Full-Cycle <span class="gradient-text">App Development Services</span></h2>
+        <p>We partner with founders, startups, and businesses to design, build, and launch production-ready mobile and web applications.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="tilt-card">
+          <div class="tilt-glare"></div>
+          <div class="service-3d-illus">
+            <div class="card-icon-3d">
+              <i data-icon="smartphone" class="icon-lg"></i>
+            </div>
+            <span class="iso-mini-stack">KOTLIN • COMPOSE</span>
+          </div>
+          <h3>Native Android App Development</h3>
+          <p>
+            Custom Android applications engineered from scratch using Kotlin and Jetpack Compose for smooth 60fps performance, low battery impact, and full Google Play compliance.
+          </p>
+          <ul class="feature-checklist">
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Modern Material 3 UI, custom animations &amp; dark/light themes</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Background sensors, step counters &amp; exact alarm scheduling</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Complete Google Play Store release &amp; long-term maintenance</span></li>
+          </ul>
+        </div>
+
+        <div class="tilt-card">
+          <div class="tilt-glare"></div>
+          <div class="service-3d-illus">
+            <div class="card-icon-3d">
+              <i data-icon="database" class="icon-lg"></i>
+            </div>
+            <span class="iso-mini-stack">ROOM • FIREBASE</span>
+          </div>
+          <h3>Offline-First &amp; Cloud-Synced Apps</h3>
+          <p>
+            Whether your app needs 100% offline privacy or instant multi-device cloud synchronization, we build reliable data architectures that never lose user data.
+          </p>
+          <ul class="feature-checklist">
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Firebase Auth, Realtime Database, Firestore &amp; REST APIs</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Local SQLite / Room storage with automatic conflict resolution</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>One-tap PDF report generation, CSV spreadsheets &amp; JSON backup</span></li>
+          </ul>
+        </div>
+
+        <div class="tilt-card">
+          <div class="tilt-glare"></div>
+          <div class="service-3d-illus">
+            <div class="card-icon-3d">
+              <i data-icon="cpu" class="icon-lg"></i>
+            </div>
+            <span class="iso-mini-stack">IOT • TELEMETRY</span>
+          </div>
+          <h3>IoT &amp; Hardware Companion Apps</h3>
+          <p>
+            Connect smart devices, sensors, and controllers to intuitive mobile dashboards with live telemetry graphs, remote control sliders, and instant alerts.
+          </p>
+          <ul class="feature-checklist">
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Mobile apps for ESP32, Arduino &amp; custom hardware systems</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Real-time sensor plotting &amp; closed-loop parameter tuning</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Automated cloud event logging &amp; push alert notifications</span></li>
+          </ul>
+        </div>
+
+        <div class="tilt-card">
+          <div class="tilt-glare"></div>
+          <div class="service-3d-illus">
+            <div class="card-icon-3d">
+              <i data-icon="globe" class="icon-lg"></i>
+            </div>
+            <span class="iso-mini-stack">WEB • ADMIN SUITE</span>
+          </div>
+          <h3>Custom Web Apps &amp; Admin Portals</h3>
+          <p>
+            High-speed responsive web applications, interactive product sites, and admin dashboards that pair seamlessly with your mobile app ecosystem.
+          </p>
+          <ul class="feature-checklist">
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Responsive web apps, customer portals &amp; booking tools</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Interactive analytics dashboards &amp; team management views</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Clean, minimal UI with subtle 3D illustrations &amp; fast load times</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: FEATURE-BASED PRICE CALCULATOR & NEGOTIATION -->
+    <section class="section" id="configurator">
+      <div class="section-header">
+        <div class="eyebrow">
+          <i data-icon="sliders" class="icon-sm"></i>
+          <span>TRANSPARENT FEATURE-BASED PRICING</span>
+        </div>
+        <h2>App Price Calculator &amp; <span class="gradient-text">Custom Quote Builder</span></h2>
+        <p>
+          Our pricing depends directly on the features your app needs. Select your base platform and toggle the exact features you want to calculate an instant estimate—or request a custom price negotiation.
+        </p>
+      </div>
+
+      <div class="configurator-box">
+        <div class="config-controls">
+          <div class="calc-header-row">
+            <span style="font-size:0.84rem;color:var(--text-secondary);">Select currency for instant feature pricing:</span>
+            <div class="currency-toggle" role="group" aria-label="Currency selector">
+              <button type="button" class="curr-btn active" id="curr-inr" onclick="setCurrency('INR')">₹ INR</button>
+              <button type="button" class="curr-btn" id="curr-usd" onclick="setCurrency('USD')">$ USD</button>
+            </div>
+          </div>
+
+          <div class="config-step">
+            <label class="step-title">1. Choose Base App Platform</label>
+            <div class="option-chips" id="platform-chips">
+              <button type="button" class="opt-chip selected" data-val="android" data-weeks="3" data-nodes="4" data-inr="25000" data-usd="350" onclick="selectPlatform(this)">
+                <span class="chip-left">
+                  <i data-icon="smartphone" class="icon-sm"></i>
+                  <span>Native Android App (Kotlin / Compose)</span>
+                </span>
+                <span class="chip-price" data-price-label>₹25,000</span>
+              </button>
+              <button type="button" class="opt-chip" data-val="web3d" data-weeks="2.5" data-nodes="4" data-inr="18000" data-usd="250" onclick="selectPlatform(this)">
+                <span class="chip-left">
+                  <i data-icon="globe" class="icon-sm"></i>
+                  <span>Interactive Website / WebApp</span>
+                </span>
+                <span class="chip-price" data-price-label>₹18,000</span>
+              </button>
+              <button type="button" class="opt-chip" data-val="iot" data-weeks="4" data-nodes="6" data-inr="32000" data-usd="450" onclick="selectPlatform(this)">
+                <span class="chip-left">
+                  <i data-icon="wifi" class="icon-sm"></i>
+                  <span>IoT Companion + Cloud Mobile App</span>
+                </span>
+                <span class="chip-price" data-price-label>₹32,000</span>
+              </button>
+              <button type="button" class="opt-chip" data-val="custom" data-weeks="4.5" data-nodes="6" data-inr="40000" data-usd="550" onclick="selectPlatform(this)">
+                <span class="chip-left">
+                  <i data-icon="layers" class="icon-sm"></i>
+                  <span>Full-Stack App &amp; Admin Dashboard</span>
+                </span>
+                <span class="chip-price" data-price-label>₹40,000</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="config-step">
+            <label class="step-title">2. Toggle App Features (Pricing Scales With Features)</label>
+            <div class="option-chips" id="module-chips">
+              <button type="button" class="opt-chip selected" data-weeks="1" data-inr="8000" data-usd="110" onclick="toggleModule(this)">
+                <span class="chip-left">
+                  <i data-icon="sparkles" class="icon-sm"></i>
+                  <span>Custom UI/UX &amp; Motion Design</span>
+                </span>
+                <span class="chip-price" data-price-label>+₹8,000</span>
+              </button>
+              <button type="button" class="opt-chip selected" data-weeks="1" data-inr="9000" data-usd="125" onclick="toggleModule(this)">
+                <span class="chip-left">
+                  <i data-icon="hard-drive" class="icon-sm"></i>
+                  <span>Offline-First + PDF/CSV/JSON Export</span>
+                </span>
+                <span class="chip-price" data-price-label>+₹9,000</span>
+              </button>
+              <button type="button" class="opt-chip" data-weeks="1.5" data-inr="12000" data-usd="165" onclick="toggleModule(this)">
+                <span class="chip-left">
+                  <i data-icon="database" class="icon-sm"></i>
+                  <span>Firebase Cloud Sync &amp; User Auth</span>
+                </span>
+                <span class="chip-price" data-price-label>+₹12,000</span>
+              </button>
+              <button type="button" class="opt-chip" data-weeks="1" data-inr="8500" data-usd="120" onclick="toggleModule(this)">
+                <span class="chip-left">
+                  <i data-icon="bell" class="icon-sm"></i>
+                  <span>Background Sensors &amp; Reliable Alarms</span>
+                </span>
+                <span class="chip-price" data-price-label>+₹8,500</span>
+              </button>
+              <button type="button" class="opt-chip" data-weeks="1" data-inr="7500" data-usd="105" onclick="toggleModule(this)">
+                <span class="chip-left">
+                  <i data-icon="bar-chart-2" class="icon-sm"></i>
+                  <span>Analytics, Streaks &amp; Reporting</span>
+                </span>
+                <span class="chip-price" data-price-label>+₹7,500</span>
+              </button>
+              <button type="button" class="opt-chip" data-weeks="1" data-inr="10000" data-usd="140" onclick="toggleModule(this)">
+                <span class="chip-left">
+                  <i data-icon="shield" class="icon-sm"></i>
+                  <span>Payment Gateway / Subscriptions</span>
+                </span>
+                <span class="chip-price" data-price-label>+₹10,000</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="config-step" style="margin-bottom:0;">
+            <label class="step-title">3. Your App Name &amp; Action</label>
+            <input type="text" id="client-project-name" placeholder="Enter your app name or idea (e.g., FitPulse Habit Coach)" style="width:100%;padding:11px 15px;border-radius:12px;border:1px solid var(--border-subtle);background:var(--bg-glass);color:var(--text-primary);font-size:0.88rem;margin-bottom:14px;" oninput="updateBlueprint()" />
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a id="mailto-launch-btn" href="mailto:sudamgaware2@gmail.com" class="btn-primary">
+                <i data-icon="send" class="icon-sm"></i>
+                <span>Start Project With This Quote</span>
+              </a>
+              <button type="button" class="btn-negotiate" id="request-negotiation-btn" onclick="openNegotiationModal()">
+                <i data-icon="message-square" class="icon-sm"></i>
+                <span>Request for Negotiation</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Live 3D Isometric Feature Stack & Price Summary -->
+        <div class="blueprint-output">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <span style="font-family:var(--font-mono);font-size:0.71rem;color:var(--accent-cyan);display:inline-flex;align-items:center;gap:6px;">
+              <i data-icon="layers" class="icon-sm"></i>
+              <span>3D FEATURE STACK &amp; ESTIMATE</span>
+            </span>
+            <span class="brand-badge">LIVE QUOTE</span>
+          </div>
+
+          <div class="bp-canvas-wrap">
+            <canvas id="blueprint-cube-canvas"></canvas>
+          </div>
+
+          <div class="price-banner">
+            <div>
+              <div class="total-lbl">ESTIMATED APP COST</div>
+              <div style="font-size:0.72rem;color:var(--text-secondary);">Based on selected features</div>
+            </div>
+            <div class="total-val" id="bp-total-price">₹42,000</div>
+          </div>
+
+          <div>
+            <h3 id="bp-title" style="font-size:1.05rem;margin-bottom:4px;">Native Android App (Kotlin / Compose)</h3>
+            <p id="bp-desc" style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5;margin-bottom:8px;">
+              Includes 2 feature modules.
+            </p>
+            <div class="breakdown-list" id="bp-breakdown-list"></div>
+          </div>
+
+          <div class="blueprint-stats">
+            <div class="bp-stat">
+              <div class="k">ESTIMATED DELIVERY</div>
+              <div class="v" id="bp-timeline">5 – 6 Weeks</div>
+            </div>
+            <div class="bp-stat">
+              <div class="k">FEATURE LAYERS</div>
+              <div class="v" id="bp-nodes">8 Active Layers</div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-negotiate" style="width:100%;" onclick="openNegotiationModal()">
+            <i data-icon="message-square" class="icon-sm"></i>
+            <span>Have a Different Budget? Request Negotiation</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: COMPANY OVERVIEW & CONTACT -->
+    <section class="section" id="studio">
+      <div class="studio-banner">
+        <div>
+          <div class="eyebrow">
+            <i data-icon="briefcase" class="icon-sm"></i>
+            <span>ABOUT EASODE</span>
+          </div>
+          <h2 style="font-size:1.9rem;font-weight:700;margin-bottom:12px;">
+            Let's Build &amp; Launch Your <span class="gradient-text">Next Application</span>
+          </h2>
+          <p style="color:var(--text-secondary);line-height:1.68;margin-bottom:22px;font-size:0.94rem;">
+            Founded by <strong>Sudam Gaware</strong>, <strong>Easode</strong> builds dependable mobile and web applications for consumers, startups, and businesses. Whether you need a complete app from scratch or want to negotiate a custom feature roadmap for your budget, reach out directly.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <a href="mailto:sudamgaware2@gmail.com" class="btn-primary">
+              <i data-icon="mail" class="icon-sm"></i>
+              <span>sudamgaware2@gmail.com</span>
+            </a>
+            <button type="button" class="btn-negotiate" onclick="openNegotiationModal()">
+              <i data-icon="message-square" class="icon-sm"></i>
+              <span>Request for Negotiation</span>
+            </button>
+            <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener" class="btn-secondary">
+              <i data-icon="play" class="icon-sm"></i>
+              <span>Google Play Store</span>
+            </a>
+            <a href="https://codersudam.github.io" target="_blank" rel="noopener" class="btn-secondary">
+              <i data-icon="github" class="icon-sm"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sudam-gaware" target="_blank" rel="noopener" class="btn-secondary">
+              <i data-icon="linkedin" class="icon-sm"></i>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="studio-meta-card">
+          <div class="studio-meta-row">
+            <span class="lbl"><i data-icon="box" class="icon-sm"></i><span>Company</span></span>
+            <span class="val">Easode</span>
+          </div>
+          <div class="studio-meta-row">
+            <span class="lbl"><i data-icon="user" class="icon-sm"></i><span>Founder &amp; Lead Developer</span></span>
+            <span class="val">Sudam Gaware</span>
+          </div>
+          <div class="studio-meta-row">
+            <span class="lbl"><i data-icon="code" class="icon-sm"></i><span>Core Focus</span></span>
+            <span class="val">Mobile, Cloud &amp; Web App Development</span>
+          </div>
+          <div class="studio-meta-row">
+            <span class="lbl"><i data-icon="map-pin" class="icon-sm"></i><span>Location</span></span>
+            <span class="val">Pune, Maharashtra, India</span>
+          </div>
+          <div class="studio-meta-row">
+            <span class="lbl"><i data-icon="mail" class="icon-sm"></i><span>Direct Inquiry</span></span>
+            <span class="val">sudamgaware2@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- INTERACTIVE PRICE NEGOTIATION MODAL -->
+  <div class="modal-backdrop" id="negotiation-modal" role="dialog" aria-modal="true" aria-labelledby="neg-modal-title">
+    <div class="modal-card">
+      <div class="modal-top">
+        <div>
+          <span class="brand-badge">FLEXIBLE STARTUP &amp; CUSTOM PRICING</span>
+          <h3 id="neg-modal-title" style="font-size:1.25rem;margin-top:6px;">Request Price Negotiation</h3>
+        </div>
+        <button type="button" class="btn-icon" onclick="closeNegotiationModal()" aria-label="Close modal">
+          <i data-icon="x" class="icon-sm"></i>
+        </button>
+      </div>
+
+      <p style="font-size:0.84rem;color:var(--text-secondary);">
+        Share your target budget and timeline. We can adjust feature phases or offer startup-friendly pricing to fit your goals.
+      </p>
+
+      <div style="padding:11px 14px;border-radius:12px;background:var(--bg-secondary);border:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.76rem;">
+        <span>Calculated Estimate: <strong id="neg-current-estimate" style="color:var(--accent-cyan);">₹42,000</strong></span>
+        <span id="neg-feature-count">2 Features Selected</span>
+      </div>
+
+      <div class="form-field">
+        <label for="neg-client-name">YOUR NAME OR COMPANY</label>
+        <input type="text" id="neg-client-name" placeholder="e.g., Rahul Sharma / NovaTech" />
+      </div>
+
+      <div class="form-field">
+        <label for="neg-proposed-budget">YOUR TARGET / PROPOSED BUDGET</label>
+        <input type="text" id="neg-proposed-budget" placeholder="e.g., ₹30,000 or $400 (Phased MVP)" />
+      </div>
+
+      <div class="form-field">
+        <label for="neg-notes">PROJECT NOTES OR SCOPE PRIORITIES</label>
+        <textarea id="neg-notes" rows="3" placeholder="Tell us which features are must-haves for v1 or if you'd like a phased payment plan..."></textarea>
+      </div>
+
+      <div class="negotiation-toast" id="negotiation-toast"></div>
+
+      <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:4px;">
+        <button type="button" class="btn-secondary" onclick="closeNegotiationModal()">Cancel</button>
+        <button type="button" class="btn-primary" onclick="submitNegotiationRequest()">
+          <i data-icon="send" class="icon-sm"></i>
+          <span>Send Negotiation Request</span>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div id="tosModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('tosModal')">&times;</span>
-            <h2>Terms of Service</h2>
-            <p><strong>1. Acceptance:</strong> By downloading our apps, these terms automatically apply.</p>
-            <p><strong>2. License:</strong> Personal, non-exclusive license for Android devices.</p>
-        </div>
-    </div>
+  <footer class="site-footer">
+    <p>
+      <strong>Easode</strong> — Mobile &amp; Cloud App Development Company • Founded by <strong>Sudam Gaware</strong>
+    </p>
+    <p style="margin-top:6px;">
+      Pune, Maharashtra, India • <a href="mailto:sudamgaware2@gmail.com" style="color:var(--accent-cyan);text-decoration:none;">sudamgaware2@gmail.com</a> • <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none;">Google Play (StreakIO)</a>
+    </p>
+  </footer>
 
-    <!-- UI Scripts -->
-    <script>
-        // Modal Logic
-        function openModal(id) { document.getElementById(id).style.display = "block"; document.body.style.overflow = "hidden"; }
-        function closeModal(id) { document.getElementById(id).style.display = "none"; document.body.style.overflow = "auto"; }
-        window.onclick = function(e) { if (e.target.classList.contains('modal')) { e.target.style.display = "none"; document.body.style.overflow = "auto"; } }
+  <script>
+    /* =========================================================================
+       0. VECTOR ICON LIBRARY INITIALIZER
+       ========================================================================= */
+    const LUCIDE_SVG_PATHS = {
+      'box': '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+      'layers': '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+      'sun': '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+      'moon': '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+      'arrow-right': '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+      'smartphone': '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>',
+      'play': '<polygon points="6 3 20 12 6 21 6 3"/>',
+      'code': '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+      'cpu': '<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>',
+      'shield': '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+      'globe': '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+      'sliders': '<line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="2" x2="6" y1="14" y2="14"/><line x1="10" x2="14" y1="8" y2="8"/><line x1="18" x2="22" y1="16" y2="16"/>',
+      'plus': '<path d="M5 12h14"/><path d="M12 5v14"/>',
+      'check-circle': '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>',
+      'flame': '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+      'download': '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+      'check': '<path d="M20 6 9 17l-5-5"/>',
+      'compass': '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+      'external-link': '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+      'wifi': '<path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>',
+      'sparkles': '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>',
+      'github': '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
+      'database': '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+      'hard-drive': '<line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/>',
+      'bell': '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+      'bar-chart-2': '<line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/>',
+      'send': '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+      'briefcase': '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+      'mail': '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+      'linkedin': '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
+      'user': '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+      'map-pin': '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+      'message-square': '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+      'tag': '<path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>',
+      'x': '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'
+    };
 
-        // Theme Toggle Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const iconSun = document.getElementById('icon-sun');
-        const iconMoon = document.getElementById('icon-moon');
+    function renderAllIcons(root = document) {
+      root.querySelectorAll('[data-icon]').forEach(el => {
+        const name = el.getAttribute('data-icon');
+        const paths = LUCIDE_SVG_PATHS[name] || LUCIDE_SVG_PATHS['box'];
+        const cls = el.getAttribute('class') || '';
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', `icon-svg ${cls}`.trim());
+        if (el.id) svg.id = el.id;
+        if (el.getAttribute('style')) svg.setAttribute('style', el.getAttribute('style'));
+        svg.setAttribute('data-icon-name', name);
+        svg.innerHTML = paths;
+        el.replaceWith(svg);
+      });
+    }
+    renderAllIcons();
 
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-theme');
-            const isLight = document.body.classList.contains('light-theme');
-            
-            // Swap Icons
-            iconSun.style.display = isLight ? 'none' : 'block';
-            iconMoon.style.display = isLight ? 'block' : 'none';
-            
-            // Dispatch event to notify the Three.js canvas
-            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isLight } }));
-        });
-    </script>
+    /* =========================================================================
+       1. THEME SWITCHER
+       ========================================================================= */
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      const iconEl = document.getElementById('theme-icon');
+      if (iconEl) {
+        iconEl.innerHTML = LUCIDE_SVG_PATHS[next === 'dark' ? 'sun' : 'moon'];
+      }
+    });
 
-    <!-- Three.js Scroll-Scrubbing Logic -->
-    <script type="module">
-        import * as THREE from 'three';
+    /* =========================================================================
+       2. CURSOR AURA & HERO INTERACTIVE 3D ISOMETRIC ILLUSTRATION
+       ========================================================================= */
+    const aura = document.getElementById('cursor-aura');
+    window.addEventListener('mousemove', (e) => {
+      aura.style.left = e.clientX + 'px';
+      aura.style.top = e.clientY + 'px';
+    });
 
-        // 1. Core Setup
-        const canvas = document.querySelector('#webgl-canvas');
-        const scene = new THREE.Scene();
-        
-        // Define base colors so we can transition them
-        const fogColorDark = 0x030305;
-        const fogColorLight = 0xf4f6f8;
-        
-        scene.fog = new THREE.FogExp2(fogColorDark, 0.03);
+    const heroStage = document.getElementById('hero-stage-container');
+    const isoRig = document.getElementById('iso-illustration-rig');
 
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 0, 10);
+    heroStage.addEventListener('mousemove', (e) => {
+      const rect = heroStage.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      const ry = -22 + nx * 26;
+      const rx = 18 - ny * 22;
+      isoRig.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(3deg)`;
+    });
 
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.2;
+    heroStage.addEventListener('mouseleave', () => {
+      isoRig.style.transform = 'rotateX(18deg) rotateY(-22deg) rotateZ(4deg)';
+    });
 
-        const masterGroup = new THREE.Group();
-        scene.add(masterGroup);
+    const HERO_APP_PREVIEWS = {
+      streakio: {
+        tag: 'GOOGLE PLAY PRODUCT',
+        title: 'StreakIO Habit & Steps',
+        sub: 'Offline-first habit streaks, active-hour step counter & instant PDF/CSV reports.',
+        metricLbl: 'DAILY STEP GOAL',
+        metricVal: '7,840 / 10k',
+        barWidth: '78%',
+        float1: '42 Days',
+        float2: 'Offline + Cloud',
+        float3: 'Play Store Live'
+      },
+      iot: {
+        tag: 'CLOUD TELEMETRY APP',
+        title: 'Easode IoT Monitor',
+        sub: 'Real-time Firebase sensor dashboard, PID setpoint tuning & instant hardware alerts.',
+        metricLbl: 'SENSOR STABILITY',
+        metricVal: '184.6°C / 185°C',
+        barWidth: '94%',
+        float1: '20ms Sync',
+        float2: 'Firebase RTDB',
+        float3: 'ESP32 Ready'
+      },
+      custom: {
+        tag: 'CLIENT APP SERVICE',
+        title: 'Your Custom Mobile App',
+        sub: 'Designed, engineered & published to Google Play with features tailored to your budget.',
+        metricLbl: 'MILESTONE DELIVERY',
+        metricVal: '100% On-Time',
+        barWidth: '100%',
+        float1: 'Custom UI/UX',
+        float2: 'Pay Per Feature',
+        float3: 'Full Source Code'
+      }
+    };
 
-        // 2. Objects: The Solar Core (Burning Sun)
-        const nexusGroup = new THREE.Group();
-        masterGroup.add(nexusGroup);
+    function switchHeroAppCard(key, btnEl) {
+      document.querySelectorAll('.iso-tab-btn').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+      const data = HERO_APP_PREVIEWS[key] || HERO_APP_PREVIEWS.streakio;
+      document.getElementById('iso-card-tag').textContent = data.tag;
+      document.getElementById('iso-card-title').textContent = data.title;
+      document.getElementById('iso-card-sub').textContent = data.sub;
+      document.getElementById('iso-metric-label').textContent = data.metricLbl;
+      document.getElementById('iso-metric-val').textContent = data.metricVal;
+      document.getElementById('iso-metric-bar').style.width = data.barWidth;
+      document.getElementById('iso-float-1').textContent = data.float1;
+      document.getElementById('iso-float-2').textContent = data.float2;
+      document.getElementById('iso-float-3').textContent = data.float3;
+    }
 
-        const coreGeo = new THREE.SphereGeometry(2, 64, 64);
-        const coreMat = new THREE.MeshBasicMaterial({ color: 0xfff0dd });
-        const sunCore = new THREE.Mesh(coreGeo, coreMat);
-        nexusGroup.add(sunCore);
+    function pulseIsoCard(cardEl) {
+      cardEl.style.transform = 'translateZ(88px) scale(1.06)';
+      setTimeout(() => {
+        cardEl.style.transform = '';
+      }, 320);
+    }
 
-        // Reintroduced the Orange Wireframe Layer
-        const plasmaGeo2 = new THREE.SphereGeometry(2.06, 32, 32);
-        const plasmaMat2 = new THREE.MeshBasicMaterial({
-            color: 0xffaa00, wireframe: true, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending
-        });
-        const plasma2 = new THREE.Mesh(plasmaGeo2, plasmaMat2);
-        nexusGroup.add(plasma2);
+    /* =========================================================================
+       3. INTERACTIVE 3D PHONE RIG & LIVE PRODUCT SIMULATORS
+       ========================================================================= */
+    const phoneViewport = document.getElementById('phone-viewport');
+    const phoneRig = document.getElementById('phone-rig');
 
-        const sunLight = new THREE.PointLight(0xffaa00, 8, 20); 
-        nexusGroup.add(sunLight);
+    function syncCanvasSize(canvas, ctx) {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const w = Math.max(1, Math.round(rect.width));
+      const h = Math.max(1, Math.round(rect.height));
+      if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      return { w, h };
+    }
 
-        // 3. Orbital Data Rings & Wireframe Planets
-        const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.05, side: THREE.DoubleSide });
-        const rings = [];
-        const ringRadii = [3.5, 4.5, 5.5];
-        
-        ringRadii.forEach((radius, i) => {
-            const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.01, 32, 100), ringMaterial);
-            ring.rotation.x = Math.PI / 2 + (i * 0.2);
-            masterGroup.add(ring);
-            rings.push(ring);
-        });
+    phoneViewport.addEventListener('mousemove', (e) => {
+      const rect = phoneViewport.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      const ry = nx * 30;
+      const rx = -ny * 20;
+      phoneRig.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
 
-        const appColors = [0xffffff, 0xA770EF, 0x11998e, 0x0078d7, 0xf5af19, 0x00B4DB]; 
-        const nodes = [];
-        
-        // Reduced segments to 16x16 to make the wireframe grid crisp and distinct
-        const planetGeo = new THREE.SphereGeometry(0.25, 16, 16); 
+    phoneViewport.addEventListener('mouseleave', () => {
+      phoneRig.style.transform = 'rotateX(6deg) rotateY(-14deg) rotateZ(1deg)';
+    });
 
-        appColors.forEach((color, i) => {
-            // Switched to BasicMaterial with wireframe: true for the planets
-            const nodeMat = new THREE.MeshBasicMaterial({ 
-                color: color, 
-                wireframe: true,
-                transparent: true,
-                opacity: 0.9
-            });
-            const node = new THREE.Mesh(planetGeo, nodeMat);
-            const nodeLight = new THREE.PointLight(color, 1.5, 4);
-            node.add(nodeLight);
-            
-            const ringIndex = i % rings.length;
-            node.userData = { 
-                baseAngle: (Math.PI * 2 / appColors.length) * i, 
-                radius: ringRadii[ringIndex], 
-                ring: rings[ringIndex] 
-            };
-            masterGroup.add(node);
-            nodes.push(node);
-        });
+    function rotatePhonePreset(ry, rx) {
+      phoneRig.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    }
 
-        // 4. Background Particles
-        const particleCount = 800;
-        const particlePos = new Float32Array(particleCount * 3);
-        for(let i = 0; i < particleCount * 3; i++) particlePos[i] = (Math.random() - 0.5) * 30;
-        const particleGeo = new THREE.BufferGeometry();
-        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
-        const particleMat = new THREE.PointsMaterial({ size: 0.04, color: 0x88aaff, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending });
-        const particles = new THREE.Points(particleGeo, particleMat);
-        scene.add(particles);
+    function togglePhoneExplode() {
+      phoneRig.classList.toggle('exploded');
+      const txtEl = document.getElementById('explode-btn-text');
+      if (txtEl) {
+        txtEl.textContent = phoneRig.classList.contains('exploded')
+          ? 'Collapse 3D Layers'
+          : 'Explode 3D Layers';
+      }
+    }
 
-        // 5. Lighting
-        scene.add(new THREE.AmbientLight(0xffffff, 0.3)); 
-        const dirLight1 = new THREE.DirectionalLight(0x4488ff, 2); dirLight1.position.set(5, 5, 5); scene.add(dirLight1);
-        const dirLight2 = new THREE.DirectionalLight(0xff44aa, 1.5); dirLight2.position.set(-5, -5, -5); scene.add(dirLight2);
+    function selectShowcaseApp(appKey, cardEl) {
+      document.querySelectorAll('.project-tab-card').forEach(c => c.classList.remove('active'));
+      cardEl.classList.add('active');
+      document.querySelectorAll('.app-sim-view').forEach(v => v.classList.remove('active'));
+      document.getElementById('sim-' + appKey).classList.add('active');
+    }
 
-        // Handle Theme Toggle Event within Three.js
-        window.addEventListener('themeChanged', (e) => {
-            const isLight = e.detail.isLight;
-            // Update Fog
-            scene.fog.color.setHex(isLight ? fogColorLight : fogColorDark);
-            
-            // Darken particles and rings slightly in Light mode so they don't vanish against white
-            particleMat.color.setHex(isLight ? 0x222233 : 0x88aaff);
-            rings.forEach(ring => {
-                ring.material.color.setHex(isLight ? 0x000000 : 0xffffff);
-                ring.material.opacity = isLight ? 0.08 : 0.05;
-            });
-        });
+    let currentSteps = 7840;
+    function simulateSteps() {
+      currentSteps += 250;
+      document.getElementById('sim-step-count').textContent = currentSteps.toLocaleString();
+    }
 
-        // 6. Scroll Tracking State
-        let scrollProgress = 0;
-        let smoothScroll = 0;
-        let targetMouseX = 0, targetMouseY = 0;
+    function bumpStreak(rowEl, id) {
+      const container = document.getElementById(id);
+      const valSpan = container.querySelector('.streak-val');
+      if (valSpan) {
+        const num = parseInt(valSpan.textContent.replace(/\D/g, ''), 10) + 1;
+        valSpan.textContent = `${num}d`;
+      }
+      rowEl.style.borderColor = '#10b981';
+      setTimeout(() => { rowEl.style.borderColor = 'transparent'; }, 400);
+    }
 
-        window.addEventListener('scroll', () => {
-            const maxScroll = document.body.scrollHeight - window.innerHeight;
-            scrollProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-        });
+    function triggerExportToast(btn) {
+      const lbl = btn.querySelector('.btn-lbl');
+      if (!lbl) return;
+      const orig = lbl.textContent;
+      lbl.textContent = 'Exported PDF';
+      btn.style.color = '#34d399';
+      setTimeout(() => {
+        lbl.textContent = orig;
+        btn.style.color = '';
+      }, 1500);
+    }
 
-        document.addEventListener('mousemove', (event) => {
-            if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            targetMouseX = (event.clientX - window.innerWidth/2) * 0.0005;
-            targetMouseY = (event.clientY - window.innerHeight/2) * 0.0005;
-        });
+    // IoT Cloud Telemetry Oscilloscope
+    const pidCanvas = document.getElementById('pid-mini-canvas');
+    const pidCtx = pidCanvas.getContext('2d');
+    let pidSetpoint = 185;
+    let pidPV = 184.6;
+    let pidIntegral = 0;
+    let pidPrevErr = 0;
+    const pidHistory = Array(60).fill(184.6);
 
-        function lerp(start, end, amt) { return (1 - amt) * start + amt * end; }
+    function updatePidSetpoint(val) {
+      pidSetpoint = parseFloat(val);
+      document.getElementById('pid-target-lbl').textContent = `${pidSetpoint}°C`;
+    }
 
-        const scrollKeyframes = [
-            { step: 0.0, pos: [2.5, 0, 1] },       
-            { step: 0.5, pos: [-3.5, 0.5, -4] },   
-            { step: 1.0, pos: [2.0, -1.0, -2] }    
-        ];
+    function stepPidLoop() {
+      const err = pidSetpoint - pidPV;
+      pidIntegral = Math.max(-30, Math.min(30, pidIntegral + err * 0.08));
+      const deriv = err - pidPrevErr;
+      pidPrevErr = err;
+      const output = 0.22 * err + 0.05 * pidIntegral + 0.12 * deriv;
+      pidPV += output + (Math.random() - 0.5) * 0.25;
+      pidHistory.push(pidPV);
+      if (pidHistory.length > 60) pidHistory.shift();
 
-        // 7. Animation Loop
-        const clock = new THREE.Clock();
+      const pvLbl = document.getElementById('pid-pv-lbl');
+      if (pvLbl) pvLbl.textContent = `${pidPV.toFixed(1)}°C`;
 
-        function animate() {
-            requestAnimationFrame(animate);
-            const t = clock.getElapsedTime();
+      const { w, h } = syncCanvasSize(pidCanvas, pidCtx);
+      if (w <= 2 || h <= 2) return;
+      pidCtx.clearRect(0, 0, w, h);
+      const mapY = (temp) => h - ((temp - 60) / 240) * (h - 16) - 8;
 
-            smoothScroll += (scrollProgress - smoothScroll) * 0.1;
-            
-            sunCore.rotation.y = (smoothScroll * Math.PI * 4) + (t * 0.05);
-            sunCore.rotation.z = (smoothScroll * Math.PI * 2) + (t * 0.02);
-            
-            plasma2.rotation.y = -(t * 0.2);
-            plasma2.rotation.z = (t * 0.15) - (smoothScroll * Math.PI);
+      const spY = mapY(pidSetpoint);
+      pidCtx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+      pidCtx.setLineDash([4, 4]);
+      pidCtx.beginPath();
+      pidCtx.moveTo(0, spY);
+      pidCtx.lineTo(w, spY);
+      pidCtx.stroke();
+      pidCtx.setLineDash([]);
 
-            rings.forEach((ring, i) => {
-                ring.rotation.z = (smoothScroll * Math.PI * (1 + i * 0.5)) + (t * 0.05);
-            });
+      pidCtx.strokeStyle = '#10b981';
+      pidCtx.lineWidth = 2;
+      pidCtx.beginPath();
+      pidHistory.forEach((v, idx) => {
+        const x = (idx / (pidHistory.length - 1)) * w;
+        const y = mapY(v);
+        if (idx === 0) pidCtx.moveTo(x, y);
+        else pidCtx.lineTo(x, y);
+      });
+      pidCtx.stroke();
+    }
+    setInterval(stepPidLoop, 120);
 
-            nodes.forEach(node => {
-                const currentAngle = node.userData.baseAngle + (smoothScroll * Math.PI * 8) + (t * 0.2);
-                const x = Math.cos(currentAngle) * node.userData.radius;
-                const y = Math.sin(currentAngle) * node.userData.radius;
-                
-                const pos = new THREE.Vector3(x, y, 0);
-                pos.applyEuler(node.userData.ring.rotation);
-                node.position.copy(pos);
-                
-                node.rotation.y += 0.01;
-                node.rotation.x += 0.005;
-            });
-
-            particles.rotation.y = t * 0.01; 
-
-            let targetX, targetY, targetZ;
-            if (smoothScroll <= scrollKeyframes[1].step) {
-                const progress = smoothScroll / scrollKeyframes[1].step;
-                targetX = lerp(scrollKeyframes[0].pos[0], scrollKeyframes[1].pos[0], progress);
-                targetY = lerp(scrollKeyframes[0].pos[1], scrollKeyframes[1].pos[1], progress);
-                targetZ = lerp(scrollKeyframes[0].pos[2], scrollKeyframes[1].pos[2], progress);
-            } else {
-                const progress = (smoothScroll - scrollKeyframes[1].step) / (scrollKeyframes[2].step - scrollKeyframes[1].step);
-                targetX = lerp(scrollKeyframes[1].pos[0], scrollKeyframes[2].pos[0], progress);
-                targetY = lerp(scrollKeyframes[1].pos[1], scrollKeyframes[2].pos[1], progress);
-                targetZ = lerp(scrollKeyframes[1].pos[2], scrollKeyframes[2].pos[2], progress);
-            }
-
-            masterGroup.position.set(targetX, targetY, targetZ);
-            masterGroup.rotation.x += (targetMouseY - masterGroup.rotation.x) * 0.05;
-            masterGroup.rotation.y += (targetMouseX - masterGroup.rotation.y) * 0.05;
-
-            renderer.render(scene, camera);
+    // Business App Order Analytics Chart
+    const cafeCanvas = document.getElementById('cafe-mini-canvas');
+    const cafeCtx = cafeCanvas.getContext('2d');
+    let cafePhase = 0;
+    function drawCafeWaves() {
+      cafePhase += 0.045;
+      const { w, h } = syncCanvasSize(cafeCanvas, cafeCtx);
+      if (w > 2 && h > 2) {
+        cafeCtx.clearRect(0, 0, w, h);
+        for (let k = 0; k < 2; k++) {
+          cafeCtx.beginPath();
+          cafeCtx.strokeStyle = k === 0 ? '#38bdf8' : '#8b5cf6';
+          cafeCtx.lineWidth = 2;
+          for (let x = 0; x <= w; x += 4) {
+            const y = h / 2 +
+              Math.sin(x * 0.035 + cafePhase + k * 1.4) * (14 + k * 6) *
+              Math.cos(x * 0.015 - cafePhase * 0.4);
+            if (x === 0) cafeCtx.moveTo(x, y);
+            else cafeCtx.lineTo(x, y);
+          }
+          cafeCtx.stroke();
         }
+      }
+      requestAnimationFrame(drawCafeWaves);
+    }
+    drawCafeWaves();
 
-        animate();
+    /* =========================================================================
+       4. 3D PERSPECTIVE TILT CARDS (SERVICES BENTO GRID)
+       ========================================================================= */
+    document.querySelectorAll('.tilt-card').forEach((card) => {
+      const glare = card.querySelector('.tilt-glare');
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = -((y / rect.height) - 0.5) * 10;
+        const ry = ((x / rect.width) - 0.5) * 10;
+        card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+        if (glare) {
+          glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(56, 189, 248, 0.12), transparent 65%)`;
+        }
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+    /* =========================================================================
+       5. FEATURE-BASED PRICE CALCULATOR & 3D ISOMETRIC FEATURE STACK
+       ========================================================================= */
+    let activeCurrency = 'INR';
+    let activePlatformEl = document.querySelector('#platform-chips .opt-chip.selected');
+
+    function formatCurrency(inrVal, usdVal) {
+      if (activeCurrency === 'INR') {
+        return '₹' + Number(inrVal).toLocaleString('en-IN');
+      }
+      return '$' + Number(usdVal).toLocaleString('en-US');
+    }
+
+    function setCurrency(curr) {
+      activeCurrency = curr;
+      document.getElementById('curr-inr').classList.toggle('active', curr === 'INR');
+      document.getElementById('curr-usd').classList.toggle('active', curr === 'USD');
+
+      // Update chip price badges
+      document.querySelectorAll('#platform-chips .opt-chip').forEach(btn => {
+        const lbl = btn.querySelector('[data-price-label]');
+        if (lbl) lbl.textContent = formatCurrency(btn.dataset.inr, btn.dataset.usd);
+      });
+      document.querySelectorAll('#module-chips .opt-chip').forEach(btn => {
+        const lbl = btn.querySelector('[data-price-label]');
+        if (lbl) lbl.textContent = '+' + formatCurrency(btn.dataset.inr, btn.dataset.usd);
+      });
+
+      updateBlueprint();
+    }
+
+    function selectPlatform(btn) {
+      document.querySelectorAll('#platform-chips .opt-chip').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      activePlatformEl = btn;
+      updateBlueprint();
+    }
+
+    function toggleModule(btn) {
+      btn.classList.toggle('selected');
+      updateBlueprint();
+    }
+
+    function updateBlueprint() {
+      const platName = activePlatformEl.querySelector('.chip-left span').textContent.trim();
+      let totalWeeks = parseFloat(activePlatformEl.dataset.weeks);
+      let totalLayers = 1;
+      let totalInr = parseInt(activePlatformEl.dataset.inr, 10);
+      let totalUsd = parseInt(activePlatformEl.dataset.usd, 10);
+
+      const breakdownHtml = [];
+      breakdownHtml.push(
+        `<div class="breakdown-row"><span>Base: ${platName}</span><strong>${formatCurrency(totalInr, totalUsd)}</strong></div>`
+      );
+
+      const selectedModules = [];
+      document.querySelectorAll('#module-chips .opt-chip.selected').forEach(m => {
+        const mName = m.querySelector('.chip-left span').textContent.trim();
+        const mInr = parseInt(m.dataset.inr, 10);
+        const mUsd = parseInt(m.dataset.usd, 10);
+        totalWeeks += parseFloat(m.dataset.weeks);
+        totalLayers += 1;
+        totalInr += mInr;
+        totalUsd += mUsd;
+        selectedModules.push(mName);
+        breakdownHtml.push(
+          `<div class="breakdown-row"><span>+ ${mName}</span><strong>${formatCurrency(mInr, mUsd)}</strong></div>`
+        );
+      });
+
+      const formattedTotal = formatCurrency(totalInr, totalUsd);
+      document.getElementById('bp-total-price').textContent = formattedTotal;
+      document.getElementById('bp-breakdown-list').innerHTML = breakdownHtml.join('');
+
+      const projName = document.getElementById('client-project-name').value.trim();
+      document.getElementById('bp-title').textContent = projName
+        ? `${projName} — ${platName}`
+        : platName;
+
+      document.getElementById('bp-desc').textContent = selectedModules.length
+        ? `${selectedModules.length} feature module(s) selected.`
+        : 'Base platform architecture with clean modular code.';
+
+      const minW = Math.max(2, Math.floor(totalWeeks));
+      const maxW = Math.ceil(totalWeeks + 1);
+      document.getElementById('bp-timeline').textContent = `${minW} – ${maxW} Weeks`;
+      document.getElementById('bp-nodes').textContent = `${totalLayers} Iso Layers`;
+
+      // Sync Negotiation Modal labels
+      const negEst = document.getElementById('neg-current-estimate');
+      const negCnt = document.getElementById('neg-feature-count');
+      if (negEst) negEst.textContent = formattedTotal;
+      if (negCnt) negCnt.textContent = `${selectedModules.length} Feature(s) Selected`;
+
+      const subject = encodeURIComponent(`Easode App Quote: ${projName || platName} (${formattedTotal})`);
+      const body = encodeURIComponent(
+        `Hi Sudam,\n\nI calculated an app estimate on the Easode website:\n` +
+        `- App Name: ${projName || 'New App Project'}\n` +
+        `- Base Platform: ${platName}\n` +
+        `- Selected Features: ${selectedModules.join(', ') || 'Base Platform Only'}\n` +
+        `- Calculated Estimate: ${formattedTotal}\n` +
+        `- Estimated Timeline: ${minW}-${maxW} Weeks\n\nLet's discuss the next steps.`
+      );
+      document.getElementById('mailto-launch-btn').href = `mailto:sudamgaware2@gmail.com?subject=${subject}&body=${body}`;
+
+      window.currentIsoLayers = totalLayers;
+      window.currentFormattedQuote = formattedTotal;
+      window.currentSelectedFeatures = selectedModules;
+      window.currentPlatformName = platName;
+    }
+
+    window.currentIsoLayers = 3;
+    updateBlueprint();
+
+    // 3D Isometric Feature Stack Illustration Canvas (Minimal Stacked 3D Slabs)
+    const bpCanvas = document.getElementById('blueprint-cube-canvas');
+    const bpCtx = bpCanvas.getContext('2d');
+    let isoAnimTick = 0;
+
+    function renderIsometricFeatureStack() {
+      const { w, h } = syncCanvasSize(bpCanvas, bpCtx);
+      bpCtx.clearRect(0, 0, w, h);
+      isoAnimTick += 0.03;
+
+      const layers = Math.min(7, Math.max(1, window.currentIsoLayers || 3));
+      const cx = w / 2;
+      const baseCy = h * 0.72;
+      const slabW = Math.min(w * 0.32, 92);
+      const slabH = Math.min(h * 0.18, 28);
+      const spacing = Math.min(18, (h * 0.56) / layers);
+
+      const palette = ['#38bdf8', '#6366f1', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#14b8a6'];
+
+      for (let i = 0; i < layers; i++) {
+        const floatY = Math.sin(isoAnimTick - i * 0.45) * 3;
+        const y = baseCy - i * spacing + floatY;
+        const color = palette[i % palette.length];
+
+        // Isometric diamond points
+        bpCtx.save();
+        bpCtx.beginPath();
+        bpCtx.moveTo(cx, y - slabH);
+        bpCtx.lineTo(cx + slabW, y);
+        bpCtx.lineTo(cx, y + slabH);
+        bpCtx.lineTo(cx - slabW, y);
+        bpCtx.closePath();
+
+        bpCtx.fillStyle = i === layers - 1
+          ? 'rgba(56, 189, 248, 0.24)'
+          : 'rgba(30, 41, 59, 0.78)';
+        bpCtx.fill();
+
+        bpCtx.strokeStyle = color;
+        bpCtx.lineWidth = 1.8;
+        bpCtx.stroke();
+        bpCtx.restore();
+      }
+
+      requestAnimationFrame(renderIsometricFeatureStack);
+    }
+    renderIsometricFeatureStack();
+
+    /* =========================================================================
+       6. REQUEST FOR NEGOTIATION MODAL WORKFLOW
+       ========================================================================= */
+    const negModal = document.getElementById('negotiation-modal');
+    const negToast = document.getElementById('negotiation-toast');
+
+    function openNegotiationModal() {
+      const projInput = document.getElementById('client-project-name');
+      const nameInput = document.getElementById('neg-client-name');
+      if (projInput && projInput.value.trim() && nameInput && !nameInput.value.trim()) {
+        nameInput.value = projInput.value.trim();
+      }
+      negToast.classList.remove('visible');
+      negModal.classList.add('open');
+    }
+
+    function closeNegotiationModal() {
+      negModal.classList.remove('open');
+    }
+
+    negModal.addEventListener('click', (e) => {
+      if (e.target === negModal) closeNegotiationModal();
+    });
+
+    function submitNegotiationRequest() {
+      const clientName = document.getElementById('neg-client-name').value.trim() || 'Prospective Client';
+      const proposedBudget = document.getElementById('neg-proposed-budget').value.trim() || 'Open to discussion';
+      const notes = document.getElementById('neg-notes').value.trim() || 'Flexible scope / milestone discussion';
+      const calcQuote = window.currentFormattedQuote || '₹42,000';
+      const platName = window.currentPlatformName || 'Native Android App';
+      const feats = (window.currentSelectedFeatures || []).join(', ') || 'Base Platform';
+
+      negToast.textContent = `Negotiation request prepared for ${clientName} (Target Budget: ${proposedBudget} vs Estimate: ${calcQuote}). Opening your email client to send directly to Easode...`;
+      negToast.classList.add('visible');
+
+      const subject = encodeURIComponent(`Price Negotiation Request — ${clientName} (${platName})`);
+      const body = encodeURIComponent(
+        `Hi Sudam (Easode),\n\nI would like to request a price negotiation for my app project:\n\n` +
+        `- Name / Company: ${clientName}\n` +
+        `- Selected Platform: ${platName}\n` +
+        `- Selected Features: ${feats}\n` +
+        `- Calculator Estimate: ${calcQuote}\n` +
+        `- My Proposed Target Budget: ${proposedBudget}\n` +
+        `- Notes / Priorities: ${notes}\n\nPlease let me know how we can tailor the scope or pricing!`
+      );
+
+      window.location.href = `mailto:sudamgaware2@gmail.com?subject=${subject}&body=${body}`;
+    }
+  </script>
 </body>
 </html>
-
