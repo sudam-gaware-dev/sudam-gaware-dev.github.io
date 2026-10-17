@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Easode — Mobile &amp; Cloud App Development Company</title>
+  <title>Easode — Mobile App &amp; Website Development Company</title>
   <!-- Strictly the 3 requested Google Fonts: Space Grotesk, Poppins, and JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,8 +12,8 @@
     :root {
       --bg-primary: #090d16;
       --bg-secondary: #0f1624;
-      --bg-card: rgba(17, 24, 39, 0.75);
-      --bg-card-strong: rgba(17, 24, 39, 0.94);
+      --bg-card: rgba(17, 24, 39, 0.78);
+      --bg-card-strong: rgba(17, 24, 39, 0.95);
       --bg-glass: rgba(255, 255, 255, 0.035);
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
@@ -29,14 +29,12 @@
       --font-heading: 'Space Grotesk', sans-serif;
       --font-sans: 'Poppins', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --phone-body: #0b1120;
-      --phone-bezel: #1e293b;
     }
 
     html[data-theme="light"] {
       --bg-primary: #f8fafc;
       --bg-secondary: #f1f5f9;
-      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-card: rgba(255, 255, 255, 0.9);
       --bg-card-strong: rgba(255, 255, 255, 0.98);
       --bg-glass: rgba(15, 23, 42, 0.035);
       --text-primary: #0f172a;
@@ -50,8 +48,6 @@
       --border-subtle: rgba(15, 23, 42, 0.10);
       --border-glow: rgba(2, 132, 199, 0.32);
       --shadow-card: 0 14px 34px rgba(15, 23, 42, 0.07);
-      --phone-body: #0f172a;
-      --phone-bezel: #334155;
     }
 
     *, *::before, *::after {
@@ -76,7 +72,7 @@
       overflow-x: hidden;
       line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
-      background-image: radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px);
       background-size: 28px 28px;
     }
 
@@ -88,7 +84,7 @@
       font-family: var(--font-sans);
     }
 
-    /* Vector Icon Styling — Fixed Aspect Ratio */
+    /* Vector Icon Styling */
     .icon-svg {
       width: 18px;
       height: 18px;
@@ -112,7 +108,7 @@
       width: 340px;
       height: 340px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.07) 0%, rgba(99, 102, 241, 0.03) 45%, transparent 70%);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, rgba(99, 102, 241, 0.025) 45%, transparent 70%);
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 0;
@@ -318,13 +314,15 @@
       padding: 104px 24px 64px;
     }
 
-    /* HERO SECTION — Minimal & Product-Focused */
+    /* =========================================================================
+       HERO SECTION — Minimal, Client-Focused & Accurate 3D Isometric Showcase
+       ========================================================================= */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-      gap: 44px;
+      grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+      gap: 42px;
       align-items: center;
-      padding: 20px 0 48px;
+      padding: 16px 0 48px;
     }
 
     .eyebrow {
@@ -337,7 +335,7 @@
       border: 1px solid var(--border-glow);
       color: var(--accent-cyan);
       font-family: var(--font-mono);
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       font-weight: 600;
       margin-bottom: 16px;
       width: fit-content;
@@ -359,7 +357,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 4vw, 3.45rem);
+      font-size: clamp(2.15rem, 3.9vw, 3.35rem);
       line-height: 1.1;
       letter-spacing: -0.03em;
       font-weight: 700;
@@ -374,10 +372,10 @@
     }
 
     .hero p.lead {
-      font-size: 1rem;
+      font-size: 0.98rem;
       line-height: 1.68;
       color: var(--text-secondary);
-      margin-bottom: 26px;
+      margin-bottom: 24px;
       max-width: 540px;
     }
 
@@ -385,7 +383,7 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
       margin-bottom: 28px;
     }
 
@@ -407,7 +405,7 @@
     }
 
     .metric-pill .val {
-      font-size: 1.1rem;
+      font-size: 1.06rem;
       font-weight: 700;
       font-family: var(--font-heading);
       color: var(--accent-cyan);
@@ -417,15 +415,15 @@
     }
 
     .metric-pill .lbl {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
     }
 
-    /* RIGHT HERO: MINIMAL INTERACTIVE 3D ISOMETRIC APP ILLUSTRATION */
+    /* RIGHT HERO: ACCURATE CLIENT-FOCUSED 3D ISOMETRIC SHOWCASE */
     .hero-iso-scene {
       position: relative;
       width: 100%;
-      height: 460px;
+      height: 450px;
       border-radius: 24px;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -450,7 +448,7 @@
 
     .iso-tabs {
       display: inline-flex;
-      gap: 6px;
+      gap: 5px;
       background: var(--bg-secondary);
       padding: 4px;
       border-radius: 999px;
@@ -462,7 +460,7 @@
       background: transparent;
       color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       font-weight: 600;
       padding: 5px 11px;
       border-radius: 999px;
@@ -489,21 +487,20 @@
     }
 
     .iso-illustration-rig {
-      width: 260px;
-      height: 300px;
+      width: 266px;
+      height: 292px;
       position: relative;
       transform-style: preserve-3d;
-      transform: rotateX(18deg) rotateY(-22deg) rotateZ(4deg);
+      transform: rotateX(16deg) rotateY(-20deg) rotateZ(3deg);
       transition: transform 0.22s ease-out;
     }
 
-    /* Base 3D Platform Slab */
     .iso-slab-base {
       position: absolute;
-      inset: 10px 16px;
-      border-radius: 26px;
-      background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.96));
-      border: 2px solid rgba(56, 189, 248, 0.35);
+      inset: 8px 14px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98));
+      border: 2px solid rgba(56, 189, 248, 0.38);
       box-shadow: -18px 24px 38px rgba(0, 0, 0, 0.45);
       transform: translateZ(0px);
       padding: 16px;
@@ -513,35 +510,34 @@
       color: #f8fafc;
     }
 
-    /* Floating 3D App Feature Cards inside Hero Illustration */
     .iso-float-card {
       position: absolute;
-      border-radius: 16px;
-      padding: 11px 14px;
+      border-radius: 14px;
+      padding: 10px 13px;
       background: var(--bg-card-strong);
       border: 1px solid var(--border-glow);
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
       backdrop-filter: blur(12px);
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
       cursor: pointer;
     }
 
     .iso-float-card.card-top-left {
-      top: 12px;
+      top: 10px;
       left: -38px;
-      transform: translateZ(48px);
-    }
-
-    .iso-float-card.card-bottom-right {
-      bottom: 24px;
-      right: -42px;
-      transform: translateZ(68px);
+      transform: translateZ(46px);
     }
 
     .iso-float-card.card-top-right {
-      top: 64px;
+      top: 58px;
       right: -36px;
       transform: translateZ(34px);
+    }
+
+    .iso-float-card.card-bottom-right {
+      bottom: 22px;
+      right: -40px;
+      transform: translateZ(64px);
     }
 
     .iso-float-card:hover {
@@ -582,23 +578,25 @@
       line-height: 1.65;
     }
 
-    /* SECTION 1: COMPANY PRODUCTS (APPS) & INTERACTIVE 3D PHONE SIMULATOR */
+    /* =========================================================================
+       SECTION 1: STREAKIO SHOWCASE & REALISTIC 3D SMARTPHONE HARDWARE MODEL
+       ========================================================================= */
     .device-showcase-grid {
       display: grid;
-      grid-template-columns: 360px minmax(0, 1fr);
-      gap: 32px;
-      align-items: start;
+      grid-template-columns: 380px minmax(0, 1fr);
+      gap: 36px;
+      align-items: center;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      padding: 28px;
+      border-radius: 26px;
+      padding: 32px;
       box-shadow: var(--shadow-card);
     }
 
     .phone-3d-viewport {
-      perspective: 1400px;
+      perspective: 1500px;
       width: 100%;
-      min-height: 570px;
+      min-height: 620px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -607,49 +605,136 @@
       user-select: none;
     }
 
+    /* Realistic 3D Smartphone Hardware Rig */
     .phone-3d-rig {
-      width: 284px;
-      height: 520px;
+      width: 288px;
+      height: 576px;
       flex-shrink: 0;
       position: relative;
       transform-style: preserve-3d;
-      transform: rotateX(6deg) rotateY(-14deg) rotateZ(1deg);
-      transition: transform 0.2s ease-out;
+      transform: rotateX(5deg) rotateY(-14deg) rotateZ(0.5deg);
+      transition: transform 0.22s ease-out;
     }
 
+    /* Metallic 3D Depth Band / Side Rails */
+    .phone-backplate {
+      position: absolute;
+      inset: 0;
+      border-radius: 44px;
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      transform: translateZ(-12px);
+      box-shadow: -20px 28px 48px rgba(0, 0, 0, 0.65);
+      border: 2px solid #475569;
+    }
+
+    .phone-rail-right {
+      position: absolute;
+      top: 38px;
+      bottom: 38px;
+      right: -7px;
+      width: 14px;
+      background: linear-gradient(to bottom, #334155, #64748b, #1e293b, #475569);
+      transform: rotateY(90deg) translateZ(1px);
+      border-radius: 3px;
+    }
+
+    .phone-rail-left {
+      position: absolute;
+      top: 38px;
+      bottom: 38px;
+      left: -7px;
+      width: 14px;
+      background: linear-gradient(to bottom, #1e293b, #475569, #0f172a);
+      transform: rotateY(-90deg) translateZ(1px);
+      border-radius: 3px;
+    }
+
+    /* Physical Hardware Volume & Power Buttons on Frame */
+    .hw-btn-vol-up {
+      position: absolute;
+      right: -5px;
+      top: 118px;
+      width: 4px;
+      height: 42px;
+      border-radius: 2px 4px 4px 2px;
+      background: linear-gradient(to bottom, #94a3b8, #475569);
+      transform: translateZ(-4px);
+      box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+    }
+
+    .hw-btn-vol-down {
+      position: absolute;
+      right: -5px;
+      top: 168px;
+      width: 4px;
+      height: 42px;
+      border-radius: 2px 4px 4px 2px;
+      background: linear-gradient(to bottom, #94a3b8, #475569);
+      transform: translateZ(-4px);
+      box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+    }
+
+    .hw-btn-power {
+      position: absolute;
+      right: -5px;
+      top: 232px;
+      width: 4px;
+      height: 56px;
+      border-radius: 2px 4px 4px 2px;
+      background: linear-gradient(to bottom, #38bdf8, #475569);
+      transform: translateZ(-4px);
+      box-shadow: 1px 0 4px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Main Smartphone Outer Titanium Frame + Inner Bezel */
     .phone-chassis {
       position: absolute;
       inset: 0;
-      border-radius: 38px;
-      background: var(--phone-body);
-      border: 4px solid var(--phone-bezel);
+      border-radius: 44px;
+      padding: 10px;
+      background: linear-gradient(145deg, #334155 0%, #0f172a 45%, #1e293b 100%);
       box-shadow:
-        -12px 18px 38px rgba(0, 0, 0, 0.5),
-        0 0 24px rgba(56, 189, 248, 0.14);
+        inset 0 0 0 1.5px rgba(255, 255, 255, 0.22),
+        inset 0 0 8px rgba(0, 0, 0, 0.85),
+        0 0 28px rgba(56, 189, 248, 0.12);
       transform: translateZ(0px);
-      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
 
-    .phone-edge-right {
-      position: absolute;
-      top: 24px;
-      bottom: 24px;
-      right: -8px;
-      width: 14px;
-      background: linear-gradient(to bottom, #1e293b, #0f172a, #1e293b);
-      transform: rotateY(90deg) translateZ(2px);
-      border-radius: 4px;
+    .phone-inner-display {
+      flex: 1;
+      border-radius: 35px;
+      background: #080c14;
+      border: 1.5px solid #020617;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
 
+    /* Subtle Earpiece Speaker Slit on Top Bezel */
+    .phone-earpiece {
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 46px;
+      height: 3px;
+      border-radius: 999px;
+      background: #020617;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.12);
+      z-index: 5;
+    }
+
+    /* Exploded 3D Architecture Layers */
     .holo-layer {
       position: absolute;
       inset: 12px;
-      border-radius: 28px;
+      border-radius: 34px;
       pointer-events: none;
-      border: 1px dashed rgba(56, 189, 248, 0.45);
-      background: rgba(56, 189, 248, 0.03);
+      border: 1px dashed rgba(56, 189, 248, 0.48);
+      background: rgba(56, 189, 248, 0.04);
       transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
       opacity: 0;
       display: flex;
@@ -667,97 +752,157 @@
     }
 
     .phone-3d-rig.exploded .holo-layer.layer-2 {
-      transform: translateZ(80px);
+      transform: translateZ(82px);
       opacity: 1;
-      border-color: rgba(139, 92, 246, 0.45);
+      border-color: rgba(139, 92, 246, 0.5);
       color: var(--accent-violet);
     }
 
+    /* Realistic Android Status Bar + Punch-Hole Camera */
     .phone-statusbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 11px 16px 7px;
-      font-size: 0.68rem;
+      padding: 10px 16px 6px;
+      font-size: 0.66rem;
       font-family: var(--font-mono);
-      color: #cbd5e1;
-      background: rgba(15, 23, 42, 0.94);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      background: #090e1a;
       flex-shrink: 0;
+      position: relative;
+      z-index: 4;
     }
 
-    .phone-notch {
-      width: 68px;
-      height: 16px;
-      flex-shrink: 0;
-      background: #020617;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 7px;
-    }
-
-    .phone-camera-dot {
-      width: 6px;
-      height: 6px;
-      flex-shrink: 0;
+    .punch-hole-cam {
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
-      background: #38bdf8;
+      background: radial-gradient(circle at 35% 35%, #1e293b 0%, #020617 70%);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      position: relative;
     }
 
+    .punch-hole-cam::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.7);
+    }
+
+    /* StreakIO App Screen Body */
     .phone-screen-body {
       flex: 1;
-      padding: 14px;
-      background: linear-gradient(180deg, #0b1120 0%, #070b14 100%);
+      padding: 10px 12px;
+      background: #090e1a;
       color: #f8fafc;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
       overflow-y: auto;
+      position: relative;
+    }
+
+    .streakio-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 2px 4px;
+    }
+
+    .streakio-logo-title {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.94rem;
+      color: #f8fafc;
+    }
+
+    .streakio-flame-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+
+    /* Calendar Date Strip inside StreakIO */
+    .streakio-week-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      background: rgba(30, 41, 59, 0.55);
+      padding: 7px 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .week-day-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 4px 2px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: #94a3b8;
+    }
+
+    .week-day-pill.done {
+      color: #e2e8f0;
+    }
+
+    .week-day-pill.done .day-num {
+      background: rgba(16, 185, 129, 0.22);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+
+    .week-day-pill.today {
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #060913;
+      font-weight: 700;
+    }
+
+    .week-day-pill .day-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 700;
     }
 
     .app-sim-view {
       display: none;
       flex-direction: column;
-      gap: 10px;
-      height: 100%;
+      gap: 8px;
+      flex: 1;
     }
 
     .app-sim-view.active {
       display: flex;
     }
 
-    .sim-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .sim-title {
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .sim-tag {
-      font-size: 0.62rem;
-      font-family: var(--font-mono);
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.18);
-      color: #34d399;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
     .sim-card {
-      background: rgba(30, 41, 59, 0.68);
+      background: rgba(30, 41, 59, 0.62);
       border: 1px solid rgba(148, 163, 184, 0.14);
-      border-radius: 13px;
-      padding: 10px 12px;
+      border-radius: 14px;
+      padding: 10px 11px;
       flex-shrink: 0;
     }
 
@@ -766,13 +911,13 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      padding: 7px 9px;
-      border-radius: 9px;
-      background: rgba(15, 23, 42, 0.78);
+      padding: 8px 9px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.85);
       margin-bottom: 6px;
       cursor: pointer;
-      border: 1px solid transparent;
-      transition: border-color 0.2s ease;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      transition: all 0.2s ease;
     }
 
     .habit-row:last-child {
@@ -787,16 +932,16 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       font-weight: 500;
     }
 
     .habit-streak {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: #fbbf24;
       font-weight: 600;
       white-space: nowrap;
@@ -808,6 +953,74 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+    }
+
+    /* Bottom Navigation Bar inside StreakIO Smartphone Screen */
+    .phone-bottom-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 6px 8px 4px;
+      background: #0b1120;
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      flex-shrink: 0;
+    }
+
+    .p-nav-item {
+      border: none;
+      background: transparent;
+      color: #64748b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.58rem;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      cursor: pointer;
+      padding: 3px 0;
+      transition: color 0.15s ease;
+    }
+
+    .p-nav-item.active {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    .phone-gesture-bar {
+      height: 14px;
+      background: #0b1120;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .phone-gesture-pill {
+      width: 96px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(203, 213, 225, 0.38);
+    }
+
+    /* Custom Screenshot Overlay inside Phone */
+    .custom-screenshot-view {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: #080c14;
+      z-index: 3;
+      flex-direction: column;
+    }
+
+    .custom-screenshot-view.active {
+      display: flex;
+    }
+
+    .custom-screenshot-view img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .mini-btn {
@@ -833,75 +1046,76 @@
       background: rgba(56, 189, 248, 0.22);
     }
 
-    .sim-canvas-box {
-      width: 100%;
-      height: 106px;
-      margin-top: 8px;
-      background: #060b16;
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .sim-canvas-box canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
     .phone-rig-toolbar {
       display: flex;
       gap: 7px;
-      margin-top: 14px;
+      margin-top: 16px;
       flex-wrap: wrap;
       justify-content: center;
     }
 
-    /* Right Column: Company App Cards */
-    .project-tabs {
+    /* Right Column: Dedicated StreakIO Product Showcase */
+    .streakio-showcase-panel {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 18px;
     }
 
-    .project-tab-card {
-      padding: 20px 22px;
-      border-radius: 18px;
+    .streakio-main-card {
+      padding: 24px;
+      border-radius: 20px;
+      background: var(--bg-card-strong);
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .streakio-screen-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .screen-switch-card {
+      padding: 14px 16px;
+      border-radius: 15px;
       background: var(--bg-glass);
       border: 1px solid var(--border-subtle);
       cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      text-align: left;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .project-tab-card.active,
-    .project-tab-card:hover {
+    .screen-switch-card.active,
+    .screen-switch-card:hover {
       background: var(--bg-card-strong);
       border-color: var(--accent-cyan);
-      transform: translateX(3px);
+      transform: translateY(-2px);
     }
 
-    .project-tab-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-
-    .project-tab-top h3 {
-      font-size: 1.08rem;
+    .screen-switch-card .sc-title {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
       font-weight: 700;
-      display: inline-flex;
+      color: var(--text-primary);
+      display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+    }
+
+    .screen-switch-card .sc-desc {
+      font-size: 0.77rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
     }
 
     .tech-pills {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 11px;
+      margin-top: 14px;
     }
 
     .tech-pill {
@@ -916,33 +1130,14 @@
       flex-shrink: 0;
     }
 
-    .project-links {
-      margin-top: 12px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .project-links a {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent-cyan);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .project-links a:hover {
-      text-decoration: underline;
-    }
-
-    /* SECTION 2: MINIMAL 3D ILLUSTRATED SERVICES GRID */
+    /* =========================================================================
+       SECTION 2: CONSISTENT, PURE APP & WEB DEVELOPMENT SERVICES
+       ========================================================================= */
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
-      align-items: start;
+      align-items: stretch;
       perspective: 1200px;
     }
 
@@ -951,11 +1146,14 @@
       border-radius: 20px;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      padding: 24px;
+      padding: 26px;
       box-shadow: var(--shadow-card);
       transform-style: preserve-3d;
       transition: transform 0.15s ease-out, border-color 0.25s ease;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .tilt-card:hover {
@@ -965,7 +1163,7 @@
     .tilt-glare {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.1), transparent 60%);
+      background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.09), transparent 60%);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
@@ -975,7 +1173,6 @@
       opacity: 1;
     }
 
-    /* Minimal 3D Isometric Mini-Illustration inside each Service Card */
     .service-3d-illus {
       display: flex;
       align-items: center;
@@ -1020,21 +1217,21 @@
 
     .tilt-card p {
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.89rem;
       line-height: 1.62;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       transform: translateZ(10px);
     }
 
     .feature-checklist {
       list-style: none;
       display: grid;
-      gap: 7px;
+      gap: 8px;
       transform: translateZ(12px);
     }
 
     .feature-checklist li {
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: var(--text-primary);
       display: flex;
       align-items: center;
@@ -1045,10 +1242,41 @@
       color: var(--accent-cyan);
     }
 
-    /* SECTION 3: INTERACTIVE FEATURE-BASED PRICE CALCULATOR & NEGOTIATION */
+    .categories-strip {
+      margin-top: 22px;
+      padding: 18px 22px;
+      border-radius: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cat-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cat-badge {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+
+    /* =========================================================================
+       SECTION 3: SIMPLE, BUDGET-FRIENDLY PRICE CALCULATOR (ANDROID & WEBSITES)
+       ========================================================================= */
     .configurator-box {
       display: grid;
-      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
       gap: 28px;
       align-items: start;
       background: var(--bg-card);
@@ -1108,7 +1336,39 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--accent-cyan);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
+    }
+
+    .step-helper {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .preset-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .preset-btn {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
     }
 
     .option-chips {
@@ -1119,44 +1379,59 @@
 
     .opt-chip {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 11px 13px;
-      border-radius: 12px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 5px;
+      padding: 13px 14px;
+      border-radius: 14px;
       border: 1px solid var(--border-subtle);
       background: var(--bg-glass);
       color: var(--text-primary);
-      font-size: 0.82rem;
-      font-weight: 500;
       cursor: pointer;
       text-align: left;
       transition: all 0.2s ease;
+    }
+
+    .opt-chip-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
     }
 
     .opt-chip .chip-left {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
       min-width: 0;
     }
 
     .opt-chip .chip-price {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
       flex-shrink: 0;
+    }
+
+    .opt-chip .chip-sub {
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      padding-left: 23px;
     }
 
     .opt-chip.selected {
       background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(99, 102, 241, 0.16));
       border-color: var(--accent-cyan);
-      color: var(--text-primary);
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.1);
     }
 
     .opt-chip.selected .chip-price {
       color: var(--accent-cyan);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     /* Right Output: Live Price Breakdown & 3D Isometric Feature Stack */
@@ -1167,14 +1442,14 @@
       padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 14px;
       position: sticky;
       top: 92px;
     }
 
     .bp-canvas-wrap {
       width: 100%;
-      height: 156px;
+      height: 146px;
       border-radius: 14px;
       background: rgba(9, 13, 22, 0.45);
       border: 1px solid var(--border-subtle);
@@ -1206,7 +1481,7 @@
 
     .price-banner .total-lbl {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       color: var(--text-secondary);
     }
 
@@ -1222,7 +1497,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      max-height: 145px;
+      max-height: 150px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -1231,7 +1506,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
       font-family: var(--font-mono);
     }
@@ -1261,7 +1536,7 @@
     }
 
     .bp-stat .v {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-family: var(--font-heading);
       font-weight: 700;
       color: var(--accent-cyan);
@@ -1311,7 +1586,7 @@
     }
 
     .form-field label {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-family: var(--font-mono);
       color: var(--text-secondary);
     }
@@ -1420,7 +1695,8 @@
 
     @media (max-width: 640px) {
       .hero-metrics,
-      .option-chips {
+      .option-chips,
+      .streakio-screen-grid {
         grid-template-columns: 1fr;
       }
       .iso-float-card.card-top-left,
@@ -1443,11 +1719,11 @@
       <span>easode</span>
       <span class="brand-badge">
         <i data-icon="code" class="icon-sm"></i>
-        <span>APP DEVELOPMENT</span>
+        <span>APP &amp; WEB STUDIO</span>
       </span>
     </a>
     <ul class="nav-links">
-      <li><a href="#products">Our Apps</a></li>
+      <li><a href="#products">StreakIO App</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#configurator">Price Calculator</a></li>
       <li><a href="#studio">Contact</a></li>
@@ -1457,34 +1733,36 @@
         <i data-icon="sun" id="theme-icon"></i>
       </button>
       <a href="#configurator" class="btn-primary">
-        <span>Calculate App Price</span>
+        <span>Estimate Your Project</span>
         <i data-icon="arrow-right" class="icon-sm"></i>
       </a>
     </div>
   </header>
 
   <main id="top">
-    <!-- HERO SECTION -->
+    <!-- =========================================================================
+         1. TITLE / HERO SECTION — Accurate Client-Focused 3D Isometric Showcase
+         ========================================================================= -->
     <section class="hero">
       <div class="hero-copy">
         <div class="eyebrow">
           <span class="pulse-dot"></span>
-          <span>EASODE • APP DEVELOPMENT COMPANY</span>
+          <span>EASODE • APP &amp; WEBSITE DEVELOPMENT COMPANY</span>
         </div>
         <h1>
-          We Build Reliable <span class="gradient-text">Mobile &amp; Cloud Apps</span> Tailored to Your Vision.
+          Custom <span class="gradient-text">Android Apps &amp; Websites</span> Built Around Your Idea.
         </h1>
         <p class="lead">
-          <strong>Easode</strong> is an app development company founded by <strong>Sudam Gaware</strong>. We build consumer and business applications—like our flagship <strong>StreakIO</strong> app on Google Play—and provide end-to-end custom app development services with transparent, feature-based pricing.
+          <strong>Easode</strong> is an app and web development company founded by <strong>Sudam Gaware</strong>. Explore our published Google Play app <strong>StreakIO</strong>, or partner with us to build your custom Android application or responsive website with transparent, feature-based pricing.
         </p>
         <div class="hero-cta-group">
-          <a href="#products" class="btn-primary">
-            <i data-icon="smartphone" class="icon-sm"></i>
-            <span>Explore Our Apps</span>
-          </a>
-          <a href="#configurator" class="btn-secondary">
+          <a href="#configurator" class="btn-primary">
             <i data-icon="sliders" class="icon-sm"></i>
-            <span>App Price Calculator</span>
+            <span>Calculate Project Price</span>
+          </a>
+          <a href="#products" class="btn-secondary">
+            <i data-icon="smartphone" class="icon-sm"></i>
+            <span>See StreakIO App</span>
           </a>
           <button type="button" class="btn-negotiate" onclick="openNegotiationModal()">
             <i data-icon="message-square" class="icon-sm"></i>
@@ -1495,560 +1773,692 @@
           <div class="metric-pill">
             <span class="val">
               <i data-icon="smartphone" class="icon-md"></i>
-              <span>Native Apps</span>
+              <span>Android Apps</span>
             </span>
-            <span class="lbl">Kotlin &amp; Jetpack Compose</span>
+            <span class="lbl">Native Kotlin &amp; Compose</span>
           </div>
           <div class="metric-pill">
             <span class="val">
-              <i data-icon="shield" class="icon-md"></i>
-              <span>Offline + Cloud</span>
+              <i data-icon="globe" class="icon-md"></i>
+              <span>Websites</span>
             </span>
-            <span class="lbl">Local DB &amp; Firebase Sync</span>
+            <span class="lbl">Fast, Minimal &amp; Responsive</span>
           </div>
           <div class="metric-pill">
             <span class="val">
               <i data-icon="tag" class="icon-md"></i>
-              <span>Pay Per Feature</span>
+              <span>Budget Friendly</span>
             </span>
-            <span class="lbl">Transparent &amp; Negotiable</span>
+            <span class="lbl">Pay Only For Needed Features</span>
           </div>
         </div>
       </div>
 
-      <!-- MINIMAL INTERACTIVE 3D ISOMETRIC APP ILLUSTRATION (Replaces old sphere/holo-phone/lattice) -->
+      <!-- RIGHT HERO: 3D ISOMETRIC SHOWCASE WITH ACCURATE PER-TAB FLOATING CARDS -->
       <div class="hero-iso-scene" id="hero-stage-container">
         <div class="iso-top-bar">
-          <div class="iso-tabs" role="tablist" aria-label="App Illustration Preview">
-            <button type="button" class="iso-tab-btn active" data-preview="streakio" onclick="switchHeroAppCard('streakio', this)">StreakIO App</button>
-            <button type="button" class="iso-tab-btn" data-preview="iot" onclick="switchHeroAppCard('iot', this)">IoT Cloud App</button>
-            <button type="button" class="iso-tab-btn" data-preview="custom" onclick="switchHeroAppCard('custom', this)">Custom Client App</button>
+          <div class="iso-tabs" role="tablist" aria-label="Easode Core Offerings">
+            <button type="button" class="iso-tab-btn active" data-preview="android" onclick="switchHeroAppCard('android', this)">Native Android Apps</button>
+            <button type="button" class="iso-tab-btn" data-preview="websites" onclick="switchHeroAppCard('websites', this)">Modern Websites</button>
+            <button type="button" class="iso-tab-btn" data-preview="streakio" onclick="switchHeroAppCard('streakio', this)">StreakIO (Our App)</button>
           </div>
-          <span class="brand-badge" id="stage-telemetry">3D ISOMETRIC VIEW</span>
+          <span class="brand-badge" id="stage-telemetry">CLIENT SERVICE</span>
         </div>
 
         <div class="iso-stage-center" id="iso-stage-center">
           <div class="iso-illustration-rig" id="iso-illustration-rig">
-            <!-- Base 3D Isometric App Screen Slab -->
+            <!-- Base 3D Isometric Slab -->
             <div class="iso-slab-base" id="iso-slab-content">
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-family:var(--font-mono);font-size:0.68rem;color:#38bdf8;" id="iso-card-tag">GOOGLE PLAY PRODUCT</span>
+                <span style="font-family:var(--font-mono);font-size:0.67rem;color:#38bdf8;" id="iso-card-tag">CUSTOM ANDROID DEVELOPMENT</span>
                 <span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span>
               </div>
 
-              <div style="my:auto;">
-                <div style="font-family:var(--font-heading);font-size:1.22rem;font-weight:700;margin-bottom:4px;" id="iso-card-title">StreakIO Habit &amp; Steps</div>
-                <div style="font-size:0.75rem;color:#94a3b8;line-height:1.45;" id="iso-card-sub">Offline-first habit streaks, active-hour step counter &amp; instant PDF/CSV reports.</div>
+              <div>
+                <div style="font-family:var(--font-heading);font-size:1.2rem;font-weight:700;margin-bottom:4px;" id="iso-card-title">Client Android Applications</div>
+                <div style="font-size:0.75rem;color:#94a3b8;line-height:1.45;" id="iso-card-sub">Built from scratch in Kotlin &amp; Jetpack Compose for startups, businesses, and creators.</div>
               </div>
 
-              <!-- Mini 3D Isometric Progress Bars -->
-              <div style="display:grid;gap:8px;background:rgba(15,23,42,0.75);padding:11px;border-radius:14px;border:1px solid rgba(148,163,184,0.15);">
-                <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.68rem;">
-                  <span id="iso-metric-label">DAILY STEP GOAL</span>
-                  <span style="color:#38bdf8;" id="iso-metric-val">7,840 / 10k</span>
+              <!-- Metric Bar inside Slab -->
+              <div style="display:grid;gap:7px;background:rgba(15,23,42,0.78);padding:11px;border-radius:14px;border:1px solid rgba(148,163,184,0.15);">
+                <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.67rem;">
+                  <span id="iso-metric-label">NATIVE UI PERFORMANCE</span>
+                  <span style="color:#38bdf8;" id="iso-metric-val">60 FPS Smooth</span>
                 </div>
                 <div style="height:6px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden;">
-                  <div id="iso-metric-bar" style="width:78%;height:100%;background:linear-gradient(90deg,#38bdf8,#6366f1);border-radius:999px;transition:width 0.3s ease;"></div>
+                  <div id="iso-metric-bar" style="width:96%;height:100%;background:linear-gradient(90deg,#38bdf8,#6366f1);border-radius:999px;transition:width 0.3s ease;"></div>
                 </div>
               </div>
 
-              <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.66rem;color:#94a3b8;">
-                <span>Kotlin • Jetpack Compose</span>
-                <span style="color:#34d399;">v2.4 Shipped</span>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.65rem;color:#94a3b8;">
+                <span id="iso-footer-left">Kotlin • Material 3 • Room/Cloud</span>
+                <span style="color:#34d399;" id="iso-footer-right">Play Store Ready</span>
               </div>
             </div>
 
-            <!-- Floating 3D Layer 1 -->
+            <!-- Floating 3D Card 1 (Dynamically updates label + value per tab) -->
             <div class="iso-float-card card-top-left" onclick="pulseIsoCard(this)">
-              <div style="font-family:var(--font-mono);font-size:0.64rem;color:var(--text-secondary);">ACTIVE STREAK</div>
-              <div style="font-family:var(--font-heading);font-size:0.95rem;font-weight:700;color:var(--accent-amber);display:flex;align-items:center;gap:5px;">
-                <i data-icon="flame" class="icon-sm"></i>
-                <span id="iso-float-1">42 Days</span>
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-secondary);" id="iso-float-1-lbl">TECH STACK</div>
+              <div style="font-family:var(--font-heading);font-size:0.9rem;font-weight:700;color:var(--accent-amber);display:flex;align-items:center;gap:5px;">
+                <i data-icon="sparkles" class="icon-sm"></i>
+                <span id="iso-float-1">Kotlin &amp; Compose</span>
               </div>
             </div>
 
-            <!-- Floating 3D Layer 2 -->
+            <!-- Floating 3D Card 2 (Dynamically updates label + value per tab) -->
             <div class="iso-float-card card-top-right" onclick="pulseIsoCard(this)">
-              <div style="font-family:var(--font-mono);font-size:0.64rem;color:var(--text-secondary);">ARCHITECTURE</div>
-              <div style="font-family:var(--font-heading);font-size:0.86rem;font-weight:700;color:var(--accent-cyan);" id="iso-float-2">Offline + Cloud</div>
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-secondary);" id="iso-float-2-lbl">DATA MODE</div>
+              <div style="font-family:var(--font-heading);font-size:0.86rem;font-weight:700;color:var(--accent-cyan);" id="iso-float-2">Offline or Cloud</div>
             </div>
 
-            <!-- Floating 3D Layer 3 -->
+            <!-- Floating 3D Card 3 (Dynamically updates label + value per tab) -->
             <div class="iso-float-card card-bottom-right" onclick="pulseIsoCard(this)">
-              <div style="font-family:var(--font-mono);font-size:0.64rem;color:var(--text-secondary);">CLIENT DELIVERY</div>
-              <div style="font-family:var(--font-heading);font-size:0.88rem;font-weight:700;color:var(--accent-emerald);display:flex;align-items:center;gap:5px;">
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-secondary);" id="iso-float-3-lbl">DELIVERY</div>
+              <div style="font-family:var(--font-heading);font-size:0.86rem;font-weight:700;color:var(--accent-emerald);display:flex;align-items:center;gap:5px;">
                 <i data-icon="check-circle" class="icon-sm"></i>
-                <span id="iso-float-3">Play Store Ready</span>
+                <span id="iso-float-3">Full Source Code</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="iso-bottom-bar">
-          <span>Move cursor to tilt 3D illustration</span>
-          <a href="#products" style="color:var(--accent-cyan);text-decoration:none;font-weight:600;">Try Interactive App Demo ↓</a>
+          <a href="#configurator" style="color:var(--accent-cyan);text-decoration:none;font-weight:600;">Configure Your App or Website →</a>
+          <a href="#products" style="color:var(--text-secondary);text-decoration:none;">Preview StreakIO ↓</a>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 1: COMPANY PRODUCTS (APPS) & INTERACTIVE 3D DEVICE SIMULATOR -->
+    <!-- =========================================================================
+         2. EXPLORE THE APP BUILT BY EASODE — Dedicated to StreakIO + Realistic Phone
+         ========================================================================= -->
     <section class="section" id="products">
       <div class="section-header">
         <div class="eyebrow">
-          <i data-icon="smartphone" class="icon-sm"></i>
-          <span>OUR APPS &amp; LIVE SIMULATOR</span>
+          <i data-icon="flame" class="icon-sm"></i>
+          <span>OUR PUBLISHED FLAGSHIP APP</span>
         </div>
-        <h2>Explore the Apps Built by <span class="gradient-text">Easode</span></h2>
+        <h2>Explore <span class="gradient-text">StreakIO</span> — Built &amp; Shipped by Easode</h2>
         <p>
-          Test our shipped mobile and cloud applications right inside the interactive 3D phone preview, or click any product card to switch apps.
+          <strong>StreakIO: Habit &amp; Step Tracker</strong> is our official in-house Android application live on Google Play. Interact with its screens inside the 3D smartphone below to see the quality we bring to every client project.
         </p>
       </div>
 
       <div class="device-showcase-grid">
-        <!-- Left: 3D Phone Viewport -->
+        <!-- Left: Realistic 3D Smartphone Hardware Rig -->
         <div class="phone-3d-viewport" id="phone-viewport">
           <div class="phone-3d-rig" id="phone-rig">
-            <div class="phone-edge-right"></div>
+            <div class="phone-backplate"></div>
+            <div class="phone-rail-right"></div>
+            <div class="phone-rail-left"></div>
+            <div class="hw-btn-vol-up"></div>
+            <div class="hw-btn-vol-down"></div>
+            <div class="hw-btn-power"></div>
+
             <div class="holo-layer layer-1">LAYER 01 // JETPACK COMPOSE UI</div>
-            <div class="holo-layer layer-2">LAYER 02 // LOCAL DB &amp; CLOUD SYNC</div>
+            <div class="holo-layer layer-2">LAYER 02 // OFFLINE ROOM DB &amp; SENSORS</div>
 
             <div class="phone-chassis">
-              <div class="phone-statusbar">
-                <span>9:41</span>
-                <div class="phone-notch"><div class="phone-camera-dot"></div></div>
-                <span>5G • 100%</span>
-              </div>
+              <div class="phone-earpiece"></div>
 
-              <!-- Screen Content: 3 Interactive App Product Simulations -->
-              <div class="phone-screen-body">
-                <!-- App 1: StreakIO -->
-                <div class="app-sim-view active" id="sim-streakio">
-                  <div class="sim-header">
-                    <div>
-                      <div class="sim-title">StreakIO: Habit Tracker</div>
-                      <div style="font-size:0.66rem;color:#94a3b8;">com.sudam.streakio • Offline-First</div>
+              <div class="phone-inner-display">
+                <!-- Realistic Status Bar with Centered Punch-Hole Camera -->
+                <div class="phone-statusbar">
+                  <span>9:41</span>
+                  <div class="punch-hole-cam" title="Front Camera"></div>
+                  <span>5G • 94%</span>
+                </div>
+
+                <!-- StreakIO App Body -->
+                <div class="phone-screen-body">
+                  <!-- StreakIO Header -->
+                  <div class="streakio-top-bar">
+                    <div class="streakio-logo-title">
+                      <i data-icon="flame" class="icon-sm" style="color:#f59e0b;"></i>
+                      <span>StreakIO</span>
                     </div>
-                    <span class="sim-tag">GOOGLE PLAY</span>
+                    <span class="streakio-flame-badge">
+                      <i data-icon="flame" class="icon-sm"></i>
+                      <span id="top-total-streak">42 Day Streak</span>
+                    </span>
                   </div>
 
-                  <div class="sim-card">
-                    <div style="font-size:0.65rem;color:#94a3b8;margin-bottom:5px;font-family:var(--font-mono);">STEP COUNTER (ACTIVE HOURS)</div>
-                    <div class="step-ring-box">
-                      <div>
-                        <div style="font-size:1.25rem;font-weight:700;font-family:var(--font-heading);color:#38bdf8;" id="sim-step-count">7,840</div>
-                        <div style="font-size:0.66rem;color:#94a3b8;">Daily Goal: 10,000 steps</div>
+                  <!-- 7-Day Streak Strip -->
+                  <div class="streakio-week-strip">
+                    <div class="week-day-pill done"><span>M</span><span class="day-num">12</span></div>
+                    <div class="week-day-pill done"><span>T</span><span class="day-num">13</span></div>
+                    <div class="week-day-pill done"><span>W</span><span class="day-num">14</span></div>
+                    <div class="week-day-pill done"><span>T</span><span class="day-num">15</span></div>
+                    <div class="week-day-pill done"><span>F</span><span class="day-num">16</span></div>
+                    <div class="week-day-pill today"><span>S</span><span class="day-num">17</span></div>
+                    <div class="week-day-pill"><span>S</span><span class="day-num">18</span></div>
+                  </div>
+
+                  <!-- Screen 1: Today's Habits & Streaks -->
+                  <div class="app-sim-view active" id="sim-habits">
+                    <div class="sim-card">
+                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+                        <span style="font-size:0.65rem;color:#94a3b8;font-family:var(--font-mono);">TODAY'S HABITS (TAP TO CHECK OFF)</span>
+                        <span style="font-size:0.65rem;color:#34d399;font-family:var(--font-mono);">3 / 3 Done</span>
                       </div>
-                      <button type="button" class="mini-btn" onclick="simulateSteps()">
-                        <i data-icon="plus" class="icon-sm"></i>
-                        <span>250 Steps</span>
-                      </button>
+                      <div class="habit-row" onclick="bumpStreak(this, 'streak-1')">
+                        <span class="habit-name">
+                          <i data-icon="check-circle" class="icon-sm" style="color:#38bdf8;"></i>
+                          <span>Morning 5K Walk</span>
+                        </span>
+                        <span class="habit-streak" id="streak-1">
+                          <i data-icon="flame" class="icon-sm"></i>
+                          <span class="streak-val">42d</span>
+                        </span>
+                      </div>
+                      <div class="habit-row" onclick="bumpStreak(this, 'streak-2')">
+                        <span class="habit-name">
+                          <i data-icon="check-circle" class="icon-sm" style="color:#a855f7;"></i>
+                          <span>Read 20 Pages</span>
+                        </span>
+                        <span class="habit-streak" id="streak-2">
+                          <i data-icon="flame" class="icon-sm"></i>
+                          <span class="streak-val">29d</span>
+                        </span>
+                      </div>
+                      <div class="habit-row" onclick="bumpStreak(this, 'streak-3')">
+                        <span class="habit-name">
+                          <i data-icon="check-circle" class="icon-sm" style="color:#10b981;"></i>
+                          <span>Hydration (3L Water)</span>
+                        </span>
+                        <span class="habit-streak" id="streak-3">
+                          <i data-icon="flame" class="icon-sm"></i>
+                          <span class="streak-val">18d</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="sim-card">
+                      <div style="font-size:0.64rem;color:#94a3b8;margin-bottom:4px;font-family:var(--font-mono);">QUICK STEP SUMMARY</div>
+                      <div class="step-ring-box">
+                        <div>
+                          <div style="font-size:1.15rem;font-weight:700;font-family:var(--font-heading);color:#38bdf8;" id="sim-step-count">7,840</div>
+                          <div style="font-size:0.64rem;color:#94a3b8;">Goal: 10,000 • 5.9 km • 312 kcal</div>
+                        </div>
+                        <button type="button" class="mini-btn" onclick="simulateSteps()">
+                          <i data-icon="plus" class="icon-sm"></i>
+                          <span>+250 Steps</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="sim-card">
-                    <div style="font-size:0.65rem;color:#94a3b8;margin-bottom:7px;font-family:var(--font-mono);">TAP HABIT TO LOG STREAK</div>
-                    <div class="habit-row" onclick="bumpStreak(this, 'streak-1')">
-                      <span class="habit-name">
-                        <i data-icon="check-circle" class="icon-sm" style="color:#38bdf8;"></i>
-                        <span>Morning 5K Walk &amp; Steps</span>
-                      </span>
-                      <span class="habit-streak" id="streak-1">
-                        <i data-icon="flame" class="icon-sm"></i>
-                        <span class="streak-val">42d</span>
-                      </span>
+                  <!-- Screen 2: Active-Hours Step Counter -->
+                  <div class="app-sim-view" id="sim-steps">
+                    <div class="sim-card" style="text-align:center;padding:14px 12px;">
+                      <div style="font-size:0.64rem;color:#94a3b8;font-family:var(--font-mono);margin-bottom:6px;">ACTIVE-HOURS PEDOMETER (6 AM – 10 PM)</div>
+                      <div style="width:104px;height:104px;border-radius:50%;margin:4px auto 8px;border:7px solid rgba(56,189,248,0.22);border-top-color:#38bdf8;border-right-color:#10b981;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                        <span style="font-family:var(--font-heading);font-size:1.25rem;font-weight:700;color:#f8fafc;" id="sim-step-ring-val">7,840</span>
+                        <span style="font-size:0.6rem;color:#94a3b8;">78% of 10k</span>
+                      </div>
+                      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px;font-family:var(--font-mono);font-size:0.64rem;">
+                        <div style="background:rgba(15,23,42,0.8);padding:6px;border-radius:8px;">
+                          <div style="color:#94a3b8;">DIST</div>
+                          <div style="color:#38bdf8;font-weight:700;">5.9 km</div>
+                        </div>
+                        <div style="background:rgba(15,23,42,0.8);padding:6px;border-radius:8px;">
+                          <div style="color:#94a3b8;">KCAL</div>
+                          <div style="color:#fbbf24;font-weight:700;">312</div>
+                        </div>
+                        <div style="background:rgba(15,23,42,0.8);padding:6px;border-radius:8px;">
+                          <div style="color:#94a3b8;">TIME</div>
+                          <div style="color:#34d399;font-weight:700;">64m</div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="habit-row" onclick="bumpStreak(this, 'streak-2')">
-                      <span class="habit-name">
-                        <i data-icon="check-circle" class="icon-sm" style="color:#a855f7;"></i>
-                        <span>Deep Work &amp; Reading</span>
-                      </span>
-                      <span class="habit-streak" id="streak-2">
-                        <i data-icon="flame" class="icon-sm"></i>
-                        <span class="streak-val">29d</span>
-                      </span>
-                    </div>
-                    <div class="habit-row" onclick="bumpStreak(this, 'streak-3')">
-                      <span class="habit-name">
-                        <i data-icon="check-circle" class="icon-sm" style="color:#10b981;"></i>
-                        <span>Daily Habit Journal Entry</span>
-                      </span>
-                      <span class="habit-streak" id="streak-3">
-                        <i data-icon="flame" class="icon-sm"></i>
-                        <span class="streak-val">18d</span>
-                      </span>
+
+                    <div class="sim-card" style="display:flex;justify-content:space-between;align-items:center;">
+                      <span style="font-size:0.68rem;color:#cbd5e1;">Battery-Saver Sensor Mode</span>
+                      <span style="font-family:var(--font-mono);font-size:0.65rem;color:#34d399;">ACTIVE</span>
                     </div>
                   </div>
 
-                  <div class="sim-card" style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-                    <span style="font-size:0.68rem;color:#cbd5e1;">PDF / CSV / JSON Backup</span>
-                    <button type="button" class="mini-btn" onclick="triggerExportToast(this)">
-                      <i data-icon="download" class="icon-sm"></i>
-                      <span class="btn-lbl">Export PDF</span>
-                    </button>
+                  <!-- Screen 3: Analytics, Milestones & Heatmap -->
+                  <div class="app-sim-view" id="sim-stats">
+                    <div class="sim-card">
+                      <div style="font-size:0.64rem;color:#94a3b8;font-family:var(--font-mono);margin-bottom:6px;">CONSISTENCY &amp; MILESTONE BADGES</div>
+                      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+                        <div style="background:rgba(15,23,42,0.8);padding:9px;border-radius:10px;">
+                          <div style="font-size:0.62rem;color:#94a3b8;">COMPLETION RATE</div>
+                          <div style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:#34d399;">94.2%</div>
+                        </div>
+                        <div style="background:rgba(15,23,42,0.8);padding:9px;border-radius:10px;">
+                          <div style="font-size:0.62rem;color:#94a3b8;">BEST STREAK</div>
+                          <div style="font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:#fbbf24;">42 Days</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="sim-card">
+                      <div style="font-size:0.64rem;color:#94a3b8;font-family:var(--font-mono);margin-bottom:6px;">WEEKLY HABIT COMPLETION</div>
+                      <div style="display:flex;align-items:flex-end;justify-content:space-between;height:78px;padding:8px 6px 0;background:rgba(15,23,42,0.75);border-radius:10px;">
+                        <div style="width:10%;height:70%;background:#38bdf8;border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%;height:85%;background:#38bdf8;border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%;height:100%;background:#10b981;border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%;height:90%;background:#38bdf8;border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%;height:100%;background:#10b981;border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%;height:95%;background:#6366f1;border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%;height:80%;background:#8b5cf6;border-radius:4px 4px 0 0;"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Screen 4: Daily Journal & Offline Backup -->
+                  <div class="app-sim-view" id="sim-journal">
+                    <div class="sim-card">
+                      <div style="font-size:0.64rem;color:#94a3b8;font-family:var(--font-mono);margin-bottom:5px;">DAILY REFLECTION JOURNAL</div>
+                      <div style="font-size:0.72rem;color:#e2e8f0;background:rgba(15,23,42,0.82);padding:9px;border-radius:9px;line-height:1.45;">
+                        "Completed morning 5K walk and hit 7,840 steps before 5 PM. Staying consistent!"
+                      </div>
+                    </div>
+
+                    <div class="sim-card">
+                      <div style="font-size:0.64rem;color:#94a3b8;font-family:var(--font-mono);margin-bottom:7px;">100% OFFLINE DATA EXPORT</div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                        <span style="font-size:0.68rem;color:#cbd5e1;">PDF / CSV / JSON Backup</span>
+                        <button type="button" class="mini-btn" onclick="triggerExportToast(this)">
+                          <i data-icon="download" class="icon-sm"></i>
+                          <span class="btn-lbl">Export PDF</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Custom Uploaded Screenshot View (Allows user to preview exact screenshot image in 3D phone) -->
+                  <div class="custom-screenshot-view" id="custom-screenshot-view">
+                    <img id="custom-screenshot-img" alt="StreakIO Custom Screenshot Preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
                   </div>
                 </div>
 
-                <!-- App 2: Easode IoT Cloud & Smart Telemetry Companion -->
-                <div class="app-sim-view" id="sim-iot">
-                  <div class="sim-header">
-                    <div>
-                      <div class="sim-title">Easode IoT Cloud Monitor</div>
-                      <div style="font-size:0.66rem;color:#94a3b8;">Firebase Realtime DB Telemetry</div>
-                    </div>
-                    <span class="sim-tag">CLOUD APP</span>
-                  </div>
-
-                  <div class="sim-card">
-                    <div style="display:flex;justify-content:space-between;font-size:0.7rem;margin-bottom:6px;">
-                      <span>Setpoint: <strong id="pid-target-lbl" style="color:#38bdf8;">185°C</strong></span>
-                      <span>Live Sensor: <strong id="pid-pv-lbl" style="color:#34d399;">184.6°C</strong></span>
-                    </div>
-                    <input type="range" id="pid-setpoint-slider" min="80" max="280" value="185" style="width:100%;accent-color:#38bdf8;" oninput="updatePidSetpoint(this.value)" />
-                    <div class="sim-canvas-box">
-                      <canvas id="pid-mini-canvas"></canvas>
-                    </div>
-                  </div>
-
-                  <div class="sim-card" style="font-family:var(--font-mono);font-size:0.66rem;color:#94a3b8;display:grid;gap:5px;">
-                    <div>Sync Engine: <span style="color:#38bdf8;">Firebase Realtime DB</span></div>
-                    <div>Control Mode: Closed-Loop PID Telemetry</div>
-                    <div>Features: Threshold Alerts &amp; Cloud Logs</div>
-                  </div>
+                <!-- Authentic Bottom Navigation Bar -->
+                <div class="phone-bottom-nav">
+                  <button type="button" class="p-nav-item active" data-tab="habits" onclick="switchStreakioScreen('habits')">
+                    <i data-icon="check-circle" class="icon-sm"></i>
+                    <span>Habits</span>
+                  </button>
+                  <button type="button" class="p-nav-item" data-tab="steps" onclick="switchStreakioScreen('steps')">
+                    <i data-icon="compass" class="icon-sm"></i>
+                    <span>Steps</span>
+                  </button>
+                  <button type="button" class="p-nav-item" data-tab="stats" onclick="switchStreakioScreen('stats')">
+                    <i data-icon="bar-chart-2" class="icon-sm"></i>
+                    <span>Stats</span>
+                  </button>
+                  <button type="button" class="p-nav-item" data-tab="journal" onclick="switchStreakioScreen('journal')">
+                    <i data-icon="layers" class="icon-sm"></i>
+                    <span>Backup</span>
+                  </button>
                 </div>
 
-                <!-- App 3: Easode OrderFlow & Business Suite -->
-                <div class="app-sim-view" id="sim-uiengine">
-                  <div class="sim-header">
-                    <div>
-                      <div class="sim-title">Easode OrderFlow POS</div>
-                      <div style="font-size:0.66rem;color:#94a3b8;">Retail, Café &amp; Business App</div>
-                    </div>
-                    <span class="sim-tag">BUSINESS APP</span>
-                  </div>
-
-                  <div class="sim-card">
-                    <div style="font-size:0.65rem;color:#94a3b8;margin-bottom:6px;font-family:var(--font-mono);">LIVE REVENUE &amp; ORDER PULSE</div>
-                    <div class="sim-canvas-box">
-                      <canvas id="cafe-mini-canvas"></canvas>
-                    </div>
-                  </div>
-
-                  <div class="sim-card" style="font-size:0.7rem;color:#cbd5e1;display:grid;gap:6px;">
-                    <div style="display:flex;align-items:center;gap:6px;">
-                      <i data-icon="check" class="icon-sm" style="color:#38bdf8;"></i>
-                      <span>Instant Table &amp; Counter Order Sync</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:6px;">
-                      <i data-icon="check" class="icon-sm" style="color:#38bdf8;"></i>
-                      <span>Offline Billing + PDF Invoice Receipts</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:6px;">
-                      <i data-icon="check" class="icon-sm" style="color:#38bdf8;"></i>
-                      <span>Daily Sales Analytics &amp; Inventory Alerts</span>
-                    </div>
-                  </div>
+                <div class="phone-gesture-bar">
+                  <div class="phone-gesture-pill"></div>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="phone-rig-toolbar">
-            <button type="button" class="mini-btn" onclick="rotatePhonePreset(-14, 6)">
+            <button type="button" class="mini-btn" onclick="rotatePhonePreset(-14, 5)">
               <i data-icon="compass" class="icon-sm"></i>
-              <span>Iso View</span>
+              <span>3D Angle</span>
             </button>
             <button type="button" class="mini-btn" onclick="rotatePhonePreset(0, 0)">
               <i data-icon="smartphone" class="icon-sm"></i>
               <span>Front View</span>
             </button>
-            <button type="button" class="mini-btn" onclick="rotatePhonePreset(20, -6)">
-              <i data-icon="sliders" class="icon-sm"></i>
-              <span>Side Tilt</span>
-            </button>
             <button type="button" class="mini-btn" id="explode-btn" onclick="togglePhoneExplode()">
               <i data-icon="layers" class="icon-sm"></i>
               <span id="explode-btn-text">Explode 3D Layers</span>
             </button>
+            <label class="mini-btn" style="cursor:pointer;" title="Load your actual StreakIO screenshot into the 3D phone">
+              <i data-icon="plus" class="icon-sm"></i>
+              <span>Load Screenshot</span>
+              <input type="file" id="screenshot-upload-input" accept="image/*" style="display:none;" onchange="loadUserScreenshot(event)" />
+            </label>
           </div>
         </div>
 
-        <!-- Right: Company App Product Cards -->
-        <div class="project-tabs">
-          <div class="project-tab-card active" onclick="selectShowcaseApp('streakio', this)">
-            <div class="project-tab-top">
-              <h3>
-                <i data-icon="flame" class="icon-md" style="color:var(--accent-cyan);"></i>
+        <!-- Right: Dedicated StreakIO Product Details & Screen Switcher -->
+        <div class="streakio-showcase-panel">
+          <div class="streakio-main-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+              <h3 style="font-size:1.35rem;font-weight:700;display:inline-flex;align-items:center;gap:9px;">
+                <i data-icon="flame" class="icon-md" style="color:var(--accent-amber);"></i>
                 <span>StreakIO: Habit &amp; Step Tracker</span>
               </h3>
-              <span class="brand-badge">LIVE ON GOOGLE PLAY</span>
+              <span class="brand-badge">OFFICIAL EASODE APP</span>
             </div>
-            <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
-              Easode's flagship consumer Android app. Built with an offline-first architecture and Jetpack Compose, StreakIO features daily habit tracking, a battery-smart background step counter with active hours, full-screen reminders, journaling, milestone badges, and one-tap PDF, CSV, and JSON data exports.
+            <p style="color:var(--text-secondary);font-size:0.92rem;line-height:1.65;">
+              <strong>StreakIO</strong> is the flagship Android application designed, engineered, and published by <strong>Easode</strong> on Google Play. Built 100% in native Kotlin &amp; Jetpack Compose with an offline-first architecture, it helps users build lasting daily habits, track steps during active hours without draining battery, reflect with daily journaling, and export their data anytime to PDF, CSV, or JSON.
             </p>
             <div class="tech-pills">
               <span class="tech-pill">Kotlin</span>
               <span class="tech-pill">Jetpack Compose</span>
-              <span class="tech-pill">Offline-First DB</span>
-              <span class="tech-pill">Step Sensor</span>
-              <span class="tech-pill">PDF / CSV / JSON Export</span>
+              <span class="tech-pill">100% Offline-First</span>
+              <span class="tech-pill">Active-Hours Step Counter</span>
+              <span class="tech-pill">PDF / CSV / JSON Backup</span>
             </div>
-            <div class="project-links">
-              <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener">
-                <i data-icon="external-link" class="icon-sm"></i>
+            <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+              <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener" class="btn-primary">
+                <i data-icon="play" class="icon-sm"></i>
                 <span>Download StreakIO on Google Play</span>
               </a>
-            </div>
-          </div>
-
-          <div class="project-tab-card" onclick="selectShowcaseApp('iot', this)">
-            <div class="project-tab-top">
-              <h3>
-                <i data-icon="wifi" class="icon-md" style="color:var(--accent-cyan);"></i>
-                <span>Easode IoT Cloud &amp; Telemetry App</span>
-              </h3>
-              <span class="brand-badge">CLOUD &amp; HARDWARE APP</span>
-            </div>
-            <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
-              A real-time mobile monitoring and closed-loop control application powered by Firebase Realtime Database. Connects smartphones directly with smart hardware controllers and industrial sensors for live setpoint tuning, automated cloud logging, and instant threshold alerts.
-            </p>
-            <div class="tech-pills">
-              <span class="tech-pill">Android App</span>
-              <span class="tech-pill">Firebase Realtime DB</span>
-              <span class="tech-pill">Live Telemetry Charts</span>
-              <span class="tech-pill">Hardware Sync</span>
-            </div>
-          </div>
-
-          <div class="project-tab-card" onclick="selectShowcaseApp('uiengine', this)">
-            <div class="project-tab-top">
-              <h3>
-                <i data-icon="briefcase" class="icon-md" style="color:var(--accent-cyan);"></i>
-                <span>Easode OrderFlow &amp; Business Apps</span>
-              </h3>
-              <span class="brand-badge">CUSTOM CLIENT APPS</span>
-            </div>
-            <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
-              Fast, modern mobile and web applications tailored for retail, cafés, and growing businesses—complete with live order queues, digital invoicing, inventory tracking, and responsive customer portals.
-            </p>
-            <div class="tech-pills">
-              <span class="tech-pill">Custom Android &amp; Web</span>
-              <span class="tech-pill">POS &amp; Billing</span>
-              <span class="tech-pill">Realtime Sync</span>
-              <span class="tech-pill">Admin Dashboards</span>
-            </div>
-            <div class="project-links">
-              <a href="https://codersudam.github.io" target="_blank" rel="noopener">
-                <i data-icon="github" class="icon-sm"></i>
-                <span>View More Projects on GitHub</span>
+              <a href="#configurator" class="btn-secondary">
+                <i data-icon="code" class="icon-sm"></i>
+                <span>Build a Similar App With Us</span>
               </a>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--accent-cyan);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.04em;">
+              Click any StreakIO screen below to preview inside the 3D Smartphone:
+            </div>
+            <div class="streakio-screen-grid">
+              <button type="button" class="screen-switch-card active" data-screen-card="habits" onclick="switchStreakioScreen('habits')">
+                <span class="sc-title">
+                  <i data-icon="check-circle" class="icon-sm" style="color:var(--accent-cyan);"></i>
+                  <span>1. Daily Habits &amp; Streaks</span>
+                </span>
+                <span class="sc-desc">One-tap habit check-ins, 7-day calendar strip &amp; live streak counters.</span>
+              </button>
+
+              <button type="button" class="screen-switch-card" data-screen-card="steps" onclick="switchStreakioScreen('steps')">
+                <span class="sc-title">
+                  <i data-icon="compass" class="icon-sm" style="color:var(--accent-emerald);"></i>
+                  <span>2. Smart Step Tracker</span>
+                </span>
+                <span class="sc-desc">Battery-efficient background step counting during user-defined active hours.</span>
+              </button>
+
+              <button type="button" class="screen-switch-card" data-screen-card="stats" onclick="switchStreakioScreen('stats')">
+                <span class="sc-title">
+                  <i data-icon="bar-chart-2" class="icon-sm" style="color:var(--accent-violet);"></i>
+                  <span>3. Analytics &amp; Milestones</span>
+                </span>
+                <span class="sc-desc">Weekly consistency charts, completion rates &amp; streak milestone badges.</span>
+              </button>
+
+              <button type="button" class="screen-switch-card" data-screen-card="journal" onclick="switchStreakioScreen('journal')">
+                <span class="sc-title">
+                  <i data-icon="download" class="icon-sm" style="color:var(--accent-amber);"></i>
+                  <span>4. Journal &amp; PDF/CSV Export</span>
+                </span>
+                <span class="sc-desc">Daily habit notes and instant offline export to PDF reports, CSV, or JSON.</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: APP DEVELOPMENT SERVICES -->
+    <!-- =========================================================================
+         3. FULL-CYCLE APP DEVELOPMENT SERVICES — Pure, Consistent & Open to Any Idea
+         ========================================================================= -->
     <section class="section" id="services">
       <div class="section-header">
         <div class="eyebrow">
           <i data-icon="code" class="icon-sm"></i>
-          <span>WHAT WE BUILD FOR YOU</span>
+          <span>WHAT WE BUILD FOR CLIENTS</span>
         </div>
-        <h2>Full-Cycle <span class="gradient-text">App Development Services</span></h2>
-        <p>We partner with founders, startups, and businesses to design, build, and launch production-ready mobile and web applications.</p>
+        <h2>Full-Cycle <span class="gradient-text">App &amp; Website Development</span></h2>
+        <p>
+          Every business and founder has unique requirements. We don't limit you to templates—we engineer custom mobile applications and websites for almost any industry, workflow, or special feature idea.
+        </p>
       </div>
 
       <div class="bento-grid">
         <div class="tilt-card">
           <div class="tilt-glare"></div>
-          <div class="service-3d-illus">
-            <div class="card-icon-3d">
-              <i data-icon="smartphone" class="icon-lg"></i>
+          <div>
+            <div class="service-3d-illus">
+              <div class="card-icon-3d">
+                <i data-icon="smartphone" class="icon-lg"></i>
+              </div>
+              <span class="iso-mini-stack">ANDROID • KOTLIN</span>
             </div>
-            <span class="iso-mini-stack">KOTLIN • COMPOSE</span>
+            <h3>Custom Native Android Apps</h3>
+            <p>
+              We build fast, reliable Android applications from scratch—whether you're launching a consumer app, a business booking tool, an e-commerce store, or a custom utility.
+            </p>
           </div>
-          <h3>Native Android App Development</h3>
-          <p>
-            Custom Android applications engineered from scratch using Kotlin and Jetpack Compose for smooth 60fps performance, low battery impact, and full Google Play compliance.
-          </p>
           <ul class="feature-checklist">
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Modern Material 3 UI, custom animations &amp; dark/light themes</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Background sensors, step counters &amp; exact alarm scheduling</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Complete Google Play Store release &amp; long-term maintenance</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Clean Jetpack Compose UI with smooth 60fps animations &amp; dark/light themes</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Built around your exact features: logins, payments, maps, media, or reminders</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Complete Google Play Store publishing, compliance &amp; long-term support</span></li>
           </ul>
         </div>
 
         <div class="tilt-card">
           <div class="tilt-glare"></div>
-          <div class="service-3d-illus">
-            <div class="card-icon-3d">
-              <i data-icon="database" class="icon-lg"></i>
+          <div>
+            <div class="service-3d-illus">
+              <div class="card-icon-3d">
+                <i data-icon="globe" class="icon-lg"></i>
+              </div>
+              <span class="iso-mini-stack">RESPONSIVE WEB</span>
             </div>
-            <span class="iso-mini-stack">ROOM • FIREBASE</span>
+            <h3>Modern Websites &amp; Web Apps</h3>
+            <p>
+              Minimal, high-converting websites and interactive web applications crafted to showcase your company, engage customers, and run smoothly on every screen size.
+            </p>
           </div>
-          <h3>Offline-First &amp; Cloud-Synced Apps</h3>
-          <p>
-            Whether your app needs 100% offline privacy or instant multi-device cloud synchronization, we build reliable data architectures that never lose user data.
-          </p>
           <ul class="feature-checklist">
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Firebase Auth, Realtime Database, Firestore &amp; REST APIs</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Local SQLite / Room storage with automatic conflict resolution</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>One-tap PDF report generation, CSV spreadsheets &amp; JSON backup</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Business websites, product landing pages, portfolios &amp; interactive tools</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Custom calculators, booking forms, admin dashboards &amp; client portals</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Fast load times, SEO-ready structure &amp; interactive 3D/modern visuals</span></li>
           </ul>
         </div>
 
         <div class="tilt-card">
           <div class="tilt-glare"></div>
-          <div class="service-3d-illus">
-            <div class="card-icon-3d">
-              <i data-icon="cpu" class="icon-lg"></i>
+          <div>
+            <div class="service-3d-illus">
+              <div class="card-icon-3d">
+                <i data-icon="database" class="icon-lg"></i>
+              </div>
+              <span class="iso-mini-stack">OFFLINE • CLOUD • API</span>
             </div>
-            <span class="iso-mini-stack">IOT • TELEMETRY</span>
+            <h3>Backend, Cloud Sync &amp; Integrations</h3>
+            <p>
+              From 100% offline local storage to real-time multi-user cloud databases and payment gateways, we connect your app or website to the right technical foundation.
+            </p>
           </div>
-          <h3>IoT &amp; Hardware Companion Apps</h3>
-          <p>
-            Connect smart devices, sensors, and controllers to intuitive mobile dashboards with live telemetry graphs, remote control sliders, and instant alerts.
-          </p>
           <ul class="feature-checklist">
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Mobile apps for ESP32, Arduino &amp; custom hardware systems</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Real-time sensor plotting &amp; closed-loop parameter tuning</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Automated cloud event logging &amp; push alert notifications</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Secure user accounts (Google Sign-In, Email/OTP &amp; role-based access)</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Firebase, Firestore, REST APIs, or offline SQLite / Room databases</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>UPI &amp; card payment gateways, PDF/Excel reports &amp; third-party APIs</span></li>
           </ul>
         </div>
 
         <div class="tilt-card">
           <div class="tilt-glare"></div>
-          <div class="service-3d-illus">
-            <div class="card-icon-3d">
-              <i data-icon="globe" class="icon-lg"></i>
+          <div>
+            <div class="service-3d-illus">
+              <div class="card-icon-3d">
+                <i data-icon="sparkles" class="icon-lg"></i>
+              </div>
+              <span class="iso-mini-stack">CUSTOM FEATURES</span>
             </div>
-            <span class="iso-mini-stack">WEB • ADMIN SUITE</span>
+            <h3>Bespoke Features, UI/UX &amp; Scaling</h3>
+            <p>
+              Have a unique concept or a specialized feature in mind? We translate your requirements into intuitive screens, clean code, and scalable product updates.
+            </p>
           </div>
-          <h3>Custom Web Apps &amp; Admin Portals</h3>
-          <p>
-            High-speed responsive web applications, interactive product sites, and admin dashboards that pair seamlessly with your mobile app ecosystem.
-          </p>
           <ul class="feature-checklist">
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Responsive web apps, customer portals &amp; booking tools</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Interactive analytics dashboards &amp; team management views</span></li>
-            <li><i data-icon="check-circle" class="icon-sm"></i><span>Clean, minimal UI with subtle 3D illustrations &amp; fast load times</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Custom feature development tailored to your specific business workflow</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>UI/UX redesigns, performance optimization &amp; feature upgrades</span></li>
+            <li><i data-icon="check-circle" class="icon-sm"></i><span>Direct founder-level communication, transparent milestones &amp; full code ownership</span></li>
           </ul>
+        </div>
+      </div>
+
+      <div class="categories-strip">
+        <div style="font-family:var(--font-heading);font-weight:700;font-size:0.95rem;">
+          App &amp; Website Categories We Build:
+        </div>
+        <div class="cat-badges">
+          <span class="cat-badge">Health, Fitness &amp; Habits</span>
+          <span class="cat-badge">E-Commerce &amp; Retail</span>
+          <span class="cat-badge">Booking &amp; Local Services</span>
+          <span class="cat-badge">Education &amp; Coaching</span>
+          <span class="cat-badge">Finance &amp; Billing Tools</span>
+          <span class="cat-badge">Social &amp; Community</span>
+          <span class="cat-badge">Any Custom Idea</span>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3: FEATURE-BASED PRICE CALCULATOR & NEGOTIATION -->
+    <!-- =========================================================================
+         4. APP PRICE CALCULATOR & CUSTOM QUOTE BUILDER — 2 Simple Services + Clear Guide
+         ========================================================================= -->
     <section class="section" id="configurator">
       <div class="section-header">
         <div class="eyebrow">
           <i data-icon="sliders" class="icon-sm"></i>
-          <span>TRANSPARENT FEATURE-BASED PRICING</span>
+          <span>SIMPLE, BUDGET-FRIENDLY PRICING</span>
         </div>
-        <h2>App Price Calculator &amp; <span class="gradient-text">Custom Quote Builder</span></h2>
+        <h2>App &amp; Website <span class="gradient-text">Price Calculator</span></h2>
         <p>
-          Our pricing depends directly on the features your app needs. Select your base platform and toggle the exact features you want to calculate an instant estimate—or request a custom price negotiation.
+          We focus on two core services: <strong>Native Android Apps</strong> and <strong>Websites</strong>. Your price depends only on the extra features you need—making it affordable for students, creators, startups, and businesses.
         </p>
       </div>
 
       <div class="configurator-box">
         <div class="config-controls">
           <div class="calc-header-row">
-            <span style="font-size:0.84rem;color:var(--text-secondary);">Select currency for instant feature pricing:</span>
+            <span style="font-size:0.84rem;color:var(--text-secondary);">Choose your preferred currency:</span>
             <div class="currency-toggle" role="group" aria-label="Currency selector">
               <button type="button" class="curr-btn active" id="curr-inr" onclick="setCurrency('INR')">₹ INR</button>
               <button type="button" class="curr-btn" id="curr-usd" onclick="setCurrency('USD')">$ USD</button>
             </div>
           </div>
 
+          <!-- STEP 1: ONLY 2 CORE SERVICES (Native Android App & Websites) -->
           <div class="config-step">
-            <label class="step-title">1. Choose Base App Platform</label>
+            <label class="step-title">Step 1 — Select What You Want Us to Build (Pick 1)</label>
+            <p class="step-helper">
+              Your base selection already includes complete UI design, core screens/pages, smooth navigation, and clean source code.
+            </p>
             <div class="option-chips" id="platform-chips">
-              <button type="button" class="opt-chip selected" data-val="android" data-weeks="3" data-nodes="4" data-inr="25000" data-usd="350" onclick="selectPlatform(this)">
-                <span class="chip-left">
-                  <i data-icon="smartphone" class="icon-sm"></i>
-                  <span>Native Android App (Kotlin / Compose)</span>
-                </span>
-                <span class="chip-price" data-price-label>₹25,000</span>
+              <button type="button" class="opt-chip selected" data-val="android" data-weeks="2" data-inr="6000" data-usd="80" onclick="selectPlatform(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="smartphone" class="icon-sm"></i>
+                    <span>1. Native Android App</span>
+                  </span>
+                  <span class="chip-price" data-price-label>₹6,000</span>
+                </div>
+                <span class="chip-sub">Custom Android app (Kotlin / Compose) with core screens &amp; smooth UI.</span>
               </button>
-              <button type="button" class="opt-chip" data-val="web3d" data-weeks="2.5" data-nodes="4" data-inr="18000" data-usd="250" onclick="selectPlatform(this)">
-                <span class="chip-left">
-                  <i data-icon="globe" class="icon-sm"></i>
-                  <span>Interactive Website / WebApp</span>
-                </span>
-                <span class="chip-price" data-price-label>₹18,000</span>
-              </button>
-              <button type="button" class="opt-chip" data-val="iot" data-weeks="4" data-nodes="6" data-inr="32000" data-usd="450" onclick="selectPlatform(this)">
-                <span class="chip-left">
-                  <i data-icon="wifi" class="icon-sm"></i>
-                  <span>IoT Companion + Cloud Mobile App</span>
-                </span>
-                <span class="chip-price" data-price-label>₹32,000</span>
-              </button>
-              <button type="button" class="opt-chip" data-val="custom" data-weeks="4.5" data-nodes="6" data-inr="40000" data-usd="550" onclick="selectPlatform(this)">
-                <span class="chip-left">
-                  <i data-icon="layers" class="icon-sm"></i>
-                  <span>Full-Stack App &amp; Admin Dashboard</span>
-                </span>
-                <span class="chip-price" data-price-label>₹40,000</span>
+
+              <button type="button" class="opt-chip" data-val="website" data-weeks="1" data-inr="3500" data-usd="50" onclick="selectPlatform(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="globe" class="icon-sm"></i>
+                    <span>2. Website / Web App</span>
+                  </span>
+                  <span class="chip-price" data-price-label>₹3,500</span>
+                </div>
+                <span class="chip-sub">Responsive, mobile-friendly website with modern minimal &amp; 3D visuals.</span>
               </button>
             </div>
           </div>
 
+          <!-- STEP 2: EASY-TO-UNDERSTAND FEATURE TOGGLES + STARTER PRESETS -->
           <div class="config-step">
-            <label class="step-title">2. Toggle App Features (Pricing Scales With Features)</label>
+            <label class="step-title">Step 2 — Toggle Extra Features (Optional — Click to Add or Remove)</label>
+            <p class="step-helper">
+              <strong>Not sure what to pick?</strong> Click any feature card below if your project needs it, or click a quick preset to auto-select common features:
+            </p>
+
+            <div class="preset-bar">
+              <button type="button" class="preset-btn" onclick="applyCalculatorPreset('starter')">Starter / Basic (Base Only)</button>
+              <button type="button" class="preset-btn" onclick="applyCalculatorPreset('standard')">Popular Standard (+2 Features)</button>
+              <button type="button" class="preset-btn" onclick="applyCalculatorPreset('complete')">Full-Featured (+4 Features)</button>
+            </div>
+
             <div class="option-chips" id="module-chips">
-              <button type="button" class="opt-chip selected" data-weeks="1" data-inr="8000" data-usd="110" onclick="toggleModule(this)">
-                <span class="chip-left">
-                  <i data-icon="sparkles" class="icon-sm"></i>
-                  <span>Custom UI/UX &amp; Motion Design</span>
-                </span>
-                <span class="chip-price" data-price-label>+₹8,000</span>
+              <button type="button" class="opt-chip selected" data-key="auth" data-weeks="0.5" data-inr="1500" data-usd="20" onclick="toggleModule(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="user" class="icon-sm"></i>
+                    <span>User Login &amp; Profiles</span>
+                  </span>
+                  <span class="chip-price" data-price-label>+₹1,500</span>
+                </div>
+                <span class="chip-sub">Let users sign up with Email, Phone, or Google Sign-In.</span>
               </button>
-              <button type="button" class="opt-chip selected" data-weeks="1" data-inr="9000" data-usd="125" onclick="toggleModule(this)">
-                <span class="chip-left">
-                  <i data-icon="hard-drive" class="icon-sm"></i>
-                  <span>Offline-First + PDF/CSV/JSON Export</span>
-                </span>
-                <span class="chip-price" data-price-label>+₹9,000</span>
+
+              <button type="button" class="opt-chip selected" data-key="storage" data-weeks="0.5" data-inr="1500" data-usd="20" onclick="toggleModule(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="hard-drive" class="icon-sm"></i>
+                    <span>Offline Save &amp; PDF/Excel Export</span>
+                  </span>
+                  <span class="chip-price" data-price-label>+₹1,500</span>
+                </div>
+                <span class="chip-sub">Save data on device &amp; let users download PDF/CSV reports.</span>
               </button>
-              <button type="button" class="opt-chip" data-weeks="1.5" data-inr="12000" data-usd="165" onclick="toggleModule(this)">
-                <span class="chip-left">
-                  <i data-icon="database" class="icon-sm"></i>
-                  <span>Firebase Cloud Sync &amp; User Auth</span>
-                </span>
-                <span class="chip-price" data-price-label>+₹12,000</span>
+
+              <button type="button" class="opt-chip" data-key="cloud" data-weeks="1" data-inr="2500" data-usd="35" onclick="toggleModule(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="database" class="icon-sm"></i>
+                    <span>Cloud Database &amp; Online Sync</span>
+                  </span>
+                  <span class="chip-price" data-price-label>+₹2,500</span>
+                </div>
+                <span class="chip-sub">Store data online (Firebase/API) so it syncs across devices.</span>
               </button>
-              <button type="button" class="opt-chip" data-weeks="1" data-inr="8500" data-usd="120" onclick="toggleModule(this)">
-                <span class="chip-left">
-                  <i data-icon="bell" class="icon-sm"></i>
-                  <span>Background Sensors &amp; Reliable Alarms</span>
-                </span>
-                <span class="chip-price" data-price-label>+₹8,500</span>
+
+              <button type="button" class="opt-chip" data-key="notifications" data-weeks="0.5" data-inr="1000" data-usd="15" onclick="toggleModule(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="bell" class="icon-sm"></i>
+                    <span>Reminders &amp; Push Notifications</span>
+                  </span>
+                  <span class="chip-price" data-price-label>+₹1,000</span>
+                </div>
+                <span class="chip-sub">Send daily reminders, alerts, or updates to your users.</span>
               </button>
-              <button type="button" class="opt-chip" data-weeks="1" data-inr="7500" data-usd="105" onclick="toggleModule(this)">
-                <span class="chip-left">
-                  <i data-icon="bar-chart-2" class="icon-sm"></i>
-                  <span>Analytics, Streaks &amp; Reporting</span>
-                </span>
-                <span class="chip-price" data-price-label>+₹7,500</span>
+
+              <button type="button" class="opt-chip" data-key="payments" data-weeks="0.5" data-inr="2000" data-usd="28" onclick="toggleModule(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="shield" class="icon-sm"></i>
+                    <span>UPI &amp; Online Payment Gateway</span>
+                  </span>
+                  <span class="chip-price" data-price-label>+₹2,000</span>
+                </div>
+                <span class="chip-sub">Accept customer payments via UPI, cards, or subscriptions.</span>
               </button>
-              <button type="button" class="opt-chip" data-weeks="1" data-inr="10000" data-usd="140" onclick="toggleModule(this)">
-                <span class="chip-left">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>Payment Gateway / Subscriptions</span>
-                </span>
-                <span class="chip-price" data-price-label>+₹10,000</span>
+
+              <button type="button" class="opt-chip" data-key="custom" data-weeks="0.5" data-inr="1500" data-usd="20" onclick="toggleModule(this)">
+                <div class="opt-chip-top">
+                  <span class="chip-left">
+                    <i data-icon="sparkles" class="icon-sm"></i>
+                    <span>Custom Special Feature</span>
+                  </span>
+                  <span class="chip-price" data-price-label>+₹1,500</span>
+                </div>
+                <span class="chip-sub">Have a unique feature idea? Toggle this &amp; tell us below.</span>
               </button>
             </div>
           </div>
 
           <div class="config-step" style="margin-bottom:0;">
-            <label class="step-title">3. Your App Name &amp; Action</label>
-            <input type="text" id="client-project-name" placeholder="Enter your app name or idea (e.g., FitPulse Habit Coach)" style="width:100%;padding:11px 15px;border-radius:12px;border:1px solid var(--border-subtle);background:var(--bg-glass);color:var(--text-primary);font-size:0.88rem;margin-bottom:14px;" oninput="updateBlueprint()" />
+            <label class="step-title">Step 3 — Enter Your Project Name &amp; Proceed</label>
+            <input type="text" id="client-project-name" placeholder="Enter your app or website name/idea (e.g., FreshKart App or Studio Website)" style="width:100%;padding:11px 15px;border-radius:12px;border:1px solid var(--border-subtle);background:var(--bg-glass);color:var(--text-primary);font-size:0.88rem;margin-bottom:14px;" oninput="updateBlueprint()" />
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
               <a id="mailto-launch-btn" href="mailto:sudamgaware2@gmail.com" class="btn-primary">
                 <i data-icon="send" class="icon-sm"></i>
-                <span>Start Project With This Quote</span>
+                <span>Book Project at This Estimate</span>
               </a>
               <button type="button" class="btn-negotiate" id="request-negotiation-btn" onclick="openNegotiationModal()">
                 <i data-icon="message-square" class="icon-sm"></i>
@@ -2063,9 +2473,9 @@
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
             <span style="font-family:var(--font-mono);font-size:0.71rem;color:var(--accent-cyan);display:inline-flex;align-items:center;gap:6px;">
               <i data-icon="layers" class="icon-sm"></i>
-              <span>3D FEATURE STACK &amp; ESTIMATE</span>
+              <span>3D FEATURE STACK &amp; QUOTE</span>
             </span>
-            <span class="brand-badge">LIVE QUOTE</span>
+            <span class="brand-badge">AFFORDABLE ESTIMATE</span>
           </div>
 
           <div class="bp-canvas-wrap">
@@ -2074,16 +2484,16 @@
 
           <div class="price-banner">
             <div>
-              <div class="total-lbl">ESTIMATED APP COST</div>
-              <div style="font-size:0.72rem;color:var(--text-secondary);">Based on selected features</div>
+              <div class="total-lbl">ESTIMATED TOTAL PRICE</div>
+              <div style="font-size:0.72rem;color:var(--text-secondary);">Base + selected features</div>
             </div>
-            <div class="total-val" id="bp-total-price">₹42,000</div>
+            <div class="total-val" id="bp-total-price">₹9,000</div>
           </div>
 
           <div>
-            <h3 id="bp-title" style="font-size:1.05rem;margin-bottom:4px;">Native Android App (Kotlin / Compose)</h3>
+            <h3 id="bp-title" style="font-size:1.05rem;margin-bottom:4px;">1. Native Android App</h3>
             <p id="bp-desc" style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5;margin-bottom:8px;">
-              Includes 2 feature modules.
+              Includes base platform + 2 selected features.
             </p>
             <div class="breakdown-list" id="bp-breakdown-list"></div>
           </div>
@@ -2091,23 +2501,23 @@
           <div class="blueprint-stats">
             <div class="bp-stat">
               <div class="k">ESTIMATED DELIVERY</div>
-              <div class="v" id="bp-timeline">5 – 6 Weeks</div>
+              <div class="v" id="bp-timeline">3 – 4 Weeks</div>
             </div>
             <div class="bp-stat">
-              <div class="k">FEATURE LAYERS</div>
-              <div class="v" id="bp-nodes">8 Active Layers</div>
+              <div class="k">ACTIVE STACK</div>
+              <div class="v" id="bp-nodes">3 Iso Layers</div>
             </div>
           </div>
 
           <button type="button" class="btn-negotiate" style="width:100%;" onclick="openNegotiationModal()">
             <i data-icon="message-square" class="icon-sm"></i>
-            <span>Have a Different Budget? Request Negotiation</span>
+            <span>Tighter Budget? Request Price Negotiation</span>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4: COMPANY OVERVIEW & CONTACT -->
+    <!-- SECTION 5: COMPANY OVERVIEW & CONTACT -->
     <section class="section" id="studio">
       <div class="studio-banner">
         <div>
@@ -2116,10 +2526,10 @@
             <span>ABOUT EASODE</span>
           </div>
           <h2 style="font-size:1.9rem;font-weight:700;margin-bottom:12px;">
-            Let's Build &amp; Launch Your <span class="gradient-text">Next Application</span>
+            Let's Build Your <span class="gradient-text">Android App or Website</span>
           </h2>
           <p style="color:var(--text-secondary);line-height:1.68;margin-bottom:22px;font-size:0.94rem;">
-            Founded by <strong>Sudam Gaware</strong>, <strong>Easode</strong> builds dependable mobile and web applications for consumers, startups, and businesses. Whether you need a complete app from scratch or want to negotiate a custom feature roadmap for your budget, reach out directly.
+            Founded by <strong>Sudam Gaware</strong>, <strong>Easode</strong> builds clean, reliable Android applications and modern websites. Whether you're ready to start with your calculated estimate or want to negotiate a price that fits your budget, get in touch directly.
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:10px;">
             <a href="mailto:sudamgaware2@gmail.com" class="btn-primary">
@@ -2132,7 +2542,7 @@
             </button>
             <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener" class="btn-secondary">
               <i data-icon="play" class="icon-sm"></i>
-              <span>Google Play Store</span>
+              <span>StreakIO on Google Play</span>
             </a>
             <a href="https://codersudam.github.io" target="_blank" rel="noopener" class="btn-secondary">
               <i data-icon="github" class="icon-sm"></i>
@@ -2155,8 +2565,8 @@
             <span class="val">Sudam Gaware</span>
           </div>
           <div class="studio-meta-row">
-            <span class="lbl"><i data-icon="code" class="icon-sm"></i><span>Core Focus</span></span>
-            <span class="val">Mobile, Cloud &amp; Web App Development</span>
+            <span class="lbl"><i data-icon="code" class="icon-sm"></i><span>Core Services</span></span>
+            <span class="val">Native Android Apps &amp; Websites</span>
           </div>
           <div class="studio-meta-row">
             <span class="lbl"><i data-icon="map-pin" class="icon-sm"></i><span>Location</span></span>
@@ -2176,7 +2586,7 @@
     <div class="modal-card">
       <div class="modal-top">
         <div>
-          <span class="brand-badge">FLEXIBLE STARTUP &amp; CUSTOM PRICING</span>
+          <span class="brand-badge">CUSTOMER-FRIENDLY FLEXIBLE PRICING</span>
           <h3 id="neg-modal-title" style="font-size:1.25rem;margin-top:6px;">Request Price Negotiation</h3>
         </div>
         <button type="button" class="btn-icon" onclick="closeNegotiationModal()" aria-label="Close modal">
@@ -2185,27 +2595,27 @@
       </div>
 
       <p style="font-size:0.84rem;color:var(--text-secondary);">
-        Share your target budget and timeline. We can adjust feature phases or offer startup-friendly pricing to fit your goals.
+        Tell us your comfortable budget and project requirements. We're happy to discuss scope options and find a price that works for both of us.
       </p>
 
       <div style="padding:11px 14px;border-radius:12px;background:var(--bg-secondary);border:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.76rem;">
-        <span>Calculated Estimate: <strong id="neg-current-estimate" style="color:var(--accent-cyan);">₹42,000</strong></span>
-        <span id="neg-feature-count">2 Features Selected</span>
+        <span>Calculator Estimate: <strong id="neg-current-estimate" style="color:var(--accent-cyan);">₹9,000</strong></span>
+        <span id="neg-feature-count">2 Extra Features</span>
       </div>
 
       <div class="form-field">
-        <label for="neg-client-name">YOUR NAME OR COMPANY</label>
-        <input type="text" id="neg-client-name" placeholder="e.g., Rahul Sharma / NovaTech" />
+        <label for="neg-client-name">YOUR NAME OR BUSINESS</label>
+        <input type="text" id="neg-client-name" placeholder="e.g., Rahul Sharma" />
       </div>
 
       <div class="form-field">
-        <label for="neg-proposed-budget">YOUR TARGET / PROPOSED BUDGET</label>
-        <input type="text" id="neg-proposed-budget" placeholder="e.g., ₹30,000 or $400 (Phased MVP)" />
+        <label for="neg-proposed-budget">YOUR COMFORTABLE / PROPOSED BUDGET</label>
+        <input type="text" id="neg-proposed-budget" placeholder="e.g., ₹5,000 or $65" />
       </div>
 
       <div class="form-field">
-        <label for="neg-notes">PROJECT NOTES OR SCOPE PRIORITIES</label>
-        <textarea id="neg-notes" rows="3" placeholder="Tell us which features are must-haves for v1 or if you'd like a phased payment plan..."></textarea>
+        <label for="neg-notes">DESCRIBE YOUR APP OR WEBSITE REQUIREMENTS</label>
+        <textarea id="neg-notes" rows="3" placeholder="Briefly describe what your app or website should do and any special features you need..."></textarea>
       </div>
 
       <div class="negotiation-toast" id="negotiation-toast"></div>
@@ -2222,7 +2632,7 @@
 
   <footer class="site-footer">
     <p>
-      <strong>Easode</strong> — Mobile &amp; Cloud App Development Company • Founded by <strong>Sudam Gaware</strong>
+      <strong>Easode</strong> — Native Android App &amp; Website Development Company • Founded by <strong>Sudam Gaware</strong>
     </p>
     <p style="margin-top:6px;">
       Pune, Maharashtra, India • <a href="mailto:sudamgaware2@gmail.com" style="color:var(--accent-cyan);text-decoration:none;">sudamgaware2@gmail.com</a> • <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none;">Google Play (StreakIO)</a>
@@ -2253,7 +2663,6 @@
       'check': '<path d="M20 6 9 17l-5-5"/>',
       'compass': '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
       'external-link': '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
-      'wifi': '<path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>',
       'sparkles': '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>',
       'github': '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
       'database': '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
@@ -2320,75 +2729,99 @@
       const rect = heroStage.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width - 0.5;
       const ny = (e.clientY - rect.top) / rect.height - 0.5;
-      const ry = -22 + nx * 26;
-      const rx = 18 - ny * 22;
-      isoRig.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(3deg)`;
+      const ry = -20 + nx * 24;
+      const rx = 16 - ny * 20;
+      isoRig.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(2.5deg)`;
     });
 
     heroStage.addEventListener('mouseleave', () => {
-      isoRig.style.transform = 'rotateX(18deg) rotateY(-22deg) rotateZ(4deg)';
+      isoRig.style.transform = 'rotateX(16deg) rotateY(-20deg) rotateZ(3deg)';
     });
 
     const HERO_APP_PREVIEWS = {
-      streakio: {
-        tag: 'GOOGLE PLAY PRODUCT',
-        title: 'StreakIO Habit & Steps',
-        sub: 'Offline-first habit streaks, active-hour step counter & instant PDF/CSV reports.',
-        metricLbl: 'DAILY STEP GOAL',
-        metricVal: '7,840 / 10k',
-        barWidth: '78%',
-        float1: '42 Days',
-        float2: 'Offline + Cloud',
-        float3: 'Play Store Live'
-      },
-      iot: {
-        tag: 'CLOUD TELEMETRY APP',
-        title: 'Easode IoT Monitor',
-        sub: 'Real-time Firebase sensor dashboard, PID setpoint tuning & instant hardware alerts.',
-        metricLbl: 'SENSOR STABILITY',
-        metricVal: '184.6°C / 185°C',
-        barWidth: '94%',
-        float1: '20ms Sync',
-        float2: 'Firebase RTDB',
-        float3: 'ESP32 Ready'
-      },
-      custom: {
-        tag: 'CLIENT APP SERVICE',
-        title: 'Your Custom Mobile App',
-        sub: 'Designed, engineered & published to Google Play with features tailored to your budget.',
-        metricLbl: 'MILESTONE DELIVERY',
-        metricVal: '100% On-Time',
-        barWidth: '100%',
-        float1: 'Custom UI/UX',
-        float2: 'Pay Per Feature',
+      android: {
+        badge: 'CLIENT SERVICE',
+        tag: 'CUSTOM ANDROID DEVELOPMENT',
+        title: 'Client Android Applications',
+        sub: 'Built from scratch in Kotlin & Jetpack Compose for startups, businesses, and creators.',
+        metricLbl: 'NATIVE UI PERFORMANCE',
+        metricVal: '60 FPS Smooth',
+        barWidth: '96%',
+        footLeft: 'Kotlin • Material 3 • Room/Cloud',
+        footRight: 'Play Store Ready',
+        float1Lbl: 'TECH STACK',
+        float1: 'Kotlin & Compose',
+        float2Lbl: 'DATA MODE',
+        float2: 'Offline or Cloud',
+        float3Lbl: 'DELIVERY',
         float3: 'Full Source Code'
+      },
+      websites: {
+        badge: 'WEB SERVICE',
+        tag: 'MODERN WEB DEVELOPMENT',
+        title: 'Responsive Business Websites',
+        sub: 'Fast, minimal websites, landing pages, and interactive web tools for any device.',
+        metricLbl: 'SPEED & RESPONSIVENESS',
+        metricVal: '99 / 100 Score',
+        barWidth: '99%',
+        footLeft: 'HTML5 • Modern CSS • JS',
+        footRight: 'Mobile & Desktop',
+        float1Lbl: 'VISUAL STYLE',
+        float1: 'Minimal & 3D UI',
+        float2Lbl: 'ADAPTIVE LAYOUT',
+        float2: 'All Screen Sizes',
+        float3Lbl: 'LAUNCH',
+        float3: 'Live Hosting Setup'
+      },
+      streakio: {
+        badge: 'OUR PRODUCT',
+        tag: 'GOOGLE PLAY FLAGSHIP APP',
+        title: 'StreakIO: Habit & Steps',
+        sub: 'Easode’s published Android app featuring habit streaks, active-hour steps & PDF export.',
+        metricLbl: 'DAILY STEP GOAL',
+        metricVal: '7,840 / 10,000',
+        barWidth: '78%',
+        footLeft: 'com.sudam.streakio',
+        footRight: 'Live on Google Play',
+        float1Lbl: 'ACTIVE STREAK',
+        float1: '42 Day Streak',
+        float2Lbl: 'PRIVACY',
+        float2: '100% Offline-First',
+        float3Lbl: 'DATA BACKUP',
+        float3: 'PDF / CSV / JSON'
       }
     };
 
     function switchHeroAppCard(key, btnEl) {
       document.querySelectorAll('.iso-tab-btn').forEach(b => b.classList.remove('active'));
       btnEl.classList.add('active');
-      const data = HERO_APP_PREVIEWS[key] || HERO_APP_PREVIEWS.streakio;
+      const data = HERO_APP_PREVIEWS[key] || HERO_APP_PREVIEWS.android;
+      document.getElementById('stage-telemetry').textContent = data.badge;
       document.getElementById('iso-card-tag').textContent = data.tag;
       document.getElementById('iso-card-title').textContent = data.title;
       document.getElementById('iso-card-sub').textContent = data.sub;
       document.getElementById('iso-metric-label').textContent = data.metricLbl;
       document.getElementById('iso-metric-val').textContent = data.metricVal;
       document.getElementById('iso-metric-bar').style.width = data.barWidth;
+      document.getElementById('iso-footer-left').textContent = data.footLeft;
+      document.getElementById('iso-footer-right').textContent = data.footRight;
+      document.getElementById('iso-float-1-lbl').textContent = data.float1Lbl;
       document.getElementById('iso-float-1').textContent = data.float1;
+      document.getElementById('iso-float-2-lbl').textContent = data.float2Lbl;
       document.getElementById('iso-float-2').textContent = data.float2;
+      document.getElementById('iso-float-3-lbl').textContent = data.float3Lbl;
       document.getElementById('iso-float-3').textContent = data.float3;
     }
 
     function pulseIsoCard(cardEl) {
-      cardEl.style.transform = 'translateZ(88px) scale(1.06)';
+      cardEl.style.transform = 'translateZ(84px) scale(1.05)';
       setTimeout(() => {
         cardEl.style.transform = '';
-      }, 320);
+      }, 300);
     }
 
     /* =========================================================================
-       3. INTERACTIVE 3D PHONE RIG & LIVE PRODUCT SIMULATORS
+       3. REALISTIC 3D SMARTPHONE & STREAKIO MULTI-SCREEN INTERACTIVE DEMO
        ========================================================================= */
     const phoneViewport = document.getElementById('phone-viewport');
     const phoneRig = document.getElementById('phone-rig');
@@ -2410,13 +2843,13 @@
       const rect = phoneViewport.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width - 0.5;
       const ny = (e.clientY - rect.top) / rect.height - 0.5;
-      const ry = nx * 30;
-      const rx = -ny * 20;
+      const ry = nx * 28;
+      const rx = -ny * 18;
       phoneRig.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
     });
 
     phoneViewport.addEventListener('mouseleave', () => {
-      phoneRig.style.transform = 'rotateX(6deg) rotateY(-14deg) rotateZ(1deg)';
+      phoneRig.style.transform = 'rotateX(5deg) rotateY(-14deg) rotateZ(0.5deg)';
     });
 
     function rotatePhonePreset(ry, rx) {
@@ -2433,17 +2866,47 @@
       }
     }
 
-    function selectShowcaseApp(appKey, cardEl) {
-      document.querySelectorAll('.project-tab-card').forEach(c => c.classList.remove('active'));
-      cardEl.classList.add('active');
+    function switchStreakioScreen(tabKey) {
+      // Hide custom screenshot overlay if open
+      const customView = document.getElementById('custom-screenshot-view');
+      if (customView) customView.classList.remove('active');
+
       document.querySelectorAll('.app-sim-view').forEach(v => v.classList.remove('active'));
-      document.getElementById('sim-' + appKey).classList.add('active');
+      const target = document.getElementById('sim-' + tabKey);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.p-nav-item').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabKey);
+      });
+
+      document.querySelectorAll('.screen-switch-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.screenCard === tabKey);
+      });
+    }
+
+    function loadUserScreenshot(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('custom-screenshot-img');
+        const customView = document.getElementById('custom-screenshot-view');
+        if (img && customView) {
+          img.src = e.target.result;
+          customView.classList.add('active');
+        }
+      };
+      reader.readAsDataURL(file);
     }
 
     let currentSteps = 7840;
     function simulateSteps() {
       currentSteps += 250;
-      document.getElementById('sim-step-count').textContent = currentSteps.toLocaleString();
+      const formatted = currentSteps.toLocaleString();
+      const s1 = document.getElementById('sim-step-count');
+      const s2 = document.getElementById('sim-step-ring-val');
+      if (s1) s1.textContent = formatted;
+      if (s2) s2.textContent = formatted;
     }
 
     function bumpStreak(rowEl, id) {
@@ -2452,9 +2915,13 @@
       if (valSpan) {
         const num = parseInt(valSpan.textContent.replace(/\D/g, ''), 10) + 1;
         valSpan.textContent = `${num}d`;
+        if (id === 'streak-1') {
+          const topBadge = document.getElementById('top-total-streak');
+          if (topBadge) topBadge.textContent = `${num} Day Streak`;
+        }
       }
       rowEl.style.borderColor = '#10b981';
-      setTimeout(() => { rowEl.style.borderColor = 'transparent'; }, 400);
+      setTimeout(() => { rowEl.style.borderColor = 'rgba(148, 163, 184, 0.1)'; }, 400);
     }
 
     function triggerExportToast(btn) {
@@ -2469,87 +2936,6 @@
       }, 1500);
     }
 
-    // IoT Cloud Telemetry Oscilloscope
-    const pidCanvas = document.getElementById('pid-mini-canvas');
-    const pidCtx = pidCanvas.getContext('2d');
-    let pidSetpoint = 185;
-    let pidPV = 184.6;
-    let pidIntegral = 0;
-    let pidPrevErr = 0;
-    const pidHistory = Array(60).fill(184.6);
-
-    function updatePidSetpoint(val) {
-      pidSetpoint = parseFloat(val);
-      document.getElementById('pid-target-lbl').textContent = `${pidSetpoint}°C`;
-    }
-
-    function stepPidLoop() {
-      const err = pidSetpoint - pidPV;
-      pidIntegral = Math.max(-30, Math.min(30, pidIntegral + err * 0.08));
-      const deriv = err - pidPrevErr;
-      pidPrevErr = err;
-      const output = 0.22 * err + 0.05 * pidIntegral + 0.12 * deriv;
-      pidPV += output + (Math.random() - 0.5) * 0.25;
-      pidHistory.push(pidPV);
-      if (pidHistory.length > 60) pidHistory.shift();
-
-      const pvLbl = document.getElementById('pid-pv-lbl');
-      if (pvLbl) pvLbl.textContent = `${pidPV.toFixed(1)}°C`;
-
-      const { w, h } = syncCanvasSize(pidCanvas, pidCtx);
-      if (w <= 2 || h <= 2) return;
-      pidCtx.clearRect(0, 0, w, h);
-      const mapY = (temp) => h - ((temp - 60) / 240) * (h - 16) - 8;
-
-      const spY = mapY(pidSetpoint);
-      pidCtx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
-      pidCtx.setLineDash([4, 4]);
-      pidCtx.beginPath();
-      pidCtx.moveTo(0, spY);
-      pidCtx.lineTo(w, spY);
-      pidCtx.stroke();
-      pidCtx.setLineDash([]);
-
-      pidCtx.strokeStyle = '#10b981';
-      pidCtx.lineWidth = 2;
-      pidCtx.beginPath();
-      pidHistory.forEach((v, idx) => {
-        const x = (idx / (pidHistory.length - 1)) * w;
-        const y = mapY(v);
-        if (idx === 0) pidCtx.moveTo(x, y);
-        else pidCtx.lineTo(x, y);
-      });
-      pidCtx.stroke();
-    }
-    setInterval(stepPidLoop, 120);
-
-    // Business App Order Analytics Chart
-    const cafeCanvas = document.getElementById('cafe-mini-canvas');
-    const cafeCtx = cafeCanvas.getContext('2d');
-    let cafePhase = 0;
-    function drawCafeWaves() {
-      cafePhase += 0.045;
-      const { w, h } = syncCanvasSize(cafeCanvas, cafeCtx);
-      if (w > 2 && h > 2) {
-        cafeCtx.clearRect(0, 0, w, h);
-        for (let k = 0; k < 2; k++) {
-          cafeCtx.beginPath();
-          cafeCtx.strokeStyle = k === 0 ? '#38bdf8' : '#8b5cf6';
-          cafeCtx.lineWidth = 2;
-          for (let x = 0; x <= w; x += 4) {
-            const y = h / 2 +
-              Math.sin(x * 0.035 + cafePhase + k * 1.4) * (14 + k * 6) *
-              Math.cos(x * 0.015 - cafePhase * 0.4);
-            if (x === 0) cafeCtx.moveTo(x, y);
-            else cafeCtx.lineTo(x, y);
-          }
-          cafeCtx.stroke();
-        }
-      }
-      requestAnimationFrame(drawCafeWaves);
-    }
-    drawCafeWaves();
-
     /* =========================================================================
        4. 3D PERSPECTIVE TILT CARDS (SERVICES BENTO GRID)
        ========================================================================= */
@@ -2559,8 +2945,8 @@
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const rx = -((y / rect.height) - 0.5) * 10;
-        const ry = ((x / rect.width) - 0.5) * 10;
+        const rx = -((y / rect.height) - 0.5) * 9;
+        const ry = ((x / rect.width) - 0.5) * 9;
         card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
         if (glare) {
           glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(56, 189, 248, 0.12), transparent 65%)`;
@@ -2572,7 +2958,7 @@
     });
 
     /* =========================================================================
-       5. FEATURE-BASED PRICE CALCULATOR & 3D ISOMETRIC FEATURE STACK
+       5. SIMPLE, BUDGET-FRIENDLY PRICE CALCULATOR (ANDROID APPS & WEBSITES)
        ========================================================================= */
     let activeCurrency = 'INR';
     let activePlatformEl = document.querySelector('#platform-chips .opt-chip.selected');
@@ -2589,7 +2975,6 @@
       document.getElementById('curr-inr').classList.toggle('active', curr === 'INR');
       document.getElementById('curr-usd').classList.toggle('active', curr === 'USD');
 
-      // Update chip price badges
       document.querySelectorAll('#platform-chips .opt-chip').forEach(btn => {
         const lbl = btn.querySelector('[data-price-label]');
         if (lbl) lbl.textContent = formatCurrency(btn.dataset.inr, btn.dataset.usd);
@@ -2611,6 +2996,26 @@
 
     function toggleModule(btn) {
       btn.classList.toggle('selected');
+      updateBlueprint();
+    }
+
+    function applyCalculatorPreset(preset) {
+      const chips = document.querySelectorAll('#module-chips .opt-chip');
+      chips.forEach(c => c.classList.remove('selected'));
+
+      if (preset === 'standard') {
+        chips.forEach(c => {
+          if (c.dataset.key === 'auth' || c.dataset.key === 'storage') {
+            c.classList.add('selected');
+          }
+        });
+      } else if (preset === 'complete') {
+        chips.forEach(c => {
+          if (['auth', 'storage', 'cloud', 'notifications'].includes(c.dataset.key)) {
+            c.classList.add('selected');
+          }
+        });
+      }
       updateBlueprint();
     }
 
@@ -2647,32 +3052,31 @@
 
       const projName = document.getElementById('client-project-name').value.trim();
       document.getElementById('bp-title').textContent = projName
-        ? `${projName} — ${platName}`
+        ? `${projName} (${platName})`
         : platName;
 
       document.getElementById('bp-desc').textContent = selectedModules.length
-        ? `${selectedModules.length} feature module(s) selected.`
-        : 'Base platform architecture with clean modular code.';
+        ? `Includes base service + ${selectedModules.length} extra feature(s).`
+        : 'Base service only (includes core screens/pages & clean UI).';
 
-      const minW = Math.max(2, Math.floor(totalWeeks));
+      const minW = Math.max(1, Math.floor(totalWeeks));
       const maxW = Math.ceil(totalWeeks + 1);
       document.getElementById('bp-timeline').textContent = `${minW} – ${maxW} Weeks`;
-      document.getElementById('bp-nodes').textContent = `${totalLayers} Iso Layers`;
+      document.getElementById('bp-nodes').textContent = `${totalLayers} Iso Layer${totalLayers > 1 ? 's' : ''}`;
 
-      // Sync Negotiation Modal labels
       const negEst = document.getElementById('neg-current-estimate');
       const negCnt = document.getElementById('neg-feature-count');
       if (negEst) negEst.textContent = formattedTotal;
-      if (negCnt) negCnt.textContent = `${selectedModules.length} Feature(s) Selected`;
+      if (negCnt) negCnt.textContent = `${selectedModules.length} Extra Feature(s)`;
 
-      const subject = encodeURIComponent(`Easode App Quote: ${projName || platName} (${formattedTotal})`);
+      const subject = encodeURIComponent(`Easode Project Quote: ${projName || platName} (${formattedTotal})`);
       const body = encodeURIComponent(
-        `Hi Sudam,\n\nI calculated an app estimate on the Easode website:\n` +
-        `- App Name: ${projName || 'New App Project'}\n` +
-        `- Base Platform: ${platName}\n` +
-        `- Selected Features: ${selectedModules.join(', ') || 'Base Platform Only'}\n` +
-        `- Calculated Estimate: ${formattedTotal}\n` +
-        `- Estimated Timeline: ${minW}-${maxW} Weeks\n\nLet's discuss the next steps.`
+        `Hi Sudam,\n\nI used the Easode Price Calculator to estimate my project:\n` +
+        `- Project Name: ${projName || 'New Client Project'}\n` +
+        `- Service Type: ${platName}\n` +
+        `- Selected Extra Features: ${selectedModules.join(', ') || 'Base Package Only'}\n` +
+        `- Estimated Price: ${formattedTotal}\n` +
+        `- Estimated Delivery: ${minW}-${maxW} Weeks\n\nLet's discuss the next steps.`
       );
       document.getElementById('mailto-launch-btn').href = `mailto:sudamgaware2@gmail.com?subject=${subject}&body=${body}`;
 
@@ -2685,7 +3089,7 @@
     window.currentIsoLayers = 3;
     updateBlueprint();
 
-    // 3D Isometric Feature Stack Illustration Canvas (Minimal Stacked 3D Slabs)
+    // 3D Isometric Feature Stack Illustration Canvas
     const bpCanvas = document.getElementById('blueprint-cube-canvas');
     const bpCtx = bpCanvas.getContext('2d');
     let isoAnimTick = 0;
@@ -2699,17 +3103,16 @@
       const cx = w / 2;
       const baseCy = h * 0.72;
       const slabW = Math.min(w * 0.32, 92);
-      const slabH = Math.min(h * 0.18, 28);
-      const spacing = Math.min(18, (h * 0.56) / layers);
+      const slabH = Math.min(h * 0.18, 26);
+      const spacing = Math.min(17, (h * 0.56) / layers);
 
       const palette = ['#38bdf8', '#6366f1', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#14b8a6'];
 
       for (let i = 0; i < layers; i++) {
-        const floatY = Math.sin(isoAnimTick - i * 0.45) * 3;
+        const floatY = Math.sin(isoAnimTick - i * 0.45) * 2.5;
         const y = baseCy - i * spacing + floatY;
         const color = palette[i % palette.length];
 
-        // Isometric diamond points
         bpCtx.save();
         bpCtx.beginPath();
         bpCtx.moveTo(cx, y - slabH);
@@ -2760,23 +3163,23 @@
     function submitNegotiationRequest() {
       const clientName = document.getElementById('neg-client-name').value.trim() || 'Prospective Client';
       const proposedBudget = document.getElementById('neg-proposed-budget').value.trim() || 'Open to discussion';
-      const notes = document.getElementById('neg-notes').value.trim() || 'Flexible scope / milestone discussion';
-      const calcQuote = window.currentFormattedQuote || '₹42,000';
-      const platName = window.currentPlatformName || 'Native Android App';
-      const feats = (window.currentSelectedFeatures || []).join(', ') || 'Base Platform';
+      const notes = document.getElementById('neg-notes').value.trim() || 'Flexible scope discussion';
+      const calcQuote = window.currentFormattedQuote || '₹9,000';
+      const platName = window.currentPlatformName || '1. Native Android App';
+      const feats = (window.currentSelectedFeatures || []).join(', ') || 'Base Package Only';
 
-      negToast.textContent = `Negotiation request prepared for ${clientName} (Target Budget: ${proposedBudget} vs Estimate: ${calcQuote}). Opening your email client to send directly to Easode...`;
+      negToast.textContent = `Negotiation request ready for ${clientName} (Your Budget: ${proposedBudget} vs Estimate: ${calcQuote}). Opening your email app to send to Easode...`;
       negToast.classList.add('visible');
 
       const subject = encodeURIComponent(`Price Negotiation Request — ${clientName} (${platName})`);
       const body = encodeURIComponent(
-        `Hi Sudam (Easode),\n\nI would like to request a price negotiation for my app project:\n\n` +
-        `- Name / Company: ${clientName}\n` +
-        `- Selected Platform: ${platName}\n` +
-        `- Selected Features: ${feats}\n` +
+        `Hi Sudam (Easode),\n\nI would like to request a price negotiation for my project:\n\n` +
+        `- Name / Business: ${clientName}\n` +
+        `- Selected Service: ${platName}\n` +
+        `- Selected Extra Features: ${feats}\n` +
         `- Calculator Estimate: ${calcQuote}\n` +
-        `- My Proposed Target Budget: ${proposedBudget}\n` +
-        `- Notes / Priorities: ${notes}\n\nPlease let me know how we can tailor the scope or pricing!`
+        `- My Proposed Budget: ${proposedBudget}\n` +
+        `- Project Requirements / Notes: ${notes}\n\nPlease let me know how we can work together within this budget!`
       );
 
       window.location.href = `mailto:sudamgaware2@gmail.com?subject=${subject}&body=${body}`;
