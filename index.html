@@ -2938,6 +2938,212 @@
       }
     }
 
+  
+    /* =========================================================================
+       AUTREX — COMING SOON SECTION, WHATSAPP COMMUNITY & BROWSER DEMO
+       ========================================================================= */
+    .autrex-showcase-card {
+      position: relative;
+      border-radius: 26px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      padding: 34px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .autrex-glow-orb {
+      position: absolute;
+      top: -110px;
+      right: -90px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(56, 189, 248, 0.08) 48%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .autrex-status-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.42);
+      color: var(--accent-amber);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+
+    .autrex-android-notice {
+      padding: 15px 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(99, 102, 241, 0.14));
+      border: 1px solid var(--border-glow);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .autrex-feature-Grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .autrex-mini-card {
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .autrex-mini-card .k {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .autrex-mini-card .v {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .autrex-mini-card .s {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.48);
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.86rem;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(16, 185, 129, 0.36);
+    }
+
+    .autrex-demo-panel {
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glow);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      position: relative;
+    }
+
+    .autrex-canvas-stage {
+      width: 100%;
+      height: 230px;
+      border-radius: 14px;
+      background: #070b14;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    #autrex-preview-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .autrex-canvas-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7, 11, 20, 0.88) 0%, rgba(7, 11, 20, 0.2) 55%, rgba(7, 11, 20, 0.65) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px 14px;
+      pointer-events: none;
+    }
+
+    .repo-file-pill {
+      padding: 10px 13px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-glow);
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .repo-file-pill code {
+      color: var(--accent-cyan);
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 1024px) {
+      .autrex-showcase-card {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .autrex-showcase-card {
+        padding: 18px 14px;
+        gap: 20px;
+      }
+      .autrex-feature-Grid {
+        grid-template-columns: 1fr;
+      }
+      .btn-whatsapp {
+        width: 100%;
+        white-space: normal;
+        text-align: center;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2957,6 +3163,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#products">StreakIO App</a></li>
+      <li><a href="#autrex">AUTREX <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-amber);padding:2px 6px;border-radius:999px;background:rgba(245,158,11,0.14);margin-left:3px;">SOON</span></a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#configurator">Price Calculator</a></li>
       <li><a href="#studio">Contact</a></li>
@@ -2978,6 +3185,7 @@
   <!-- Mobile Navigation Drawer -->
   <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
     <a href="#products" onclick="closeMobileMenu()"><span>StreakIO App</span><i data-icon="smartphone" class="icon-sm"></i></a>
+    <a href="#autrex" onclick="closeMobileMenu()"><span>AUTREX (Coming Soon)</span><i data-icon="sparkles" class="icon-sm"></i></a>
     <a href="#services" onclick="closeMobileMenu()"><span>Services</span><i data-icon="code" class="icon-sm"></i></a>
     <a href="#configurator" onclick="closeMobileMenu()"><span>Price Calculator</span><i data-icon="sliders" class="icon-sm"></i></a>
     <a href="#studio" onclick="closeMobileMenu()"><span>Contact Easode</span><i data-icon="mail" class="icon-sm"></i></a>
@@ -3352,6 +3560,153 @@
                 <span class="sc-desc">Reminders, active-hours battery saver, theme accents &amp; PDF/.bak export.</span>
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- =========================================================================
+         2B. AUTREX — COMING SOON SECTION (ANDROID APP + BROWSER DEMO + WHATSAPP COMMUNITY)
+         ========================================================================= -->
+    <section class="section" id="autrex">
+      <div class="section-header">
+        <div class="eyebrow">
+          <span class="pulse-dot"></span>
+          <span>UPCOMING LAUNCH BY EASODE • COMING SOON</span>
+        </div>
+        <h2>Introducing <span class="gradient-text">AUTREX</span> — Coming Soon</h2>
+        <p>
+          We are preparing to launch <strong>AUTREX</strong>, our next interactive experience engineered by <strong>Easode</strong>. While the official <strong>AUTREX Android App is coming soon</strong>, you can try the interactive browser demo right here and join our dedicated WhatsApp discussion group to shape the release with your ideas and feedback.
+        </p>
+      </div>
+
+      <div class="autrex-showcase-card">
+        <div class="autrex-glow-orb"></div>
+
+        <!-- Left Column: AUTREX Introduction, Android App Coming Soon Notice & WhatsApp Discussion CTA -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between;z-index:1;">
+          <div>
+            <div class="autrex-status-banner">
+              <i data-icon="smartphone" class="icon-sm"></i>
+              <span>AUTREX ANDROID APP — COMING SOON</span>
+            </div>
+
+            <h3 style="font-size:clamp(1.45rem, 2.4vw, 1.95rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;">
+              Experience AUTREX Early &amp; Co-Create With Us
+            </h3>
+
+            <p style="color:var(--text-secondary);font-size:0.93rem;line-height:1.66;">
+              <strong>AUTREX</strong> is currently in active pre-launch preparation at <strong>Easode</strong>. We are building a fast, responsive experience designed for both mobile and web players—and we want our early community involved from day one.
+            </p>
+
+            <!-- Explicit Android App Coming Soon Highlight Banner -->
+            <div class="autrex-android-notice">
+              <div class="card-icon-3d" style="width:40px;height:40px;border-radius:11px;flex-shrink:0;">
+                <i data-icon="smartphone" class="icon-md"></i>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading);font-weight:700;font-size:0.95rem;color:var(--text-primary);">
+                  Native AUTREX Android App is Coming Soon!
+                </div>
+                <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.5;margin-top:2px;">
+                  Our native Android release of <strong>AUTREX</strong> is under final optimization for Google Play. Until the Android app drops, test the playable web demo directly in your browser below.
+                </div>
+              </div>
+            </div>
+
+            <div class="autrex-feature-Grid">
+              <div class="autrex-mini-card">
+                <span class="k"><i data-icon="smartphone" class="icon-sm"></i><span>MOBILE RELEASE</span></span>
+                <span class="v">Android App Coming Soon</span>
+                <span class="s">Engineered for smooth 60fps Android performance &amp; intuitive touch controls.</span>
+              </div>
+
+              <div class="autrex-mini-card">
+                <span class="k"><i data-icon="play" class="icon-sm"></i><span>INSTANT WEB PLAY</span></span>
+                <span class="v">Playable Browser Demo</span>
+                <span class="s">Try the interactive AUTREX demo directly in your browser with zero install.</span>
+              </div>
+
+              <div class="autrex-mini-card">
+                <span class="k"><i data-icon="message-square" class="icon-sm"></i><span>EASODE COMMUNITY</span></span>
+                <span class="v">WhatsApp Discussion Group</span>
+                <span class="s">Join fellow testers in the AUTREX group to discuss gameplay &amp; new ideas.</span>
+              </div>
+
+              <div class="autrex-mini-card">
+                <span class="k"><i data-icon="sparkles" class="icon-sm"></i><span>PLAYER FEEDBACK</span></span>
+                <span class="v">Shape the Final Launch</span>
+                <span class="s">Your suggestions directly influence new levels, mechanics &amp; Android features.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+            <button type="button" class="btn-primary" onclick="openAutrexDemoModal()">
+              <i data-icon="play" class="icon-sm"></i>
+              <span>Play AUTREX Browser Demo</span>
+            </button>
+
+            <a href="https://chat.whatsapp.com/F8MbIHGFbZBIMivgw0xB1g?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener" class="btn-whatsapp">
+              <i data-icon="message-square" class="icon-sm"></i>
+              <span>Join AUTREX WhatsApp Discussion Group</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Browser Demo Preview & Direct Launch Card -->
+        <div class="autrex-demo-panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--accent-cyan);font-weight:600;display:inline-flex;align-items:center;gap:6px;">
+              <i data-icon="globe" class="icon-sm"></i>
+              <span>BROWSER DEMO PREVIEW</span>
+            </span>
+            <span class="brand-badge" style="background:rgba(16,185,129,0.14);color:var(--accent-emerald);border-color:rgba(16,185,129,0.35);">
+              TRY IN BROWSER
+            </span>
+          </div>
+
+          <!-- Interactive Live Canvas Preview of AUTREX -->
+          <div class="autrex-canvas-stage" onclick="openAutrexDemoModal()" title="Click to launch interactive AUTREX Browser Demo">
+            <canvas id="autrex-preview-canvas"></canvas>
+            <div class="autrex-canvas-overlay">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.68rem;color:#cbd5e1;">
+                <span>AUTREX • WEB DEMO v0.9</span>
+                <span style="color:#38bdf8;" id="autrex-preview-score">CLICK TO PLAY DEMO</span>
+              </div>
+              <div style="text-align:center;">
+                <span style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:999px;background:rgba(56,189,248,0.22);border:1px solid rgba(56,189,248,0.55);color:#ffffff;font-family:var(--font-heading);font-size:0.84rem;font-weight:700;backdrop-filter:blur(6px);">
+                  <i data-icon="play" class="icon-sm"></i>
+                  <span>Launch Interactive Demo</span>
+                </span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.65rem;color:#94a3b8;">
+                <span>Android App: Coming Soon</span>
+                <span style="color:#34d399;">Browser Demo Ready</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="repo-file-pill">
+            <span>Demo File Target: <code>autrex-demo.html</code></span>
+            <button type="button" class="phone-ctrl-btn" onclick="launchStandaloneAutrexFile()" title="Opens ./autrex-demo.html from the same GitHub repository folder">
+              <span>Open Full Page Demo</span>
+              <i data-icon="external-link" class="icon-sm"></i>
+            </button>
+          </div>
+
+          <div style="padding:12px 14px;border-radius:14px;background:var(--bg-card);border:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:8px;">
+            <div style="font-size:0.8rem;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:7px;">
+              <i data-icon="message-square" class="icon-sm" style="color:var(--accent-emerald);"></i>
+              <span>Tried the Demo? Share Your Feedback!</span>
+            </div>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.45;">
+              Join the official <strong>AUTREX Discussion Group</strong> inside the <strong>EASODE WhatsApp Community</strong> to share your score, feature ideas, and bug reports.
+            </p>
+            <a href="https://chat.whatsapp.com/F8MbIHGFbZBIMivgw0xB1g?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener" style="font-family:var(--font-mono);font-size:0.74rem;color:var(--accent-emerald);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:5px;">
+              <span>Join WhatsApp Community Group →</span>
+            </a>
           </div>
         </div>
       </div>
@@ -3788,12 +4143,59 @@
     </div>
   </div>
 
+  
+  <!-- INTERACTIVE AUTREX BROWSER DEMO MODAL (PLAYABLE IN-PAGE + STANDALONE GITHUB LAUNCHER) -->
+  <div class="modal-backdrop" id="autrex-demo-modal" role="dialog" aria-modal="true" aria-labelledby="autrex-modal-title">
+    <div class="modal-card" style="width:min(680px, 100%);">
+      <div class="modal-top">
+        <div>
+          <span class="brand-badge" style="background:rgba(245,158,11,0.14);color:var(--accent-amber);border-color:rgba(245,158,11,0.4);">AUTREX ANDROID APP COMING SOON • WEB DEMO</span>
+          <h3 id="autrex-modal-title" style="font-size:1.28rem;margin-top:6px;">AUTREX — Interactive Browser Demo</h3>
+        </div>
+        <button type="button" class="btn-icon" onclick="closeAutrexDemoModal()" aria-label="Close AUTREX demo modal">
+          <i data-icon="x" class="icon-sm"></i>
+        </button>
+      </div>
+
+      <p style="font-size:0.83rem;color:var(--text-secondary);line-height:1.5;">
+        Test the interactive <strong>AUTREX</strong> mini-demo right here (move cursor/finger or click/tap to steer &amp; collect energy cores while dodging obstacles), or open your uploaded <code>autrex-demo.html</code> build in a full tab.
+      </p>
+
+      <div style="position:relative;width:100%;height:300px;border-radius:16px;overflow:hidden;background:#060913;border:1px solid var(--border-glow);">
+        <canvas id="autrex-interactive-canvas" style="width:100%;height:100%;display:block;cursor:crosshair;touch-action:none;"></canvas>
+        <div style="position:absolute;top:10px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;font-family:var(--font-mono);font-size:0.74rem;color:#f8fafc;">
+          <span id="autrex-game-hud">SCORE: 0 • STREAK: x1</span>
+          <span style="color:#fbbf24;">ANDROID APP COMING SOON</span>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;border-radius:12px;background:var(--bg-secondary);border:1px solid var(--border-subtle);font-size:0.76rem;">
+        <span style="color:var(--text-secondary);">GitHub Repo Demo File: <code style="color:var(--accent-cyan);font-family:var(--font-mono);font-weight:700;">autrex-demo.html</code></span>
+        <button type="button" class="phone-ctrl-btn" onclick="launchStandaloneAutrexFile()">
+          <span>Open Full autrex-demo.html</span>
+          <i data-icon="external-link" class="icon-sm"></i>
+        </button>
+      </div>
+
+      <div style="display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:2px;">
+        <a href="https://chat.whatsapp.com/F8MbIHGFbZBIMivgw0xB1g?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener" class="btn-whatsapp">
+          <i data-icon="message-square" class="icon-sm"></i>
+          <span>Share Feedback on WhatsApp Group</span>
+        </a>
+        <div style="display:flex;gap:8px;">
+          <button type="button" class="btn-secondary" onclick="resetAutrexMiniGame()">Restart Demo</button>
+          <button type="button" class="btn-secondary" onclick="closeAutrexDemoModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <p>
       <strong>Easode</strong> — Native Android App &amp; Website Development Company • Founded by <strong>Sudam Gaware</strong>
     </p>
     <p style="margin-top:6px;">
-      Pune, Maharashtra, India • <a href="mailto:sudam-gaware-dev@gmail.com" style="color:var(--accent-cyan);text-decoration:none;">sudam-gaware-dev@gmail.com</a> • <a href="https://www.instagram.com/easode.studio" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none;">Instagram (@easode.studio)</a> • <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none;">Google Play (StreakIO)</a>
+      Pune, Maharashtra, India • <a href="mailto:sudam-gaware-dev@gmail.com" style="color:var(--accent-cyan);text-decoration:none;">sudam-gaware-dev@gmail.com</a> • <a href="https://www.instagram.com/easode.studio" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none;">Instagram (@easode.studio)</a> • <a href="https://play.google.com/store/apps/details?id=com.sudam.streakio" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none;">Google Play (StreakIO)</a> • <a href="https://chat.whatsapp.com/F8MbIHGFbZBIMivgw0xB1g?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener" style="color:var(--accent-emerald);text-decoration:none;">AUTREX WhatsApp Community</a>
     </p>
   </footer>
 
@@ -4423,6 +4825,233 @@
 
       window.location.href = `mailto:sudam-gaware-dev@gmail.com?subject=${subject}&body=${body}`;
     }
+
+    /* =========================================================================
+       7. AUTREX — COMING SOON PREVIEW CANVAS & INTERACTIVE BROWSER DEMO
+       ========================================================================= */
+    const autrexPreviewCanvas = document.getElementById('autrex-preview-canvas');
+    const autrexPreviewCtx = autrexPreviewCanvas ? autrexPreviewCanvas.getContext('2d') : null;
+    let autrexPreviewTick = 0;
+
+    function renderAutrexPreviewCanvas() {
+      if (!autrexPreviewCanvas || !autrexPreviewCtx) return;
+      const { w, h } = syncCanvasSize(autrexPreviewCanvas, autrexPreviewCtx);
+      autrexPreviewCtx.clearRect(0, 0, w, h);
+      autrexPreviewTick += 0.035;
+
+      // Cyber grid horizon
+      autrexPreviewCtx.strokeStyle = 'rgba(56, 189, 248, 0.14)';
+      autrexPreviewCtx.lineWidth = 1;
+      const gridStep = 28;
+      const offset = (autrexPreviewTick * 24) % gridStep;
+      for (let x = 0; x < w; x += gridStep) {
+        autrexPreviewCtx.beginPath();
+        autrexPreviewCtx.moveTo(x, 0);
+        autrexPreviewCtx.lineTo(x, h);
+        autrexPreviewCtx.stroke();
+      }
+      for (let y = offset; y < h; y += gridStep) {
+        autrexPreviewCtx.beginPath();
+        autrexPreviewCtx.moveTo(0, y);
+        autrexPreviewCtx.lineTo(w, y);
+        autrexPreviewCtx.stroke();
+      }
+
+      // Orbiting energy nodes
+      const cx = w * 0.5;
+      const cy = h * 0.48;
+      for (let i = 0; i < 4; i++) {
+        const ang = autrexPreviewTick + (i * Math.PI * 0.5);
+        const rx = cx + Math.cos(ang) * 68;
+        const ry = cy + Math.sin(ang * 1.3) * 32;
+        autrexPreviewCtx.beginPath();
+        autrexPreviewCtx.arc(rx, ry, 5, 0, Math.PI * 2);
+        autrexPreviewCtx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#10b981';
+        autrexPreviewCtx.fill();
+      }
+
+      // Central AUTREX ship / core emblem
+      const shipX = cx + Math.sin(autrexPreviewTick * 0.9) * 26;
+      const shipY = cy + Math.cos(autrexPreviewTick * 1.4) * 10;
+      autrexPreviewCtx.save();
+      autrexPreviewCtx.translate(shipX, shipY);
+      autrexPreviewCtx.beginPath();
+      autrexPreviewCtx.moveTo(0, -16);
+      autrexPreviewCtx.lineTo(14, 12);
+      autrexPreviewCtx.lineTo(0, 6);
+      autrexPreviewCtx.lineTo(-14, 12);
+      autrexPreviewCtx.closePath();
+      autrexPreviewCtx.fillStyle = '#6366f1';
+      autrexPreviewCtx.strokeStyle = '#38bdf8';
+      autrexPreviewCtx.lineWidth = 2;
+      autrexPreviewCtx.fill();
+      autrexPreviewCtx.stroke();
+      autrexPreviewCtx.restore();
+
+      requestAnimationFrame(renderAutrexPreviewCanvas);
+    }
+    renderAutrexPreviewCanvas();
+
+    // Interactive Playable AUTREX Browser Demo inside Modal
+    const autrexModal = document.getElementById('autrex-demo-modal');
+    const autrexGameCanvas = document.getElementById('autrex-interactive-canvas');
+    const autrexGameCtx = autrexGameCanvas ? autrexGameCanvas.getContext('2d') : null;
+    const autrexHudEl = document.getElementById('autrex-game-hud');
+
+    let autrexGameRunning = false;
+    let autrexScore = 0;
+    let autrexStreak = 1;
+    let playerX = 160;
+    let playerY = 220;
+    let orbs = [];
+    let hazards = [];
+
+    function initAutrexEntities(w, h) {
+      playerX = w * 0.5;
+      playerY = h * 0.76;
+      orbs = Array.from({ length: 4 }, (_, i) => ({
+        x: 40 + ((i * 130) % Math.max(120, w - 80)),
+        y: -20 - i * 70,
+        r: 7,
+        speed: 2.1 + (i % 2) * 0.6
+      }));
+      hazards = Array.from({ length: 3 }, (_, i) => ({
+        x: 60 + ((i * 170) % Math.max(120, w - 100)),
+        y: -60 - i * 95,
+        w: 28,
+        h: 12,
+        speed: 2.5 + i * 0.4
+      }));
+    }
+
+    function resetAutrexMiniGame() {
+      autrexScore = 0;
+      autrexStreak = 1;
+      if (autrexGameCanvas && autrexGameCtx) {
+        const { w, h } = syncCanvasSize(autrexGameCanvas, autrexGameCtx);
+        initAutrexEntities(w, h);
+      }
+      updateAutrexHud();
+    }
+
+    function updateAutrexHud() {
+      if (autrexHudEl) {
+        autrexHudEl.textContent = `SCORE: ${autrexScore} • STREAK: x${autrexStreak}`;
+      }
+    }
+
+    function openAutrexDemoModal() {
+      if (!autrexModal) return;
+      autrexModal.classList.add('open');
+      autrexGameRunning = true;
+      resetAutrexMiniGame();
+      requestAnimationFrame(stepAutrexMiniGame);
+    }
+
+    function closeAutrexDemoModal() {
+      if (!autrexModal) return;
+      autrexModal.classList.remove('open');
+      autrexGameRunning = false;
+    }
+
+    if (autrexModal) {
+      autrexModal.addEventListener('click', (e) => {
+        if (e.target === autrexModal) closeAutrexDemoModal();
+      });
+    }
+
+    if (autrexGameCanvas) {
+      const movePlayer = (clientX, clientY) => {
+        const rect = autrexGameCanvas.getBoundingClientRect();
+        playerX = Math.max(20, Math.min(rect.width - 20, clientX - rect.left));
+        playerY = Math.max(36, Math.min(rect.height - 24, clientY - rect.top));
+      };
+      autrexGameCanvas.addEventListener('pointermove', (e) => movePlayer(e.clientX, e.clientY));
+      autrexGameCanvas.addEventListener('pointerdown', (e) => movePlayer(e.clientX, e.clientY));
+    }
+
+    function stepAutrexMiniGame() {
+      if (!autrexGameRunning || !autrexGameCanvas || !autrexGameCtx) return;
+      const { w, h } = syncCanvasSize(autrexGameCanvas, autrexGameCtx);
+      autrexGameCtx.clearRect(0, 0, w, h);
+
+      // Background starfield / lanes
+      autrexGameCtx.strokeStyle = 'rgba(99, 102, 241, 0.14)';
+      for (let x = 40; x < w; x += 60) {
+        autrexGameCtx.beginPath();
+        autrexGameCtx.moveTo(x, 0);
+        autrexGameCtx.lineTo(x, h);
+        autrexGameCtx.stroke();
+      }
+
+      // Collectibles (Cyan/Emerald Orbs)
+      orbs.forEach(o => {
+        o.y += o.speed;
+        if (o.y > h + 15) {
+          o.y = -15;
+          o.x = 24 + Math.random() * Math.max(60, w - 48);
+        }
+        const dist = Math.hypot(o.x - playerX, o.y - playerY);
+        if (dist < o.r + 14) {
+          autrexScore += 10 * autrexStreak;
+          autrexStreak = Math.min(5, autrexStreak + 1);
+          o.y = -20;
+          o.x = 24 + Math.random() * Math.max(60, w - 48);
+          updateAutrexHud();
+        }
+        autrexGameCtx.beginPath();
+        autrexGameCtx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+        autrexGameCtx.fillStyle = '#10b981';
+        autrexGameCtx.fill();
+        autrexGameCtx.strokeStyle = '#38bdf8';
+        autrexGameCtx.lineWidth = 1.5;
+        autrexGameCtx.stroke();
+      });
+
+      // Obstacles (Amber Barriers)
+      hazards.forEach(hz => {
+        hz.y += hz.speed;
+        if (hz.y > h + 20) {
+          hz.y = -25;
+          hz.x = 24 + Math.random() * Math.max(60, w - 60);
+        }
+        if (
+          playerX > hz.x - 12 &&
+          playerX < hz.x + hz.w + 12 &&
+          playerY > hz.y - 12 &&
+          playerY < hz.y + hz.h + 12
+        ) {
+          autrexStreak = 1;
+          hz.y = -30;
+          updateAutrexHud();
+        }
+        autrexGameCtx.fillStyle = '#f59e0b';
+        autrexGameCtx.fillRect(hz.x, hz.y, hz.w, hz.h);
+      });
+
+      // Player Ship (AUTREX Glider)
+      autrexGameCtx.save();
+      autrexGameCtx.translate(playerX, playerY);
+      autrexGameCtx.beginPath();
+      autrexGameCtx.moveTo(0, -15);
+      autrexGameCtx.lineTo(13, 12);
+      autrexGameCtx.lineTo(0, 6);
+      autrexGameCtx.lineTo(-13, 12);
+      autrexGameCtx.closePath();
+      autrexGameCtx.fillStyle = '#38bdf8';
+      autrexGameCtx.fill();
+      autrexGameCtx.restore();
+
+      requestAnimationFrame(stepAutrexMiniGame);
+    }
+
+    function launchStandaloneAutrexFile() {
+      // Opens ./autrex-demo.html when uploaded alongside index.html in the GitHub repository
+      const demoUrl = 'autrex-' + 'demo.html';
+      window.open(demoUrl, '_blank', 'noopener');
+    }
+
+    renderAllIcons();
   </script>
 </body>
 </html>
