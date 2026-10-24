@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Cipher</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #1F2937; /* Dark Gray */
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px; 
+            background-color: #ffffff;
+        }
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #25D366;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+        p {
+            margin-bottom: 12px;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+        ul {
+            margin-bottom: 12px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #E5E7EB;
+            font-size: 0.85em;
+            color: #9CA3AF;
+            text-align: center;
+        }
+        a {
+            color: #4F46E5;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <p style="color: #6B7280; font-size: 0.9rem;"><strong>Effective Date:</strong> October 24, 2026</p>
+
+    <p>We built the Cipher app as a secure, offline-first password, PIN, and application protection utility. This service is provided by us at no cost and is intended for use as is.</p>
+
+    <p>This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decides to use our Service.</p>
+
+    <h2>1. Data Ownership &amp; Storage</h2>
+    <p>Cipher operates on a strict "Local-First" architecture. This means:</p>
+    <ul>
+        <li><strong>Encrypted Local Database:</strong> All your saved credentials, usernames, passwords, PIN codes, website URLs, notes, categories, and App Locker preferences are stored exclusively on your device's internal memory using a 256-bit AES encrypted SQLCipher Room Database, Android Hardware Keystore (AES-256-GCM), and Jetpack DataStore.</li>
+        <li><strong>No Cloud Sync:</strong> We do not maintain a backend server for your vault data. We never transmit, store, or view your passwords, PINs, or private notes.</li>
+        <li><strong>Data Control:</strong> Since your vault resides solely on your device, you retain complete ownership and control. If you uninstall the app without exporting a backup, your local vault data is permanently deleted from the device.</li>
+    </ul>
+
+    <h2>2. Permissions &amp; Usage</h2>
+    <p>To provide password management and application locking functionality, the app requests only the permissions strictly necessary for the features you choose to use:</p>
+    <ul>
+        <li><strong>Biometric Authentication (USE_BIOMETRIC):</strong> Used to verify your identity via your device's fingerprint sensor, face unlock, or screen lock credential before unlocking your vault or locked applications.</li>
+        <li><strong>Accessibility Service (BIND_ACCESSIBILITY_SERVICE):</strong> Used exclusively when you enable the optional App Locker feature to detect when a protected application is brought to the foreground so Cipher can display the lock screen overlay.</li>
+        <li><strong>Storage Access Framework (Backup Export/Import):</strong> Used only when you explicitly choose to export an encrypted JSON vault backup or restore from a previously saved backup file.</li>
+        <li><strong>Internet &amp; Network State (INTERNET, ACCESS_NETWORK_STATE):</strong> Used solely to load this Privacy Policy and the Terms &amp; Conditions pages inside the in-app WebView. Your vault credentials are never transmitted over the network.</li>
+    </ul>
+
+    <h2>3. App Locker &amp; Accessibility Service Disclosure</h2>
+    <p>If you choose to enable the App Locker feature, Cipher uses Android's Accessibility Service API strictly to monitor foreground package transitions (<code>TYPE_WINDOW_STATE_CHANGED</code>). This data is:</p>
+    <ul>
+        <li>Processed locally in real time on your device solely to determine whether the newly opened app is on your locked apps list.</li>
+        <li>Configured with window content retrieval disabled—Cipher <strong>never</strong> reads, captures, or logs screen text, UI hierarchies, keystrokes, or personal content inside other apps.</li>
+        <li><strong>Never shared</strong> with any third parties, external servers, or advertising networks.</li>
+    </ul>
+
+    <h2>4. Third-Party Services</h2>
+    <p>While we do not personally collect or access your vault data, the app is distributed via standard platform services that may collect basic device diagnostics:</p>
+    <ul>
+        <li><strong>Google Play Services:</strong> Used for app distribution, integrity verification, and anonymous crash reporting (e.g., if the app crashes, an anonymous stack trace helps us fix the issue).</li>
+    </ul>
+
+    <h2>5. Data Backup &amp; Export</h2>
+    <p>Because we do not store your passwords or PINs on any cloud server, <strong>you are solely responsible for your data backups</strong>. Cipher provides an encrypted JSON backup export feature protected by AES-256-GCM and PBKDF2-HMAC-SHA256 key derivation. We strongly recommend exporting a backup regularly and keeping your backup passphrase in a safe place to prevent data loss in case of device failure or replacement.</p>
+
+    <h2>6. Children’s Privacy</h2>
+    <p>We do not knowingly collect personally identifiable information from children. Since the app does not require account creation or personal data submission, no personal information is gathered from users of any age.</p>
+
+    <h2>7. Changes to This Privacy Policy</h2>
+    <p>We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+
+    <h2>8. Contact Us</h2>
+    <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at:</p>
+    <p><strong>Email:</strong> <a href="mailto:sudam.gaware.dev@gmail.com">sudam.gaware.dev@gmail.com</a></p>
+
+    <div class="footer">
+        &copy; 2026 Cipher. All rights reserved.
+    </div>
+
+</body>
+</html>
