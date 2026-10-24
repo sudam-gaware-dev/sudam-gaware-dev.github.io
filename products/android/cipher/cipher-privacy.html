@@ -10,19 +10,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg-color: #FFFFFF;
+            --text-color: #000000;
+            --muted-text: #666666;
+            --border-color: #E5E7EB;
+            --footer-text: #888888;
+            --accent-color: #00C853;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg-color: #000000;
+                --text-color: #FFFFFF;
+                --muted-text: #A0A0A0;
+                --border-color: #262626;
+                --footer-text: #777777;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #000000;
+            --text-color: #FFFFFF;
+            --muted-text: #A0A0A0;
+            --border-color: #262626;
+            --footer-text: #777777;
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #FFFFFF;
+            --text-color: #000000;
+            --muted-text: #666666;
+            --border-color: #E5E7EB;
+            --footer-text: #888888;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            color: #1F2937; /* Dark Gray */
+            color: var(--text-color);
             max-width: 800px;
             margin: 0 auto;
             padding: 16px; 
-            background-color: #ffffff;
+            background-color: var(--bg-color);
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .effective-date {
+            color: var(--muted-text);
+            font-size: 0.9rem;
         }
         h2 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #25D366;
+            color: var(--accent-color);
             margin-top: 24px;
             margin-bottom: 8px;
         }
@@ -39,23 +79,47 @@
             margin-bottom: 6px;
             font-size: 0.95rem;
         }
+        li::marker {
+            color: var(--accent-color);
+        }
         .footer {
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #E5E7EB;
+            border-top: 1px solid var(--border-color);
             font-size: 0.85em;
-            color: #9CA3AF;
+            color: var(--footer-text);
             text-align: center;
         }
         a {
-            color: #4F46E5;
+            color: var(--accent-color);
             text-decoration: none;
+            font-weight: 600;
         }
     </style>
+    <script>
+        function applyCipherTheme(themeMode, accentHex) {
+            var root = document.documentElement;
+            if (themeMode === 'dark' || themeMode === 'light') {
+                root.setAttribute('data-theme', themeMode);
+            }
+            if (accentHex && /^#?[0-9A-Fa-f]{6}$/.test(accentHex)) {
+                var normalized = accentHex.charAt(0) === '#' ? accentHex : '#' + accentHex;
+                root.style.setProperty('--accent-color', normalized);
+            }
+        }
+        (function() {
+            try {
+                var params = new URLSearchParams(window.location.search);
+                var theme = params.get('theme');
+                var accent = params.get('accent');
+                applyCipherTheme(theme, accent);
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
 
-    <p style="color: #6B7280; font-size: 0.9rem;"><strong>Effective Date:</strong> October 24, 2026</p>
+    <p class="effective-date"><strong>Effective Date:</strong> October 24, 2026</p>
 
     <p>We built the Cipher app as a secure, offline-first password, PIN, and application protection utility. This service is provided by us at no cost and is intended for use as is.</p>
 
