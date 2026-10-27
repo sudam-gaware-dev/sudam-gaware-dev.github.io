@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Easode — Project Price Calculator | Android Apps &amp; Websites</title>
+  <title>Easode — Project Price Calculator | Android Apps, Websites &amp; Windows Software</title>
   <!-- Vector SVG Favicon & High-Resolution PNG Fallbacks -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='easodeGrad' x1='0' y1='0' x2='64' y2='64' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%2338bdf8'/%3E%3Cstop offset='100%25' stop-color='%236366f1'/%3E%3C/linearGradient%3E%3Cfilter id='glow' x='-10%25' y='-10%25' width='120%25' height='120%25'%3E%3CfeDropShadow dx='0' dy='2' stdDeviation='2' flood-color='%230284c7' flood-opacity='0.35'/%3E%3C/filter%3E%3C/defs%3E%3Crect x='4' y='4' width='56' height='56' rx='16' fill='url(%23easodeGrad)'/%3E%3Crect x='5' y='5' width='54' height='54' rx='15' stroke='%23ffffff' stroke-opacity='0.24' stroke-width='1.2'/%3E%3Crect x='20' y='11' width='24' height='42' rx='5' stroke='%23ffffff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round' filter='url(%23glow)'/%3E%3Cpath d='M27 22h10M27 29.5h7.5M27 37h10M27 22v15' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' opacity='0.92'/%3E%3Ccircle cx='32' cy='46.5' r='2' fill='%23ffffff'/%3E%3C/svg%3E" />
   <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADAElEQVR42u2WW08TURDH+V6i9YYXUFEUFUX8BmA0RpRoNUTjLRqjETQa2tJSoChGeVKk9YYXVEDkzScTX3yr3dtZScadsz123Z2h29ZHJtkHHuj/NzP/mTN1dSvBRP2EGal/YkZXPzZhzSPnGzcg8sCAtRkD1o0637AB69MGbEgZsDFpQENCh4a4DpsGdNh8X4ct95zvrg5b+/VoY58WqUh81YSZdcShZvE7OjT26dB0W4OmW1q2JvGBRRvCxuAn2y8O225qsP1GGQhOfPbnElQa8z+W/OKw47oGzdcYiGLPA+JdOUv+YGzBDl325Ixbre5x0y8OzVc12HmF8ARnuNhX98diX+zQPU99EPJ/Uu8EJQ67LheiAQDOcAog7gCENVzqvQsw5AAExC8VoOViAQIAnNux9BJg3g7r9hLAW0GKt1ygAJhRw8wxEnP2X3EulOEwc4z0tCDFd58nALg5x8wlwKwtxQc/u38nP9rSbMkZIXuOWSvDYeYS4I0gxff0EgDckonPlQCw7DjjGMycy54PTRcBXgtSvPUcAcBtuEQRADPHnisAThx7ni4CDDsAlHjrWQqAWa+YudpuaDgsPRfKcFh6CfBKkOJ7zxAA3JLx9ty7ZLDnOOdoOOy513CYOcbIS0GK7zv9KwjALRlVchT2Lhlmw8meY+YS4IUgxff3EADckikBiH+WDCeOPfcCUOJtpwgAbsmonmPmaLiTD03WA8pwWHqM0Zwgxdu6KYAyD4t/zrHnaDYcNey513CYuQTIClL8wAkCoOqHhZjzkVwRYMoixQ8eJwBqeVj8o4aZY2SeW6R4+zECoJqHBcuOn3/UvACUePtRCoAQL/ewqPCPWmbKPWLGJi1S/NCRfBDAvV6D63W5hwXNRo0aZi4BnlmkeEdXPniQ4OlM7fYe540o97D4Ry0z6QL09uuUOHR05ukzHU9nasMtfK/8KF389psUP9yZX/4yxtN5ufUaJsaeWtWJq8DTudyocRuO6Xl4cRV4OuP1+h/Eo2zPV8KJP/QS5m/+jhbYAAAAAElFTkSuQmCC" />
@@ -3308,6 +3308,176 @@
       color: var(--text-secondary);
     }
 
+    /* Minimal Uncluttered Price Calculator Styles */
+    .minimal-calc-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.7fr);
+      gap: 24px;
+      align-items: start;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .platform-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .plat-card-min {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border-subtle);
+      background: var(--bg-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+    }
+
+    .plat-card-min:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .plat-card-min.selected {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(99, 102, 241, 0.16));
+      border-color: var(--accent-cyan);
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.14);
+    }
+
+    .plat-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .plat-card-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-cyan);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .plat-card-price {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .plat-card-name {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .plat-card-tag {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    .compact-addon-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .addon-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+    }
+
+    .addon-pill:hover {
+      border-color: var(--accent-cyan);
+    }
+
+    .addon-pill.selected {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(99, 102, 241, 0.16));
+      border-color: var(--accent-cyan);
+    }
+
+    .addon-pill-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      min-width: 0;
+    }
+
+    .addon-pill-left .icon-svg {
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+    }
+
+    .addon-pill-price {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .addon-pill.selected .addon-pill-price {
+      color: var(--accent-cyan);
+    }
+
+    .summary-card-min {
+      background: var(--bg-secondary);
+      border: 1.5px solid var(--border-glow);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: sticky;
+      top: 92px;
+    }
+
+    @media (max-width: 960px) {
+      .minimal-calc-box {
+        grid-template-columns: 1fr;
+      }
+      .summary-card-min {
+        position: static;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .platform-grid-3,
+      .compact-addon-grid {
+        grid-template-columns: 1fr;
+      }
+      .minimal-calc-box {
+        padding: 16px 14px;
+      }
+    }
+
     /* Done-for-You ₹1,00,000 Package Card */
     .dfy-pack-card {
       margin-top: 12px;
@@ -3811,258 +3981,204 @@
       <div class="page-crumb-trail">
         <span>Easode</span>
         <span>/</span>
-        <strong style="color:var(--accent-cyan);">Project Price Calculator</strong>
+        <strong style="color:var(--accent-cyan);">Price Calculator</strong>
       </div>
     </div>
 
-    <section class="section" id="configurator" style="padding-top:4px;">
-      <div class="section-header">
+    <section class="section" id="configurator" style="padding-top:0;">
+      <div class="section-header" style="margin-bottom:20px;">
         <div class="eyebrow">
           <i data-icon="sliders" class="icon-sm"></i>
-          <span>AI-ACCELERATED • AFFORDABLE &amp; COMPETITIVE PRICING</span>
+          <span>INSTANT PROJECT ESTIMATE</span>
         </div>
-        <h1>App &amp; Website <span class="gradient-text">Price Calculator</span></h1>
+        <h1>Project <span class="gradient-text">Price Calculator</span></h1>
         <p>
-          Configure a custom <strong>Native Android App</strong> or <strong>Website</strong> with individual feature add-ons, or select our end-to-end <strong>Done-for-You App Development Pack (₹1,00,000)</strong> where Easode develops and delivers your complete app project.
+          Pick a platform and optional add-ons for an instant quote, or select our end-to-end <strong>Done-for-You App Development Pack</strong>.
         </p>
       </div>
 
-      <div class="configurator-box">
+      <div class="minimal-calc-box">
+        <!-- Left Column: 2 Simple, Uncluttered Steps -->
         <div class="config-controls">
-          <div class="calc-header-row">
-            <span style="font-size:0.84rem;color:var(--text-secondary);">Choose your preferred display currency:</span>
+          <div class="calc-header-row" style="margin-bottom:16px;padding-bottom:12px;">
+            <span style="font-family:var(--font-mono);font-size:0.74rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent-cyan);font-weight:700;">
+              1. Choose Platform or Package
+            </span>
             <div class="currency-toggle" role="group" aria-label="Currency selector">
               <button type="button" class="curr-btn active" id="curr-inr" onclick="setCurrency('INR')">₹ INR</button>
               <button type="button" class="curr-btn" id="curr-usd" onclick="setCurrency('USD')">$ USD</button>
             </div>
           </div>
 
-          <!-- STEP 1: CORE SERVICES + PREDEFINED DONE-FOR-YOU APP DEVELOPMENT PACK (₹1,00,000) -->
-          <div class="config-step">
-            <label class="step-title">Step 1 — Select Your Service or Complete Project Package (Pick 1)</label>
-            <p class="step-helper">
-              Choose an individual base platform to customize with modular add-ons, or select the predefined <strong>Done-for-You App Development Pack</strong> for complete end-to-end project delivery.
-            </p>
-            <div class="option-chips" id="platform-chips">
-              <button type="button" class="opt-chip selected" data-val="android" data-pack="modular" data-weeks="1" data-inr="3500" data-usd="45" onclick="selectPlatform(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="smartphone" class="icon-sm"></i>
-                    <span>1. Native Android App</span>
-                  </span>
-                  <span class="chip-price" data-price-label>₹3,500</span>
-                </div>
-                <span class="chip-sub">Custom Android app (Kotlin / Jetpack Compose) with core screens &amp; smooth UI.</span>
-              </button>
-
-              <button type="button" class="opt-chip" data-val="website" data-pack="modular" data-weeks="0.5" data-inr="2000" data-usd="25" onclick="selectPlatform(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="globe" class="icon-sm"></i>
-                    <span>2. Website / Web App</span>
-                  </span>
-                  <span class="chip-price" data-price-label>₹2,000</span>
-                </div>
-                <span class="chip-sub">Responsive, mobile-friendly website with modern minimal &amp; 3D visuals.</span>
-              </button>
-            </div>
-
-            <!-- PREDEFINED DONE-FOR-YOU APP DEVELOPMENT PACK (₹1,00,000) -->
-            <button
-              type="button"
-              id="dfy-package-card"
-              class="dfy-pack-card"
-              data-val="done-for-you-pack"
-              data-pack="dfy"
-              data-weeks="6"
-              data-inr="100000"
-              data-usd="1200"
-              onclick="selectPlatform(this)"
-            >
-              <div class="dfy-pack-header">
-                <div class="dfy-pack-title-wrap">
-                  <span class="dfy-pack-badge">
-                    <i data-icon="award" class="icon-sm"></i>
-                    <span>END-TO-END COMPLETE PROJECT PACKAGE</span>
-                  </span>
-                  <div class="dfy-pack-title">
-                    <i data-icon="layers" class="icon-md" style="color:var(--accent-cyan);"></i>
-                    <span>3. Done-for-You App Development Pack</span>
-                  </div>
-                </div>
-                <div class="dfy-pack-price-box">
-                  <span class="dfy-pack-price" id="dfy-price-badge" data-price-label>₹1,00,000</span>
-                  <span style="font-family:var(--font-mono);font-size:0.66rem;color:var(--text-secondary);">Complete Project Pack</span>
-                </div>
+          <!-- 3 Core Platforms: Android App, Website, Windows Software -->
+          <div class="platform-grid-3" id="platform-chips">
+            <button type="button" class="plat-card-min selected" data-val="android" data-pack="modular" data-weeks="1" data-inr="3500" data-usd="45" onclick="selectPlatform(this)">
+              <div class="plat-card-top">
+                <span class="plat-card-icon"><i data-icon="smartphone" class="icon-sm"></i></span>
+                <span class="plat-card-price" data-price-label>₹3,500</span>
               </div>
+              <div>
+                <div class="plat-card-name">Android App</div>
+                <div class="plat-card-tag">Native Kotlin &amp; Compose</div>
+              </div>
+            </button>
 
-              <p class="dfy-pack-desc">
-                An <strong>end-to-end app development service</strong> where Easode develops and delivers the complete app project for you—rather than merely providing individual development services—with project scope and deliverables mutually agreed upon with the client.
-              </p>
+            <button type="button" class="plat-card-min" data-val="website" data-pack="modular" data-weeks="0.5" data-inr="2000" data-usd="25" onclick="selectPlatform(this)">
+              <div class="plat-card-top">
+                <span class="plat-card-icon"><i data-icon="globe" class="icon-sm"></i></span>
+                <span class="plat-card-price" data-price-label>₹2,000</span>
+              </div>
+              <div>
+                <div class="plat-card-name">Website / Web App</div>
+                <div class="plat-card-tag">Responsive modern web</div>
+              </div>
+            </button>
 
-              <ul class="dfy-pack-deliverables">
-                <li><i data-icon="check-circle"></i><span>Complete UI/UX design &amp; architecture</span></li>
-                <li><i data-icon="check-circle"></i><span>End-to-end native app engineering</span></li>
-                <li><i data-icon="check-circle"></i><span>Agreed backend, database &amp; API setup</span></li>
-                <li><i data-icon="check-circle"></i><span>QA testing, Play Store deployment &amp; handover</span></li>
-              </ul>
-
-              <div class="dfy-scope-note">
-                <i data-icon="info" class="icon-sm"></i>
-                <span><strong>Scope &amp; Deliverables Note:</strong> Scope and deliverables are agreed upon with the client prior to kickoff. <strong>Additional features or requirements outside the agreed scope may cost extra.</strong></span>
+            <button type="button" class="plat-card-min" data-val="windows" data-pack="modular" data-weeks="1.5" data-inr="5000" data-usd="65" onclick="selectPlatform(this)">
+              <div class="plat-card-top">
+                <span class="plat-card-icon"><i data-icon="monitor" class="icon-sm"></i></span>
+                <span class="plat-card-price" data-price-label>₹5,000</span>
+              </div>
+              <div>
+                <div class="plat-card-name">Windows Software</div>
+                <div class="plat-card-tag">Desktop app (Win 10/11)</div>
               </div>
             </button>
           </div>
 
-          <!-- STEP 2: EASY-TO-UNDERSTAND FEATURE TOGGLES + STARTER PRESETS -->
-          <div class="config-step">
-            <label class="step-title" id="step-2-heading">Step 2 — Toggle Extra Features (Optional — Click to Add or Remove)</label>
-            <p class="step-helper" id="step-2-helper">
-              <strong>Not sure what to pick?</strong> Click any feature card below if your project needs it, or click a quick preset to auto-select common features:
+          <!-- Streamlined Predefined Done-for-You App Development Pack (₹1,00,000) -->
+          <button
+            type="button"
+            id="dfy-package-card"
+            class="dfy-pack-card"
+            style="margin-top:10px;padding:14px 16px;gap:8px;"
+            data-val="done-for-you-pack"
+            data-pack="dfy"
+            data-weeks="6"
+            data-inr="100000"
+            data-usd="1200"
+            onclick="selectPlatform(this)"
+          >
+            <div class="dfy-pack-header">
+              <div class="dfy-pack-title-wrap">
+                <span class="dfy-pack-badge">END-TO-END COMPLETE PROJECT</span>
+                <div class="dfy-pack-title" style="font-size:0.96rem;">
+                  <i data-icon="award" class="icon-sm" style="color:var(--accent-cyan);"></i>
+                  <span>Done-for-You App Development Pack</span>
+                </div>
+              </div>
+              <span class="dfy-pack-price" id="dfy-price-badge" data-price-label style="font-size:1.1rem;padding:3px 10px;">₹1,00,000</span>
+            </div>
+
+            <p class="dfy-pack-desc" style="font-size:0.77rem;">
+              End-to-end app development service where Easode develops and delivers the complete project for you, with scope and deliverables agreed upon with the client.
             </p>
 
-            <div class="preset-bar">
-              <button type="button" class="preset-btn" onclick="applyCalculatorPreset('starter')">Starter / Basic (Base Only)</button>
-              <button type="button" class="preset-btn" onclick="applyCalculatorPreset('standard')">Popular Standard (+2 Features)</button>
-              <button type="button" class="preset-btn" onclick="applyCalculatorPreset('complete')">Full-Featured (+4 Features)</button>
-              <button type="button" class="preset-btn" style="border-color:rgba(139,92,246,0.45);color:var(--accent-cyan);" onclick="applyCalculatorPreset('dfy')">Done-for-You Pack (₹1,00,000)</button>
+            <div class="dfy-scope-note" style="padding:7px 10px;font-size:0.72rem;">
+              <i data-icon="info" class="icon-sm"></i>
+              <span><strong>Scope Note:</strong> Additional features or requirements outside the agreed scope may cost extra.</span>
             </div>
+          </button>
 
-            <div class="option-chips" id="module-chips">
-              <button type="button" class="opt-chip selected" data-key="auth" data-weeks="0.25" data-inr="800" data-usd="10" onclick="toggleModule(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="user" class="icon-sm"></i>
-                    <span>User Login &amp; Profiles</span>
-                  </span>
-                  <span class="chip-price" data-price-label>+₹800</span>
-                </div>
-                <span class="chip-sub">Let users sign up with Email, Phone, or Google Sign-In.</span>
+          <!-- STEP 2: COMPACT SINGLE-LINE FEATURE CHIPS -->
+          <div class="config-step" style="margin-top:20px;margin-bottom:0;">
+            <label class="step-title" id="step-2-heading" style="margin-bottom:10px;">2. Add Features (Optional)</label>
+
+            <div class="compact-addon-grid" id="module-chips">
+              <button type="button" class="addon-pill selected" data-key="auth" data-weeks="0.25" data-inr="800" data-usd="10" onclick="toggleModule(this)">
+                <span class="addon-pill-left">
+                  <i data-icon="user" class="icon-sm"></i>
+                  <span>User Login &amp; Profiles</span>
+                </span>
+                <span class="addon-pill-price" data-price-label>+₹800</span>
               </button>
 
-              <button type="button" class="opt-chip selected" data-key="storage" data-weeks="0.25" data-inr="800" data-usd="10" onclick="toggleModule(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="hard-drive" class="icon-sm"></i>
-                    <span>Offline Save &amp; PDF / .bak Backup</span>
-                  </span>
-                  <span class="chip-price" data-price-label>+₹800</span>
-                </div>
-                <span class="chip-sub">Save data on device &amp; let users export PDF reports or .bak backups.</span>
+              <button type="button" class="addon-pill selected" data-key="storage" data-weeks="0.25" data-inr="800" data-usd="10" onclick="toggleModule(this)">
+                <span class="addon-pill-left">
+                  <i data-icon="hard-drive" class="icon-sm"></i>
+                  <span>Offline Save &amp; PDF / Backup</span>
+                </span>
+                <span class="addon-pill-price" data-price-label>+₹800</span>
               </button>
 
-              <button type="button" class="opt-chip" data-key="cloud" data-weeks="0.5" data-inr="1200" data-usd="15" onclick="toggleModule(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="database" class="icon-sm"></i>
-                    <span>Cloud Database &amp; Online Sync</span>
-                  </span>
-                  <span class="chip-price" data-price-label>+₹1,200</span>
-                </div>
-                <span class="chip-sub">Store data online (Firebase/API) so it syncs across devices.</span>
+              <button type="button" class="addon-pill" data-key="cloud" data-weeks="0.5" data-inr="1200" data-usd="15" onclick="toggleModule(this)">
+                <span class="addon-pill-left">
+                  <i data-icon="database" class="icon-sm"></i>
+                  <span>Cloud Database &amp; Sync</span>
+                </span>
+                <span class="addon-pill-price" data-price-label>+₹1,200</span>
               </button>
 
-              <button type="button" class="opt-chip" data-key="notifications" data-weeks="0.25" data-inr="500" data-usd="7" onclick="toggleModule(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="bell" class="icon-sm"></i>
-                    <span>Reminders &amp; Push Notifications</span>
-                  </span>
-                  <span class="chip-price" data-price-label>+₹500</span>
-                </div>
-                <span class="chip-sub">Send daily reminders, alerts, or updates to your users.</span>
+              <button type="button" class="addon-pill" data-key="notifications" data-weeks="0.25" data-inr="500" data-usd="7" onclick="toggleModule(this)">
+                <span class="addon-pill-left">
+                  <i data-icon="bell" class="icon-sm"></i>
+                  <span>Reminders &amp; Notifications</span>
+                </span>
+                <span class="addon-pill-price" data-price-label>+₹500</span>
               </button>
 
-              <button type="button" class="opt-chip" data-key="payments" data-weeks="0.3" data-inr="1000" data-usd="12" onclick="toggleModule(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="shield" class="icon-sm"></i>
-                    <span>UPI &amp; Online Payment Gateway</span>
-                  </span>
-                  <span class="chip-price" data-price-label>+₹1,000</span>
-                </div>
-                <span class="chip-sub">Accept customer payments via UPI, cards, or subscriptions.</span>
+              <button type="button" class="addon-pill" data-key="payments" data-weeks="0.3" data-inr="1000" data-usd="12" onclick="toggleModule(this)">
+                <span class="addon-pill-left">
+                  <i data-icon="shield" class="icon-sm"></i>
+                  <span>Payments / Licensing</span>
+                </span>
+                <span class="addon-pill-price" data-price-label>+₹1,000</span>
               </button>
 
-              <button type="button" class="opt-chip" data-key="custom" data-weeks="0.3" data-inr="800" data-usd="10" onclick="toggleModule(this)">
-                <div class="opt-chip-top">
-                  <span class="chip-left">
-                    <i data-icon="sparkles" class="icon-sm"></i>
-                    <span>Custom Special Feature</span>
-                  </span>
-                  <span class="chip-price" data-price-label>+₹800</span>
-                </div>
-                <span class="chip-sub">Have a unique feature idea? Toggle this &amp; tell us below.</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="config-step" style="margin-bottom:0;">
-            <label class="step-title" for="client-project-name">Step 3 — Enter Your Project Name &amp; Proceed</label>
-            <input type="text" id="client-project-name" class="calc-project-input" placeholder="Enter your app or website name/idea (e.g., FreshKart App or Studio Website)" oninput="updateBlueprint()" />
-            <div class="calc-actions-grid">
-              <a id="mailto-launch-btn" href="mailto:sudam-gaware-dev@gmail.com" class="btn-primary calc-action-btn">
-                <i data-icon="send" class="icon-sm"></i>
-                <span>Book Project at This Estimate</span>
-              </a>
-              <button type="button" class="btn-negotiate calc-action-btn" id="request-negotiation-btn" onclick="openNegotiationModal()">
-                <i data-icon="message-square" class="icon-sm"></i>
-                <span>Request for Negotiation</span>
+              <button type="button" class="addon-pill" data-key="custom" data-weeks="0.3" data-inr="800" data-usd="10" onclick="toggleModule(this)">
+                <span class="addon-pill-left">
+                  <i data-icon="sparkles" class="icon-sm"></i>
+                  <span>Custom Feature / Automation</span>
+                </span>
+                <span class="addon-pill-price" data-price-label>+₹800</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Right: Live 3D Isometric Feature Stack & Price Summary -->
-        <div class="blueprint-output">
-          <div class="bp-top-header">
-            <span class="bp-top-title">
-              <i data-icon="layers" class="icon-sm"></i>
-              <span>3D FEATURE STACK &amp; QUOTE</span>
-            </span>
-            <span class="brand-badge bp-badge" id="bp-mode-badge">LIVE ESTIMATE</span>
+        <!-- Right Column: Clean, Minimal Estimate Summary -->
+        <div class="summary-card-min">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--accent-cyan);font-weight:700;">YOUR ESTIMATE</span>
+            <span class="brand-badge" id="bp-timeline">1 – 2 Weeks</span>
           </div>
 
-          <div class="bp-canvas-wrap">
-            <canvas id="blueprint-cube-canvas"></canvas>
-          </div>
-
-          <div class="price-banner">
+          <div class="price-banner" style="padding:14px 16px;">
             <div>
-              <div class="total-lbl">ESTIMATED TOTAL PRICE</div>
-              <div style="font-size:0.72rem;color:var(--text-secondary);" id="bp-price-sub">Base + selected features</div>
+              <div class="total-lbl">ESTIMATED TOTAL</div>
+              <div style="font-size:0.74rem;color:var(--text-secondary);font-weight:600;" id="bp-title">Android App</div>
             </div>
             <div class="total-val" id="bp-total-price">₹5,100</div>
           </div>
 
-          <div>
-            <h3 id="bp-title" style="font-size:1.05rem;margin-bottom:4px;">1. Native Android App</h3>
-            <p id="bp-desc" style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5;margin-bottom:8px;">
-              Includes base platform + 2 selected features.
-            </p>
-            <div class="breakdown-list" id="bp-breakdown-list"></div>
-          </div>
+          <div class="breakdown-list" id="bp-breakdown-list" style="max-height:170px;"></div>
 
-          <div id="bp-dfy-disclaimer" class="dfy-scope-note" style="display:none;">
+          <div id="bp-dfy-disclaimer" class="dfy-scope-note" style="display:none;padding:8px 10px;font-size:0.72rem;">
             <i data-icon="info" class="icon-sm"></i>
-            <span>End-to-end app development covering the complete project with agreed scope &amp; deliverables. <strong>Additional features or requirements outside the agreed scope may cost extra.</strong></span>
+            <span>End-to-end app development with agreed scope &amp; deliverables. <strong>Additional features outside the agreed scope may cost extra.</strong></span>
           </div>
 
-          <div class="blueprint-stats">
-            <div class="bp-stat">
-              <div class="k">ESTIMATED DELIVERY</div>
-              <div class="v" id="bp-timeline">1 – 3 Weeks</div>
-            </div>
-            <div class="bp-stat">
-              <div class="k">ACTIVE STACK</div>
-              <div class="v" id="bp-nodes">3 Iso Layers</div>
+          <div style="padding-top:6px;border-top:1px solid var(--border-subtle);">
+            <input
+              type="text"
+              id="client-project-name"
+              class="calc-project-input"
+              style="margin-bottom:10px;padding:10px 13px;font-size:0.82rem;"
+              placeholder="Project name or idea (optional)"
+              aria-label="Project name or idea"
+              oninput="updateBlueprint()"
+            />
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <a id="mailto-launch-btn" href="mailto:sudam-gaware-dev@gmail.com" class="btn-primary calc-action-btn" style="padding:11px 16px;">
+                <i data-icon="send" class="icon-sm"></i>
+                <span>Book Project at This Estimate</span>
+              </a>
+              <button type="button" class="btn-negotiate calc-action-btn" id="request-negotiation-btn" style="padding:10px 16px;" onclick="openNegotiationModal()">
+                <i data-icon="message-square" class="icon-sm"></i>
+                <span>Request Price Negotiation</span>
+              </button>
             </div>
           </div>
-
-          <button type="button" class="btn-negotiate calc-action-btn bp-negotiate-btn" onclick="openNegotiationModal()">
-            <i data-icon="message-square" class="icon-sm"></i>
-            <span>Have Custom Scope or Budget? Request Negotiation</span>
-          </button>
         </div>
       </div>
     </section>
@@ -4073,21 +4189,21 @@
     <div class="modal-card">
       <div class="modal-top">
         <div>
-          <span class="brand-badge">CUSTOMER-FRIENDLY FLEXIBLE PRICING</span>
-          <h3 id="neg-modal-title" style="font-size:1.25rem;margin-top:6px;">Request Price Negotiation</h3>
+          <span class="brand-badge">FLEXIBLE PRICING</span>
+          <h3 id="neg-modal-title" style="font-size:1.22rem;margin-top:6px;">Request Price Negotiation</h3>
         </div>
         <button type="button" class="btn-icon" onclick="closeNegotiationModal()" aria-label="Close modal">
           <i data-icon="x" class="icon-sm"></i>
         </button>
       </div>
 
-      <p style="font-size:0.84rem;color:var(--text-secondary);">
-        Tell us your comfortable budget and project requirements. We're happy to discuss scope options and find a price that works for both of us.
+      <p style="font-size:0.83rem;color:var(--text-secondary);">
+        Share your comfortable budget and requirements—we'll tailor a scope that works for you.
       </p>
 
-      <div style="padding:11px 14px;border-radius:12px;background:var(--bg-secondary);border:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.76rem;">
-        <span>Calculator Estimate: <strong id="neg-current-estimate" style="color:var(--accent-cyan);">₹5,100</strong></span>
-        <span id="neg-feature-count">2 Extra Features</span>
+      <div style="padding:10px 14px;border-radius:12px;background:var(--bg-secondary);border:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.75rem;">
+        <span>Current Estimate: <strong id="neg-current-estimate" style="color:var(--accent-cyan);">₹5,100</strong></span>
+        <span id="neg-feature-count">2 Add-Ons</span>
       </div>
 
       <div class="form-field">
@@ -4096,7 +4212,7 @@
       </div>
 
       <div class="form-field">
-        <label for="neg-proposed-budget">YOUR COMFORTABLE / PROPOSED BUDGET &amp; CURRENCY</label>
+        <label for="neg-proposed-budget">YOUR PROPOSED BUDGET &amp; CURRENCY</label>
         <div class="budget-input-group">
           <select id="neg-currency" class="neg-currency-select" aria-label="Select preferred currency" onchange="updateNegBudgetPlaceholder()">
             <option value="INR" data-symbol="₹">₹ INR</option>
@@ -4112,8 +4228,8 @@
       </div>
 
       <div class="form-field">
-        <label for="neg-notes">DESCRIBE YOUR APP OR WEBSITE REQUIREMENTS</label>
-        <textarea id="neg-notes" rows="3" placeholder="Briefly describe what your app or website should do and any special features you need..."></textarea>
+        <label for="neg-notes">PROJECT REQUIREMENTS</label>
+        <textarea id="neg-notes" rows="3" placeholder="Briefly describe your Android app, website, or Windows software..."></textarea>
       </div>
 
       <div class="negotiation-toast" id="negotiation-toast"></div>
@@ -4122,7 +4238,7 @@
         <button type="button" class="btn-secondary" onclick="closeNegotiationModal()">Cancel</button>
         <button type="button" class="btn-primary" onclick="submitNegotiationRequest()">
           <i data-icon="send" class="icon-sm"></i>
-          <span>Send Negotiation Request</span>
+          <span>Send Request</span>
         </button>
       </div>
     </div>
@@ -4268,23 +4384,10 @@
     }
 
     /* =========================================================================
-       2. PROJECT PRICE CALCULATOR WITH DONE-FOR-YOU PACK (₹1,00,000)
+       2. MINIMAL PROJECT PRICE CALCULATOR (ANDROID, WEBSITE, WINDOWS & ₹1,00,000 PACK)
        ========================================================================= */
     let activeCurrency = 'INR';
-    let activePlatformEl = document.querySelector('#platform-chips .opt-chip.selected');
-
-    function syncCanvasSize(canvas, ctx) {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      const w = Math.max(1, Math.round(rect.width));
-      const h = Math.max(1, Math.round(rect.height));
-      if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-      return { w, h };
-    }
+    let activePlatformEl = document.querySelector('#platform-chips .plat-card-min.selected');
 
     function formatCurrency(inrVal, usdVal, isDfy = false) {
       if (activeCurrency === 'INR') {
@@ -4301,7 +4404,7 @@
       document.getElementById('curr-inr').classList.toggle('active', curr === 'INR');
       document.getElementById('curr-usd').classList.toggle('active', curr === 'USD');
 
-      document.querySelectorAll('#platform-chips .opt-chip').forEach(btn => {
+      document.querySelectorAll('#platform-chips .plat-card-min').forEach(btn => {
         const lbl = btn.querySelector('[data-price-label]');
         if (lbl) lbl.textContent = formatCurrency(btn.dataset.inr, btn.dataset.usd);
       });
@@ -4314,7 +4417,7 @@
         }
       }
 
-      document.querySelectorAll('#module-chips .opt-chip').forEach(btn => {
+      document.querySelectorAll('#module-chips .addon-pill').forEach(btn => {
         const lbl = btn.querySelector('[data-price-label]');
         if (lbl) lbl.textContent = '+' + formatCurrency(btn.dataset.inr, btn.dataset.usd);
       });
@@ -4323,19 +4426,16 @@
     }
 
     function selectPlatform(btn) {
-      document.querySelectorAll('#platform-chips .opt-chip, #dfy-package-card').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('#platform-chips .plat-card-min, #dfy-package-card').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
       activePlatformEl = btn;
 
-      // If Done-for-You pack is selected, deselect modular add-ons by default so the estimate shows ₹1,00,000 cleanly,
-      // while still allowing the user to toggle extra out-of-scope add-ons if desired.
+      const step2Heading = document.getElementById('step-2-heading');
       if (btn.dataset.pack === 'dfy') {
-        document.querySelectorAll('#module-chips .opt-chip').forEach(c => c.classList.remove('selected'));
-        document.getElementById('step-2-heading').textContent = 'Step 2 — Optional Out-of-Scope Add-Ons (Click to Add Outside Agreed Scope)';
-        document.getElementById('step-2-helper').innerHTML = 'The <strong>Done-for-You App Development Pack (₹1,00,000)</strong> covers your agreed end-to-end app scope. Additional features or requirements outside the agreed scope may cost extra:';
+        document.querySelectorAll('#module-chips .addon-pill').forEach(c => c.classList.remove('selected'));
+        if (step2Heading) step2Heading.textContent = '2. Optional Out-of-Scope Add-Ons';
       } else {
-        document.getElementById('step-2-heading').textContent = 'Step 2 — Toggle Extra Features (Optional — Click to Add or Remove)';
-        document.getElementById('step-2-helper').innerHTML = '<strong>Not sure what to pick?</strong> Click any feature card below if your project needs it, or click a quick preset to auto-select common features:';
+        if (step2Heading) step2Heading.textContent = '2. Add Features (Optional)';
       }
 
       updateBlueprint();
@@ -4346,51 +4446,14 @@
       updateBlueprint();
     }
 
-    function applyCalculatorPreset(preset) {
-      const chips = document.querySelectorAll('#module-chips .opt-chip');
-      if (preset === 'dfy') {
-        const dfyCard = document.getElementById('dfy-package-card');
-        if (dfyCard) selectPlatform(dfyCard);
-        return;
-      }
-
-      // Ensure a modular platform is selected if switching to starter/standard/complete
-      if (activePlatformEl && activePlatformEl.dataset.pack === 'dfy') {
-        const firstPlat = document.querySelector('#platform-chips .opt-chip');
-        if (firstPlat) {
-          document.querySelectorAll('#platform-chips .opt-chip, #dfy-package-card').forEach(b => b.classList.remove('selected'));
-          firstPlat.classList.add('selected');
-          activePlatformEl = firstPlat;
-          document.getElementById('step-2-heading').textContent = 'Step 2 — Toggle Extra Features (Optional — Click to Add or Remove)';
-        }
-      }
-
-      chips.forEach(c => c.classList.remove('selected'));
-
-      if (preset === 'standard') {
-        chips.forEach(c => {
-          if (c.dataset.key === 'auth' || c.dataset.key === 'storage') {
-            c.classList.add('selected');
-          }
-        });
-      } else if (preset === 'complete') {
-        chips.forEach(c => {
-          if (['auth', 'storage', 'cloud', 'notifications'].includes(c.dataset.key)) {
-            c.classList.add('selected');
-          }
-        });
-      }
-      updateBlueprint();
-    }
-
     function updateBlueprint() {
+      if (!activePlatformEl) return;
       const isDfy = activePlatformEl.dataset.pack === 'dfy';
       const platName = isDfy
         ? 'Done-for-You App Development Pack'
-        : activePlatformEl.querySelector('.chip-left span').textContent.trim();
+        : activePlatformEl.querySelector('.plat-card-name').textContent.trim();
 
       let totalWeeks = parseFloat(activePlatformEl.dataset.weeks);
-      let totalLayers = isDfy ? 6 : 1;
       let totalInr = parseInt(activePlatformEl.dataset.inr, 10);
       let totalUsd = parseInt(activePlatformEl.dataset.usd, 10);
 
@@ -4401,22 +4464,21 @@
 
       if (isDfy) {
         breakdownHtml.push(
-          `<div class="breakdown-row"><span>• End-to-End Scope &amp; Deliverables</span><strong>Included</strong></div>`
+          `<div class="breakdown-row"><span>• Complete End-to-End Scope</span><strong>Included</strong></div>`
         );
       }
 
       const selectedModules = [];
-      document.querySelectorAll('#module-chips .opt-chip.selected').forEach(m => {
-        const mName = m.querySelector('.chip-left span').textContent.trim();
+      document.querySelectorAll('#module-chips .addon-pill.selected').forEach(m => {
+        const mName = m.querySelector('.addon-pill-left span').textContent.trim();
         const mInr = parseInt(m.dataset.inr, 10);
         const mUsd = parseInt(m.dataset.usd, 10);
         totalWeeks += parseFloat(m.dataset.weeks);
-        totalLayers += 1;
         totalInr += mInr;
         totalUsd += mUsd;
         selectedModules.push(mName);
         breakdownHtml.push(
-          `<div class="breakdown-row"><span>+ ${mName}${isDfy ? ' (Extra Add-On)' : ''}</span><strong>${formatCurrency(mInr, mUsd)}</strong></div>`
+          `<div class="breakdown-row"><span>+ ${mName}</span><strong>${formatCurrency(mInr, mUsd)}</strong></div>`
         );
       });
 
@@ -4425,19 +4487,8 @@
       document.getElementById('bp-breakdown-list').innerHTML = breakdownHtml.join('');
 
       const dfyDisclaimer = document.getElementById('bp-dfy-disclaimer');
-      const modeBadge = document.getElementById('bp-mode-badge');
-      const priceSub = document.getElementById('bp-price-sub');
-
-      if (isDfy) {
-        if (dfyDisclaimer) dfyDisclaimer.style.display = 'flex';
-        if (modeBadge) modeBadge.textContent = 'END-TO-END PACKAGE';
-        if (priceSub) priceSub.textContent = selectedModules.length
-          ? 'Done-for-You Pack + extra add-ons'
-          : 'Complete end-to-end project (agreed scope)';
-      } else {
-        if (dfyDisclaimer) dfyDisclaimer.style.display = 'none';
-        if (modeBadge) modeBadge.textContent = 'AFFORDABLE ESTIMATE';
-        if (priceSub) priceSub.textContent = 'Base + selected features';
+      if (dfyDisclaimer) {
+        dfyDisclaimer.style.display = isDfy ? 'flex' : 'none';
       }
 
       const projName = document.getElementById('client-project-name').value.trim();
@@ -4445,28 +4496,17 @@
         ? `${projName} (${platName})`
         : platName;
 
-      if (isDfy) {
-        document.getElementById('bp-desc').textContent = selectedModules.length
-          ? `End-to-end app development service covering the complete project + ${selectedModules.length} extra add-on(s).`
-          : 'End-to-end app development service covering the complete project, with scope and deliverables agreed upon with the client.';
-      } else {
-        document.getElementById('bp-desc').textContent = selectedModules.length
-          ? `Includes base service + ${selectedModules.length} extra feature(s).`
-          : 'Base service only (includes core screens/pages & clean UI).';
-      }
-
       const minW = Math.max(1, Math.floor(totalWeeks));
       const maxW = Math.ceil(totalWeeks + (isDfy ? 2 : 1));
       document.getElementById('bp-timeline').textContent = `${minW} – ${maxW} Weeks`;
-      document.getElementById('bp-nodes').textContent = `${Math.min(7, totalLayers)} Iso Layer${totalLayers > 1 ? 's' : ''}`;
 
       const negEst = document.getElementById('neg-current-estimate');
       const negCnt = document.getElementById('neg-feature-count');
       if (negEst) negEst.textContent = formattedTotal;
       if (negCnt) {
         negCnt.textContent = isDfy
-          ? (selectedModules.length ? `Done-for-You + ${selectedModules.length} Extra` : 'Complete End-to-End Pack')
-          : `${selectedModules.length} Extra Feature(s)`;
+          ? (selectedModules.length ? `Done-for-You + ${selectedModules.length} Extra` : 'End-to-End Pack')
+          : `${selectedModules.length} Add-On(s)`;
       }
 
       const subject = encodeURIComponent(`Easode Project Quote: ${projName || platName} (${formattedTotal})`);
@@ -4477,9 +4517,9 @@ I used the Easode Price Calculator to estimate my project:
 ` +
         `- Project Name: ${projName || 'New Client Project'}
 ` +
-        `- Selected Package / Service: ${platName}
+        `- Selected Platform / Package: ${platName}
 ` +
-        `- Selected Features / Scope: ${isDfy ? 'End-to-end complete app project (scope & deliverables agreed with client)' + (selectedModules.length ? ' + ' + selectedModules.join(', ') : '') : (selectedModules.join(', ') || 'Base Package Only')}
+        `- Selected Features: ${isDfy ? 'End-to-end complete app project (scope & deliverables agreed with client)' + (selectedModules.length ? ' + ' + selectedModules.join(', ') : '') : (selectedModules.join(', ') || 'Base Platform Only')}
 ` +
         `- Estimated Price: ${formattedTotal}
 ` +
@@ -4492,60 +4532,12 @@ Let's discuss the next steps.`
       );
       document.getElementById('mailto-launch-btn').href = `mailto:sudam-gaware-dev@gmail.com?subject=${subject}&body=${body}`;
 
-      window.currentIsoLayers = Math.min(7, totalLayers);
       window.currentFormattedQuote = formattedTotal;
       window.currentSelectedFeatures = selectedModules;
       window.currentPlatformName = platName;
     }
 
-    window.currentIsoLayers = 3;
     updateBlueprint();
-
-    const bpCanvas = document.getElementById('blueprint-cube-canvas');
-    const bpCtx = bpCanvas.getContext('2d');
-    let isoAnimTick = 0;
-
-    function renderIsometricFeatureStack() {
-      const { w, h } = syncCanvasSize(bpCanvas, bpCtx);
-      bpCtx.clearRect(0, 0, w, h);
-      isoAnimTick += 0.03;
-
-      const layers = Math.min(7, Math.max(1, window.currentIsoLayers || 3));
-      const cx = w / 2;
-      const baseCy = h * 0.72;
-      const slabW = Math.min(w * 0.32, 92);
-      const slabH = Math.min(h * 0.18, 26);
-      const spacing = Math.min(17, (h * 0.56) / layers);
-
-      const palette = ['#38bdf8', '#6366f1', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#14b8a6'];
-
-      for (let i = 0; i < layers; i++) {
-        const floatY = Math.sin(isoAnimTick - i * 0.45) * 2.5;
-        const y = baseCy - i * spacing + floatY;
-        const color = palette[i % palette.length];
-
-        bpCtx.save();
-        bpCtx.beginPath();
-        bpCtx.moveTo(cx, y - slabH);
-        bpCtx.lineTo(cx + slabW, y);
-        bpCtx.lineTo(cx, y + slabH);
-        bpCtx.lineTo(cx - slabW, y);
-        bpCtx.closePath();
-
-        bpCtx.fillStyle = i === layers - 1
-          ? 'rgba(56, 189, 248, 0.24)'
-          : 'rgba(30, 41, 59, 0.78)';
-        bpCtx.fill();
-
-        bpCtx.strokeStyle = color;
-        bpCtx.lineWidth = 1.8;
-        bpCtx.stroke();
-        bpCtx.restore();
-      }
-
-      requestAnimationFrame(renderIsometricFeatureStack);
-    }
-    renderIsometricFeatureStack();
 
     /* =========================================================================
        3. REQUEST FOR NEGOTIATION MODAL WORKFLOW
@@ -4612,10 +4604,10 @@ Let's discuss the next steps.`
       const formattedBudget = formatNegotiationBudget(rawBudget, selectedCurr);
       const notes = document.getElementById('neg-notes').value.trim() || 'Flexible scope discussion';
       const calcQuote = window.currentFormattedQuote || '₹5,100';
-      const platName = window.currentPlatformName || '1. Native Android App';
+      const platName = window.currentPlatformName || 'Android App';
       const feats = (window.currentSelectedFeatures || []).join(', ') || 'Standard / Agreed Scope';
 
-      negToast.textContent = `Negotiation request ready for ${clientName} (Proposed Budget: ${formattedBudget} vs Estimate: ${calcQuote}). Opening your email app to send to Easode...`;
+      negToast.textContent = `Negotiation request ready for ${clientName} (Proposed Budget: ${formattedBudget} vs Estimate: ${calcQuote}). Opening your email app...`;
       negToast.classList.add('visible');
 
       const subject = encodeURIComponent(`Price Negotiation Request — ${clientName} | Budget: ${formattedBudget}`);
@@ -4627,7 +4619,7 @@ I would like to request a price negotiation for my project:
 ` +
         `- Name / Business: ${clientName}
 ` +
-        `- Selected Service / Package: ${platName}
+        `- Selected Platform / Package: ${platName}
 ` +
         `- Selected Features: ${feats}
 ` +
