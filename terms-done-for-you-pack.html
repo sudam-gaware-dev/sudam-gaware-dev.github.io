@@ -6163,87 +6163,91 @@
            hardcoding individual filenames or embedding image data in source code.
        ========================================================================= */
     const EasodeScreenshotLoader = (() => {
+      // Relative directory paths so the project works in ANY root folder, subfolder, local file:// copy, or https://www.easode.com/
       const DIRECTORIES = {
         streakio: 'products/android/streakio/screenshots/',
         cipher: 'products/android/cipher/screenshots/'
       };
+
+      // Exact known screenshot files in each directory (rendered immediately using relative paths, with automatic pruning on removal & discovery on addition)
+      const KNOWN_FILES = {
+        streakio: [
+          'streakio-home.jpg',
+          'streakio-journal.jpg',
+          'streakio-createhabit.jpg',
+          'streakio-achievements.jpg',
+          'streakio-settings.jpg',
+          'streakio-about.jpg'
+        ],
+        cipher: [
+          'cipher-vault-dark.jpg',
+          'cipher-vault-light.jpg',
+          'cipher-locked-dark.jpg',
+          'cipher-locked-light.jpg',
+          'cipher-edit-dark.jpg',
+          'cipher-edit-light.jpg',
+          'cipher-keygenerator-dark.jpg',
+          'cipher-keygenerator-light.jpg',
+          'cipher-audit-dark.jpg',
+          'cipher-audit-light.jpg',
+          'cipher-applocker-dark.jpg',
+          'cipher-applocker-light.jpg',
+          'cipher-settings-dark.jpg',
+          'cipher-settings-light.jpg',
+          'cipher-about-dark.jpg',
+          'cipher-about-light.jpg'
+        ]
+      };
+
       const IMAGE_EXT_RE = /\.(png|jpe?g|webp|avif|gif|svg)(?:[?#].*)?$/i;
       const PROBE_EXTENSIONS = ['jpg', 'png', 'jpeg', 'webp'];
-      const NAMED_CANDIDATES = [
-        'xyz', 'home', 'main', 'dashboard', 'index', 'start', 'welcome', 'onboarding', 'splash', 'overview',
-        'habit', 'habits', 'streak', 'streaks', 'routine', 'routines', 'tasks', 'daily', 'today',
-        'step', 'steps', 'pedometer', 'activity', 'fitness', 'counter',
-        'journal', 'diary', 'notes', 'reflection', 'journal-text', 'journal_text', 'journal-cal', 'journal_cal', 'journal-calendar',
-        'calendar', 'month', 'monthly', 'weekly', 'history', 'timeline',
-        'stat', 'stats', 'statistics', 'analytics', 'chart', 'charts', 'progress', 'report', 'insights', 'summary',
-        'achievement', 'achievements', 'badge', 'badges', 'milestone', 'milestones', 'reward', 'rewards', 'trophy', 'goals',
-        'setting', 'settings', 'preferences', 'config', 'options', 'profile', 'theme', 'dark', 'light', 'backup', 'export', 'restore', 'pdf',
-        'vault', 'password', 'passwords', 'credentials', 'login', 'auth', 'unlock', 'lock', 'pin', 'biometric', 'security', 'encrypt', 'cipher', 'generator', 'key', 'keys', 'safe', 'categories', 'details',
-        'screen', 'screenshot', 'shot', 'img', 'image', 'pic', 'photo', 'preview', 'demo', 'app', 'test', 'sample',
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
+      const EXTRA_FEATURE_STEMS = [
+        'stats', 'statistics', 'calendar', 'habits', 'steps', 'backup', 'export', 'profile', 'onboarding', 'welcome', 'dashboard', 'main',
+        'home', 'journal', 'createhabit', 'achievements', 'settings', 'about',
+        'vault', 'locked', 'edit', 'keygenerator', 'audit', 'applocker', 'generator', 'security', 'categories', 'details'
       ];
       const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
       const cache = new Map();
-      const manualOverrides = new Map();
-      const listeners = new Set();
 
-      function normalizeDir(dirPath) {
-        const trimmed = String(dirPath || '').trim().replace(/\\\\/g, '/');
+      function normalizeRelativeDir(dirPath) {
+        const trimmed = String(dirPath || '').trim().replace(/\\/g, '/').replace(/^[./]+/, '');
         if (!trimmed) return '';
         return trimmed.endsWith('/') ? trimmed : trimmed + '/';
       }
 
-      function getCandidateBaseDirs(dirPath) {
-        const norm = normalizeDir(dirPath);
-        if (!norm) return [];
-        const stripped = norm.replace(/^[./]+/, '');
-        const rawCandidates = [
-           stripped,
-          './' + stripped,
-          '/' + stripped
-        ];
-        const uniqueDirs = [];
-        const seenResolved = new Set();
-        rawCandidates.forEach((cand) => {
-          try {
-            const resolvedHref = new URL(cand, window.location.href).href;
-            if (!seenResolved.has(resolvedHref)) {
-              seenResolved.add(resolvedHref);
-              uniqueDirs.push(cand);
-            }
-          } catch (err) {
-            if (!uniqueDirs.includes(cand)) uniqueDirs.push(cand);
-          }
-        });
-        return uniqueDirs;
+      function getInitialRelativeUrls(appKey, dirPath) {
+        const relDir = normalizeRelativeDir(dirPath || DIRECTORIES[appKey] || '');
+        const list = KNOWN_FILES[appKey] || [];
+        return list.map((fname) => relDir + fname);
       }
 
-      function sortUrlsNaturally(urls) {
-        const deduped = [];
-        const seenFileKey = new Set();
+      function deduplicateByFilename(urls, preferredOrder = []) {
+        const orderRank = new Map();
+        preferredOrder.forEach((u, idx) => {
+          const fname = decodeURIComponent(u.split('/').pop() || u).toLowerCase();
+          orderRank.set(fname, idx);
+        });
+
+        const byName = new Map();
         urls.forEach((u) => {
           if (!u) return;
-          if (u.startsWith('blob:') || u.startsWith('data:')) {
-            if (!seenFileKey.has(u)) {
-              seenFileKey.add(u);
-              deduped.push(u);
-            }
-            return;
-          }
-          const cleanName = decodeURIComponent((u.split('?')[0].split('#')[0].split('/').pop() || u)).toLowerCase();
-          if (!seenFileKey.has(cleanName)) {
-            seenFileKey.add(cleanName);
-            deduped.push(u);
+          const fname = decodeURIComponent(u.split('?')[0].split('#')[0].split('/').pop() || u).toLowerCase();
+          if (!byName.has(fname)) {
+            byName.set(fname, u);
           }
         });
-        return deduped.sort((a, b) => {
-          const nameA = decodeURIComponent(a.split('/').pop() || a);
-          const nameB = decodeURIComponent(b.split('/').pop() || b);
-          return collator.compare(nameA, nameB);
-        });
+
+        return Array.from(byName.entries())
+          .sort(([nameA], [nameB]) => {
+            const rankA = orderRank.has(nameA) ? orderRank.get(nameA) : 9999;
+            const rankB = orderRank.has(nameB) ? orderRank.get(nameB) : 9999;
+            if (rankA !== rankB) return rankA - rankB;
+            return collator.compare(nameA, nameB);
+          })
+          .map(([, url]) => url);
       }
 
-      function probeImageElement(url, timeoutMs = 1800) {
+      function probeImageElement(url, timeoutMs = 2500) {
         return new Promise((resolve) => {
           const img = new Image();
           let settled = false;
@@ -6262,423 +6266,152 @@
         });
       }
 
-      async function verifyCandidateUrls(candidates) {
+      async function verifyCandidateUrls(candidates, preferredOrder = []) {
         if (!candidates || !candidates.length) return [];
         const unique = Array.from(new Set(candidates));
-        const results = [];
+        const valid = [];
         const batchSize = 24;
         for (let i = 0; i < unique.length; i += batchSize) {
           const slice = unique.slice(i, i + batchSize);
-          const checked = await Promise.all(slice.map((u) => probeImageElement(u)));
-          checked.forEach((hit) => {
-            if (hit) results.push(hit);
+          const results = await Promise.all(slice.map((u) => probeImageElement(u)));
+          results.forEach((hit) => {
+            if (hit) valid.push(hit);
           });
         }
-        return sortUrlsNaturally(results);
+        return deduplicateByFilename(valid, preferredOrder);
       }
 
-      function resolveCandidateAgainstDir(rawRef, dirUrl) {
-        if (!rawRef || typeof rawRef !== 'string') return null;
-        const cleaned = rawRef.trim().replace(/\\\\/g, '/');
-        if (!cleaned || cleaned.startsWith('?') || cleaned.startsWith('#') || cleaned === '../' || cleaned === './') {
-          return null;
-        }
-        if (!IMAGE_EXT_RE.test(cleaned)) return null;
-        try {
-          const safeDir = normalizeDir(dirUrl);
-          const baseHref = new URL(safeDir, window.location.href).href;
-          if (cleaned.startsWith('http://') || cleaned.startsWith('https://') || cleaned.startsWith('file://')) {
-            return cleaned;
-          }
-          if (cleaned.startsWith('/')) {
-            return new URL(cleaned, window.location.href).href;
-          }
-          // If rawRef already includes the directory prefix (e.g. products/android/streakio/screenshots/xyz.jpg)
-          const strippedDir = safeDir.replace(/^[./]+/, '');
-          if (strippedDir && cleaned.replace(/^[./]+/, '').startsWith(strippedDir)) {
-            return new URL(cleaned.replace(/^[./]+/, ''), new URL('./', window.location.href)).href;
-          }
-          return new URL(cleaned, baseHref).href;
-        } catch (err) {
-          return normalizeDir(dirUrl) + cleaned.replace(/^[./]+/, '');
-        }
-      }
-
-      function extractImageUrlsFromDirectoryPayload(payloadText, dirUrl) {
+      function extractFilenamesFromDirectoryPayload(payloadText, relDir) {
         if (!payloadText || typeof payloadText !== 'string') return [];
-        // Ignore SPA fallback responses that return the main website HTML itself
         if (payloadText.includes('EasodeScreenshotLoader') || payloadText.includes('streakio-phone-screens-root')) {
           return [];
         }
-
         const found = [];
+        const pushCandidate = (raw) => {
+          if (!raw || typeof raw !== 'string') return;
+          const cleaned = raw.trim().replace(/\\/g, '/');
+          if (!cleaned || cleaned.startsWith('?') || cleaned.startsWith('#') || cleaned === '../' || cleaned === './') return;
+          const fname = cleaned.split('?')[0].split('#')[0].split('/').pop() || '';
+          if (fname && IMAGE_EXT_RE.test(fname)) {
+            found.push(relDir + fname);
+          }
+        };
 
-        // 1. Check JSON directory listings (npx serve, Caddy, custom index.json/manifest.json)
         try {
           const parsed = JSON.parse(payloadText);
           const list = Array.isArray(parsed)
             ? parsed
-            : (Array.isArray(parsed.files)
-              ? parsed.files
-              : (Array.isArray(parsed.items)
-                ? parsed.items
-                : (Array.isArray(parsed.entries)
-                  ? parsed.entries
-                  : (Array.isArray(parsed.screenshots)
-                    ? parsed.screenshots
-                    : (Array.isArray(parsed.images) ? parsed.images : null)))));
-          if (list) {
+            : (parsed.files || parsed.items || parsed.entries || parsed.screenshots || parsed.images || null);
+          if (Array.isArray(list)) {
             list.forEach((entry) => {
               if (typeof entry === 'string') {
-                const u = resolveCandidateAgainstDir(entry, dirUrl);
-                if (u) found.push(u);
+                pushCandidate(entry);
               } else if (entry && typeof entry === 'object') {
-                const candidateFields = [
-                  entry.relative,
-                  entry.base,
-                  entry.file,
-                  entry.filename,
-                  entry.path,
-                  entry.url,
-                  entry.href,
-                  (entry.name && entry.ext) ? (String(entry.name) + (String(entry.ext).startsWith('.') ? entry.ext : '.' + entry.ext)) : null,
-                  entry.name
-                ];
-                for (const ref of candidateFields) {
-                  const u = resolveCandidateAgainstDir(ref, dirUrl);
-                  if (u) {
-                    found.push(u);
-                    break;
-                  }
-                }
+                pushCandidate(entry.base || entry.relative || entry.file || entry.filename || entry.path || entry.url || entry.href || entry.name);
               }
             });
-            if (found.length > 0) return sortUrlsNaturally(found);
           }
         } catch (err) {}
 
-        // 2. Parse HTML autoindex listing (<a href="...">, <img src="...">, [title], etc.)
         try {
           const doc = new DOMParser().parseFromString(payloadText, 'text/html');
-          const nodes = doc.querySelectorAll('a[href], img[src], [data-href], [data-src]');
-          nodes.forEach((node) => {
-            const rawAttr = node.getAttribute('href') || node.getAttribute('src') || node.getAttribute('data-href') || node.getAttribute('data-src') || '';
-            const resolved = resolveCandidateAgainstDir(rawAttr, dirUrl);
-            if (resolved) found.push(resolved);
+          doc.querySelectorAll('a[href], img[src]').forEach((node) => {
+            pushCandidate(node.getAttribute('href') || node.getAttribute('src') || '');
           });
         } catch (err) {}
 
-        // 3. Regex scan across raw payloadText for any image filename/path token (handles plain text, XML, custom server templates)
         const tokenRe = /["'<>(\s/]([A-Za-z0-9_.\-~%+]+\.(?:png|jpe?g|webp|avif|gif|svg))(?=["'<>\s)&?#]|$)/gi;
-        let match;
-        while ((match = tokenRe.exec(payloadText)) !== null) {
-          const token = match[1];
-          if (!token) continue;
-          const resolved = resolveCandidateAgainstDir(token, dirUrl);
-          if (resolved) found.push(resolved);
+        let m;
+        while ((m = tokenRe.exec(payloadText)) !== null) {
+          pushCandidate(m[1]);
         }
 
-        // Also check plain-text line-by-line (e.g. files.txt)
-        payloadText.split(/\r?\n/).forEach((line) => {
-          const trimmed = line.trim();
-          if (trimmed && !trimmed.includes(' ') && IMAGE_EXT_RE.test(trimmed)) {
-            const resolved = resolveCandidateAgainstDir(trimmed, dirUrl);
-            if (resolved) found.push(resolved);
-          }
-        });
-
-        return sortUrlsNaturally(found);
+        return Array.from(new Set(found));
       }
 
-      async function tryDirectoryFetchOrManifest(baseDirs) {
-        for (const baseDir of baseDirs) {
-          const endpoints = [
-            baseDir,
-            baseDir.replace(/\/+$/, ''),
-            baseDir + 'index.json',
-            baseDir + 'manifest.json',
-            baseDir + 'screenshots.json',
-            baseDir + 'files.txt'
-          ];
-          for (const endpoint of endpoints) {
-            try {
-              const res = await fetch(endpoint, {
-                cache: 'no-store',
-                headers: { 'Accept': 'text/html, application/json, text/plain, */*' }
-              });
-              if (!res.ok) continue;
-              const text = await res.text();
-              const extracted = extractImageUrlsFromDirectoryPayload(text, baseDir);
-              if (extracted.length > 0) {
-                const verified = await verifyCandidateUrls(extracted);
-                if (verified.length > 0) return verified;
-              }
-            } catch (err) {}
-          }
+      async function tryDirectoryFetch(relDir) {
+        if (window.location.protocol === 'file:') return [];
+        const endpoints = [
+          relDir,
+          relDir + 'index.json',
+          relDir + 'manifest.json',
+          relDir + 'screenshots.json'
+        ];
+        for (const ep of endpoints) {
+          try {
+            const res = await fetch(ep, { cache: 'no-store' });
+            if (!res.ok) continue;
+            const text = await res.text();
+            const extracted = extractFilenamesFromDirectoryPayload(text, relDir);
+            if (extracted.length > 0) return extracted;
+          } catch (err) {}
         }
         return [];
       }
 
-      function tryHiddenIframeDirectoryListing(baseDirs) {
-        return new Promise((resolve) => {
-          if (!document.body || !baseDirs.length) {
-            resolve([]);
-            return;
-          }
-          let idx = 0;
-          const tryNext = () => {
-            if (idx >= baseDirs.length) {
-              resolve([]);
-              return;
-            }
-            const dirUrl = baseDirs[idx++];
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.setAttribute('aria-hidden', 'true');
-            let done = false;
-            const cleanup = (resList) => {
-              if (done) return;
-              done = true;
-              clearTimeout(timer);
-              try { iframe.remove(); } catch (e) {}
-              if (resList && resList.length > 0) {
-                resolve(resList);
-              } else {
-                tryNext();
-              }
-            };
-            const timer = setTimeout(() => cleanup([]), 750);
-            iframe.onload = () => {
-              try {
-                const doc = iframe.contentDocument || iframe.contentWindow?.document;
-                if (!doc || !doc.documentElement) {
-                  cleanup([]);
-                  return;
-                }
-                const html = doc.documentElement.innerHTML || '';
-                const extracted = extractImageUrlsFromDirectoryPayload(html, dirUrl);
-                cleanup(extracted);
-              } catch (err) {
-                cleanup([]);
-              }
-            };
-            iframe.onerror = () => cleanup([]);
-            iframe.src = dirUrl;
-            document.body.appendChild(iframe);
-          };
-          tryNext();
-        });
-      }
-
-      async function tryGitHubPagesContentsApi(dirPath) {
-        try {
-          const metaRepo = document.querySelector('meta[name="github-repo"]')?.getAttribute('content');
-          let owner = '';
-          let repo = '';
-          if (metaRepo && metaRepo.includes('/')) {
-            [owner, repo] = metaRepo.split('/');
-          } else if (window.location.hostname.endsWith('.github.io')) {
-            owner = window.location.hostname.replace(/\.github\.io$/i, '');
-            const segs = window.location.pathname.split('/').filter(Boolean);
-            const firstSeg = segs[0] || '';
-            repo = (!firstSeg || /\.html?$/i.test(firstSeg)) ? (owner + '.github.io') : firstSeg;
-          }
-          if (!owner || !repo) return [];
-          const cleanPath = dirPath.replace(/^[./]+|\/+$/g, '');
-          const apiUrl = 'https://api.github.com/repos/' + encodeURIComponent(owner) + '/' + encodeURIComponent(repo) + '/contents/' + cleanPath;
-          const res = await fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-          if (!res.ok) return [];
-          const items = await res.json();
-          if (!Array.isArray(items)) return [];
-          const candidates = items
-            .filter((item) => item && item.type === 'file' && IMAGE_EXT_RE.test(item.name || ''))
-            .map((item) => item.download_url || resolveCandidateAgainstDir(item.name, dirPath));
-          return await verifyCandidateUrls(candidates.filter(Boolean));
-        } catch (err) {
-          return [];
-        }
-      }
-
-      async function tryAdaptiveSequentialProbe(baseDirs, appKey) {
+      function buildProbeCandidates(relDir, appKey) {
         const cleanKey = String(appKey || '').toLowerCase().trim();
-        const capKey = cleanKey ? cleanKey.charAt(0).toUpperCase() + cleanKey.slice(1) : '';
-        const prefixes = Array.from(new Set([
-          '',
-          'screen', 'screen-', 'screen_', 'Screen', 'Screen-', 'Screen_',
-          'screenshot', 'screenshot-', 'screenshot_', 'Screenshot', 'Screenshot-', 'Screenshot_',
-          'shot', 'shot-', 'shot_',
-          'img', 'img-', 'img_', 'IMG_', 'IMG-',
-          'image', 'image-', 'image_',
-          'slide', 'slide-', 'slide_',
-          's', 's-', 's_',
-          'p', 'p-', 'p_',
-          'app', 'app-', 'app_',
-          'ui', 'ui-', 'ui_',
-          cleanKey,
-          cleanKey ? cleanKey + '-' : '',
-          cleanKey ? cleanKey + '_' : '',
-          capKey,
-          capKey ? capKey + '-' : '',
-          capKey ? capKey + '_' : ''
-        ]));
+        const initial = getInitialRelativeUrls(cleanKey, relDir);
+        const candidates = [...initial];
 
-        const formatNumber = (n, padWidth) => String(n).padStart(padWidth, '0');
-        const numberStyles = [1, 2, 3]; // e.g., 1, 01, 001
-
-        for (const baseDir of baseDirs) {
-          const discovered = new Set();
-
-          // Phase A1: Probe named / semantic candidates (including 'xyz', 'home', 'journal', etc.) and bare numbers 1..10
-          const initialNamedUrls = [];
-          NAMED_CANDIDATES.forEach((stem) => {
-            PROBE_EXTENSIONS.forEach((ext) => {
-              initialNamedUrls.push(baseDir + stem + '.' + ext);
-            });
+        // Probe additional app-prefixed feature screenshots (e.g. streakio-<feature>.jpg, cipher-<feature>-dark.jpg / -light.jpg)
+        EXTRA_FEATURE_STEMS.forEach((stem) => {
+          PROBE_EXTENSIONS.forEach((ext) => {
+            if (cleanKey) {
+              candidates.push(`${relDir}${cleanKey}-${stem}.${ext}`);
+              candidates.push(`${relDir}${cleanKey}-${stem}-dark.${ext}`);
+              candidates.push(`${relDir}${cleanKey}-${stem}-light.${ext}`);
+              candidates.push(`${relDir}${cleanKey}_${stem}.${ext}`);
+            }
+            candidates.push(`${relDir}${stem}.${ext}`);
           });
-          for (let n = 1; n <= 10; n++) {
-            PROBE_EXTENSIONS.forEach((ext) => {
-              initialNamedUrls.push(baseDir + n + '.' + ext);
-              initialNamedUrls.push(baseDir + formatNumber(n, 2) + '.' + ext);
-            });
-          }
+        });
 
-          // Phase A2: Probe index 1 and 0 across all prefix patterns
-          const seedPatternDescriptors = [];
-          for (const prefix of prefixes) {
-            for (const padWidth of numberStyles) {
-              for (const startIdx of [1, 0]) {
-                const numStr = formatNumber(startIdx, padWidth);
-                for (const ext of PROBE_EXTENSIONS) {
-                  const url = baseDir + prefix + numStr + '.' + ext;
-                  seedPatternDescriptors.push({ prefix, padWidth, startIdx, ext, url });
-                }
-              }
+        // Probe numbered screenshots (1..12, 01..12, streakio-1..12, cipher-1..12, screen-1..12)
+        for (let n = 1; n <= 12; n++) {
+          const pad2 = String(n).padStart(2, '0');
+          ['jpg', 'png'].forEach((ext) => {
+            candidates.push(`${relDir}${n}.${ext}`);
+            candidates.push(`${relDir}${pad2}.${ext}`);
+            if (cleanKey) {
+              candidates.push(`${relDir}${cleanKey}-${n}.${ext}`);
+              candidates.push(`${relDir}${cleanKey}-${pad2}.${ext}`);
             }
-          }
-
-          const allPhaseAUrls = Array.from(new Set([
-            ...initialNamedUrls,
-            ...seedPatternDescriptors.map((d) => d.url)
-          ]));
-
-          const validPhaseAUrls = new Set();
-          const batchSize = 36;
-          for (let i = 0; i < allPhaseAUrls.length; i += batchSize) {
-            const slice = allPhaseAUrls.slice(i, i + batchSize);
-            const hits = await Promise.all(slice.map((u) => probeImageElement(u, 1400)));
-            hits.forEach((h) => {
-              if (h) {
-                validPhaseAUrls.add(h);
-                discovered.add(h);
-              }
-            });
-          }
-
-          // Identify active numbered patterns to expand sequentially (2, 3, 4, ...)
-          const patternGroups = new Map();
-          seedPatternDescriptors.forEach((desc) => {
-            if (validPhaseAUrls.has(desc.url)) {
-              const key = desc.prefix + '|' + desc.padWidth + '|' + desc.ext;
-              if (!patternGroups.has(key)) {
-                patternGroups.set(key, desc);
-              }
-            }
+            candidates.push(`${relDir}screen-${n}.${ext}`);
+            candidates.push(`${relDir}screenshot-${n}.${ext}`);
           });
-
-          for (const pat of patternGroups.values()) {
-            let index = pat.startIdx + 1;
-            let consecutiveMisses = 0;
-            const maxIndex = 60;
-            while (index <= maxIndex && consecutiveMisses < 2) {
-              const batchIndices = [index, index + 1, index + 2, index + 3];
-              const batchResults = await Promise.all(
-                batchIndices.map((idx) => {
-                  const candidateUrl = baseDir + pat.prefix + formatNumber(idx, pat.padWidth) + '.' + pat.ext;
-                  return probeImageElement(candidateUrl, 1400);
-                })
-              );
-              for (let i = 0; i < batchResults.length; i++) {
-                if (batchResults[i]) {
-                  discovered.add(batchResults[i]);
-                  consecutiveMisses = 0;
-                } else {
-                  consecutiveMisses++;
-                  if (consecutiveMisses >= 2) break;
-                }
-              }
-              index += batchIndices.length;
-            }
-          }
-
-          if (discovered.size > 0) {
-            return sortUrlsNaturally(Array.from(discovered));
-          }
         }
 
-        return [];
+        return Array.from(new Set(candidates));
       }
 
       async function discover(dirPathOrKey, optionalAppKey = '') {
         const appKey = optionalAppKey || (DIRECTORIES[dirPathOrKey] ? dirPathOrKey : '');
-        const dirPath = normalizeDir(DIRECTORIES[dirPathOrKey] || dirPathOrKey);
-        if (!dirPath) return [];
-        if (appKey && manualOverrides.has(appKey)) {
-          return manualOverrides.get(appKey);
-        }
-        if (cache.has(dirPath)) return cache.get(dirPath);
+        const relDir = normalizeRelativeDir(DIRECTORIES[dirPathOrKey] || dirPathOrKey);
+        if (!relDir) return [];
+        if (cache.has(relDir)) return cache.get(relDir);
+
+        const preferredOrder = getInitialRelativeUrls(appKey, relDir);
 
         const promise = (async () => {
-          const baseDirs = getCandidateBaseDirs(dirPath);
-
-          // 0. Check if window.EASODE_SCREENSHOT_MANIFEST provides filenames for this app
-          if (window.EASODE_SCREENSHOT_MANIFEST && appKey && Array.isArray(window.EASODE_SCREENSHOT_MANIFEST[appKey])) {
-            const mapped = window.EASODE_SCREENSHOT_MANIFEST[appKey]
-              .map((item) => resolveCandidateAgainstDir(item, baseDirs[0] || dirPath))
-              .filter(Boolean);
-            const verified = await verifyCandidateUrls(mapped);
-            if (verified.length > 0) return verified;
+          // 1. Check directory listing if available
+          const listed = await tryDirectoryFetch(relDir);
+          if (listed.length > 0) {
+            const verifiedListed = await verifyCandidateUrls([...preferredOrder, ...listed], preferredOrder);
+            if (verifiedListed.length > 0) return verifiedListed;
           }
 
-          // 1. Try HTTP/local server directory listing or optional JSON/text manifest across relative & root-relative paths
-          const fromListing = await tryDirectoryFetchOrManifest(baseDirs);
-          if (fromListing.length > 0) return fromListing;
+          // 2. Probe known files + convention-based candidates directly (works on https://www.easode.com/, localhost, and local file:// in any folder)
+          const probeList = buildProbeCandidates(relDir, appKey);
+          const verifiedProbes = await verifyCandidateUrls(probeList, preferredOrder);
+          if (verifiedProbes.length > 0) return verifiedProbes;
 
-          // 2. Try hidden iframe directory index inspection (works on local servers & permissive file:// setups)
-          const fromIframe = await tryHiddenIframeDirectoryListing(baseDirs);
-          if (fromIframe.length > 0) {
-            const verifiedIframe = await verifyCandidateUrls(fromIframe);
-            if (verifiedIframe.length > 0) return verifiedIframe;
-          }
-
-          // 3. Try GitHub Pages / GitHub API contents listing if applicable
-          const fromGh = await tryGitHubPagesContentsApi(dirPath);
-          if (fromGh.length > 0) return fromGh;
-
-          // 4. Fallback to adaptive named + sequential image pattern probing (works on file:// and static servers)
-          return await tryAdaptiveSequentialProbe(baseDirs, appKey);
+          // 3. Fallback to initial relative URLs so DOM renders relative paths cleanly
+          return preferredOrder;
         })();
 
-        cache.set(dirPath, promise);
+        cache.set(relDir, promise);
         return promise;
-      }
-
-      function setManualFiles(appKey, fileList) {
-        if (!fileList || !fileList.length) return [];
-        const imageFiles = Array.from(fileList)
-          .filter((f) => f && (f.type.startsWith('image/') || IMAGE_EXT_RE.test(f.name || '')))
-          .sort((a, b) => collator.compare(a.name || '', b.name || ''));
-        if (!imageFiles.length) return [];
-        const urls = imageFiles.map((f) => URL.createObjectURL(f));
-        manualOverrides.set(appKey, urls);
-        cache.delete(normalizeDir(DIRECTORIES[appKey] || ''));
-        listeners.forEach((fn) => {
-          try { fn(appKey, urls); } catch (e) {}
-        });
-        return urls;
-      }
-
-      function onUpdate(listenerFn) {
-        if (typeof listenerFn === 'function') listeners.add(listenerFn);
       }
 
       function clearCache() {
@@ -6687,9 +6420,9 @@
 
       return {
         DIRECTORIES,
+        KNOWN_FILES,
+        getInitialRelativeUrls,
         discover,
-        setManualFiles,
-        onUpdate,
         clearCache
       };
     })();
