@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Easode — Project Price Calculator | Free Android Pack, Custom Apps &amp; Terms</title>
+  <title>Easode — Price Calculator | Lumora, Veltro, Korvex, Dravix &amp; Omnira</title>
   <!-- EASODE Vector SVG & Fallback Favicons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
@@ -5789,6 +5789,635 @@
       border-color: rgba(255, 255, 255, 0.14) !important;
     }
 
+  
+    /* =========================================================================
+       MINIMALIST TAB-BASED SAAS PRICING & CONFIGURATOR (MOBILE & DESKTOP)
+       ========================================================================= */
+    .saas-pricing-header {
+      margin-bottom: 20px;
+    }
+
+    .saas-title-block {
+      max-width: 680px;
+    }
+
+    .saas-title-block h1 {
+      font-size: clamp(2rem, 3.6vw, 2.85rem);
+      line-height: 1.08;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .saas-title-block p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* 3-Pillar AI-Era Banner with Perfectly Centered Icons */
+    .ai-era-banner {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #FFFFFF;
+      border: 1px solid #e4e0f1;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 22px;
+    }
+
+    .ai-era-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 8px;
+      border-radius: 12px;
+    }
+
+    .ai-era-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #EAF4FC;
+      border: 1px solid #C7E1F7;
+      color: #1C7CE2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin: 0;
+      padding: 0;
+      line-height: 0;
+    }
+
+    .ai-era-icon .icon-svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+
+    .ai-era-item strong {
+      display: block;
+      font-family: 'Cal Sans', 'Inter', sans-serif;
+      font-size: 0.87rem;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+      letter-spacing: -0.2px;
+    }
+
+    .ai-era-item span {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Main 2-Column Minimalist Configurator Layout */
+    .minimal-calc-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .tier-tabs-container {
+      background: #FFFFFF;
+      border: 1px solid #e4e0f1;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .tabs-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tabs-step-label {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #1C7CE2;
+    }
+
+    /* Responsive 5-Tier Segmented Tab Bar */
+    .tier-tablist {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      padding: 6px;
+      border-radius: 16px;
+      background: #F2F8FD;
+      border: 1px solid #D8EAF9;
+    }
+
+    .tier-tab-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      border-radius: 12px;
+      padding: 10px 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+      transition: all 0.18s ease;
+      position: relative;
+      min-width: 0;
+    }
+
+    .tier-tab-btn:hover {
+      color: #1C7CE2;
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .tier-tab-btn.active-tab {
+      background: #FFFFFF;
+      color: #1C7CE2;
+      border-color: #C7E1F7;
+      box-shadow: 0 6px 16px rgba(28, 124, 226, 0.12);
+    }
+
+    .tier-tab-btn.free-tab.active-tab {
+      background: #ECFDF5;
+      color: #059669;
+      border-color: #10B981;
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.16);
+    }
+
+    .tab-name-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-family: 'Cal Sans', 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+
+    .tier-tab-btn.active-tab .tab-name-row {
+      color: #1C7CE2;
+    }
+
+    .tier-tab-btn.free-tab.active-tab .tab-name-row {
+      color: #059669;
+    }
+
+    .tab-sub-row {
+      font-size: 0.67rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .tab-price-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(28, 124, 226, 0.09);
+      color: #1C7CE2;
+    }
+
+    .tier-tab-btn.free-tab .tab-price-pill {
+      background: rgba(16, 185, 129, 0.16);
+      color: #059669;
+    }
+
+    /* Single Active Tier Panel (Only ONE visible at a time) */
+    .tier-panel-card {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 18px;
+      background: #F8FAFC;
+      border: 1.5px solid #D8EAF9;
+      animation: tabFadeIn 0.18s ease-out;
+    }
+
+    .tier-panel-card.active-tier-panel {
+      display: flex;
+    }
+
+    .tier-panel-card.free-tier-panel {
+      background: #F0FDF4;
+      border-color: #10B981;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tier-panel-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    }
+
+    .tier-title-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tier-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #EAF4FC;
+      border: 1px solid #C7E1F7;
+      color: #1C7CE2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .free-tier-panel .tier-icon-box {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #059669;
+    }
+
+    .tier-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 3px;
+    }
+
+    .tier-tag-pill {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #EAF4FC;
+      color: #1C7CE2;
+      border: 1px solid #C7E1F7;
+    }
+
+    .free-tier-panel .tier-tag-pill {
+      background: #10B981;
+      color: #FFFFFF;
+      border-color: #10B981;
+    }
+
+    .tier-sla-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: #FFFFFF;
+      border: 1px solid #e4e0f1;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .tier-heading-name {
+      font-family: 'Cal Sans', 'Inter', sans-serif !important;
+      font-size: 1.42rem;
+      font-weight: 800 !important;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+
+    .tier-heading-sub {
+      font-size: 0.79rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .tier-price-cluster {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .tier-strike-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+    }
+
+    .tier-strike-val {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .tier-save-pill {
+      background: rgba(16, 185, 129, 0.14);
+      color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 0.63rem;
+    }
+
+    .tier-big-price {
+      font-family: 'Cal Sans', 'Inter', sans-serif !important;
+      font-size: 1.75rem;
+      font-weight: 800 !important;
+      color: #1C7CE2;
+      line-height: 1.05;
+    }
+
+    .free-tier-panel .tier-big-price {
+      color: #059669;
+    }
+
+    .tier-price-caption {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--text-secondary);
+    }
+
+    /* Minimal 2-Column Scannable Bullet Lists (Zero Paragraphs) */
+    .tier-minimal-bullets-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .minimal-bullet-box {
+      background: #FFFFFF;
+      border: 1px solid #e4e0f1;
+      border-radius: 13px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .minimal-box-label {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .minimal-box-label.inc { color: #059669; }
+    .minimal-box-label.lim { color: #d97706; }
+
+    .minimal-ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .minimal-ul li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .minimal-ul li .icon-svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .minimal-ul.inc-ul li .icon-svg { color: #10B981; }
+    .minimal-ul.lim-ul li .icon-svg { color: #f59e0b; }
+
+    /* Compact Lumora Track Pills */
+    .lumora-compact-tracks {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .lumora-track-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .lumora-track-chip {
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: #F0FDF4;
+      color: #065f46;
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .lumora-track-chip.active-track {
+      background: #059669;
+      border-color: #059669;
+      color: #FFFFFF;
+    }
+
+    .tier-panel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.3);
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+    }
+
+    /* Step 2: Minimal Add-Ons Bar */
+    .step2-minimal-box {
+      padding-top: 16px;
+      border-top: 1px solid #e4e0f1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step2-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .preset-mini-pills {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .preset-mini-btn {
+      border: 1px solid #D8EAF9;
+      background: #F2F8FD;
+      color: #5f5a7d;
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-mini-btn:hover {
+      border-color: #1C7CE2;
+      color: #1C7CE2;
+      background: #EAF4FC;
+    }
+
+    .free-addons-note {
+      padding: 10px 13px;
+      border-radius: 11px;
+      background: #F2F8FD;
+      border: 1px solid #D8EAF9;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Dark Mode Support for Minimalist Tab Layout */
+    html[data-theme="dark"] .ai-era-banner,
+    html[data-theme="dark"] .tier-tabs-container {
+      background: #141414 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    html[data-theme="dark"] .ai-era-icon,
+    html[data-theme="dark"] .tier-icon-box {
+      background: #1e293b !important;
+      border-color: rgba(28, 124, 226, 0.4) !important;
+    }
+
+    html[data-theme="dark"] .tier-tablist {
+      background: #1c1c1c !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    html[data-theme="dark"] .tier-tab-btn.active-tab {
+      background: #262626 !important;
+      border-color: #1C7CE2 !important;
+    }
+
+    html[data-theme="dark"] .tier-tab-btn.free-tab.active-tab {
+      background: rgba(16, 185, 129, 0.16) !important;
+      border-color: #10B981 !important;
+    }
+
+    html[data-theme="dark"] .tier-panel-card {
+      background: #1a1a1a !important;
+      border-color: rgba(255, 255, 255, 0.14) !important;
+    }
+
+    html[data-theme="dark"] .tier-panel-card.free-tier-panel {
+      background: rgba(16, 185, 129, 0.08) !important;
+      border-color: #10B981 !important;
+    }
+
+    html[data-theme="dark"] .minimal-bullet-box,
+    html[data-theme="dark"] .lumora-compact-tracks,
+    html[data-theme="dark"] .tier-sla-badge,
+    html[data-theme="dark"] .preset-mini-btn,
+    html[data-theme="dark"] .free-addons-note {
+      background: #222222 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      color: var(--text-primary) !important;
+    }
+
+    html[data-theme="dark"] .lumora-track-chip:not(.active-track) {
+      background: #181818 !important;
+      color: #6ee7b7 !important;
+    }
+
+    /* Responsive Breakpoints (Tablet & Mobile) */
+    @media (max-width: 1024px) {
+      .minimal-calc-workspace {
+        grid-template-columns: 1fr;
+      }
+      .ai-era-banner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .tier-tablist {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .tier-tablist .tier-tab-btn.free-tab {
+        grid-column: 1 / -1;
+      }
+      .tier-minimal-bullets-grid,
+      .compact-addon-grid {
+        grid-template-columns: 1fr;
+      }
+      .tier-tabs-container {
+        padding: 16px 14px;
+      }
+      .tier-panel-card {
+        padding: 16px 14px;
+      }
+      .tier-price-cluster {
+        text-align: left;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
@@ -5819,7 +6448,7 @@
       <button class="btn-icon" id="theme-toggle" title="Switch Light / Dark Theme" aria-label="Toggle theme">
         <i data-icon="moon" id="theme-icon"></i>
       </button>
-      <a href="price-calculator.html" class="btn-primary">
+      <a href="#checkout-summary-panel" class="btn-primary">
         <span>Estimate Your Project</span>
         <i data-icon="arrow-right" class="icon-sm"></i>
       </a>
@@ -5837,363 +6466,696 @@
     <a href="index.html#autrex" onclick="closeMobileMenu()"><span>AUTREX (Under Development)</span><i data-icon="sparkles" class="icon-sm"></i></a>
     <a href="index.html#services" onclick="closeMobileMenu()"><span>Development Services</span><i data-icon="code" class="icon-sm"></i></a>
     <a href="price-calculator.html" onclick="closeMobileMenu()"><span>Project Price Calculator</span><i data-icon="sliders" class="icon-sm"></i></a>
-    <a href="terms-free-android-pack.html" onclick="closeMobileMenu()"><span>Free Android Pack Terms</span><i data-icon="shield" class="icon-sm"></i></a>
+    <a href="terms-free-android-pack.html" onclick="closeMobileMenu()"><span>Lumora Pack Terms</span><i data-icon="shield" class="icon-sm"></i></a>
     <a href="index.html#studio" onclick="closeMobileMenu()"><span>About &amp; Contact Easode</span><i data-icon="mail" class="icon-sm"></i></a>
   </nav>
 
   <main id="top">
     <section class="section" id="configurator" style="padding-top:0;">
-      <div class="section-header" style="margin-bottom:20px;">
-        <h1>Project <span class="gradient-text">Price Calculator</span></h1>
-        <p>
-          Pick a platform and optional add-ons for an instant quote, apply for our <strong>Free Android App Development Pack (₹0)</strong> for eligible Android ideas, or select our end-to-end <strong>Done-for-You App Development Pack (₹1,00,000)</strong>.
-        </p>
+      <!-- Clean Minimalist Header (No Blinking Dot Eyebrow, No Top Bar Buttons) -->
+      <div class="saas-pricing-header">
+        <div class="saas-title-block">
+          <h1>Select Your <span class="gradient-text">Product Package</span></h1>
+          <p>
+            Choose a package tab below to view its essentials and configure your instant project quote.
+          </p>
+        </div>
       </div>
 
-      <div class="minimal-calc-box">
-        <!-- Left Column: Platform / Package Selection + Optional Add-Ons -->
-        <div class="config-controls">
-          <div class="calc-header-row" style="margin-bottom:16px;padding-bottom:12px;">
-            <span style="font-family:var(--font-mono);font-size:0.74rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent-cyan);font-weight:700;">
-              1. Choose Platform or Package
-            </span>
+      <!-- 3-Pillar AI-Era Value Strip (Icons Centered Within Their Containers) -->
+      <div class="ai-era-banner" aria-label="AI-Era Pricing Advantage">
+        <div class="ai-era-item">
+          <div class="ai-era-icon"><i data-icon="cpu"></i></div>
+          <div>
+            <strong>AI-Era Pricing (~60% Lower)</strong>
+            <span>AI speed savings passed directly to you—zero agency bloat.</span>
+          </div>
+        </div>
+        <div class="ai-era-item">
+          <div class="ai-era-icon"><i data-icon="shield"></i></div>
+          <div>
+            <strong>Production Grade, Not Raw Prompts</strong>
+            <span>Compiled, tested, store-ready builds engineered by humans.</span>
+          </div>
+        </div>
+        <div class="ai-era-item">
+          <div class="ai-era-icon"><i data-icon="award"></i></div>
+          <div>
+            <strong>Clear Scope, Features &amp; Limits</strong>
+            <span>Upfront bullet-point deliverables and dedicated terms per tier.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Minimalist 2-Column Workspace: Tabbed Package View (Left) + Live Summary (Right) -->
+      <div class="minimal-calc-workspace">
+
+        <!-- LEFT COLUMN: Tabbed Pricing Tiers (Only 1 Tier Visible at a Time) + Step 2 Add-Ons -->
+        <div class="tier-tabs-container">
+          <div class="tabs-topbar">
+            <span class="tabs-step-label">1. Select Package Tier</span>
             <div class="currency-toggle" role="group" aria-label="Currency selector">
               <button type="button" class="curr-btn active" id="curr-inr" onclick="setCurrency('INR')">₹ INR</button>
               <button type="button" class="curr-btn" id="curr-usd" onclick="setCurrency('USD')">$ USD</button>
             </div>
           </div>
 
-          <!-- 3 Core Paid Modular Platforms: Android App, Website, Windows Software -->
-          <div class="platform-grid-3" id="platform-chips">
-            <div
-              role="button"
-              tabindex="0"
-              class="plat-card-min selected"
-              id="card-pack-android"
-              data-val="android"
-              data-pack="modular"
-              data-terms="terms-android-app-pack.html"
-              data-weeks="1"
-              data-inr="3500"
-              data-usd="45"
-              onclick="selectPlatform(this)"
-              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPlatform(this);}"
+          <!-- 5-Package Responsive Tab Bar -->
+          <div class="tier-tablist" role="tablist" aria-label="Pricing Package Tiers">
+            <button
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="free-android-package-card"
+              id="tab-btn-free-android"
+              class="tier-tab-btn free-tab active-tab"
+              data-target-val="free-android"
+              onclick="selectPackById('free-android')"
             >
-              <div>
-                <div class="plat-card-top">
-                  <span class="plat-card-icon"><i data-icon="smartphone" class="icon-sm"></i></span>
-                  <span class="plat-card-price" data-price-label>₹3,500</span>
-                </div>
-                <div style="margin-top:8px;">
-                  <div class="plat-card-name">Android App</div>
-                  <div class="plat-card-tag">Native Kotlin &amp; Compose</div>
-                </div>
-              </div>
-              <div class="card-terms-footer">
-                <a href="terms-android-app-pack.html" class="card-terms-link" onclick="event.stopPropagation();">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>View Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
+              <span class="tab-name-row">
+                <i data-icon="sparkles" class="icon-sm"></i>
+                <span>Lumora</span>
+              </span>
+              <span class="tab-sub-row">Free Android</span>
+              <span class="tab-price-pill" data-tab-price="free">₹0 FREE</span>
+            </button>
 
-            <div
-              role="button"
-              tabindex="0"
-              class="plat-card-min"
-              id="card-pack-website"
-              data-val="website"
-              data-pack="modular"
-              data-terms="terms-website-pack.html"
-              data-weeks="0.5"
-              data-inr="2000"
-              data-usd="25"
-              onclick="selectPlatform(this)"
-              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPlatform(this);}"
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="card-pack-website"
+              id="tab-btn-website"
+              class="tier-tab-btn"
+              data-target-val="website"
+              onclick="selectPackById('website')"
             >
-              <div>
-                <div class="plat-card-top">
-                  <span class="plat-card-icon"><i data-icon="globe" class="icon-sm"></i></span>
-                  <span class="plat-card-price" data-price-label>₹2,000</span>
-                </div>
-                <div style="margin-top:8px;">
-                  <div class="plat-card-name">Website / Web App</div>
-                  <div class="plat-card-tag">Responsive modern web</div>
-                </div>
-              </div>
-              <div class="card-terms-footer">
-                <a href="terms-website-pack.html" class="card-terms-link" onclick="event.stopPropagation();">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>View Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
+              <span class="tab-name-row">
+                <i data-icon="globe" class="icon-sm"></i>
+                <span>Veltro</span>
+              </span>
+              <span class="tab-sub-row">Website / Web</span>
+              <span class="tab-price-pill" data-tab-price="website">₹1,499</span>
+            </button>
 
-            <div
-              role="button"
-              tabindex="0"
-              class="plat-card-min"
-              id="card-pack-windows"
-              data-val="windows"
-              data-pack="modular"
-              data-terms="terms-windows-software-pack.html"
-              data-weeks="1.5"
-              data-inr="5000"
-              data-usd="65"
-              onclick="selectPlatform(this)"
-              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPlatform(this);}"
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="card-pack-android"
+              id="tab-btn-android"
+              class="tier-tab-btn"
+              data-target-val="android"
+              onclick="selectPackById('android')"
             >
-              <div>
-                <div class="plat-card-top">
-                  <span class="plat-card-icon"><i data-icon="monitor" class="icon-sm"></i></span>
-                  <span class="plat-card-price" data-price-label>₹5,000</span>
-                </div>
-                <div style="margin-top:8px;">
-                  <div class="plat-card-name">Windows Software</div>
-                  <div class="plat-card-tag">Desktop app (Win 10/11)</div>
-                </div>
-              </div>
-              <div class="card-terms-footer">
-                <a href="terms-windows-software-pack.html" class="card-terms-link" onclick="event.stopPropagation();">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>View Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
+              <span class="tab-name-row">
+                <i data-icon="smartphone" class="icon-sm"></i>
+                <span>Korvex</span>
+              </span>
+              <span class="tab-sub-row">Android App</span>
+              <span class="tab-price-pill" data-tab-price="android">₹2,499</span>
+            </button>
+
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="card-pack-windows"
+              id="tab-btn-windows"
+              class="tier-tab-btn"
+              data-target-val="windows"
+              onclick="selectPackById('windows')"
+            >
+              <span class="tab-name-row">
+                <i data-icon="monitor" class="icon-sm"></i>
+                <span>Dravix</span>
+              </span>
+              <span class="tab-sub-row">Windows PC</span>
+              <span class="tab-price-pill" data-tab-price="windows">₹3,499</span>
+            </button>
+
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="dfy-package-card"
+              id="tab-btn-dfy"
+              class="tier-tab-btn"
+              data-target-val="done-for-you-pack"
+              onclick="selectPackById('done-for-you-pack')"
+            >
+              <span class="tab-name-row">
+                <i data-icon="award" class="icon-sm"></i>
+                <span>Omnira</span>
+              </span>
+              <span class="tab-sub-row">Turnkey Suite</span>
+              <span class="tab-price-pill" data-tab-price="dfy">₹19,999</span>
+            </button>
           </div>
 
-          <!-- NEW: Free Android App Development Pack (₹0 / FREE) — Android Applications Only -->
-          <div
-            role="button"
-            tabindex="0"
-            id="free-android-package-card"
-            class="free-pack-card"
-            data-val="free-android"
-            data-pack="free"
-            data-terms="terms-free-android-pack.html"
-            data-weeks="2.5"
-            data-inr="0"
-            data-usd="0"
-            onclick="selectFreeAndroidPack(this)"
-            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectFreeAndroidPack(this);}"
-          >
-            <div class="dfy-pack-header">
-              <div class="dfy-pack-title-wrap">
-                <span class="free-pack-badge">
-                  <i data-icon="smartphone" class="icon-sm"></i>
-                  <span>ANDROID APPLICATION DEVELOPMENT ONLY • SUBJECT TO ELIGIBILITY</span>
-                </span>
-                <div class="dfy-pack-title" style="font-size:0.98rem;">
-                  <i data-icon="sparkles" class="icon-sm" style="color:#10B981;"></i>
-                  <span>Free Android App Development</span>
+          <!-- TAB PANELS CONTAINER (Only 1 Tier Card Visible at a Time) -->
+          <div id="platform-chips">
+
+            <!-- =============================================================
+                 TAB PANEL 1: LUMORA — Free Android Launchpad (₹0 / $0)
+                 ============================================================= -->
+            <div
+              role="tabpanel"
+              id="free-android-package-card"
+              class="tier-panel-card free-tier-panel active-tier-panel selected"
+              data-val="free-android"
+              data-pack="free"
+              data-pkg-name="Lumora"
+              data-pkg-subtitle="Free Android Pack"
+              data-terms="terms-free-android-pack.html"
+              data-weeks="2"
+              data-inr="0"
+              data-usd="0"
+              data-old-inr="6000"
+              data-old-usd="75"
+            >
+              <div class="tier-panel-header">
+                <div class="tier-title-cluster">
+                  <div class="tier-icon-box"><i data-icon="sparkles"></i></div>
+                  <div>
+                    <div class="tier-badge-row">
+                      <span class="tier-tag-pill">★ FEATURED FREE TIER</span>
+                      <span class="tier-sla-badge">2 – 3 Weeks</span>
+                    </div>
+                    <div class="tier-heading-name">Lumora</div>
+                    <div class="tier-heading-sub">Free Android App Development Pack</div>
+                  </div>
+                </div>
+
+                <div class="tier-price-cluster">
+                  <div class="tier-strike-row">
+                    <span class="tier-strike-val" data-old-price-label>₹6,000</span>
+                    <span class="tier-save-pill">100% FREE</span>
+                  </div>
+                  <div class="tier-big-price" id="free-pack-price-badge" data-price-label>₹0 (FREE)</div>
+                  <span class="tier-price-caption">Zero upfront development fee</span>
                 </div>
               </div>
-              <span class="free-pack-price" id="free-pack-price-badge" data-price-label>₹0 (FREE)</span>
+
+              <!-- Compact Eligible Track Selector -->
+              <div class="lumora-compact-tracks">
+                <span style="font-size:0.74rem;font-weight:700;color:#065f46;display:inline-flex;align-items:center;gap:5px;">
+                  <i data-icon="compass" class="icon-sm"></i>
+                  <span>Eligible Track:</span>
+                </span>
+                <div class="lumora-track-pills">
+                  <button type="button" class="lumora-track-chip active-track" data-track-val="E-commerce Application (Manageable Infrastructure)" onclick="pickLumoraTrack(this)">
+                    1. E-Commerce
+                  </button>
+                  <button type="button" class="lumora-track-chip" data-track-val="Lightweight Online Application (Low Storage & Low Requests)" onclick="pickLumoraTrack(this)">
+                    2. Lightweight Online
+                  </button>
+                  <button type="button" class="lumora-track-chip" data-track-val="Offline Android Application (Offline-First Functionality)" onclick="pickLumoraTrack(this)">
+                    3. Offline Utility
+                  </button>
+                </div>
+              </div>
+
+              <!-- Minimal Scannable Bullets -->
+              <div class="tier-minimal-bullets-grid">
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label inc">
+                    <i data-icon="check-circle" class="icon-sm"></i>
+                    <span>What's Included</span>
+                  </div>
+                  <ul class="minimal-ul inc-ul">
+                    <li><i data-icon="check"></i><span>Native Kotlin &amp; Material 3 Android build</span></li>
+                    <li><i data-icon="check"></i><span>Published on Easode Google Play account</span></li>
+                    <li><i data-icon="check"></i><span>Your brand &amp; contact in <em>About App</em></span></li>
+                    <li><i data-icon="check"></i><span>Save $25 Google Play Console fee</span></li>
+                  </ul>
+                </div>
+
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label lim">
+                    <i data-icon="info" class="icon-sm"></i>
+                    <span>Key Limits &amp; Conditions</span>
+                  </div>
+                  <ul class="minimal-ul lim-ul">
+                    <li><i data-icon="info"></i><span>Android apps only (no Web or PC)</span></li>
+                    <li><i data-icon="info"></i><span>Easode-managed ad monetization</span></li>
+                    <li><i data-icon="info"></i><span>Hosting, domains &amp; paid APIs excluded</span></li>
+                    <li><i data-icon="info"></i><span>Subject to eligibility &amp; scope approval</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tier-panel-footer">
+                <span><strong style="color:#059669;">● Active Package:</strong> Zero financial risk for eligible ideas</span>
+                <a href="terms-free-android-pack.html" class="card-terms-link">
+                  <i data-icon="shield" class="icon-sm"></i>
+                  <span>Lumora Terms &amp; Conditions</span>
+                </a>
+              </div>
             </div>
 
-            <p class="dfy-pack-desc" style="font-size:0.77rem;">
-              For individuals, startups, small businesses &amp; entrepreneurs with eligible Android ideas. Easode builds the approved Android app at <strong>₹0 development fee</strong>, publishes it on <strong>Easode’s Google Play Developer account</strong> with Easode-managed ad monetization, and displays your business/developer details in the <strong>About App</strong> section.
-            </p>
+            <!-- =============================================================
+                 TAB PANEL 2: VELTRO — Website / Web App (₹1,499 / $19)
+                 ============================================================= -->
+            <div
+              role="tabpanel"
+              id="card-pack-website"
+              class="tier-panel-card plat-card-min"
+              data-val="website"
+              data-pack="modular"
+              data-pkg-name="Veltro"
+              data-pkg-subtitle="Website & Web App"
+              data-terms="terms-website-pack.html"
+              data-weeks="0.5"
+              data-inr="1499"
+              data-usd="19"
+              data-old-inr="3500"
+              data-old-usd="45"
+            >
+              <div class="tier-panel-header">
+                <div class="tier-title-cluster">
+                  <div class="tier-icon-box"><i data-icon="globe"></i></div>
+                  <div>
+                    <div class="tier-badge-row">
+                      <span class="tier-tag-pill">FAST WEB LAUNCH</span>
+                      <span class="tier-sla-badge">3 – 5 Days</span>
+                    </div>
+                    <div class="tier-heading-name">Veltro</div>
+                    <div class="tier-heading-sub">Responsive Website &amp; Web App Pack</div>
+                  </div>
+                </div>
 
-            <div class="free-pack-pills-row">
-              <span class="free-pack-mini-pill"><i data-icon="check" class="icon-sm" style="color:#10B981;"></i>1. E-commerce Apps</span>
-              <span class="free-pack-mini-pill"><i data-icon="check" class="icon-sm" style="color:#10B981;"></i>2. Lightweight Online Apps</span>
-              <span class="free-pack-mini-pill"><i data-icon="check" class="icon-sm" style="color:#10B981;"></i>3. Offline Android Apps</span>
+                <div class="tier-price-cluster">
+                  <div class="tier-strike-row">
+                    <span class="tier-strike-val" data-old-price-label>₹3,500</span>
+                    <span class="tier-save-pill">SAVE 57%</span>
+                  </div>
+                  <div class="tier-big-price plat-card-price" data-price-label>₹1,499</div>
+                  <span class="tier-price-caption">Base one-time build</span>
+                </div>
+              </div>
+
+              <div class="tier-minimal-bullets-grid">
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label inc">
+                    <i data-icon="check-circle" class="icon-sm"></i>
+                    <span>What's Included</span>
+                  </div>
+                  <ul class="minimal-ul inc-ul">
+                    <li><i data-icon="check"></i><span>Mobile, tablet &amp; desktop responsive UI</span></li>
+                    <li><i data-icon="check"></i><span>Clean HTML5, CSS3 &amp; interactive JS</span></li>
+                    <li><i data-icon="check"></i><span>100% client-owned source code bundle</span></li>
+                    <li><i data-icon="check"></i><span>Zero mandatory ads + 7-day bug warranty</span></li>
+                  </ul>
+                </div>
+
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label lim">
+                    <i data-icon="info" class="icon-sm"></i>
+                    <span>Key Limits &amp; Scope</span>
+                  </div>
+                  <ul class="minimal-ul lim-ul">
+                    <li><i data-icon="info"></i><span>Domain &amp; web hosting fees separate</span></li>
+                    <li><i data-icon="info"></i><span>Auth, Cloud DB &amp; Payments via Step 2</span></li>
+                    <li><i data-icon="info"></i><span>Free Android Pack (₹0) does not apply</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tier-panel-footer">
+                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Customize with optional add-ons below</span>
+                <a href="terms-website-pack.html" class="card-terms-link">
+                  <i data-icon="shield" class="icon-sm"></i>
+                  <span>Veltro Terms &amp; Conditions</span>
+                </a>
+              </div>
             </div>
 
-            <!-- Shown automatically when Website or Windows Software is active -->
-            <div class="free-pack-disabled-banner" id="free-pack-disabled-banner">
-              <span><strong>Android Only:</strong> The Free Pack is not selectable for Website development or Windows software.</span>
-              <button type="button" class="free-pack-switch-android-btn" onclick="event.stopPropagation(); enableAndroidAndSelectFreePack();">
-                Switch to Android &amp; Select Free Pack
+            <!-- =============================================================
+                 TAB PANEL 3: KORVEX — Custom Android App (₹2,499 / $29)
+                 ============================================================= -->
+            <div
+              role="tabpanel"
+              id="card-pack-android"
+              class="tier-panel-card plat-card-min"
+              data-val="android"
+              data-pack="modular"
+              data-pkg-name="Korvex"
+              data-pkg-subtitle="Custom Android App"
+              data-terms="terms-android-app-pack.html"
+              data-weeks="1"
+              data-inr="2499"
+              data-usd="29"
+              data-old-inr="6000"
+              data-old-usd="75"
+            >
+              <div class="tier-panel-header">
+                <div class="tier-title-cluster">
+                  <div class="tier-icon-box"><i data-icon="smartphone"></i></div>
+                  <div>
+                    <div class="tier-badge-row">
+                      <span class="tier-tag-pill">BESTSELLER • CLIENT-OWNED</span>
+                      <span class="tier-sla-badge">1 – 2 Weeks</span>
+                    </div>
+                    <div class="tier-heading-name">Korvex</div>
+                    <div class="tier-heading-sub">Custom Native Android App Pack</div>
+                  </div>
+                </div>
+
+                <div class="tier-price-cluster">
+                  <div class="tier-strike-row">
+                    <span class="tier-strike-val" data-old-price-label>₹6,000</span>
+                    <span class="tier-save-pill">SAVE 58%</span>
+                  </div>
+                  <div class="tier-big-price plat-card-price" data-price-label>₹2,499</div>
+                  <span class="tier-price-caption">Base one-time build</span>
+                </div>
+              </div>
+
+              <div class="tier-minimal-bullets-grid">
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label inc">
+                    <i data-icon="check-circle" class="icon-sm"></i>
+                    <span>What's Included</span>
+                  </div>
+                  <ul class="minimal-ul inc-ul">
+                    <li><i data-icon="check"></i><span>Native Kotlin &amp; Jetpack Compose UI</span></li>
+                    <li><i data-icon="check"></i><span>Signed APK, Play AAB &amp; source handover</span></li>
+                    <li><i data-icon="check"></i><span>100% client-owned (zero Easode ads)</span></li>
+                    <li><i data-icon="check"></i><span>14-day post-handover bug warranty</span></li>
+                  </ul>
+                </div>
+
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label lim">
+                    <i data-icon="info" class="icon-sm"></i>
+                    <span>Key Limits &amp; Scope</span>
+                  </div>
+                  <ul class="minimal-ul lim-ul">
+                    <li><i data-icon="info"></i><span>Client Play Console fee ($25) separate</span></li>
+                    <li><i data-icon="info"></i><span>Cloud, Auth &amp; Payments via Step 2</span></li>
+                    <li><i data-icon="info"></i><span>Single-platform Android build</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tier-panel-footer">
+                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Full IP ownership + modular add-ons</span>
+                <a href="terms-android-app-pack.html" class="card-terms-link">
+                  <i data-icon="shield" class="icon-sm"></i>
+                  <span>Korvex Terms &amp; Conditions</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- =============================================================
+                 TAB PANEL 4: DRAVIX — Windows Desktop Software (₹3,499 / $42)
+                 ============================================================= -->
+            <div
+              role="tabpanel"
+              id="card-pack-windows"
+              class="tier-panel-card plat-card-min"
+              data-val="windows"
+              data-pack="modular"
+              data-pkg-name="Dravix"
+              data-pkg-subtitle="Windows Software"
+              data-terms="terms-windows-software-pack.html"
+              data-weeks="1.5"
+              data-inr="3499"
+              data-usd="42"
+              data-old-inr="8000"
+              data-old-usd="99"
+            >
+              <div class="tier-panel-header">
+                <div class="tier-title-cluster">
+                  <div class="tier-icon-box"><i data-icon="monitor"></i></div>
+                  <div>
+                    <div class="tier-badge-row">
+                      <span class="tier-tag-pill">DESKTOP ENGINE</span>
+                      <span class="tier-sla-badge">1.5 – 2.5 Weeks</span>
+                    </div>
+                    <div class="tier-heading-name">Dravix</div>
+                    <div class="tier-heading-sub">Windows 10/11 Desktop Software Pack</div>
+                  </div>
+                </div>
+
+                <div class="tier-price-cluster">
+                  <div class="tier-strike-row">
+                    <span class="tier-strike-val" data-old-price-label>₹8,000</span>
+                    <span class="tier-save-pill">SAVE 56%</span>
+                  </div>
+                  <div class="tier-big-price plat-card-price" data-price-label>₹3,499</div>
+                  <span class="tier-price-caption">Base one-time build</span>
+                </div>
+              </div>
+
+              <div class="tier-minimal-bullets-grid">
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label inc">
+                    <i data-icon="check-circle" class="icon-sm"></i>
+                    <span>What's Included</span>
+                  </div>
+                  <ul class="minimal-ul inc-ul">
+                    <li><i data-icon="check"></i><span>64-bit Windows 10/11 `.exe` / `.msi` build</span></li>
+                    <li><i data-icon="check"></i><span>Offline local database &amp; file workflows</span></li>
+                    <li><i data-icon="check"></i><span>Unlimited office PCs (zero seat fees)</span></li>
+                    <li><i data-icon="check"></i><span>Full source handover + 14-day warranty</span></li>
+                  </ul>
+                </div>
+
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label lim">
+                    <i data-icon="info" class="icon-sm"></i>
+                    <span>Key Limits &amp; Scope</span>
+                  </div>
+                  <ul class="minimal-ul lim-ul">
+                    <li><i data-icon="info"></i><span>Windows OS only (no macOS/Linux)</span></li>
+                    <li><i data-icon="info"></i><span>EV code-signing certificates separate</span></li>
+                    <li><i data-icon="info"></i><span>Cloud sync &amp; licensing via Step 2</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tier-panel-footer">
+                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Standalone desktop utility &amp; automation</span>
+                <a href="terms-windows-software-pack.html" class="card-terms-link">
+                  <i data-icon="shield" class="icon-sm"></i>
+                  <span>Dravix Terms &amp; Conditions</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- =============================================================
+                 TAB PANEL 5: OMNIRA — Turnkey Done-for-You Suite (₹19,999 / $239)
+                 ============================================================= -->
+            <div
+              role="tabpanel"
+              id="dfy-package-card"
+              class="tier-panel-card dfy-pack-card"
+              data-val="done-for-you-pack"
+              data-pack="dfy"
+              data-pkg-name="Omnira"
+              data-pkg-subtitle="Turnkey Full-Stack Suite"
+              data-terms="terms-done-for-you-pack.html"
+              data-weeks="4"
+              data-inr="19999"
+              data-usd="239"
+              data-old-inr="65000"
+              data-old-usd="799"
+            >
+              <div class="tier-panel-header">
+                <div class="tier-title-cluster">
+                  <div class="tier-icon-box"><i data-icon="award"></i></div>
+                  <div>
+                    <div class="tier-badge-row">
+                      <span class="tier-tag-pill">ALL-INCLUSIVE TURNKEY</span>
+                      <span class="tier-sla-badge">3 – 5 Weeks</span>
+                    </div>
+                    <div class="tier-heading-name">Omnira</div>
+                    <div class="tier-heading-sub">Done-for-You End-to-End Application Pack</div>
+                  </div>
+                </div>
+
+                <div class="tier-price-cluster">
+                  <div class="tier-strike-row">
+                    <span class="tier-strike-val" data-old-price-label>₹65,000</span>
+                    <span class="tier-save-pill">SAVE 69%</span>
+                  </div>
+                  <div class="tier-big-price" id="dfy-price-badge" data-price-label>₹19,999</div>
+                  <span class="tier-price-caption">Complete agreed SOW</span>
+                </div>
+              </div>
+
+              <div class="tier-minimal-bullets-grid">
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label inc">
+                    <i data-icon="check-circle" class="icon-sm"></i>
+                    <span>What's Included</span>
+                  </div>
+                  <ul class="minimal-ul inc-ul">
+                    <li><i data-icon="check"></i><span>All 6 core feature modules pre-included</span></li>
+                    <li><i data-icon="check"></i><span>Custom UI/UX + admin panel + backend</span></li>
+                    <li><i data-icon="check"></i><span>Guided Play Store / Web / PC launch</span></li>
+                    <li><i data-icon="check"></i><span>Full IP handover + 30-day priority care</span></li>
+                  </ul>
+                </div>
+
+                <div class="minimal-bullet-box">
+                  <div class="minimal-box-label lim">
+                    <i data-icon="info" class="icon-sm"></i>
+                    <span>Key Limits &amp; Scope</span>
+                  </div>
+                  <ul class="minimal-ul lim-ul">
+                    <li><i data-icon="info"></i><span>Governed by written Statement of Work</span></li>
+                    <li><i data-icon="info"></i><span>Out-of-scope additions billed extra</span></li>
+                    <li><i data-icon="info"></i><span>3rd-party server/API bills separate</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tier-panel-footer">
+                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Complete turnkey engineering</span>
+                <a href="terms-done-for-you-pack.html" class="card-terms-link">
+                  <i data-icon="shield" class="icon-sm"></i>
+                  <span>Omnira Terms &amp; Conditions</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- STEP 2: MINIMAL ADD-ON CHIPS -->
+          <div class="step2-minimal-box">
+            <div class="step2-top-row">
+              <span class="tabs-step-label" id="step-2-heading">2. Optional Feature Add-Ons (-15% on 3+)</span>
+              <div class="preset-mini-pills" id="addon-presets-bar">
+                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset([])">None</button>
+                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','storage'])">MVP (2)</button>
+                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','cloud','notifications'])">Cloud (3 • -15%)</button>
+                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','storage','cloud','notifications','payments','custom'])">All 6 (-15%)</button>
+              </div>
+            </div>
+
+            <!-- Shown when Lumora (Free Pack) is active so the view stays minimal -->
+            <div id="free-addons-notice" class="free-addons-note">
+              <span><strong>Lumora (₹0)</strong> uses fixed eligible track scope. Need custom modules?</span>
+              <button type="button" class="preset-mini-btn" style="background:#1C7CE2;color:#fff;border-color:#1C7CE2;" onclick="selectPackById('android')">
+                Switch to Korvex (Android) →
               </button>
             </div>
 
-            <div class="card-terms-footer" style="margin-top:2px;">
-              <span style="font-size:0.7rem;color:var(--text-secondary);">
-                Hosting, domain, paid APIs, gateways &amp; recurring costs are not automatically included.
-              </span>
-              <a href="terms-free-android-pack.html" class="card-terms-link" onclick="event.stopPropagation();">
-                <i data-icon="shield" class="icon-sm"></i>
-                <span>View Terms &amp; Conditions</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Predefined Done-for-You App Development Pack (₹1,00,000) -->
-          <div
-            role="button"
-            tabindex="0"
-            id="dfy-package-card"
-            class="dfy-pack-card"
-            data-val="done-for-you-pack"
-            data-pack="dfy"
-            data-terms="terms-done-for-you-pack.html"
-            data-weeks="6"
-            data-inr="100000"
-            data-usd="1200"
-            onclick="selectPlatform(this)"
-            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPlatform(this);}"
-          >
-            <div class="dfy-pack-header">
-              <div class="dfy-pack-title-wrap">
-                <span class="dfy-pack-badge">END-TO-END COMPLETE PROJECT</span>
-                <div class="dfy-pack-title" style="font-size:0.96rem;">
-                  <i data-icon="award" class="icon-sm" style="color:var(--accent-cyan);"></i>
-                  <span>Done-for-You App Development Pack</span>
-                </div>
-              </div>
-              <span class="dfy-pack-price" id="dfy-price-badge" data-price-label style="font-size:1.1rem;padding:3px 10px;">₹1,00,000</span>
-            </div>
-
-            <p class="dfy-pack-desc" style="font-size:0.77rem;">
-              End-to-end app development service where Easode develops and delivers the complete project for you, with scope and deliverables agreed upon with the client.
-            </p>
-
-            <div class="dfy-scope-note" style="padding:7px 10px;font-size:0.72rem;">
-              <i data-icon="info" class="icon-sm"></i>
-              <span><strong>Scope Note:</strong> Additional features or requirements outside the agreed scope may cost extra.</span>
-            </div>
-
-            <div class="card-terms-footer" style="margin-top:2px;">
-              <span style="font-size:0.7rem;color:var(--text-secondary);">
-                Complete turnkey delivery • Mutually agreed Statement of Work
-              </span>
-              <a href="terms-done-for-you-pack.html" class="card-terms-link" onclick="event.stopPropagation();">
-                <i data-icon="shield" class="icon-sm"></i>
-                <span>View Terms &amp; Conditions</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- STEP 2: COMPACT SINGLE-LINE FEATURE CHIPS -->
-          <div class="config-step" style="margin-top:20px;margin-bottom:0;">
-            <label class="step-title" id="step-2-heading" style="margin-bottom:10px;">2. Add Features (Optional)</label>
-
-            <div class="compact-addon-grid" id="module-chips">
-              <button type="button" class="addon-pill selected" data-key="auth" data-weeks="0.25" data-inr="800" data-usd="10" onclick="toggleModule(this)">
+            <!-- Compact 2-Column Add-On Chips (Visible for Paid Tiers) -->
+            <div class="compact-addon-grid" id="module-chips" style="display:none;">
+              <button type="button" class="addon-pill selected" data-key="auth" data-weeks="0.25" data-inr="499" data-usd="6" onclick="toggleModule(this)">
                 <span class="addon-pill-left">
                   <i data-icon="user" class="icon-sm"></i>
                   <span>User Login &amp; Profiles</span>
                 </span>
-                <span class="addon-pill-price" data-price-label>+₹800</span>
+                <span class="addon-pill-price" data-price-label>+₹499</span>
               </button>
 
-              <button type="button" class="addon-pill selected" data-key="storage" data-weeks="0.25" data-inr="800" data-usd="10" onclick="toggleModule(this)">
+              <button type="button" class="addon-pill selected" data-key="storage" data-weeks="0.25" data-inr="499" data-usd="6" onclick="toggleModule(this)">
                 <span class="addon-pill-left">
                   <i data-icon="hard-drive" class="icon-sm"></i>
-                  <span>Offline Save &amp; PDF / Backup</span>
+                  <span>Offline Save &amp; PDF Export</span>
                 </span>
-                <span class="addon-pill-price" data-price-label>+₹800</span>
+                <span class="addon-pill-price" data-price-label>+₹499</span>
               </button>
 
-              <button type="button" class="addon-pill" data-key="cloud" data-weeks="0.5" data-inr="1200" data-usd="15" onclick="toggleModule(this)">
+              <button type="button" class="addon-pill" data-key="cloud" data-weeks="0.5" data-inr="899" data-usd="11" onclick="toggleModule(this)">
                 <span class="addon-pill-left">
                   <i data-icon="database" class="icon-sm"></i>
                   <span>Cloud Database &amp; Sync</span>
                 </span>
-                <span class="addon-pill-price" data-price-label>+₹1,200</span>
+                <span class="addon-pill-price" data-price-label>+₹899</span>
               </button>
 
-              <button type="button" class="addon-pill" data-key="notifications" data-weeks="0.25" data-inr="500" data-usd="7" onclick="toggleModule(this)">
+              <button type="button" class="addon-pill" data-key="notifications" data-weeks="0.25" data-inr="399" data-usd="5" onclick="toggleModule(this)">
                 <span class="addon-pill-left">
                   <i data-icon="bell" class="icon-sm"></i>
-                  <span>Reminders &amp; Notifications</span>
+                  <span>Reminders &amp; Push Alerts</span>
                 </span>
-                <span class="addon-pill-price" data-price-label>+₹500</span>
+                <span class="addon-pill-price" data-price-label>+₹399</span>
               </button>
 
-              <button type="button" class="addon-pill" data-key="payments" data-weeks="0.3" data-inr="1000" data-usd="12" onclick="toggleModule(this)">
+              <button type="button" class="addon-pill" data-key="payments" data-weeks="0.3" data-inr="699" data-usd="9" onclick="toggleModule(this)">
                 <span class="addon-pill-left">
                   <i data-icon="shield" class="icon-sm"></i>
                   <span>Payments / Licensing</span>
                 </span>
-                <span class="addon-pill-price" data-price-label>+₹1,000</span>
+                <span class="addon-pill-price" data-price-label>+₹699</span>
               </button>
 
-              <button type="button" class="addon-pill" data-key="custom" data-weeks="0.3" data-inr="800" data-usd="10" onclick="toggleModule(this)">
+              <button type="button" class="addon-pill" data-key="custom" data-weeks="0.3" data-inr="699" data-usd="9" onclick="toggleModule(this)">
                 <span class="addon-pill-left">
                   <i data-icon="sparkles" class="icon-sm"></i>
-                  <span>Custom Feature / Automation</span>
+                  <span>AI / Custom Automation</span>
                 </span>
-                <span class="addon-pill-price" data-price-label>+₹800</span>
+                <span class="addon-pill-price" data-price-label>+₹699</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Clean, Minimal Estimate Summary -->
-        <div class="summary-card-min">
+        <!-- RIGHT COLUMN: Minimalist Sticky Order Summary & Checkout -->
+        <div class="summary-card-min" id="checkout-summary-panel">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-            <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--accent-cyan);font-weight:700;">YOUR ESTIMATE</span>
-            <span class="brand-badge" id="bp-timeline">1 – 2 Weeks</span>
+            <span style="font-family:var(--font-mono);font-size:0.72rem;color:#1C7CE2;font-weight:700;">QUOTE SUMMARY</span>
+            <span class="brand-badge" id="bp-timeline" style="display:inline-flex;">2 – 3 Weeks</span>
           </div>
 
           <div class="price-banner" style="padding:14px 16px;">
             <div>
-              <div class="total-lbl">ESTIMATED TOTAL</div>
-              <div style="font-size:0.74rem;color:var(--text-secondary);font-weight:600;" id="bp-title">Android App</div>
+              <div class="total-lbl" id="bp-tier-tag" style="font-weight:700;color:#059669;">LUMORA • FREE TIER</div>
+              <div style="font-size:0.86rem;color:var(--text-primary);font-weight:700;margin-top:2px;" id="bp-title">Lumora — Free Android Pack</div>
             </div>
-            <div class="total-val" id="bp-total-price">₹5,100</div>
+            <div style="text-align:right;">
+              <div class="total-val" id="bp-total-price">₹0 (FREE)</div>
+              <div style="font-family:var(--font-mono);font-size:0.65rem;color:#059669;font-weight:700;" id="bp-savings-note">You save ₹6,000 (100%)</div>
+            </div>
           </div>
 
-          <div class="breakdown-list" id="bp-breakdown-list" style="max-height:170px;"></div>
+          <div class="breakdown-list" id="bp-breakdown-list" style="max-height:175px;"></div>
 
-          <!-- Dynamic Link to the Selected Pack's Dedicated Terms & Conditions Page -->
           <div class="bp-terms-bar" style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:0.72rem;">
-            <span style="color:var(--text-secondary);font-weight:600;" id="bp-terms-pack-lbl">Android App Pack Terms:</span>
-            <a id="bp-terms-link" href="terms-android-app-pack.html" class="card-terms-link">
+            <span style="color:var(--text-secondary);font-weight:600;" id="bp-terms-pack-lbl">Lumora Terms:</span>
+            <a id="bp-terms-link" href="terms-free-android-pack.html" class="card-terms-link">
               <i data-icon="shield" class="icon-sm"></i>
-              <span>View Terms &amp; Conditions</span>
+              <span>View Terms</span>
             </a>
           </div>
 
-          <!-- Shown when Done-for-You Pack is selected -->
-          <div id="bp-dfy-disclaimer" class="dfy-scope-note" style="display:none;padding:8px 10px;font-size:0.72rem;">
+          <div id="bp-dfy-disclaimer" class="dfy-scope-note" style="display:none;padding:8px 10px;font-size:0.71rem;">
             <i data-icon="info" class="icon-sm"></i>
-            <span>End-to-end app development with agreed scope &amp; deliverables. <strong>Additional features outside the agreed scope may cost extra.</strong></span>
+            <span><strong>Omnira Scope:</strong> Includes all 6 core modules under an agreed SOW. Extra out-of-scope requests billed separately.</span>
           </div>
 
-          <!-- Shown when Free Android App Development Pack (₹0 / FREE) is selected -->
-          <div id="bp-free-pack-box" class="free-pack-summary-box">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
-              <strong style="color:#0f8a5f;font-size:0.76rem;">Free Pack Eligibility &amp; Publishing Conditions</strong>
-              <span class="free-pack-badge" style="font-size:0.6rem;padding:2px 6px;">₹0 DEV FEE</span>
-            </div>
-
+          <!-- Compact Eligibility Box for Lumora (Free Pack) -->
+          <div id="bp-free-pack-box" class="free-pack-summary-box" style="display:flex;">
             <div>
-              <label for="free-pack-app-type" style="display:block;font-family:var(--font-mono);font-size:0.66rem;color:var(--text-secondary);margin-bottom:4px;font-weight:700;">
-                ELIGIBLE ANDROID APP CATEGORY:
+              <label for="free-pack-app-type" style="display:block;font-family:var(--font-mono);font-size:0.65rem;color:var(--text-secondary);margin-bottom:4px;font-weight:700;">
+                ELIGIBLE ANDROID CATEGORY:
               </label>
               <select
                 id="free-pack-app-type"
                 class="neg-currency-select"
-                style="width:100%;padding:7px 10px;font-size:0.75rem;"
-                onchange="updateBlueprint()"
+                style="width:100%;padding:6px 9px;font-size:0.74rem;"
+                onchange="syncLumoraTrackFromSelect()"
               >
-                <option value="E-commerce Application (Manageable Infrastructure)">1. E-commerce Application (Manageable Infrastructure)</option>
-                <option value="Lightweight Online Application (Low Storage & Low Requests)">2. Lightweight Online Application (Low Storage &amp; Requests)</option>
-                <option value="Offline Android Application (Offline-First Functionality)">3. Offline Android Application (Offline-First Functionality)</option>
+                <option value="E-commerce Application (Manageable Infrastructure)">1. E-commerce Application</option>
+                <option value="Lightweight Online Application (Low Storage & Low Requests)">2. Lightweight Online Application</option>
+                <option value="Offline Android Application (Offline-First Functionality)">3. Offline Utility Application</option>
               </select>
             </div>
-
-            <ul class="free-pack-cond-list">
-              <li><i data-icon="check-circle"></i><span>Published via <strong>Easode’s Google Play Developer account</strong>.</span></li>
-              <li><i data-icon="check-circle"></i><span><strong>Easode-managed ad monetization</strong> (Google Play policy compliant).</span></li>
-              <li><i data-icon="check-circle"></i><span>Your business/contact details displayed in an <strong>About App</strong> section.</span></li>
-              <li><i data-icon="check-circle"></i><span>Hosting, domain, third-party APIs, gateways &amp; recurring costs are <strong>not included</strong> (disclosed before commitment).</span></li>
-              <li><i data-icon="check-circle"></i><span>Subject to Easode technical feasibility &amp; eligibility approval.</span></li>
-            </ul>
 
             <label class="terms-accept-row" id="free-pack-terms-row" for="free-pack-terms-checkbox">
               <input type="checkbox" id="free-pack-terms-checkbox" onchange="handleFreePackTermsCheckbox()" />
               <span>
-                I have reviewed the eligibility criteria and accept the
-                <a href="terms-free-android-pack.html" id="free-pack-inline-terms-link" style="color:#1C7CE2;font-weight:700;text-decoration:underline;">Free Android App Development Terms &amp; Conditions</a>.
+                I accept the <a href="terms-free-android-pack.html" id="free-pack-inline-terms-link" style="color:#1C7CE2;font-weight:700;text-decoration:underline;">Lumora Free Pack Terms</a>.
               </span>
             </label>
-            <div id="free-pack-terms-warning" style="display:none;color:#dc2626;font-size:0.71rem;font-weight:600;">
-              Please check the box above to confirm you have reviewed the Free Pack Terms &amp; Conditions before submitting your inquiry.
+            <div id="free-pack-terms-warning" style="display:none;color:#dc2626;font-size:0.7rem;font-weight:600;">
+              Please accept the Lumora Terms &amp; Conditions above to continue.
             </div>
           </div>
 
@@ -6202,9 +7164,9 @@
               type="text"
               id="client-project-name"
               class="calc-project-input"
-              style="margin-bottom:10px;padding:10px 13px;font-size:0.82rem;"
-              placeholder="Project name or idea (optional)"
-              aria-label="Project name or idea"
+              style="margin-bottom:9px;padding:9px 12px;font-size:0.81rem;"
+              placeholder="Project or app name (optional)"
+              aria-label="Project or app name"
               oninput="updateBlueprint()"
             />
             <div style="display:flex;flex-direction:column;gap:8px;">
@@ -6216,15 +7178,16 @@
                 onclick="return handleEstimateSubmitClick(event)"
               >
                 <i data-icon="send" class="icon-sm"></i>
-                <span id="mailto-launch-lbl">Book Project at This Estimate</span>
+                <span id="mailto-launch-lbl">Claim Lumora Free Build (₹0)</span>
               </a>
-              <button type="button" class="btn-negotiate calc-action-btn" id="request-negotiation-btn" style="padding:10px 16px;" onclick="openNegotiationModal()">
+              <button type="button" class="btn-negotiate calc-action-btn" id="request-negotiation-btn" style="padding:9px 14px;" onclick="openNegotiationModal()">
                 <i data-icon="message-square" class="icon-sm"></i>
                 <span id="request-negotiation-lbl">Request Price Negotiation</span>
               </button>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   </main>
@@ -6234,7 +7197,7 @@
     <div class="modal-card">
       <div class="modal-top">
         <div>
-          <span class="brand-badge">FLEXIBLE PRICING &amp; ELIGIBILITY</span>
+          <span class="brand-badge">FLEXIBLE PRICING</span>
           <h3 id="neg-modal-title" style="font-size:1.22rem;margin-top:6px;">Request Price Negotiation</h3>
         </div>
         <button type="button" class="btn-icon" onclick="closeNegotiationModal()" aria-label="Close modal">
@@ -6243,12 +7206,12 @@
       </div>
 
       <p style="font-size:0.83rem;color:var(--text-secondary);">
-        Share your comfortable budget and requirements—we'll tailor a scope that works for you.
+        Share your target budget and requirements—we’ll tailor a package scope that works for you.
       </p>
 
       <div style="padding:10px 14px;border-radius:12px;background:var(--bg-secondary);border:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.75rem;">
-        <span>Current Estimate: <strong id="neg-current-estimate" style="color:var(--accent-cyan);">₹5,100</strong></span>
-        <span id="neg-feature-count">2 Add-Ons</span>
+        <span>Current Quote: <strong id="neg-current-estimate" style="color:var(--accent-cyan);">₹0 (FREE)</strong></span>
+        <span id="neg-feature-count">Lumora Free Pack</span>
       </div>
 
       <div class="form-field">
@@ -6268,13 +7231,13 @@
             <option value="AUD" data-symbol="A$">A$ AUD</option>
             <option value="CAD" data-symbol="C$">C$ CAD</option>
           </select>
-          <input type="text" id="neg-proposed-budget" placeholder="e.g., 3,000" />
+          <input type="text" id="neg-proposed-budget" placeholder="e.g., 2,000" />
         </div>
       </div>
 
       <div class="form-field">
         <label for="neg-notes">PROJECT REQUIREMENTS</label>
-        <textarea id="neg-notes" rows="3" placeholder="Briefly describe your Android app, website, or Windows software..."></textarea>
+        <textarea id="neg-notes" rows="3" placeholder="Briefly describe your app, website, or Windows software..."></textarea>
       </div>
 
       <div class="negotiation-toast" id="negotiation-toast"></div>
@@ -6376,7 +7339,7 @@
     renderAllIcons();
 
     /* =========================================================================
-       1. THEME SWITCHER (LIGHT MODE DEFAULT + PERSISTENCE + MOBILE MENU)
+       1. THEME SWITCHER & MOBILE NAVIGATION
        ========================================================================= */
     const themeBtn = document.getElementById('theme-toggle');
     function applyThemePreference(theme) {
@@ -6429,295 +7392,47 @@
     }
 
     /* =========================================================================
-       1B. DYNAMIC APP SCREENSHOT DIRECTORY AUTO-DETECTOR & LOADER
-           - Cipher:   products/android/cipher/screenshots/
-           - StreakIO: products/android/streakio/screenshots/
-           Automatically detects the number of images in each directory without
-           hardcoding individual filenames or embedding image data in source code.
-       ========================================================================= */
-    const EasodeScreenshotLoader = (() => {
-      // Relative directory paths so the project works in ANY root folder, subfolder, local file:// copy, or https://www.easode.com/
-      const DIRECTORIES = {
-        streakio: 'products/android/streakio/screenshots/',
-        cipher: 'products/android/cipher/screenshots/'
-      };
-
-      // Exact known screenshot files in each directory (rendered immediately using relative paths, with automatic pruning on removal & discovery on addition)
-      const KNOWN_FILES = {
-        streakio: [
-          'streakio-home.jpg',
-          'streakio-journal.jpg',
-          'streakio-createhabit.jpg',
-          'streakio-achievements.jpg',
-          'streakio-settings.jpg',
-          'streakio-about.jpg'
-        ],
-        cipher: [
-          'cipher-vault-dark.jpg',
-          'cipher-vault-light.jpg',
-          'cipher-locked-dark.jpg',
-          'cipher-locked-light.jpg',
-          'cipher-edit-dark.jpg',
-          'cipher-edit-light.jpg',
-          'cipher-keygenerator-dark.jpg',
-          'cipher-keygenerator-light.jpg',
-          'cipher-audit-dark.jpg',
-          'cipher-audit-light.jpg',
-          'cipher-applocker-dark.jpg',
-          'cipher-applocker-light.jpg',
-          'cipher-settings-dark.jpg',
-          'cipher-settings-light.jpg',
-          'cipher-about-dark.jpg',
-          'cipher-about-light.jpg'
-        ]
-      };
-
-      const IMAGE_EXT_RE = /\.(png|jpe?g|webp|avif|gif|svg)(?:[?#].*)?$/i;
-      const PROBE_EXTENSIONS = ['jpg', 'png', 'jpeg', 'webp'];
-      const EXTRA_FEATURE_STEMS = [
-        'stats', 'statistics', 'calendar', 'habits', 'steps', 'backup', 'export', 'profile', 'onboarding', 'welcome', 'dashboard', 'main',
-        'home', 'journal', 'createhabit', 'achievements', 'settings', 'about',
-        'vault', 'locked', 'edit', 'keygenerator', 'audit', 'applocker', 'generator', 'security', 'categories', 'details'
-      ];
-      const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
-      const cache = new Map();
-
-      function normalizeRelativeDir(dirPath) {
-        const trimmed = String(dirPath || '').trim().replace(/\\/g, '/').replace(/^[./]+/, '');
-        if (!trimmed) return '';
-        return trimmed.endsWith('/') ? trimmed : trimmed + '/';
-      }
-
-      function getInitialRelativeUrls(appKey, dirPath) {
-        const relDir = normalizeRelativeDir(dirPath || DIRECTORIES[appKey] || '');
-        const list = KNOWN_FILES[appKey] || [];
-        return list.map((fname) => relDir + fname);
-      }
-
-      function deduplicateByFilename(urls, preferredOrder = []) {
-        const orderRank = new Map();
-        preferredOrder.forEach((u, idx) => {
-          const fname = decodeURIComponent(u.split('/').pop() || u).toLowerCase();
-          orderRank.set(fname, idx);
-        });
-
-        const byName = new Map();
-        urls.forEach((u) => {
-          if (!u) return;
-          const fname = decodeURIComponent(u.split('?')[0].split('#')[0].split('/').pop() || u).toLowerCase();
-          if (!byName.has(fname)) {
-            byName.set(fname, u);
-          }
-        });
-
-        return Array.from(byName.entries())
-          .sort(([nameA], [nameB]) => {
-            const rankA = orderRank.has(nameA) ? orderRank.get(nameA) : 9999;
-            const rankB = orderRank.has(nameB) ? orderRank.get(nameB) : 9999;
-            if (rankA !== rankB) return rankA - rankB;
-            return collator.compare(nameA, nameB);
-          })
-          .map(([, url]) => url);
-      }
-
-      function probeImageElement(url, timeoutMs = 2500) {
-        return new Promise((resolve) => {
-          const img = new Image();
-          let settled = false;
-          const finish = (ok) => {
-            if (settled) return;
-            settled = true;
-            clearTimeout(timer);
-            img.onload = null;
-            img.onerror = null;
-            resolve(ok ? url : null);
-          };
-          const timer = setTimeout(() => finish(false), timeoutMs);
-          img.onload = () => finish(img.naturalWidth > 0 || img.width > 0);
-          img.onerror = () => finish(false);
-          img.src = url;
-        });
-      }
-
-      async function verifyCandidateUrls(candidates, preferredOrder = []) {
-        if (!candidates || !candidates.length) return [];
-        const unique = Array.from(new Set(candidates));
-        const valid = [];
-        const batchSize = 24;
-        for (let i = 0; i < unique.length; i += batchSize) {
-          const slice = unique.slice(i, i + batchSize);
-          const results = await Promise.all(slice.map((u) => probeImageElement(u)));
-          results.forEach((hit) => {
-            if (hit) valid.push(hit);
-          });
-        }
-        return deduplicateByFilename(valid, preferredOrder);
-      }
-
-      function extractFilenamesFromDirectoryPayload(payloadText, relDir) {
-        if (!payloadText || typeof payloadText !== 'string') return [];
-        if (payloadText.includes('EasodeScreenshotLoader') || payloadText.includes('streakio-phone-screens-root')) {
-          return [];
-        }
-        const found = [];
-        const pushCandidate = (raw) => {
-          if (!raw || typeof raw !== 'string') return;
-          const cleaned = raw.trim().replace(/\\/g, '/');
-          if (!cleaned || cleaned.startsWith('?') || cleaned.startsWith('#') || cleaned === '../' || cleaned === './') return;
-          const fname = cleaned.split('?')[0].split('#')[0].split('/').pop() || '';
-          if (fname && IMAGE_EXT_RE.test(fname)) {
-            found.push(relDir + fname);
-          }
-        };
-
-        try {
-          const parsed = JSON.parse(payloadText);
-          const list = Array.isArray(parsed)
-            ? parsed
-            : (parsed.files || parsed.items || parsed.entries || parsed.screenshots || parsed.images || null);
-          if (Array.isArray(list)) {
-            list.forEach((entry) => {
-              if (typeof entry === 'string') {
-                pushCandidate(entry);
-              } else if (entry && typeof entry === 'object') {
-                pushCandidate(entry.base || entry.relative || entry.file || entry.filename || entry.path || entry.url || entry.href || entry.name);
-              }
-            });
-          }
-        } catch (err) {}
-
-        try {
-          const doc = new DOMParser().parseFromString(payloadText, 'text/html');
-          doc.querySelectorAll('a[href], img[src]').forEach((node) => {
-            pushCandidate(node.getAttribute('href') || node.getAttribute('src') || '');
-          });
-        } catch (err) {}
-
-        const tokenRe = /["'<>(\s/]([A-Za-z0-9_.\-~%+]+\.(?:png|jpe?g|webp|avif|gif|svg))(?=["'<>\s)&?#]|$)/gi;
-        let m;
-        while ((m = tokenRe.exec(payloadText)) !== null) {
-          pushCandidate(m[1]);
-        }
-
-        return Array.from(new Set(found));
-      }
-
-      async function tryDirectoryFetch(relDir) {
-        if (window.location.protocol === 'file:') return [];
-        const endpoints = [
-          relDir,
-          relDir + 'index.json',
-          relDir + 'manifest.json',
-          relDir + 'screenshots.json'
-        ];
-        for (const ep of endpoints) {
-          try {
-            const res = await fetch(ep, { cache: 'no-store' });
-            if (!res.ok) continue;
-            const text = await res.text();
-            const extracted = extractFilenamesFromDirectoryPayload(text, relDir);
-            if (extracted.length > 0) return extracted;
-          } catch (err) {}
-        }
-        return [];
-      }
-
-      function buildProbeCandidates(relDir, appKey) {
-        const cleanKey = String(appKey || '').toLowerCase().trim();
-        const initial = getInitialRelativeUrls(cleanKey, relDir);
-        const candidates = [...initial];
-
-        // Probe additional app-prefixed feature screenshots (e.g. streakio-<feature>.jpg, cipher-<feature>-dark.jpg / -light.jpg)
-        EXTRA_FEATURE_STEMS.forEach((stem) => {
-          PROBE_EXTENSIONS.forEach((ext) => {
-            if (cleanKey) {
-              candidates.push(`${relDir}${cleanKey}-${stem}.${ext}`);
-              candidates.push(`${relDir}${cleanKey}-${stem}-dark.${ext}`);
-              candidates.push(`${relDir}${cleanKey}-${stem}-light.${ext}`);
-              candidates.push(`${relDir}${cleanKey}_${stem}.${ext}`);
-            }
-            candidates.push(`${relDir}${stem}.${ext}`);
-          });
-        });
-
-        // Probe numbered screenshots (1..12, 01..12, streakio-1..12, cipher-1..12, screen-1..12)
-        for (let n = 1; n <= 12; n++) {
-          const pad2 = String(n).padStart(2, '0');
-          ['jpg', 'png'].forEach((ext) => {
-            candidates.push(`${relDir}${n}.${ext}`);
-            candidates.push(`${relDir}${pad2}.${ext}`);
-            if (cleanKey) {
-              candidates.push(`${relDir}${cleanKey}-${n}.${ext}`);
-              candidates.push(`${relDir}${cleanKey}-${pad2}.${ext}`);
-            }
-            candidates.push(`${relDir}screen-${n}.${ext}`);
-            candidates.push(`${relDir}screenshot-${n}.${ext}`);
-          });
-        }
-
-        return Array.from(new Set(candidates));
-      }
-
-      async function discover(dirPathOrKey, optionalAppKey = '') {
-        const appKey = optionalAppKey || (DIRECTORIES[dirPathOrKey] ? dirPathOrKey : '');
-        const relDir = normalizeRelativeDir(DIRECTORIES[dirPathOrKey] || dirPathOrKey);
-        if (!relDir) return [];
-        if (cache.has(relDir)) return cache.get(relDir);
-
-        const preferredOrder = getInitialRelativeUrls(appKey, relDir);
-
-        const promise = (async () => {
-          // 1. Check directory listing if available
-          const listed = await tryDirectoryFetch(relDir);
-          if (listed.length > 0) {
-            const verifiedListed = await verifyCandidateUrls([...preferredOrder, ...listed], preferredOrder);
-            if (verifiedListed.length > 0) return verifiedListed;
-          }
-
-          // 2. Probe known files + convention-based candidates directly (works on https://www.easode.com/, localhost, and local file:// in any folder)
-          const probeList = buildProbeCandidates(relDir, appKey);
-          const verifiedProbes = await verifyCandidateUrls(probeList, preferredOrder);
-          if (verifiedProbes.length > 0) return verifiedProbes;
-
-          // 3. Fallback to initial relative URLs so DOM renders relative paths cleanly
-          return preferredOrder;
-        })();
-
-        cache.set(relDir, promise);
-        return promise;
-      }
-
-      function clearCache() {
-        cache.clear();
-      }
-
-      return {
-        DIRECTORIES,
-        KNOWN_FILES,
-        getInitialRelativeUrls,
-        discover,
-        clearCache
-      };
-    })();
-
-    /* =========================================================================
-       2. MINIMAL PROJECT PRICE CALCULATOR (ANDROID, FREE ANDROID PACK, WEBSITE, WINDOWS & ₹1,00,000 PACK)
+       2. TAB-BASED MINIMALIST PRICE CALCULATOR ENGINE
+          Standard Package Names:
+          - Lumora  (Free Android Pack: ₹0 / $0)
+          - Veltro  (Website & Web App: ₹1,499 / $19)
+          - Korvex  (Custom Android App: ₹2,499 / $29)
+          - Dravix  (Windows Software: ₹3,499 / $42)
+          - Omnira  (Turnkey Full-Stack Suite: ₹19,999 / $239)
        ========================================================================= */
     let activeCurrency = 'INR';
-    let activePlatformEl = document.querySelector('#platform-chips .plat-card-min.selected');
+    let activePlatformEl = document.getElementById('free-android-package-card');
     let savedPaidAddonKeys = ['auth', 'storage'];
 
     function formatCurrency(inrVal, usdVal, isDfy = false, isFree = false) {
       if (isFree) {
-        return activeCurrency === 'INR' ? '₹0 (FREE)' : 'FREE (₹0 / $0)';
+        return activeCurrency === 'INR' ? '₹0 (FREE)' : '$0 (FREE)';
       }
       if (activeCurrency === 'INR') {
         return '₹' + Number(inrVal).toLocaleString('en-IN');
       }
-      if (isDfy) {
-        return '₹1,00,000 ($' + Number(usdVal).toLocaleString('en-US') + ')';
-      }
       return '$' + Number(usdVal).toLocaleString('en-US');
+    }
+
+    function pickLumoraTrack(chipBtn) {
+      document.querySelectorAll('.lumora-track-chip').forEach(c => c.classList.remove('active-track'));
+      chipBtn.classList.add('active-track');
+      const trackVal = chipBtn.getAttribute('data-track-val');
+      const selectEl = document.getElementById('free-pack-app-type');
+      if (selectEl && trackVal) {
+        selectEl.value = trackVal;
+      }
+      updateBlueprint();
+    }
+
+    function syncLumoraTrackFromSelect() {
+      const selectEl = document.getElementById('free-pack-app-type');
+      if (!selectEl) return;
+      const val = selectEl.value;
+      document.querySelectorAll('.lumora-track-chip').forEach(c => {
+        c.classList.toggle('active-track', c.getAttribute('data-track-val') === val);
+      });
+      updateBlueprint();
     }
 
     function setCurrency(curr) {
@@ -6725,26 +7440,29 @@
       document.getElementById('curr-inr').classList.toggle('active', curr === 'INR');
       document.getElementById('curr-usd').classList.toggle('active', curr === 'USD');
 
-      document.querySelectorAll('#platform-chips .plat-card-min').forEach(btn => {
-        const lbl = btn.querySelector('[data-price-label]');
-        if (lbl) lbl.textContent = formatCurrency(btn.dataset.inr, btn.dataset.usd);
+      document.querySelectorAll('#platform-chips [data-val]').forEach(card => {
+        const isFree = card.dataset.pack === 'free';
+        const priceLbl = card.querySelector('[data-price-label]');
+        if (priceLbl) {
+          priceLbl.textContent = formatCurrency(card.dataset.inr, card.dataset.usd, false, isFree);
+        }
+        const oldLbl = card.querySelector('[data-old-price-label]');
+        if (oldLbl && card.dataset.oldInr) {
+          oldLbl.textContent = formatCurrency(card.dataset.oldInr, card.dataset.oldUsd, false, false);
+        }
       });
 
-      const freeCard = document.getElementById('free-android-package-card');
-      if (freeCard) {
-        const freeLbl = freeCard.querySelector('[data-price-label]');
-        if (freeLbl) {
-          freeLbl.textContent = curr === 'INR' ? '₹0 (FREE)' : 'FREE (₹0 / $0)';
-        }
-      }
-
-      const dfyCard = document.getElementById('dfy-package-card');
-      if (dfyCard) {
-        const dfyLbl = dfyCard.querySelector('[data-price-label]');
-        if (dfyLbl) {
-          dfyLbl.textContent = curr === 'INR' ? '₹1,00,000' : '₹1,00,000 (~$1,200)';
-        }
-      }
+      const tabPrices = {
+        free: curr === 'INR' ? '₹0 FREE' : '$0 FREE',
+        website: curr === 'INR' ? '₹1,499' : '$19',
+        android: curr === 'INR' ? '₹2,499' : '$29',
+        windows: curr === 'INR' ? '₹3,499' : '$42',
+        dfy: curr === 'INR' ? '₹19,999' : '$239'
+      };
+      Object.keys(tabPrices).forEach(k => {
+        const el = document.querySelector(`[data-tab-price="${k}"]`);
+        if (el) el.textContent = tabPrices[k];
+      });
 
       document.querySelectorAll('#module-chips .addon-pill').forEach(btn => {
         const lbl = btn.querySelector('[data-price-label]');
@@ -6754,37 +7472,47 @@
       updateBlueprint();
     }
 
-    function syncFreePackAvailability(selectedVal) {
-      const freeCard = document.getElementById('free-android-package-card');
-      if (!freeCard) return;
-      const isNonAndroidPlatform = (selectedVal === 'website' || selectedVal === 'windows');
-      freeCard.classList.toggle('disabled-for-platform', isNonAndroidPlatform);
-      freeCard.setAttribute('aria-disabled', isNonAndroidPlatform ? 'true' : 'false');
+    function syncActiveTabUI(selectedVal) {
+      document.querySelectorAll('.tier-tab-btn').forEach(tabBtn => {
+        const isMatch = tabBtn.getAttribute('data-target-val') === selectedVal;
+        tabBtn.classList.toggle('active-tab', isMatch);
+        tabBtn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      });
+
+      document.querySelectorAll('#platform-chips .tier-panel-card').forEach(panel => {
+        const isMatch = panel.getAttribute('data-val') === selectedVal;
+        panel.classList.toggle('active-tier-panel', isMatch);
+        panel.classList.toggle('selected', isMatch);
+      });
     }
 
-    function selectPlatform(btn) {
+    function selectPlatform(panelEl) {
+      if (!panelEl) return;
       const wasFree = activePlatformEl && activePlatformEl.dataset.pack === 'free';
+      const val = panelEl.dataset.val;
 
-      document.querySelectorAll('#platform-chips .plat-card-min, #dfy-package-card, #free-android-package-card').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      activePlatformEl = btn;
-
-      syncFreePackAvailability(btn.dataset.val);
+      activePlatformEl = panelEl;
+      syncActiveTabUI(val);
 
       const moduleGrid = document.getElementById('module-chips');
+      const freeNotice = document.getElementById('free-addons-notice');
+      const presetsBar = document.getElementById('addon-presets-bar');
       const step2Heading = document.getElementById('step-2-heading');
-      if (moduleGrid) moduleGrid.classList.remove('locked-for-free-pack');
 
-      if (btn.dataset.pack === 'dfy') {
+      if (freeNotice) freeNotice.style.display = 'none';
+      if (moduleGrid) moduleGrid.style.display = 'grid';
+      if (presetsBar) presetsBar.style.display = 'inline-flex';
+
+      if (panelEl.dataset.pack === 'dfy') {
         document.querySelectorAll('#module-chips .addon-pill').forEach(c => c.classList.remove('selected'));
-        if (step2Heading) step2Heading.textContent = '2. Optional Out-of-Scope Add-Ons';
+        if (step2Heading) step2Heading.textContent = '2. Optional Out-of-Scope Add-Ons (All 6 Core Modules Included in Omnira)';
       } else {
         if (wasFree) {
           document.querySelectorAll('#module-chips .addon-pill').forEach(c => {
             c.classList.toggle('selected', savedPaidAddonKeys.includes(c.dataset.key));
           });
         }
-        if (step2Heading) step2Heading.textContent = '2. Add Features (Optional)';
+        if (step2Heading) step2Heading.textContent = `2. Optional ${panelEl.dataset.pkgName} Add-Ons (-15% on 3+)`;
       }
 
       updateBlueprint();
@@ -6792,27 +7520,25 @@
 
     function selectFreeAndroidPack(cardEl) {
       if (!cardEl) return;
-      if (cardEl.classList.contains('disabled-for-platform')) {
-        return;
-      }
 
       if (activePlatformEl && activePlatformEl.dataset.pack === 'modular') {
         savedPaidAddonKeys = Array.from(document.querySelectorAll('#module-chips .addon-pill.selected')).map(c => c.dataset.key);
       }
 
-      document.querySelectorAll('#platform-chips .plat-card-min, #dfy-package-card, #free-android-package-card').forEach(b => b.classList.remove('selected'));
-      cardEl.classList.add('selected');
       activePlatformEl = cardEl;
-
-      syncFreePackAvailability('free-android');
+      syncActiveTabUI('free-android');
 
       document.querySelectorAll('#module-chips .addon-pill').forEach(c => c.classList.remove('selected'));
       const moduleGrid = document.getElementById('module-chips');
-      if (moduleGrid) moduleGrid.classList.add('locked-for-free-pack');
-
+      const freeNotice = document.getElementById('free-addons-notice');
+      const presetsBar = document.getElementById('addon-presets-bar');
       const step2Heading = document.getElementById('step-2-heading');
+
+      if (moduleGrid) moduleGrid.style.display = 'none';
+      if (presetsBar) presetsBar.style.display = 'none';
+      if (freeNotice) freeNotice.style.display = 'flex';
       if (step2Heading) {
-        step2Heading.textContent = '2. Paid Add-Ons Disabled (₹0 Free Pack Uses Approved Scope)';
+        step2Heading.textContent = '2. Optional Feature Add-Ons';
       }
 
       updateBlueprint();
@@ -6820,10 +7546,7 @@
 
     function enableAndroidAndSelectFreePack() {
       const freeCard = document.getElementById('free-android-package-card');
-      if (!freeCard) return;
-      freeCard.classList.remove('disabled-for-platform');
-      freeCard.setAttribute('aria-disabled', 'false');
-      selectFreeAndroidPack(freeCard);
+      if (freeCard) selectFreeAndroidPack(freeCard);
     }
 
     function selectPackById(packId) {
@@ -6832,13 +7555,25 @@
         enableAndroidAndSelectFreePack();
         return;
       }
-      const target = document.querySelector(`[data-val="${packId}"]`);
+      const target = document.querySelector(`#platform-chips [data-val="${packId}"]`);
       if (target) selectPlatform(target);
+    }
+
+    function applyAddonPreset(keysArray) {
+      if (activePlatformEl && activePlatformEl.dataset.pack === 'free') {
+        selectPackById('android');
+      }
+      document.querySelectorAll('#module-chips .addon-pill').forEach(btn => {
+        btn.classList.toggle('selected', keysArray.includes(btn.dataset.key));
+      });
+      savedPaidAddonKeys = [...keysArray];
+      updateBlueprint();
     }
 
     function toggleModule(btn) {
       if (activePlatformEl && activePlatformEl.dataset.pack === 'free') return;
       btn.classList.toggle('selected');
+      savedPaidAddonKeys = Array.from(document.querySelectorAll('#module-chips .addon-pill.selected')).map(c => c.dataset.key);
       updateBlueprint();
     }
 
@@ -6874,39 +7609,36 @@
       const isDfy = activePlatformEl.dataset.pack === 'dfy';
       const isFree = activePlatformEl.dataset.pack === 'free';
 
-      let platName = 'Android App';
-      if (isDfy) {
-        platName = 'Done-for-You App Development Pack';
-      } else if (isFree) {
-        platName = 'Free Android App Development';
-      } else {
-        const nameEl = activePlatformEl.querySelector('.plat-card-name');
-        if (nameEl) platName = nameEl.textContent.trim();
-      }
+      const pkgName = activePlatformEl.dataset.pkgName || 'Lumora';
+      const pkgSub = activePlatformEl.dataset.pkgSubtitle || 'Package';
+      const platName = `${pkgName} — ${pkgSub}`;
 
       let totalWeeks = parseFloat(activePlatformEl.dataset.weeks);
-      let totalInr = parseInt(activePlatformEl.dataset.inr, 10);
-      let totalUsd = parseInt(activePlatformEl.dataset.usd, 10);
+      let baseInr = parseInt(activePlatformEl.dataset.inr, 10);
+      let baseUsd = parseInt(activePlatformEl.dataset.usd, 10);
+      let oldBaseInr = parseInt(activePlatformEl.dataset.oldInr || baseInr, 10);
+      let oldBaseUsd = parseInt(activePlatformEl.dataset.oldUsd || baseUsd, 10);
+
+      let addonsInr = 0;
+      let addonsUsd = 0;
 
       const breakdownHtml = [];
       if (isFree) {
         const appCatEl = document.getElementById('free-pack-app-type');
         const appCat = appCatEl ? appCatEl.value : 'Eligible Android App';
         breakdownHtml.push(
-          `<div class="breakdown-row"><span>Package: Free Android App Development</span><strong style="color:#10B981;">₹0 (FREE)</strong></div>`,
-          `<div class="breakdown-row"><span>• Category: ${appCat.split('(')[0].trim()}</span><strong>Android Only</strong></div>`,
-          `<div class="breakdown-row"><span>• Publishing: Easode Google Play Account</span><strong>Included</strong></div>`,
-          `<div class="breakdown-row"><span>• Monetization: Easode-Managed Ads</span><strong>Required</strong></div>`,
-          `<div class="breakdown-row"><span>• Attribution: Customer 'About App' Section</span><strong>Included</strong></div>`,
-          `<div class="breakdown-row"><span>• Hosting / Domains / 3rd-Party APIs</span><strong>Not Included</strong></div>`
+          `<div class="breakdown-row"><span>Package: <strong>Lumora</strong> (Free Pack)</span><strong style="color:#10B981;">${formatCurrency(0, 0, false, true)}</strong></div>`,
+          `<div class="breakdown-row"><span>• Track: ${appCat.split('(')[0].trim()}</span><strong>Android Only</strong></div>`,
+          `<div class="breakdown-row"><span>• Easode Play Store Publishing</span><strong style="color:#10B981;">Included</strong></div>`,
+          `<div class="breakdown-row"><span>• Easode-Managed Ads</span><strong>Required</strong></div>`
         );
       } else {
         breakdownHtml.push(
-          `<div class="breakdown-row"><span>${isDfy ? 'Package: ' : 'Base: '}${platName}</span><strong>${formatCurrency(totalInr, totalUsd, isDfy, false)}</strong></div>`
+          `<div class="breakdown-row"><span>Package: <strong>${pkgName}</strong> (${pkgSub})</span><strong>${formatCurrency(baseInr, baseUsd, isDfy, false)}</strong></div>`
         );
         if (isDfy) {
           breakdownHtml.push(
-            `<div class="breakdown-row"><span>• Complete End-to-End Scope</span><strong>Included</strong></div>`
+            `<div class="breakdown-row"><span>• All 6 Core Feature Modules</span><strong style="color:#10B981;">Included</strong></div>`
           );
         }
       }
@@ -6918,8 +7650,8 @@
           const mInr = parseInt(m.dataset.inr, 10);
           const mUsd = parseInt(m.dataset.usd, 10);
           totalWeeks += parseFloat(m.dataset.weeks);
-          totalInr += mInr;
-          totalUsd += mUsd;
+          addonsInr += mInr;
+          addonsUsd += mUsd;
           selectedModules.push(mName);
           breakdownHtml.push(
             `<div class="breakdown-row"><span>+ ${mName}</span><strong>${formatCurrency(mInr, mUsd)}</strong></div>`
@@ -6927,24 +7659,47 @@
         });
       }
 
+      let discountInr = 0;
+      let discountUsd = 0;
+      if (!isFree && selectedModules.length >= 3) {
+        discountInr = Math.round(addonsInr * 0.15);
+        discountUsd = Math.max(1, Math.round(addonsUsd * 0.15));
+        breakdownHtml.push(
+          `<div class="breakdown-row" style="color:#059669;"><span>★ 3+ Add-On Bundle Discount (-15%)</span><strong style="color:#059669;">-${formatCurrency(discountInr, discountUsd)}</strong></div>`
+        );
+      }
+
+      const totalInr = baseInr + addonsInr - discountInr;
+      const totalUsd = baseUsd + addonsUsd - discountUsd;
+
       const formattedTotal = formatCurrency(totalInr, totalUsd, isDfy && selectedModules.length === 0, isFree);
       document.getElementById('bp-total-price').textContent = formattedTotal;
       document.getElementById('bp-breakdown-list').innerHTML = breakdownHtml.join('');
 
-      // Update dynamic dedicated Terms & Conditions link in summary panel
+      const tierTagEl = document.getElementById('bp-tier-tag');
+      const savingsNoteEl = document.getElementById('bp-savings-note');
+      if (tierTagEl) {
+        tierTagEl.textContent = isFree
+          ? 'LUMORA • 100% FREE BUILD'
+          : `SELECTED • ${pkgName.toUpperCase()}`;
+        tierTagEl.style.color = isFree ? '#059669' : '#1C7CE2';
+      }
+      if (savingsNoteEl) {
+        const savedInr = Math.max(0, (oldBaseInr - baseInr) + discountInr);
+        const savedUsd = Math.max(0, (oldBaseUsd - baseUsd) + discountUsd);
+        savingsNoteEl.textContent = isFree
+          ? `You save ${formatCurrency(6000, 75)} (100%)`
+          : `You save ${formatCurrency(savedInr, savedUsd)} vs agency rates`;
+      }
+
       const termsFile = activePlatformEl.dataset.terms || 'terms-android-app-pack.html';
       const bpTermsLink = document.getElementById('bp-terms-link');
       const bpTermsLbl = document.getElementById('bp-terms-pack-lbl');
       if (bpTermsLbl) {
-        bpTermsLbl.textContent = `${platName} Terms:`;
+        bpTermsLbl.textContent = `${pkgName} Terms:`;
       }
       if (bpTermsLink) {
-        if (typeof window.switchCanvasFileView === 'function' && document.getElementById('easode-files-hub-bar')) {
-          bpTermsLink.setAttribute('href', '#' + termsFile);
-          bpTermsLink.setAttribute('onclick', `switchCanvasFileView('${termsFile}'); return false;`);
-        } else {
-          bpTermsLink.setAttribute('href', termsFile);
-        }
+        bpTermsLink.setAttribute('href', termsFile);
       }
 
       const dfyDisclaimer = document.getElementById('bp-dfy-disclaimer');
@@ -6959,91 +7714,61 @@
 
       const launchLbl = document.getElementById('mailto-launch-lbl');
       if (launchLbl) {
-        launchLbl.textContent = isFree ? 'Submit Free Pack Eligibility Inquiry' : 'Book Project at This Estimate';
+        launchLbl.textContent = isFree
+          ? `Claim Lumora Free Build (${formatCurrency(0, 0, false, true)})`
+          : `Order ${pkgName} (${formattedTotal})`;
       }
 
       const projName = document.getElementById('client-project-name').value.trim();
       document.getElementById('bp-title').textContent = projName
-        ? `${projName} (${platName})`
-        : platName;
+        ? `${projName} — ${pkgName}`
+        : `${pkgName} — ${pkgSub}`;
 
       const minW = Math.max(1, Math.floor(totalWeeks));
-      const maxW = Math.ceil(totalWeeks + (isDfy ? 2 : 1));
+      const maxW = Math.ceil(totalWeeks + (isDfy ? 1.5 : 0.8));
       document.getElementById('bp-timeline').textContent = isFree
-        ? `2 – 4 Weeks (Subject to Approval)`
-        : `${minW} – ${maxW} Weeks`;
+        ? `2 – 3 Weeks`
+        : (totalWeeks < 1 && selectedModules.length === 0 ? `3 – 5 Days` : `${minW} – ${maxW} Weeks`);
 
       const negEst = document.getElementById('neg-current-estimate');
       const negCnt = document.getElementById('neg-feature-count');
       if (negEst) negEst.textContent = formattedTotal;
       if (negCnt) {
         if (isFree) {
-          negCnt.textContent = 'Free Android Pack (₹0)';
+          negCnt.textContent = 'Lumora Free Pack (₹0)';
         } else if (isDfy) {
-          negCnt.textContent = selectedModules.length ? `Done-for-You + ${selectedModules.length} Extra` : 'End-to-End Pack';
+          negCnt.textContent = selectedModules.length ? `Omnira + ${selectedModules.length} Extra` : 'Omnira Turnkey';
         } else {
-          negCnt.textContent = `${selectedModules.length} Add-On(s)`;
+          negCnt.textContent = `${pkgName} + ${selectedModules.length} Add-On(s)`;
         }
       }
 
       const appCatEl = document.getElementById('free-pack-app-type');
       const freeAppCat = appCatEl ? appCatEl.value : 'Eligible Android Application';
-      const cbAccepted = document.getElementById('free-pack-terms-checkbox')?.checked ? 'Yes (Reviewed & Accepted)' : 'Pending Review';
+      const cbAccepted = document.getElementById('free-pack-terms-checkbox')?.checked ? 'Yes (Accepted)' : 'Pending Review';
 
       const subject = encodeURIComponent(
         isFree
-          ? `Easode Free Android App Development Inquiry: ${projName || 'Eligible Android App'} (₹0 / FREE)`
-          : `Easode Project Quote: ${projName || platName} (${formattedTotal})`
+          ? `Easode Lumora (Free Android Pack) Inquiry: ${projName || 'Eligible Android App'} (₹0 / FREE)`
+          : `Easode ${pkgName} Quote: ${projName || pkgSub} (${formattedTotal})`
       );
 
       const body = encodeURIComponent(
         isFree
-          ? `Hello Easode Team,
-
-I would like to apply for the Free Android App Development Pack (₹0 / FREE):
-` +
-            `- Project / App Name: ${projName || 'New Android App Idea'}
-` +
-            `- Selected Package: Free Android App Development (₹0 / FREE — Android Only)
-` +
-            `- Eligible Application Category: ${freeAppCat}
-` +
-            `- Key Conditions Acknowledged:
-` +
-            `  1. Published on Easode's Google Play Developer account
-` +
-            `  2. Easode manages advertising monetization (Google Play compliant)
-` +
-            `  3. Customer identity/business/contact details displayed in About App section
-` +
-            `  4. Hosting, domain, third-party APIs, payment gateways & recurring costs are not automatically included
-` +
-            `  5. Subject to Easode technical feasibility & eligibility evaluation
-` +
-            `- Dedicated Terms & Conditions (terms-free-android-pack.html): ${cbAccepted}
-
-` +
-            `Please evaluate my Android application idea and let me know the next steps.`
-          : `Hello Easode Team,
-
-I used the Easode Price Calculator to estimate my project:
-` +
-            `- Project Name: ${projName || 'New Client Project'}
-` +
-            `- Selected Platform / Package: ${platName}
-` +
-            `- Selected Features: ${isDfy ? 'End-to-end complete app project (scope & deliverables agreed with client)' + (selectedModules.length ? ' + ' + selectedModules.join(', ') : '') : (selectedModules.join(', ') || 'Base Platform Only')}
-` +
-            `- Estimated Price: ${formattedTotal}
-` +
-            `- Estimated Delivery: ${minW}-${maxW} Weeks
-` +
-            `- Applicable Terms Page: ${termsFile}
-` +
-            (isDfy ? `- Note: Additional features or requirements outside the agreed scope may cost extra.
-` : '') +
-            `
-Let's discuss the next steps.`
+          ? `Hello Easode Team,\n\nI would like to apply for Lumora (Free Android App Development Pack — ₹0 / FREE):\n` +
+            `- Project / App Name: ${projName || 'New Android App Idea'}\n` +
+            `- Selected Package: Lumora (Free Android Pack — ₹0 / FREE)\n` +
+            `- Eligible Application Category: ${freeAppCat}\n` +
+            `- Terms & Conditions (terms-free-android-pack.html): ${cbAccepted}\n\n` +
+            `Please evaluate my Android application idea and share the next steps.`
+          : `Hello Easode Team,\n\nI configured my project using the Easode Price Calculator:\n` +
+            `- Project Name: ${projName || 'New Client Project'}\n` +
+            `- Selected Package: ${platName}\n` +
+            `- Selected Features: ${isDfy ? 'Omnira Turnkey Suite' + (selectedModules.length ? ' + ' + selectedModules.join(', ') : '') : (selectedModules.join(', ') || 'Base Package Only')}\n` +
+            `- Estimated Price: ${formattedTotal}\n` +
+            `- Estimated Timeline: ${document.getElementById('bp-timeline').textContent}\n` +
+            `- Terms Page: ${termsFile}\n\n` +
+            `Let's discuss the next steps.`
       );
       document.getElementById('mailto-launch-btn').href = `mailto:hello@easode.com?subject=${subject}&body=${body}`;
 
@@ -7058,10 +7783,10 @@ Let's discuss the next steps.`
       if (initialPack) {
         selectPackById(initialPack);
       } else {
-        updateBlueprint();
+        enableAndroidAndSelectFreePack();
       }
     } catch (err) {
-      updateBlueprint();
+      enableAndroidAndSelectFreePack();
     }
 
     /* =========================================================================
@@ -7084,7 +7809,7 @@ Let's discuss the next steps.`
       const input = document.getElementById('neg-proposed-budget');
       if (!sel || !input) return;
       const code = sel.value || 'INR';
-      const sample = code === 'INR' ? '3,000' : '35';
+      const sample = code === 'INR' ? '2,000' : '25';
       input.placeholder = `e.g., ${sample} (${code})`;
     }
 
@@ -7128,42 +7853,30 @@ Let's discuss the next steps.`
       const rawBudget = document.getElementById('neg-proposed-budget').value;
       const formattedBudget = formatNegotiationBudget(rawBudget, selectedCurr);
       const notes = document.getElementById('neg-notes').value.trim() || 'Flexible scope discussion';
-      const calcQuote = window.currentFormattedQuote || '₹5,100';
-      const platName = window.currentPlatformName || 'Android App';
-      const feats = (window.currentSelectedFeatures || []).join(', ') || 'Standard / Agreed Scope';
+      const calcQuote = window.currentFormattedQuote || '₹0 (FREE)';
+      const platName = window.currentPlatformName || 'Lumora (Free Android Pack)';
+      const feats = (window.currentSelectedFeatures || []).join(', ') || 'Base Scope';
 
       negToast.textContent = `Negotiation request ready for ${clientName} (Proposed Budget: ${formattedBudget} vs Estimate: ${calcQuote}). Opening your email app...`;
       negToast.classList.add('visible');
 
       const subject = encodeURIComponent(`Price Negotiation Request — ${clientName} | Budget: ${formattedBudget}`);
       const body = encodeURIComponent(
-        `Hello Easode Team,
-
-I would like to request a price negotiation for my project:
-
-` +
-        `- Name / Business: ${clientName}
-` +
-        `- Selected Platform / Package: ${platName}
-` +
-        `- Selected Features: ${feats}
-` +
-        `- Calculator Estimate: ${calcQuote}
-` +
-        `- Preferred Currency: ${selectedCurr} (${(CURRENCY_SYMBOLS[selectedCurr] || selectedCurr).trim()})
-` +
-        `- Proposed Budget: ${formattedBudget}
-` +
-        `- Project Requirements / Notes: ${notes}
-
-Please let me know how we can work together within this budget!`
+        `Hello Easode Team,\n\nI would like to request a price negotiation for my project:\n\n` +
+        `- Name / Business: ${clientName}\n` +
+        `- Selected Package: ${platName}\n` +
+        `- Selected Features: ${feats}\n` +
+        `- Calculator Estimate: ${calcQuote}\n` +
+        `- Preferred Currency: ${selectedCurr} (${(CURRENCY_SYMBOLS[selectedCurr] || selectedCurr).trim()})\n` +
+        `- Proposed Budget: ${formattedBudget}\n` +
+        `- Project Requirements / Notes: ${notes}\n\n` +
+        `Please let me know how we can work together within this budget!`
       );
 
       window.location.href = `mailto:hello@easode.com?subject=${subject}&body=${body}`;
     }
 
     renderAllIcons();
-
   </script>
 </body>
 </html>
