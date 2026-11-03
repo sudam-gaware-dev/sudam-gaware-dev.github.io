@@ -5789,13 +5789,469 @@
       border-color: rgba(255, 255, 255, 0.14) !important;
     }
 
+
+    /* =========================================================================
+       GLOBAL UI & INTERACTION UPGRADES (ALL 6 REQUIREMENTS)
+       1. Sparse Randomly Distributed Background Dots
+       2. Dynamic Scroll-Aware Title Bar (Hidden at Top, Smooth Show on Scroll)
+       3. Theme-Adaptive Logo (#000/#FFF in Light, #FFF/#000 in Dark)
+       4. Purposeful Micro-Animations & Scroll Reveal
+       5. Engagement Illustrations
+       6. Dark Theme Refinement (Dark Gray Page BG + Pure Black #000000 Cards)
+       ========================================================================= */
+
+    /* 1. SPARSE, RANDOMLY DISTRIBUTED SUBTLE BACKGROUND DOTS */
+    body {
+      background-color: #f4f6fa !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520'%3E%3Cg fill='%231C7CE2'%3E%3Ccircle cx='38' cy='64' r='1.3' fill-opacity='0.14'/%3E%3Ccircle cx='184' cy='29' r='1.0' fill-opacity='0.10'/%3E%3Ccircle cx='342' cy='88' r='1.5' fill-opacity='0.13'/%3E%3Ccircle cx='476' cy='52' r='1.1' fill-opacity='0.09'/%3E%3Ccircle cx='96' cy='192' r='1.2' fill-opacity='0.11'/%3E%3Ccircle cx='268' cy='164' r='1.6' fill-opacity='0.15'/%3E%3Ccircle cx='428' cy='218' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='54' cy='336' r='1.4' fill-opacity='0.12'/%3E%3Ccircle cx='214' cy='308' r='1.0' fill-opacity='0.09'/%3E%3Ccircle cx='382' cy='346' r='1.3' fill-opacity='0.14'/%3E%3Ccircle cx='138' cy='454' r='1.5' fill-opacity='0.12'/%3E%3Ccircle cx='312' cy='478' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='464' cy='432' r='1.3' fill-opacity='0.13'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='730' height='730' viewBox='0 0 730 730'%3E%3Cg fill='%236366f1'%3E%3Ccircle cx='112' cy='94' r='1.2' fill-opacity='0.10'/%3E%3Ccircle cx='418' cy='62' r='1.4' fill-opacity='0.12'/%3E%3Ccircle cx='634' cy='148' r='1.1' fill-opacity='0.09'/%3E%3Ccircle cx='246' cy='284' r='1.5' fill-opacity='0.11'/%3E%3Ccircle cx='542' cy='338' r='1.2' fill-opacity='0.10'/%3E%3Ccircle cx='88' cy='492' r='1.3' fill-opacity='0.12'/%3E%3Ccircle cx='364' cy='528' r='1.1' fill-opacity='0.08'/%3E%3Ccircle cx='618' cy='586' r='1.4' fill-opacity='0.11'/%3E%3Ccircle cx='212' cy='674' r='1.2' fill-opacity='0.10'/%3E%3C/g%3E%3C/svg%3E") !important;
+      background-size: 520px 520px, 730px 730px !important;
+      background-position: 0 0, 130px 210px !important;
+      background-attachment: fixed !important;
+    }
+
+    /* 2. DYNAMIC SCROLL-AWARE TITLE BAR (NO FLICKERING) */
+    header.navbar {
+      will-change: transform, opacity;
+      transition:
+        opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease !important;
+    }
+
+    header.navbar.navbar-at-top-hidden {
+      opacity: 0 !important;
+      transform: translateX(-50%) translateY(-28px) !important;
+      pointer-events: none !important;
+    }
+
+    header.navbar.navbar-scrolled-visible {
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
+    }
+
+    /* Adjust top padding gently since title bar is hidden at the very top */
+    main {
+      padding-top: 76px !important;
+      transition: padding-top 0.28s ease;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding-top: 56px !important;
+      }
+    }
+
+    /* 3. THEME-ADAPTIVE LOGO (.brand-cube) */
+    .brand-cube {
+      background: #000000 !important;
+      background-color: #000000 !important;
+      background-image: none !important;
+      color: #FFFFFF !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16) !important;
+      transition: background-color 0.28s ease, color 0.28s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease !important;
+    }
+
+    .brand-cube svg,
+    .brand-cube svg path {
+      fill: #FFFFFF !important;
+      color: #FFFFFF !important;
+      transition: fill 0.28s ease !important;
+    }
+
+    html[data-theme="dark"] .brand-cube {
+      background: #FFFFFF !important;
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      color: #000000 !important;
+      border: 1px solid rgba(255, 255, 255, 0.25) !important;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.14) !important;
+    }
+
+    html[data-theme="dark"] .brand-cube svg,
+    html[data-theme="dark"] .brand-cube svg path {
+      fill: #000000 !important;
+      color: #000000 !important;
+    }
+
+    .brand:hover .brand-cube {
+      transform: translateY(-1px) scale(1.04);
+    }
+
+    /* 4. MICRO-ANIMATIONS & SMOOTH INTERACTIVE TRANSITIONS */
+    @keyframes subtleFloatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes subtlePulseGlow {
+      0%, 100% { opacity: 0.85; }
+      50% { opacity: 1; }
+    }
+
+    .easode-reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1), transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .easode-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-negotiate,
+    .tier-tab-btn,
+    .addon-pill,
+    .store-filter-btn,
+    .product-store-card,
+    .tilt-card,
+    .ai-era-item {
+      transition:
+        transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.22s ease,
+        background-color 0.22s ease,
+        color 0.22s ease !important;
+    }
+
+    .btn-primary .icon-svg,
+    .btn-secondary .icon-svg,
+    .card-terms-link .icon-svg {
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .btn-primary:hover .icon-svg {
+      transform: translateX(2.5px);
+    }
+
+    .btn-primary:active,
+    .btn-secondary:active,
+    .btn-negotiate:active,
+    .tier-tab-btn:active {
+      transform: scale(0.98) !important;
+    }
+
+    .ai-era-item:hover .ai-era-icon {
+      transform: scale(1.06) translateY(-1px);
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* 5. ENGAGEMENT ILLUSTRATIONS STYLING */
+    .engagement-illus-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: #F2F8FD;
+      border: 1px solid #D8EAF9;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .engagement-illus-svg {
+      width: 100%;
+      max-width: 220px;
+      height: 54px;
+      flex-shrink: 0;
+      display: block;
+      animation: subtleFloatSlow 5s ease-in-out infinite;
+    }
+
+    .service-mini-illus {
+      width: 88px;
+      height: 46px;
+      border-radius: 10px;
+      background: #F2F8FD;
+      border: 1px solid #D8EAF9;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      flex-shrink: 0;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .tilt-card:hover .service-mini-illus {
+      transform: translateY(-2px) scale(1.03);
+      border-color: #1C7CE2;
+    }
+
+    .terms-visual-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #F2F8FD;
+      border: 1px solid #D8EAF9;
+    }
+
+    .terms-flow-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.76rem;
+      color: var(--text-primary);
+    }
+
+    .terms-flow-illus {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #FFFFFF;
+      border: 1px solid #C7E1F7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #1C7CE2;
+    }
+
+    @media (max-width: 760px) {
+      .terms-visual-flow {
+        grid-template-columns: 1fr;
+      }
+      .engagement-illus-strip {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .engagement-illus-svg {
+        max-width: 100%;
+      }
+    }
+
+    /* 6. DARK THEME REFINEMENT:
+       - Dark Gray (#16181d) for the overall page background
+       - Pure Black (#000000) for cards and card containers
+       - High-contrast borders & interactive elements */
+    html[data-theme="dark"] {
+      --bg-primary: #16181d !important;
+      --bg-secondary: #0d0f13 !important;
+      --bg-card: #000000 !important;
+      --bg-card-strong: #000000 !important;
+      --bg-glass: rgba(255, 255, 255, 0.05) !important;
+      --text-primary: #f8fafc !important;
+      --text-secondary: #cbd5e1 !important;
+      --text-muted: #94a3b8 !important;
+      --border-subtle: rgba(255, 255, 255, 0.16) !important;
+      --border-glow: rgba(56, 189, 248, 0.48) !important;
+      --shadow-card: 0 18px 46px rgba(0, 0, 0, 0.72) !important;
+      background-color: #16181d !important;
+    }
+
+    html[data-theme="dark"] body {
+      background-color: #16181d !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520'%3E%3Cg fill='%2360a5fa'%3E%3Ccircle cx='38' cy='64' r='1.3' fill-opacity='0.16'/%3E%3Ccircle cx='184' cy='29' r='1.0' fill-opacity='0.11'/%3E%3Ccircle cx='342' cy='88' r='1.5' fill-opacity='0.15'/%3E%3Ccircle cx='476' cy='52' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='96' cy='192' r='1.2' fill-opacity='0.13'/%3E%3Ccircle cx='268' cy='164' r='1.6' fill-opacity='0.17'/%3E%3Ccircle cx='428' cy='218' r='1.1' fill-opacity='0.11'/%3E%3Ccircle cx='54' cy='336' r='1.4' fill-opacity='0.14'/%3E%3Ccircle cx='214' cy='308' r='1.0' fill-opacity='0.10'/%3E%3Ccircle cx='382' cy='346' r='1.3' fill-opacity='0.15'/%3E%3Ccircle cx='138' cy='454' r='1.5' fill-opacity='0.14'/%3E%3Ccircle cx='312' cy='478' r='1.1' fill-opacity='0.11'/%3E%3Ccircle cx='464' cy='432' r='1.3' fill-opacity='0.15'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='730' height='730' viewBox='0 0 730 730'%3E%3Cg fill='%2394a3b8'%3E%3Ccircle cx='112' cy='94' r='1.2' fill-opacity='0.12'/%3E%3Ccircle cx='418' cy='62' r='1.4' fill-opacity='0.14'/%3E%3Ccircle cx='634' cy='148' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='246' cy='284' r='1.5' fill-opacity='0.13'/%3E%3Ccircle cx='542' cy='338' r='1.2' fill-opacity='0.11'/%3E%3Ccircle cx='88' cy='492' r='1.3' fill-opacity='0.14'/%3E%3Ccircle cx='364' cy='528' r='1.1' fill-opacity='0.09'/%3E%3Ccircle cx='618' cy='586' r='1.4' fill-opacity='0.13'/%3E%3Ccircle cx='212' cy='674' r='1.2' fill-opacity='0.11'/%3E%3C/g%3E%3C/svg%3E") !important;
+      background-size: 520px 520px, 730px 730px !important;
+      background-position: 0 0, 130px 210px !important;
+      background-attachment: fixed !important;
+    }
+
+    /* Pure Black (#000000) for ALL Cards & Card Containers in Dark Mode */
+    html[data-theme="dark"] header.navbar,
+    html[data-theme="dark"] .mobile-nav-drawer,
+    html[data-theme="dark"] .hero-iso-scene,
+    html[data-theme="dark"] .device-showcase-grid,
+    html[data-theme="dark"] .autrex-showcase-card,
+    html[data-theme="dark"] .tilt-card,
+    html[data-theme="dark"] .categories-strip,
+    html[data-theme="dark"] .configurator-box,
+    html[data-theme="dark"] .studio-banner,
+    html[data-theme="dark"] .store-hero,
+    html[data-theme="dark"] .store-controls-bar,
+    html[data-theme="dark"] .product-store-card,
+    html[data-theme="dark"] .empty-search-state,
+    html[data-theme="dark"] .minimal-calc-box,
+    html[data-theme="dark"] .tier-tabs-container,
+    html[data-theme="dark"] .ai-era-banner,
+    html[data-theme="dark"] .summary-card-min,
+    html[data-theme="dark"] .terms-hero-card,
+    html[data-theme="dark"] .terms-toc-card,
+    html[data-theme="dark"] .terms-section-card,
+    html[data-theme="dark"] .modal-card,
+    html[data-theme="dark"] .streakio-main-card,
+    html[data-theme="dark"] .studio-meta-card,
+    html[data-theme="dark"] .store-hero-Featured,
+    html[data-theme="dark"] .metric-pill,
+    html[data-theme="dark"] .iso-slab-base,
+    html[data-theme="dark"] .iso-float-card,
+    html[data-theme="dark"] .footer-icon-btn {
+      background: #000000 !important;
+      background-color: #000000 !important;
+      border-color: rgba(255, 255, 255, 0.16) !important;
+    }
+
+    /* Contrasting Dark Surfaces (#0c0e12) for Nested Sub-Boxes Inside Pure Black Cards */
+    html[data-theme="dark"] .tier-tablist,
+    html[data-theme="dark"] .tier-panel-card,
+    html[data-theme="dark"] .minimal-bullet-box,
+    html[data-theme="dark"] .lumora-compact-tracks,
+    html[data-theme="dark"] .engagement-illus-strip,
+    html[data-theme="dark"] .service-mini-illus,
+    html[data-theme="dark"] .terms-visual-flow,
+    html[data-theme="dark"] .terms-price-summary-box,
+    html[data-theme="dark"] .terms-hero-lead,
+    html[data-theme="dark"] .terms-meta-card,
+    html[data-theme="dark"] .terms-highlight-panel,
+    html[data-theme="dark"] .terms-bottom-cta,
+    html[data-theme="dark"] .price-banner,
+    html[data-theme="dark"] .bp-terms-bar,
+    html[data-theme="dark"] .free-pack-summary-box,
+    html[data-theme="dark"] .free-addons-note,
+    html[data-theme="dark"] .addon-pill,
+    html[data-theme="dark"] .product-screenshots-strip {
+      background: #0b0d11 !important;
+      background-color: #0b0d11 !important;
+      border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    html[data-theme="dark"] .tier-panel-card.free-tier-panel {
+      background: #04130d !important;
+      border-color: #10B981 !important;
+    }
+
+    html[data-theme="dark"] .tier-tab-btn.active-tab {
+      background: #000000 !important;
+      border-color: #38bdf8 !important;
+      color: #38bdf8 !important;
+    }
+
+    html[data-theme="dark"] .tier-tab-btn.free-tab.active-tab {
+      background: #000000 !important;
+      border-color: #10B981 !important;
+      color: #34d399 !important;
+    }
+
+    html[data-theme="dark"] .terms-flow-illus {
+      background: #000000 !important;
+      border-color: rgba(56, 189, 248, 0.35) !important;
+      color: #38bdf8 !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .easode-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .engagement-illus-svg {
+        animation: none !important;
+      }
+    }
+
+  
+    
+    /* =========================================================================
+       CLEANED-UP MINIMALIST TITLE BAR & ACTIVE TAB CONTAINER (MATCHES .btn-icon)
+       ========================================================================= */
+    header.navbar .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px !important;
+      list-style: none;
+      flex-shrink: 0;
+    }
+
+    header.navbar .nav-links a {
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 11px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary) !important;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    header.navbar .nav-links a:hover {
+      color: var(--accent-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    header.navbar .nav-links a.active-page-link,
+    header.navbar .nav-links a.active-nav-link,
+    html[data-theme="light"] header.navbar .nav-links a.active-page-link,
+    html[data-theme="dark"] header.navbar .nav-links a.active-page-link {
+      height: 38px !important;
+      padding: 0 14px !important;
+      border-radius: 11px !important;
+      border: 1px solid var(--border-subtle) !important;
+      background: var(--bg-glass) !important;
+      color: var(--text-primary) !important;
+      font-weight: 600 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    header.navbar .nav-links a.active-page-link:hover,
+    header.navbar .nav-links a.active-nav-link:hover,
+    html[data-theme="light"] header.navbar .nav-links a.active-page-link:hover,
+    html[data-theme="dark"] header.navbar .nav-links a.active-page-link:hover {
+      border-color: var(--accent-cyan) !important;
+      color: var(--accent-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    /* Mobile Drawer Active Tab Container (Matches .btn-icon) */
+    .mobile-nav-drawer a {
+      border-radius: 11px !important;
+      border: 1px solid transparent !important;
+      background: transparent !important;
+      color: var(--text-secondary) !important;
+      font-weight: 500 !important;
+      padding: 10px 14px !important;
+    }
+
+    .mobile-nav-drawer a.active-page-link,
+    html[data-theme="light"] .mobile-nav-drawer a.active-page-link,
+    html[data-theme="dark"] .mobile-nav-drawer a.active-page-link {
+      border: 1px solid var(--border-subtle) !important;
+      background: var(--bg-glass) !important;
+      color: var(--text-primary) !important;
+      font-weight: 600 !important;
+    }
+
+    /* Responsive Mobile Collapse: Hide inline tabs & show 3-line menu toggle */
+    @media (max-width: 820px) {
+      header.navbar .nav-links {
+        display: none !important;
+      }
+      header.navbar .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+
+    /* Hide native horizontal scrollbar on mobile pill switcher */
+    .gemini-tabs-scroll {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .gemini-tabs-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
   <div class="cursor-aura" id="cursor-aura"></div>
 
   <!-- Navigation Bar -->
-  <header class="navbar">
+  <header class="navbar navbar-at-top-hidden">
     <a href="index.html" class="brand">
       <div class="brand-cube">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%" aria-hidden="true">
@@ -5803,26 +6259,16 @@
         </svg>
       </div>
       <span>EASODE</span>
-      <span class="brand-badge">
-        <i data-icon="code" class="icon-sm"></i>
-        <span>APP &amp; WEB STUDIO</span>
-      </span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products <span class="nav-pill-badge">STORE</span></a></li>
-      <li><a href="index.html#services">Services</a></li>
+      <li><a href="products.html">Products</a></li>
       <li><a href="price-calculator.html" class="active-page-link">Price Calculator</a></li>
-      <li><a href="index.html#studio">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="btn-icon" id="theme-toggle" title="Switch Light / Dark Theme" aria-label="Toggle theme">
         <i data-icon="moon" id="theme-icon"></i>
       </button>
-      <a href="price-calculator.html" class="btn-primary">
-        <span>Estimate Your Project</span>
-        <i data-icon="arrow-right" class="icon-sm"></i>
-      </a>
       <button class="btn-icon mobile-menu-btn" id="mobile-menu-toggle" title="Open Navigation Menu" aria-label="Toggle navigation menu" aria-expanded="false">
         <i data-icon="sliders" class="icon-sm"></i>
       </button>
@@ -5832,13 +6278,8 @@
   <!-- Mobile Navigation Drawer -->
   <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
     <a href="index.html" onclick="closeMobileMenu()"><span>Home</span><i data-icon="box" class="icon-sm"></i></a>
-    <a href="products.html" onclick="closeMobileMenu()"><span>Products Showcase</span><i data-icon="smartphone" class="icon-sm"></i></a>
-    <a href="index.html#products" onclick="closeMobileMenu()"><span>StreakIO Flagship App</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="20" height="20" style="width:20px;height:20px;flex-shrink:0;display:inline-block;vertical-align:middle;" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M 303,701 C 265,650 250,585 256,515 C 262,455 288,405 318,385 C 336,373 352,382 355,405 C 359,438 368,468 386,492 C 391,499 396,495 393,485 C 378,430 392,350 440,280 C 478,225 530,192 560,185 C 578,181 588,195 581,215 C 565,260 568,310 595,375 C 605,398 612,415 616,422 C 619,427 622,424 622,415 C 621,392 622,372 628,360 C 636,344 656,345 678,365 C 725,408 752,482 752,560 C 752,698 642,808 504,808 C 482,808 460,805 440,799 C 498,772 534,715 534,642 L 534,634 L 568,634 C 581,634 588,622 581,611 L 512,508 C 505,498 493,498 486,508 L 418,611 C 411,622 418,634 431,634 L 464,634 L 464,645 C 464,705 422,742 368,735 C 342,732 319,719 303,701 Z" /></svg></a>
-    <a href="index.html#autrex" onclick="closeMobileMenu()"><span>AUTREX (Under Development)</span><i data-icon="sparkles" class="icon-sm"></i></a>
-    <a href="index.html#services" onclick="closeMobileMenu()"><span>Development Services</span><i data-icon="code" class="icon-sm"></i></a>
-    <a href="price-calculator.html" onclick="closeMobileMenu()"><span>Project Price Calculator</span><i data-icon="sliders" class="icon-sm"></i></a>
-    <a href="terms-free-android-pack.html" onclick="closeMobileMenu()"><span>Lumora Pack Terms</span><i data-icon="shield" class="icon-sm"></i></a>
-    <a href="index.html#studio" onclick="closeMobileMenu()"><span>About &amp; Contact Easode</span><i data-icon="mail" class="icon-sm"></i></a>
+    <a href="products.html" onclick="closeMobileMenu()"><span>Products</span><i data-icon="smartphone" class="icon-sm"></i></a>
+    <a href="price-calculator.html" class="active-page-link" onclick="closeMobileMenu()"><span>Price Calculator</span><i data-icon="sliders" class="icon-sm"></i></a>
   </nav>
 
   <main id="top">
@@ -5870,6 +6311,44 @@
       <p class="terms-hero-lead">
         These dedicated Terms &amp; Conditions govern <strong>Korvex</strong> — the paid <strong>Android App Development Pack (₹2,499 Base / $29 USD + Optional Selected Add-Ons)</strong> offered by <strong>Easode</strong>. Unlike Lumora, this is a paid custom client development engagement with transparent modular pricing, full agreed deliverable handover upon payment completion, and zero mandatory Easode advertising or revenue-sharing conditions.
       </p>
+
+      
+      <!-- Visual 3-Stage Package Lifecycle Illustration -->
+      <div class="terms-visual-flow" aria-label="Package Delivery Lifecycle">
+        <div class="terms-flow-step">
+          <div class="terms-flow-illus">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <div>
+            <strong style="display:block;font-size:0.78rem;">01. Scope &amp; Eligibility</strong>
+            <span style="font-size:0.71rem;color:var(--text-secondary);">Transparent terms &amp; written feature alignment</span>
+          </div>
+        </div>
+        <div class="terms-flow-step">
+          <div class="terms-flow-illus">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div>
+            <strong style="display:block;font-size:0.78rem;">02. Studio Engineering</strong>
+            <span style="font-size:0.71rem;color:var(--text-secondary);">Milestone development, QA &amp; progress demos</span>
+          </div>
+        </div>
+        <div class="terms-flow-step">
+          <div class="terms-flow-illus">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div>
+            <strong style="display:block;font-size:0.78rem;">03. Launch &amp; Handover</strong>
+            <span style="font-size:0.71rem;color:var(--text-secondary);">Store release or full deliverable handover</span>
+          </div>
+        </div>
+      </div>
 
       <div class="terms-meta-grid">
         <div class="terms-meta-card"><div class="terms-meta-lbl">Base Pack Price</div><div class="terms-meta-val">₹2,499 ($29 USD) Base Platform + Selected Optional Feature Add-Ons</div></div>
@@ -6449,6 +6928,88 @@
     })();
 
     renderAllIcons();
+
+    /* =========================================================================
+       DYNAMIC SCROLL-AWARE TITLE BAR & MICRO-ANIMATIONS INITIALIZER
+       - Hides navbar at top of page; smoothly reveals when user scrolls down
+       - Uses hysteresis (show > 38px, hide < 12px) + requestAnimationFrame for zero flicker
+       - Lightweight IntersectionObserver entrance animations
+       ========================================================================= */
+    (function initEasodeDynamicUI() {
+      const navbar = document.querySelector('header.navbar');
+      const mobileDrawer = document.getElementById('mobile-nav-drawer');
+      let isNavVisible = false;
+      let ticking = false;
+
+      function updateNavbarVisibility() {
+        ticking = false;
+        if (!navbar) return;
+        const y = window.scrollY || window.pageYOffset || 0;
+        const drawerOpen = mobileDrawer && mobileDrawer.classList.contains('open');
+
+        if (drawerOpen || y > 38) {
+          if (!isNavVisible) {
+            isNavVisible = true;
+            navbar.classList.remove('navbar-at-top-hidden');
+            navbar.classList.add('navbar-scrolled-visible');
+          }
+        } else if (y < 12) {
+          if (isNavVisible) {
+            isNavVisible = false;
+            navbar.classList.remove('navbar-scrolled-visible');
+            navbar.classList.add('navbar-at-top-hidden');
+          }
+        }
+      }
+
+      if (navbar) {
+        const initY = window.scrollY || window.pageYOffset || 0;
+        if (initY > 38) {
+          isNavVisible = true;
+          navbar.classList.add('navbar-scrolled-visible');
+        } else {
+          isNavVisible = false;
+          navbar.classList.add('navbar-at-top-hidden');
+        }
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(updateNavbarVisibility);
+          }
+        }, { passive: true });
+      }
+
+      // Subtle entrance animations on key cards & sections
+      const revealTargets = document.querySelectorAll(
+        '.hero-copy, .hero-iso-scene, .device-showcase-grid, .autrex-showcase-card, .tilt-card, .studio-banner, ' +
+        '.store-hero, .store-controls-bar, .product-store-card, .ai-era-banner, .tier-tabs-container, ' +
+        '.summary-card-min, .terms-hero-card, .terms-section-card'
+      );
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+
+        revealTargets.forEach((el, idx) => {
+          el.classList.add('easode-reveal');
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            setTimeout(() => el.classList.add('revealed'), Math.min(idx * 45, 220));
+          } else {
+            observer.observe(el);
+          }
+        });
+      } else {
+        revealTargets.forEach((el) => el.classList.add('revealed'));
+      }
+    })();
+
   </script>
 </body>
 </html>

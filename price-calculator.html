@@ -5791,540 +5791,831 @@
 
   
     /* =========================================================================
-       MINIMALIST TAB-BASED SAAS PRICING & CONFIGURATOR (MOBILE & DESKTOP)
+       GOOGLE GEMINI (gemini.google/about/) INSPIRED MINIMALIST PRICING & COSTING
+       Ultra-clean typography, generous whitespace, pill controls, unboxed lists,
+       scroll-aware navbar, theme-adaptive logo, and pure-black dark mode cards
        ========================================================================= */
-    .saas-pricing-header {
-      margin-bottom: 20px;
+
+    /* 1. Sparse, Randomly Distributed Subtle Background Dots */
+    body {
+      background-color: #f8fafc !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520'%3E%3Cg fill='%231C7CE2'%3E%3Ccircle cx='38' cy='64' r='1.3' fill-opacity='0.14'/%3E%3Ccircle cx='184' cy='29' r='1.0' fill-opacity='0.10'/%3E%3Ccircle cx='342' cy='88' r='1.5' fill-opacity='0.13'/%3E%3Ccircle cx='476' cy='52' r='1.1' fill-opacity='0.09'/%3E%3Ccircle cx='96' cy='192' r='1.2' fill-opacity='0.11'/%3E%3Ccircle cx='268' cy='164' r='1.6' fill-opacity='0.15'/%3E%3Ccircle cx='428' cy='218' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='54' cy='336' r='1.4' fill-opacity='0.12'/%3E%3Ccircle cx='214' cy='308' r='1.0' fill-opacity='0.09'/%3E%3Ccircle cx='382' cy='346' r='1.3' fill-opacity='0.14'/%3E%3Ccircle cx='138' cy='454' r='1.5' fill-opacity='0.12'/%3E%3Ccircle cx='312' cy='478' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='464' cy='432' r='1.3' fill-opacity='0.13'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='730' height='730' viewBox='0 0 730 730'%3E%3Cg fill='%236366f1'%3E%3Ccircle cx='112' cy='94' r='1.2' fill-opacity='0.10'/%3E%3Ccircle cx='418' cy='62' r='1.4' fill-opacity='0.12'/%3E%3Ccircle cx='634' cy='148' r='1.1' fill-opacity='0.09'/%3E%3Ccircle cx='246' cy='284' r='1.5' fill-opacity='0.11'/%3E%3Ccircle cx='542' cy='338' r='1.2' fill-opacity='0.10'/%3E%3Ccircle cx='88' cy='492' r='1.3' fill-opacity='0.12'/%3E%3Ccircle cx='364' cy='528' r='1.1' fill-opacity='0.08'/%3E%3Ccircle cx='618' cy='586' r='1.4' fill-opacity='0.11'/%3E%3Ccircle cx='212' cy='674' r='1.2' fill-opacity='0.10'/%3E%3C/g%3E%3C/svg%3E") !important;
+      background-size: 520px 520px, 730px 730px !important;
+      background-position: 0 0, 130px 210px !important;
+      background-attachment: fixed !important;
     }
 
-    .saas-title-block {
+    /* 2. Dynamic Scroll-Aware Title Bar */
+    header.navbar {
+      will-change: transform, opacity;
+      transition:
+        opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease !important;
+    }
+
+    header.navbar.navbar-at-top-hidden {
+      opacity: 0 !important;
+      transform: translateX(-50%) translateY(-28px) !important;
+      pointer-events: none !important;
+    }
+
+    header.navbar.navbar-scrolled-visible {
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
+    }
+
+    main {
+      max-width: 1120px !important;
+      padding-top: 64px !important;
+      padding-bottom: 72px !important;
+    }
+
+    /* 3. Theme-Adaptive Logo (.brand-cube) */
+    .brand-cube {
+      background: #000000 !important;
+      background-color: #000000 !important;
+      background-image: none !important;
+      color: #FFFFFF !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14) !important;
+      transition: background-color 0.28s ease, color 0.28s ease, transform 0.24s ease !important;
+    }
+
+    .brand-cube svg,
+    .brand-cube svg path {
+      fill: #FFFFFF !important;
+      color: #FFFFFF !important;
+      transition: fill 0.28s ease !important;
+    }
+
+    html[data-theme="dark"] .brand-cube {
+      background: #FFFFFF !important;
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      color: #000000 !important;
+      border: 1px solid rgba(255, 255, 255, 0.25) !important;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.14) !important;
+    }
+
+    html[data-theme="dark"] .brand-cube svg,
+    html[data-theme="dark"] .brand-cube svg path {
+      fill: #000000 !important;
+      color: #000000 !important;
+    }
+
+    /* 4. Gemini-Style Centered Hero & Navigation Controls */
+    .gemini-page-header {
+      text-align: center;
       max-width: 680px;
+      margin: 0 auto 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
 
-    .saas-title-block h1 {
-      font-size: clamp(2rem, 3.6vw, 2.85rem);
-      line-height: 1.08;
-      margin-bottom: 8px;
+    .gemini-page-header h1 {
+      font-family: 'Cal Sans', 'Inter', sans-serif !important;
+      font-size: clamp(2.15rem, 4vw, 3.1rem);
+      line-height: 1.08 !important;
+      letter-spacing: -0.03em !important;
       color: var(--text-primary);
+      margin: 0;
     }
 
-    .saas-title-block p {
-      font-size: 0.92rem;
+    .gemini-page-header p {
+      font-size: 1rem;
       color: var(--text-secondary);
       line-height: 1.55;
+      margin: 0;
     }
 
-    /* 3-Pillar AI-Era Banner with Perfectly Centered Icons */
+    /* Minimal 3-Pillar Value Bar (Centered Icons) */
     .ai-era-banner {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 18px;
+      gap: 16px;
+      padding: 18px 22px;
+      border-radius: 24px;
       background: #FFFFFF;
-      border: 1px solid #e4e0f1;
-      box-shadow: var(--shadow-card);
-      margin-bottom: 22px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+      margin-bottom: 32px;
     }
 
     .ai-era-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 6px 8px;
-      border-radius: 12px;
+      gap: 14px;
+      padding: 4px 6px;
     }
 
     .ai-era-icon {
       width: 42px;
       height: 42px;
       border-radius: 12px;
-      background: #EAF4FC;
-      border: 1px solid #C7E1F7;
-      color: #1C7CE2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #f0f7ff;
+      border: 1px solid #dbeafe;
+      color: #1a73e8;
+      display: grid !important;
+      place-items: center !important;
       flex-shrink: 0;
-      margin: 0;
-      padding: 0;
-      line-height: 0;
+      margin: 0 !important;
+      padding: 0 !important;
+      transition: transform 0.22s ease;
     }
 
+    .ai-era-icon > svg,
     .ai-era-icon .icon-svg {
-      width: 20px;
-      height: 20px;
-      display: block;
-      margin: 0 auto;
-      flex-shrink: 0;
+      width: 19px !important;
+      height: 19px !important;
+      display: block !important;
+      margin: auto !important;
+    }
+
+    .ai-era-item:hover .ai-era-icon {
+      transform: scale(1.06);
     }
 
     .ai-era-item strong {
       display: block;
-      font-family: 'Cal Sans', 'Inter', sans-serif;
-      font-size: 0.87rem;
+      font-family: 'Inter', var(--font-sans);
+      font-weight: 600;
+      font-size: 0.86rem;
       color: var(--text-primary);
       margin-bottom: 2px;
-      letter-spacing: -0.2px;
     }
 
     .ai-era-item span {
       display: block;
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       color: var(--text-secondary);
       line-height: 1.4;
     }
 
-    /* Main 2-Column Minimalist Configurator Layout */
-    .minimal-calc-workspace {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
-      gap: 22px;
-      align-items: start;
-    }
-
-    .tier-tabs-container {
-      background: #FFFFFF;
-      border: 1px solid #e4e0f1;
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: var(--shadow-card);
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      min-width: 0;
-    }
-
-    .tabs-topbar {
+    /* Gemini-Style Pill Controls Bar (Centered Tier Pill Switcher + Currency Toggle) */
+    .gemini-controls-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
+      margin-bottom: 24px;
     }
 
-    .tabs-step-label {
-      font-family: var(--font-mono);
-      font-size: 0.73rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #1C7CE2;
-    }
-
-    /* Responsive 5-Tier Segmented Tab Bar */
-    .tier-tablist {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 8px;
-      padding: 6px;
-      border-radius: 16px;
-      background: #F2F8FD;
-      border: 1px solid #D8EAF9;
-    }
-
-    .tier-tab-btn {
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text-secondary);
-      border-radius: 12px;
-      padding: 10px 8px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      text-align: center;
-      transition: all 0.18s ease;
-      position: relative;
-      min-width: 0;
-    }
-
-    .tier-tab-btn:hover {
-      color: #1C7CE2;
-      background: rgba(255, 255, 255, 0.65);
-    }
-
-    .tier-tab-btn.active-tab {
-      background: #FFFFFF;
-      color: #1C7CE2;
-      border-color: #C7E1F7;
-      box-shadow: 0 6px 16px rgba(28, 124, 226, 0.12);
-    }
-
-    .tier-tab-btn.free-tab.active-tab {
-      background: #ECFDF5;
-      color: #059669;
-      border-color: #10B981;
-      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.16);
-    }
-
-    .tab-name-row {
+    .gemini-pill-tabs {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 5px;
-      font-family: 'Cal Sans', 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      line-height: 1.1;
-    }
-
-    .tier-tab-btn.active-tab .tab-name-row {
-      color: #1C7CE2;
-    }
-
-    .tier-tab-btn.free-tab.active-tab .tab-name-row {
-      color: #059669;
-    }
-
-    .tab-sub-row {
-      font-size: 0.67rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      gap: 4px;
+      padding: 5px;
+      border-radius: 999px;
+      background: #eef2f6;
+      border: 1px solid #e2e8f0;
       max-width: 100%;
+      overflow-x: auto;
     }
 
-    .tab-price-pill {
-      font-family: var(--font-mono);
+    .gemini-tab-btn {
+      border: none;
+      background: transparent;
+      color: #475569;
+      font-family: 'Inter', var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gemini-tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .gemini-tab-btn.active-tab {
+      background: #FFFFFF;
+      color: #1a73e8;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    .gemini-tab-tag {
       font-size: 0.68rem;
       font-weight: 700;
       padding: 2px 7px;
       border-radius: 999px;
-      background: rgba(28, 124, 226, 0.09);
-      color: #1C7CE2;
+      background: rgba(26, 115, 232, 0.1);
+      color: #1a73e8;
     }
 
-    .tier-tab-btn.free-tab .tab-price-pill {
-      background: rgba(16, 185, 129, 0.16);
+    .gemini-tab-btn.free-tab .gemini-tab-tag {
+      background: rgba(16, 185, 129, 0.14);
       color: #059669;
     }
 
-    /* Single Active Tier Panel (Only ONE visible at a time) */
-    .tier-panel-card {
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-      padding: 20px;
-      border-radius: 18px;
-      background: #F8FAFC;
-      border: 1.5px solid #D8EAF9;
-      animation: tabFadeIn 0.18s ease-out;
+    .currency-toggle {
+      display: inline-flex;
+      background: #eef2f6 !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 999px !important;
+      padding: 4px !important;
     }
 
-    .tier-panel-card.active-tier-panel {
+    .curr-btn {
+      border: none;
+      background: transparent;
+      color: #475569;
+      font-family: 'Inter', var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px !important;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .curr-btn.active {
+      background: #FFFFFF !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+    }
+
+    /* =========================================================================
+       GEMINI-STYLE 2-COLUMN WORKSPACE:
+       Left: Clean Costing Plan Card (1 Active Tier at a time)
+       Right: Clean Calculate Costing & Customizer Card
+       ========================================================================= */
+    .gemini-pricing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    /* LEFT: GEMINI COSTING CARD */
+    .gemini-plan-card {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 28px;
+      background: #FFFFFF;
+      border: 1px solid #e2e8f0;
+      padding: 34px 32px;
+      box-shadow: 0 12px 36px rgba(15, 23, 42, 0.05);
+      position: relative;
+      overflow: hidden;
+      animation: geminiCardFade 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gemini-plan-card.active-tier-panel {
       display: flex;
     }
 
-    .tier-panel-card.free-tier-panel {
-      background: #F0FDF4;
-      border-color: #10B981;
+    .gemini-plan-card.featured-plan {
+      border: 1.5px solid #a8c7fa;
+      box-shadow: 0 16px 44px rgba(26, 115, 232, 0.08);
     }
 
-    @keyframes tabFadeIn {
-      from { opacity: 0; transform: translateY(4px); }
+    @keyframes geminiCardFade {
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .tier-panel-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
-    }
-
-    .tier-title-cluster {
+    /* Top Pill Badge on Card (like "Includes Gemini 4 Argon" on gemini.google) */
+    .gemini-card-top-bar {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .gemini-plan-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Inter', var(--font-sans);
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #f0f4f9;
+      color: #1a73e8;
+    }
+
+    .gemini-plan-pill.free-pill {
+      background: #ecfdf5;
+      color: #059669;
+    }
+
+    .gemini-sla-text {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    /* Plan Name & 1-Line Subtitle */
+    .gemini-plan-name {
+      font-family: 'Cal Sans', 'Inter', sans-serif !important;
+      font-size: 1.75rem;
+      font-weight: 700 !important;
+      color: var(--text-primary);
+      letter-spacing: -0.02em !important;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .gemini-plan-tagline {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    /* Gemini Price Lockup */
+    .gemini-price-lockup {
+      margin-bottom: 20px;
+    }
+
+    .gemini-price-starting {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .gemini-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .gemini-price-number {
+      font-family: 'Cal Sans', 'Inter', sans-serif !important;
+      font-size: 2.5rem;
+      font-weight: 800 !important;
+      color: var(--text-primary);
+      letter-spacing: -0.03em !important;
+      line-height: 1;
+    }
+
+    .gemini-price-unit {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .gemini-price-highlight {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1a73e8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .featured-plan .gemini-price-highlight {
+      color: #059669;
+    }
+
+    /* Minimal Subtle Visual Blueprint Illustration inside Card */
+    .gemini-visual-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid #eef2f6;
+      margin-bottom: 20px;
+    }
+
+    .gemini-visual-line span {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .gemini-visual-svg {
+      width: 132px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    /* Eligible Track Selector for Lumora (Minimal Pill Row) */
+    .gemini-track-selector {
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .gemini-track-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .gemini-track-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .lumora-track-chip {
+      border: 1px solid #cbd5e1;
+      background: #FFFFFF;
+      color: #334155;
+      font-family: 'Inter', var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .lumora-track-chip.active-track {
+      background: #1a73e8;
+      border-color: #1a73e8;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    /* Divider & Unboxed Gemini Feature List */
+    .gemini-divider {
+      height: 1px;
+      background: #e2e8f0;
+      border: none;
+      margin: 4px 0 20px;
+    }
+
+    .gemini-list-intro {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .gemini-feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .gemini-feature-item {
+      display: flex;
+      align-items: flex-start;
       gap: 12px;
     }
 
-    .tier-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: #EAF4FC;
-      border: 1px solid #C7E1F7;
-      color: #1C7CE2;
+    .gemini-feat-icon {
+      width: 20px;
+      height: 20px;
+      color: #1a73e8;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      margin-top: 1px;
     }
 
-    .free-tier-panel .tier-icon-box {
-      background: rgba(16, 185, 129, 0.16);
-      border-color: rgba(16, 185, 129, 0.4);
-      color: #059669;
+    .gemini-feat-icon.limit-icon {
+      color: #64748b;
     }
 
-    .tier-badge-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 3px;
-    }
-
-    .tier-tag-pill {
-      font-family: var(--font-mono);
-      font-size: 0.64rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 2px 8px;
-      border-radius: 6px;
-      background: #EAF4FC;
-      color: #1C7CE2;
-      border: 1px solid #C7E1F7;
-    }
-
-    .free-tier-panel .tier-tag-pill {
-      background: #10B981;
-      color: #FFFFFF;
-      border-color: #10B981;
-    }
-
-    .tier-sla-badge {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
+    .gemini-feat-text strong {
+      display: block;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: var(--text-secondary);
-      background: #FFFFFF;
-      border: 1px solid #e4e0f1;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-
-    .tier-heading-name {
-      font-family: 'Cal Sans', 'Inter', sans-serif !important;
-      font-size: 1.42rem;
-      font-weight: 800 !important;
-      color: var(--text-primary);
-      line-height: 1.1;
-    }
-
-    .tier-heading-sub {
-      font-size: 0.79rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .tier-price-cluster {
-      text-align: right;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 2px;
-    }
-
-    .tier-strike-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-    }
-
-    .tier-strike-val {
-      text-decoration: line-through;
-      color: var(--text-muted);
-    }
-
-    .tier-save-pill {
-      background: rgba(16, 185, 129, 0.14);
-      color: #059669;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      padding: 1px 6px;
-      border-radius: 5px;
-      font-weight: 700;
-      font-size: 0.63rem;
-    }
-
-    .tier-big-price {
-      font-family: 'Cal Sans', 'Inter', sans-serif !important;
-      font-size: 1.75rem;
-      font-weight: 800 !important;
-      color: #1C7CE2;
-      line-height: 1.05;
-    }
-
-    .free-tier-panel .tier-big-price {
-      color: #059669;
-    }
-
-    .tier-price-caption {
-      font-family: var(--font-mono);
-      font-size: 0.66rem;
-      color: var(--text-secondary);
-    }
-
-    /* Minimal 2-Column Scannable Bullet Lists (Zero Paragraphs) */
-    .tier-minimal-bullets-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .minimal-bullet-box {
-      background: #FFFFFF;
-      border: 1px solid #e4e0f1;
-      border-radius: 13px;
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .minimal-box-label {
-      font-family: var(--font-mono);
-      font-size: 0.66rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .minimal-box-label.inc { color: #059669; }
-    .minimal-box-label.lim { color: #d97706; }
-
-    .minimal-ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 6px;
-      font-size: 0.78rem;
       color: var(--text-primary);
       line-height: 1.35;
     }
 
-    .minimal-ul li {
-      display: flex;
-      align-items: center;
-      gap: 7px;
+    .gemini-feat-text span {
+      display: block;
+      font-size: 0.77rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-top: 1px;
     }
 
-    .minimal-ul li .icon-svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    .minimal-ul.inc-ul li .icon-svg { color: #10B981; }
-    .minimal-ul.lim-ul li .icon-svg { color: #f59e0b; }
-
-    /* Compact Lumora Track Pills */
-    .lumora-compact-tracks {
+    .gemini-card-footer {
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid #f1f5f9;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      flex-wrap: wrap;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: #FFFFFF;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-    }
-
-    .lumora-track-pills {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .lumora-track-chip {
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      background: #F0FDF4;
-      color: #065f46;
-      font-family: var(--font-sans);
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.16s ease;
-    }
-
-    .lumora-track-chip.active-track {
-      background: #059669;
-      border-color: #059669;
-      color: #FFFFFF;
-    }
-
-    .tier-panel-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding-top: 10px;
-      border-top: 1px dashed rgba(148, 163, 184, 0.3);
-      font-size: 0.73rem;
+      font-size: 0.76rem;
       color: var(--text-secondary);
     }
 
-    /* Step 2: Minimal Add-Ons Bar */
-    .step2-minimal-box {
-      padding-top: 16px;
-      border-top: 1px solid #e4e0f1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .gemini-terms-link {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
-    .step2-top-row {
+    .gemini-terms-link:hover {
+      text-decoration: underline;
+    }
+
+    /* =========================================================================
+       RIGHT COLUMN: GEMINI-STYLE "CALCULATE COSTING" & QUOTE CARD
+       ========================================================================= */
+    .gemini-calc-card {
+      border-radius: 28px;
+      background: #FFFFFF;
+      border: 1px solid #e2e8f0;
+      padding: 34px 32px;
+      box-shadow: 0 12px 36px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 92px;
+    }
+
+    .gemini-calc-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+    }
+
+    .gemini-calc-title {
+      font-family: 'Cal Sans', 'Inter', sans-serif !important;
+      font-size: 1.25rem;
+      font-weight: 700 !important;
+      color: var(--text-primary);
+    }
+
+    .gemini-calc-total-box {
+      padding: 20px 22px;
+      border-radius: 20px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .gemini-calc-total-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
       flex-wrap: wrap;
+    }
+
+    .gemini-calc-total-val {
+      font-family: 'Cal Sans', 'Inter', sans-serif !important;
+      font-size: 2.2rem;
+      font-weight: 800 !important;
+      color: var(--text-primary);
+      letter-spacing: -0.03em !important;
+      line-height: 1.05;
+    }
+
+    .gemini-calc-plan-lbl {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #1a73e8;
+    }
+
+    .gemini-calc-subnote {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Clean Optional Add-On Rows inside Calculate Costing */
+    .gemini-addons-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gemini-addons-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .gemini-addons-lbl {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
     }
 
     .preset-mini-pills {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
+      gap: 4px;
     }
 
     .preset-mini-btn {
-      border: 1px solid #D8EAF9;
-      background: #F2F8FD;
-      color: #5f5a7d;
-      font-family: var(--font-mono);
-      font-size: 0.67rem;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 7px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #475569;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.16s ease;
     }
 
     .preset-mini-btn:hover {
-      border-color: #1C7CE2;
-      color: #1C7CE2;
-      background: #EAF4FC;
+      border-color: #1a73e8;
+      color: #1a73e8;
+    }
+
+    .gemini-addon-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .addon-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 13px;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0 !important;
+      background: #FFFFFF !important;
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+    }
+
+    .addon-pill:hover {
+      border-color: #93c5fd !important;
+      background: #f8fafc !important;
+    }
+
+    .addon-pill.selected {
+      background: #f0f7ff !important;
+      border-color: #1a73e8 !important;
+    }
+
+    .addon-pill-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      min-width: 0;
+    }
+
+    .addon-pill.selected .addon-pill-left {
+      font-weight: 600;
+      color: #1a73e8;
+    }
+
+    .addon-pill-price {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .addon-pill.selected .addon-pill-price {
+      color: #1a73e8 !important;
+    }
+
+    /* Clean Line-Item Receipt */
+    .breakdown-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 150px;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-family: 'Inter', var(--font-sans);
+      padding: 2px 0;
+      border-bottom: none !important;
+    }
+
+    .breakdown-row strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Gemini-Style Pill CTA Buttons */
+    .btn-gemini-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 22px;
+      border-radius: 999px;
+      border: none;
+      background: #1a73e8;
+      color: #FFFFFF !important;
+      font-family: 'Inter', var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-gemini-primary:hover {
+      background: #1557b0;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(26, 115, 232, 0.22);
+    }
+
+    .btn-gemini-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: 'Inter', var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-gemini-outline:hover {
+      border-color: #1a73e8;
+      color: #1a73e8;
+      background: rgba(26, 115, 232, 0.04);
+    }
+
+    .gemini-input {
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text-primary);
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .gemini-input:focus {
+      outline: none;
+      border-color: #1a73e8;
+      background: #FFFFFF;
     }
 
     .free-addons-note {
-      padding: 10px 13px;
-      border-radius: 11px;
-      background: #F2F8FD;
-      border: 1px solid #D8EAF9;
-      font-size: 0.75rem;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      font-size: 0.76rem;
       color: var(--text-secondary);
       display: flex;
       align-items: center;
@@ -6333,98 +6624,251 @@
       flex-wrap: wrap;
     }
 
-    /* Dark Mode Support for Minimalist Tab Layout */
+    /* =========================================================================
+       6. DARK THEME REFINEMENT (Dark Gray #16181d Page BG + Pure Black #000000 Cards)
+       ========================================================================= */
+    html[data-theme="dark"] {
+      --bg-primary: #16181d !important;
+      --bg-secondary: #0d0f13 !important;
+      --bg-card: #000000 !important;
+      --bg-card-strong: #000000 !important;
+      --text-primary: #f8fafc !important;
+      --text-secondary: #94a3b8 !important;
+      --text-muted: #64748b !important;
+      --border-subtle: rgba(255, 255, 255, 0.15) !important;
+      background-color: #16181d !important;
+    }
+
+    html[data-theme="dark"] body {
+      background-color: #16181d !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520'%3E%3Cg fill='%2360a5fa'%3E%3Ccircle cx='38' cy='64' r='1.3' fill-opacity='0.16'/%3E%3Ccircle cx='184' cy='29' r='1.0' fill-opacity='0.11'/%3E%3Ccircle cx='342' cy='88' r='1.5' fill-opacity='0.15'/%3E%3Ccircle cx='476' cy='52' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='96' cy='192' r='1.2' fill-opacity='0.13'/%3E%3Ccircle cx='268' cy='164' r='1.6' fill-opacity='0.17'/%3E%3Ccircle cx='428' cy='218' r='1.1' fill-opacity='0.11'/%3E%3Ccircle cx='54' cy='336' r='1.4' fill-opacity='0.14'/%3E%3Ccircle cx='214' cy='308' r='1.0' fill-opacity='0.10'/%3E%3Ccircle cx='382' cy='346' r='1.3' fill-opacity='0.15'/%3E%3Ccircle cx='138' cy='454' r='1.5' fill-opacity='0.14'/%3E%3Ccircle cx='312' cy='478' r='1.1' fill-opacity='0.11'/%3E%3Ccircle cx='464' cy='432' r='1.3' fill-opacity='0.15'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='730' height='730' viewBox='0 0 730 730'%3E%3Cg fill='%2394a3b8'%3E%3Ccircle cx='112' cy='94' r='1.2' fill-opacity='0.12'/%3E%3Ccircle cx='418' cy='62' r='1.4' fill-opacity='0.14'/%3E%3Ccircle cx='634' cy='148' r='1.1' fill-opacity='0.10'/%3E%3Ccircle cx='246' cy='284' r='1.5' fill-opacity='0.13'/%3E%3Ccircle cx='542' cy='338' r='1.2' fill-opacity='0.11'/%3E%3Ccircle cx='88' cy='492' r='1.3' fill-opacity='0.14'/%3E%3Ccircle cx='364' cy='528' r='1.1' fill-opacity='0.09'/%3E%3Ccircle cx='618' cy='586' r='1.4' fill-opacity='0.13'/%3E%3Ccircle cx='212' cy='674' r='1.2' fill-opacity='0.11'/%3E%3C/g%3E%3C/svg%3E") !important;
+      background-size: 520px 520px, 730px 730px !important;
+      background-position: 0 0, 130px 210px !important;
+      background-attachment: fixed !important;
+    }
+
+    /* Pure Black (#000000) for all Cards & Card Containers */
+    html[data-theme="dark"] header.navbar,
+    html[data-theme="dark"] .mobile-nav-drawer,
     html[data-theme="dark"] .ai-era-banner,
-    html[data-theme="dark"] .tier-tabs-container {
-      background: #141414 !important;
-      border-color: rgba(255, 255, 255, 0.12) !important;
+    html[data-theme="dark"] .gemini-plan-card,
+    html[data-theme="dark"] .gemini-calc-card,
+    html[data-theme="dark"] .modal-card,
+    html[data-theme="dark"] .footer-icon-btn {
+      background: #000000 !important;
+      background-color: #000000 !important;
+      border-color: rgba(255, 255, 255, 0.16) !important;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.65) !important;
+    }
+
+    html[data-theme="dark"] .gemini-plan-card.featured-plan {
+      border-color: rgba(96, 165, 250, 0.45) !important;
+    }
+
+    html[data-theme="dark"] .gemini-pill-tabs,
+    html[data-theme="dark"] .currency-toggle {
+      background: #000000 !important;
+      border-color: rgba(255, 255, 255, 0.16) !important;
+    }
+
+    html[data-theme="dark"] .gemini-tab-btn {
+      color: #94a3b8;
+    }
+
+    html[data-theme="dark"] .gemini-tab-btn.active-tab,
+    html[data-theme="dark"] .curr-btn.active {
+      background: #1e232d !important;
+      color: #f8fafc !important;
     }
 
     html[data-theme="dark"] .ai-era-icon,
-    html[data-theme="dark"] .tier-icon-box {
-      background: #1e293b !important;
-      border-color: rgba(28, 124, 226, 0.4) !important;
+    html[data-theme="dark"] .gemini-plan-pill,
+    html[data-theme="dark"] .gemini-visual-line,
+    html[data-theme="dark"] .gemini-track-selector,
+    html[data-theme="dark"] .gemini-calc-total-box,
+    html[data-theme="dark"] .free-addons-note,
+    html[data-theme="dark"] .free-pack-summary-box,
+    html[data-theme="dark"] .preset-mini-btn {
+      background: #0b0d12 !important;
+      border-color: rgba(255, 255, 255, 0.14) !important;
+      color: #f8fafc !important;
     }
 
-    html[data-theme="dark"] .tier-tablist {
-      background: #1c1c1c !important;
-      border-color: rgba(255, 255, 255, 0.12) !important;
-    }
-
-    html[data-theme="dark"] .tier-tab-btn.active-tab {
-      background: #262626 !important;
-      border-color: #1C7CE2 !important;
-    }
-
-    html[data-theme="dark"] .tier-tab-btn.free-tab.active-tab {
-      background: rgba(16, 185, 129, 0.16) !important;
-      border-color: #10B981 !important;
-    }
-
-    html[data-theme="dark"] .tier-panel-card {
-      background: #1a1a1a !important;
+    html[data-theme="dark"] .addon-pill {
+      background: #0b0d12 !important;
       border-color: rgba(255, 255, 255, 0.14) !important;
     }
 
-    html[data-theme="dark"] .tier-panel-card.free-tier-panel {
-      background: rgba(16, 185, 129, 0.08) !important;
-      border-color: #10B981 !important;
+    html[data-theme="dark"] .addon-pill.selected {
+      background: rgba(26, 115, 232, 0.18) !important;
+      border-color: #60a5fa !important;
     }
 
-    html[data-theme="dark"] .minimal-bullet-box,
-    html[data-theme="dark"] .lumora-compact-tracks,
-    html[data-theme="dark"] .tier-sla-badge,
-    html[data-theme="dark"] .preset-mini-btn,
-    html[data-theme="dark"] .free-addons-note {
-      background: #222222 !important;
-      border-color: rgba(255, 255, 255, 0.12) !important;
-      color: var(--text-primary) !important;
+    html[data-theme="dark"] .addon-pill.selected .addon-pill-left,
+    html[data-theme="dark"] .addon-pill.selected .addon-pill-price {
+      color: #60a5fa !important;
     }
 
     html[data-theme="dark"] .lumora-track-chip:not(.active-track) {
-      background: #181818 !important;
-      color: #6ee7b7 !important;
+      background: #000000 !important;
+      border-color: rgba(255, 255, 255, 0.18) !important;
+      color: #cbd5e1 !important;
     }
 
-    /* Responsive Breakpoints (Tablet & Mobile) */
-    @media (max-width: 1024px) {
-      .minimal-calc-workspace {
-        grid-template-columns: 1fr;
-      }
+    html[data-theme="dark"] .gemini-input,
+    html[data-theme="dark"] .btn-gemini-outline {
+      background: #0b0d12 !important;
+      border-color: rgba(255, 255, 255, 0.18) !important;
+      color: #f8fafc !important;
+    }
+
+    html[data-theme="dark"] .gemini-divider,
+    html[data-theme="dark"] .gemini-card-footer {
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      background-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    html[data-theme="dark"] .gemini-card-footer {
+      background: transparent !important;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 960px) {
+      .gemini-pricing-grid,
       .ai-era-banner {
         grid-template-columns: 1fr;
       }
+      .gemini-calc-card {
+        position: static;
+      }
+      .gemini-controls-row {
+        justify-content: center;
+      }
     }
 
-    @media (max-width: 720px) {
-      .tier-tablist {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    @media (max-width: 640px) {
+      .gemini-plan-card,
+      .gemini-calc-card {
+        padding: 24px 20px;
+        border-radius: 22px;
       }
-      .tier-tablist .tier-tab-btn.free-tab {
-        grid-column: 1 / -1;
-      }
-      .tier-minimal-bullets-grid,
-      .compact-addon-grid {
+      .gemini-addon-grid {
         grid-template-columns: 1fr;
       }
-      .tier-tabs-container {
-        padding: 16px 14px;
+      .gemini-pill-tabs {
+        width: 100%;
+        justify-content: flex-start;
       }
-      .tier-panel-card {
-        padding: 16px 14px;
-      }
-      .tier-price-cluster {
-        text-align: left;
-        align-items: flex-start;
+      .gemini-tab-btn {
+        padding: 8px 13px;
+        font-size: 0.78rem;
       }
     }
+  
+    
+    /* =========================================================================
+       CLEANED-UP MINIMALIST TITLE BAR & ACTIVE TAB CONTAINER (MATCHES .btn-icon)
+       ========================================================================= */
+    header.navbar .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px !important;
+      list-style: none;
+      flex-shrink: 0;
+    }
+
+    header.navbar .nav-links a {
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 11px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary) !important;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    header.navbar .nav-links a:hover {
+      color: var(--accent-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    header.navbar .nav-links a.active-page-link,
+    header.navbar .nav-links a.active-nav-link,
+    html[data-theme="light"] header.navbar .nav-links a.active-page-link,
+    html[data-theme="dark"] header.navbar .nav-links a.active-page-link {
+      height: 38px !important;
+      padding: 0 14px !important;
+      border-radius: 11px !important;
+      border: 1px solid var(--border-subtle) !important;
+      background: var(--bg-glass) !important;
+      color: var(--text-primary) !important;
+      font-weight: 600 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    header.navbar .nav-links a.active-page-link:hover,
+    header.navbar .nav-links a.active-nav-link:hover,
+    html[data-theme="light"] header.navbar .nav-links a.active-page-link:hover,
+    html[data-theme="dark"] header.navbar .nav-links a.active-page-link:hover {
+      border-color: var(--accent-cyan) !important;
+      color: var(--accent-cyan) !important;
+      transform: translateY(-1px);
+    }
+
+    /* Mobile Drawer Active Tab Container (Matches .btn-icon) */
+    .mobile-nav-drawer a {
+      border-radius: 11px !important;
+      border: 1px solid transparent !important;
+      background: transparent !important;
+      color: var(--text-secondary) !important;
+      font-weight: 500 !important;
+      padding: 10px 14px !important;
+    }
+
+    .mobile-nav-drawer a.active-page-link,
+    html[data-theme="light"] .mobile-nav-drawer a.active-page-link,
+    html[data-theme="dark"] .mobile-nav-drawer a.active-page-link {
+      border: 1px solid var(--border-subtle) !important;
+      background: var(--bg-glass) !important;
+      color: var(--text-primary) !important;
+      font-weight: 600 !important;
+    }
+
+    /* Responsive Mobile Collapse: Hide inline tabs & show 3-line menu toggle */
+    @media (max-width: 820px) {
+      header.navbar .nav-links {
+        display: none !important;
+      }
+      header.navbar .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+
+    /* Hide native horizontal scrollbar on mobile pill switcher */
+    .gemini-tabs-scroll {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .gemini-tabs-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
   <div class="cursor-aura" id="cursor-aura"></div>
 
-  <!-- Navigation Bar -->
-  <header class="navbar">
+  <!-- Dynamic Scroll-Aware Navigation Bar (Hidden at top of page, shown on scroll) -->
+  <header class="navbar navbar-at-top-hidden">
     <a href="index.html" class="brand">
       <div class="brand-cube">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%" aria-hidden="true">
@@ -6432,26 +6876,16 @@
         </svg>
       </div>
       <span>EASODE</span>
-      <span class="brand-badge">
-        <i data-icon="code" class="icon-sm"></i>
-        <span>APP &amp; WEB STUDIO</span>
-      </span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products <span class="nav-pill-badge">STORE</span></a></li>
-      <li><a href="index.html#services">Services</a></li>
+      <li><a href="products.html">Products</a></li>
       <li><a href="price-calculator.html" class="active-page-link">Price Calculator</a></li>
-      <li><a href="index.html#studio">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="btn-icon" id="theme-toggle" title="Switch Light / Dark Theme" aria-label="Toggle theme">
         <i data-icon="moon" id="theme-icon"></i>
       </button>
-      <a href="#checkout-summary-panel" class="btn-primary">
-        <span>Estimate Your Project</span>
-        <i data-icon="arrow-right" class="icon-sm"></i>
-      </a>
       <button class="btn-icon mobile-menu-btn" id="mobile-menu-toggle" title="Open Navigation Menu" aria-label="Toggle navigation menu" aria-expanded="false">
         <i data-icon="sliders" class="icon-sm"></i>
       </button>
@@ -6461,28 +6895,20 @@
   <!-- Mobile Navigation Drawer -->
   <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
     <a href="index.html" onclick="closeMobileMenu()"><span>Home</span><i data-icon="box" class="icon-sm"></i></a>
-    <a href="products.html" onclick="closeMobileMenu()"><span>Products Showcase</span><i data-icon="smartphone" class="icon-sm"></i></a>
-    <a href="index.html#products" onclick="closeMobileMenu()"><span>StreakIO Flagship App</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="20" height="20" style="width:20px;height:20px;flex-shrink:0;display:inline-block;vertical-align:middle;" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M 303,701 C 265,650 250,585 256,515 C 262,455 288,405 318,385 C 336,373 352,382 355,405 C 359,438 368,468 386,492 C 391,499 396,495 393,485 C 378,430 392,350 440,280 C 478,225 530,192 560,185 C 578,181 588,195 581,215 C 565,260 568,310 595,375 C 605,398 612,415 616,422 C 619,427 622,424 622,415 C 621,392 622,372 628,360 C 636,344 656,345 678,365 C 725,408 752,482 752,560 C 752,698 642,808 504,808 C 482,808 460,805 440,799 C 498,772 534,715 534,642 L 534,634 L 568,634 C 581,634 588,622 581,611 L 512,508 C 505,498 493,498 486,508 L 418,611 C 411,622 418,634 431,634 L 464,634 L 464,645 C 464,705 422,742 368,735 C 342,732 319,719 303,701 Z" /></svg></a>
-    <a href="index.html#autrex" onclick="closeMobileMenu()"><span>AUTREX (Under Development)</span><i data-icon="sparkles" class="icon-sm"></i></a>
-    <a href="index.html#services" onclick="closeMobileMenu()"><span>Development Services</span><i data-icon="code" class="icon-sm"></i></a>
-    <a href="price-calculator.html" onclick="closeMobileMenu()"><span>Project Price Calculator</span><i data-icon="sliders" class="icon-sm"></i></a>
-    <a href="terms-free-android-pack.html" onclick="closeMobileMenu()"><span>Lumora Pack Terms</span><i data-icon="shield" class="icon-sm"></i></a>
-    <a href="index.html#studio" onclick="closeMobileMenu()"><span>About &amp; Contact Easode</span><i data-icon="mail" class="icon-sm"></i></a>
+    <a href="products.html" onclick="closeMobileMenu()"><span>Products</span><i data-icon="smartphone" class="icon-sm"></i></a>
+    <a href="price-calculator.html" class="active-page-link" onclick="closeMobileMenu()"><span>Price Calculator</span><i data-icon="sliders" class="icon-sm"></i></a>
   </nav>
 
   <main id="top">
     <section class="section" id="configurator" style="padding-top:0;">
-      <!-- Clean Minimalist Header (No Blinking Dot Eyebrow, No Top Bar Buttons) -->
-      <div class="saas-pricing-header">
-        <div class="saas-title-block">
-          <h1>Select Your <span class="gradient-text">Product Package</span></h1>
-          <p>
-            Choose a package tab below to view its essentials and configure your instant project quote.
-          </p>
-        </div>
+
+      <!-- Gemini-Style Centered Page Header -->
+      <div class="gemini-page-header">
+        <h1>Choose a package that is <span class="gradient-text">right for you</span></h1>
+        <p>Transparent, AI-era software engineering plans. Switch between packages below and calculate your exact project costing in seconds.</p>
       </div>
 
-      <!-- 3-Pillar AI-Era Value Strip (Icons Centered Within Their Containers) -->
+      <!-- 3-Pillar Value Strip (Centered Icons) -->
       <div class="ai-era-banner" aria-label="AI-Era Pricing Advantage">
         <div class="ai-era-item">
           <div class="ai-era-icon"><i data-icon="cpu"></i></div>
@@ -6502,669 +6928,757 @@
           <div class="ai-era-icon"><i data-icon="award"></i></div>
           <div>
             <strong>Clear Scope, Features &amp; Limits</strong>
-            <span>Upfront bullet-point deliverables and dedicated terms per tier.</span>
+            <span>Upfront deliverables and dedicated terms for every tier.</span>
           </div>
         </div>
       </div>
 
-      <!-- Minimalist 2-Column Workspace: Tabbed Package View (Left) + Live Summary (Right) -->
-      <div class="minimal-calc-workspace">
+      <!-- Gemini-Style Pill Switcher & Currency Toggle -->
+      <div class="gemini-controls-row">
+        <div class="gemini-pill-tabs" role="tablist" aria-label="Pricing Package Tiers">
+          <button
+            type="button"
+            role="tab"
+            aria-selected="true"
+            id="tab-btn-free-android"
+            class="gemini-tab-btn free-tab active-tab"
+            data-target-val="free-android"
+            onclick="selectPackById('free-android')"
+          >
+            <span>Lumora</span>
+            <span class="gemini-tab-tag" data-tab-price="free">Free</span>
+          </button>
 
-        <!-- LEFT COLUMN: Tabbed Pricing Tiers (Only 1 Tier Visible at a Time) + Step 2 Add-Ons -->
-        <div class="tier-tabs-container">
-          <div class="tabs-topbar">
-            <span class="tabs-step-label">1. Select Package Tier</span>
-            <div class="currency-toggle" role="group" aria-label="Currency selector">
-              <button type="button" class="curr-btn active" id="curr-inr" onclick="setCurrency('INR')">₹ INR</button>
-              <button type="button" class="curr-btn" id="curr-usd" onclick="setCurrency('USD')">$ USD</button>
-            </div>
-          </div>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
+            id="tab-btn-website"
+            class="gemini-tab-btn"
+            data-target-val="website"
+            onclick="selectPackById('website')"
+          >
+            <span>Veltro</span>
+            <span class="gemini-tab-tag" data-tab-price="website">₹1,499</span>
+          </button>
 
-          <!-- 5-Package Responsive Tab Bar -->
-          <div class="tier-tablist" role="tablist" aria-label="Pricing Package Tiers">
-            <button
-              type="button"
-              role="tab"
-              aria-selected="true"
-              aria-controls="free-android-package-card"
-              id="tab-btn-free-android"
-              class="tier-tab-btn free-tab active-tab"
-              data-target-val="free-android"
-              onclick="selectPackById('free-android')"
-            >
-              <span class="tab-name-row">
-                <i data-icon="sparkles" class="icon-sm"></i>
-                <span>Lumora</span>
-              </span>
-              <span class="tab-sub-row">Free Android</span>
-              <span class="tab-price-pill" data-tab-price="free">₹0 FREE</span>
-            </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
+            id="tab-btn-android"
+            class="gemini-tab-btn"
+            data-target-val="android"
+            onclick="selectPackById('android')"
+          >
+            <span>Korvex</span>
+            <span class="gemini-tab-tag" data-tab-price="android">₹2,499</span>
+          </button>
 
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="card-pack-website"
-              id="tab-btn-website"
-              class="tier-tab-btn"
-              data-target-val="website"
-              onclick="selectPackById('website')"
-            >
-              <span class="tab-name-row">
-                <i data-icon="globe" class="icon-sm"></i>
-                <span>Veltro</span>
-              </span>
-              <span class="tab-sub-row">Website / Web</span>
-              <span class="tab-price-pill" data-tab-price="website">₹1,499</span>
-            </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
+            id="tab-btn-windows"
+            class="gemini-tab-btn"
+            data-target-val="windows"
+            onclick="selectPackById('windows')"
+          >
+            <span>Dravix</span>
+            <span class="gemini-tab-tag" data-tab-price="windows">₹3,499</span>
+          </button>
 
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="card-pack-android"
-              id="tab-btn-android"
-              class="tier-tab-btn"
-              data-target-val="android"
-              onclick="selectPackById('android')"
-            >
-              <span class="tab-name-row">
-                <i data-icon="smartphone" class="icon-sm"></i>
-                <span>Korvex</span>
-              </span>
-              <span class="tab-sub-row">Android App</span>
-              <span class="tab-price-pill" data-tab-price="android">₹2,499</span>
-            </button>
-
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="card-pack-windows"
-              id="tab-btn-windows"
-              class="tier-tab-btn"
-              data-target-val="windows"
-              onclick="selectPackById('windows')"
-            >
-              <span class="tab-name-row">
-                <i data-icon="monitor" class="icon-sm"></i>
-                <span>Dravix</span>
-              </span>
-              <span class="tab-sub-row">Windows PC</span>
-              <span class="tab-price-pill" data-tab-price="windows">₹3,499</span>
-            </button>
-
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="dfy-package-card"
-              id="tab-btn-dfy"
-              class="tier-tab-btn"
-              data-target-val="done-for-you-pack"
-              onclick="selectPackById('done-for-you-pack')"
-            >
-              <span class="tab-name-row">
-                <i data-icon="award" class="icon-sm"></i>
-                <span>Omnira</span>
-              </span>
-              <span class="tab-sub-row">Turnkey Suite</span>
-              <span class="tab-price-pill" data-tab-price="dfy">₹19,999</span>
-            </button>
-          </div>
-
-          <!-- TAB PANELS CONTAINER (Only 1 Tier Card Visible at a Time) -->
-          <div id="platform-chips">
-
-            <!-- =============================================================
-                 TAB PANEL 1: LUMORA — Free Android Launchpad (₹0 / $0)
-                 ============================================================= -->
-            <div
-              role="tabpanel"
-              id="free-android-package-card"
-              class="tier-panel-card free-tier-panel active-tier-panel selected"
-              data-val="free-android"
-              data-pack="free"
-              data-pkg-name="Lumora"
-              data-pkg-subtitle="Free Android Pack"
-              data-terms="terms-free-android-pack.html"
-              data-weeks="2"
-              data-inr="0"
-              data-usd="0"
-              data-old-inr="6000"
-              data-old-usd="75"
-            >
-              <div class="tier-panel-header">
-                <div class="tier-title-cluster">
-                  <div class="tier-icon-box"><i data-icon="sparkles"></i></div>
-                  <div>
-                    <div class="tier-badge-row">
-                      <span class="tier-tag-pill">★ FEATURED FREE TIER</span>
-                      <span class="tier-sla-badge">2 – 3 Weeks</span>
-                    </div>
-                    <div class="tier-heading-name">Lumora</div>
-                    <div class="tier-heading-sub">Free Android App Development Pack</div>
-                  </div>
-                </div>
-
-                <div class="tier-price-cluster">
-                  <div class="tier-strike-row">
-                    <span class="tier-strike-val" data-old-price-label>₹6,000</span>
-                    <span class="tier-save-pill">100% FREE</span>
-                  </div>
-                  <div class="tier-big-price" id="free-pack-price-badge" data-price-label>₹0 (FREE)</div>
-                  <span class="tier-price-caption">Zero upfront development fee</span>
-                </div>
-              </div>
-
-              <!-- Compact Eligible Track Selector -->
-              <div class="lumora-compact-tracks">
-                <span style="font-size:0.74rem;font-weight:700;color:#065f46;display:inline-flex;align-items:center;gap:5px;">
-                  <i data-icon="compass" class="icon-sm"></i>
-                  <span>Eligible Track:</span>
-                </span>
-                <div class="lumora-track-pills">
-                  <button type="button" class="lumora-track-chip active-track" data-track-val="E-commerce Application (Manageable Infrastructure)" onclick="pickLumoraTrack(this)">
-                    1. E-Commerce
-                  </button>
-                  <button type="button" class="lumora-track-chip" data-track-val="Lightweight Online Application (Low Storage & Low Requests)" onclick="pickLumoraTrack(this)">
-                    2. Lightweight Online
-                  </button>
-                  <button type="button" class="lumora-track-chip" data-track-val="Offline Android Application (Offline-First Functionality)" onclick="pickLumoraTrack(this)">
-                    3. Offline Utility
-                  </button>
-                </div>
-              </div>
-
-              <!-- Minimal Scannable Bullets -->
-              <div class="tier-minimal-bullets-grid">
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label inc">
-                    <i data-icon="check-circle" class="icon-sm"></i>
-                    <span>What's Included</span>
-                  </div>
-                  <ul class="minimal-ul inc-ul">
-                    <li><i data-icon="check"></i><span>Native Kotlin &amp; Material 3 Android build</span></li>
-                    <li><i data-icon="check"></i><span>Published on Easode Google Play account</span></li>
-                    <li><i data-icon="check"></i><span>Your brand &amp; contact in <em>About App</em></span></li>
-                    <li><i data-icon="check"></i><span>Save $25 Google Play Console fee</span></li>
-                  </ul>
-                </div>
-
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label lim">
-                    <i data-icon="info" class="icon-sm"></i>
-                    <span>Key Limits &amp; Conditions</span>
-                  </div>
-                  <ul class="minimal-ul lim-ul">
-                    <li><i data-icon="info"></i><span>Android apps only (no Web or PC)</span></li>
-                    <li><i data-icon="info"></i><span>Easode-managed ad monetization</span></li>
-                    <li><i data-icon="info"></i><span>Hosting, domains &amp; paid APIs excluded</span></li>
-                    <li><i data-icon="info"></i><span>Subject to eligibility &amp; scope approval</span></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tier-panel-footer">
-                <span><strong style="color:#059669;">● Active Package:</strong> Zero financial risk for eligible ideas</span>
-                <a href="terms-free-android-pack.html" class="card-terms-link">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>Lumora Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- =============================================================
-                 TAB PANEL 2: VELTRO — Website / Web App (₹1,499 / $19)
-                 ============================================================= -->
-            <div
-              role="tabpanel"
-              id="card-pack-website"
-              class="tier-panel-card plat-card-min"
-              data-val="website"
-              data-pack="modular"
-              data-pkg-name="Veltro"
-              data-pkg-subtitle="Website & Web App"
-              data-terms="terms-website-pack.html"
-              data-weeks="0.5"
-              data-inr="1499"
-              data-usd="19"
-              data-old-inr="3500"
-              data-old-usd="45"
-            >
-              <div class="tier-panel-header">
-                <div class="tier-title-cluster">
-                  <div class="tier-icon-box"><i data-icon="globe"></i></div>
-                  <div>
-                    <div class="tier-badge-row">
-                      <span class="tier-tag-pill">FAST WEB LAUNCH</span>
-                      <span class="tier-sla-badge">3 – 5 Days</span>
-                    </div>
-                    <div class="tier-heading-name">Veltro</div>
-                    <div class="tier-heading-sub">Responsive Website &amp; Web App Pack</div>
-                  </div>
-                </div>
-
-                <div class="tier-price-cluster">
-                  <div class="tier-strike-row">
-                    <span class="tier-strike-val" data-old-price-label>₹3,500</span>
-                    <span class="tier-save-pill">SAVE 57%</span>
-                  </div>
-                  <div class="tier-big-price plat-card-price" data-price-label>₹1,499</div>
-                  <span class="tier-price-caption">Base one-time build</span>
-                </div>
-              </div>
-
-              <div class="tier-minimal-bullets-grid">
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label inc">
-                    <i data-icon="check-circle" class="icon-sm"></i>
-                    <span>What's Included</span>
-                  </div>
-                  <ul class="minimal-ul inc-ul">
-                    <li><i data-icon="check"></i><span>Mobile, tablet &amp; desktop responsive UI</span></li>
-                    <li><i data-icon="check"></i><span>Clean HTML5, CSS3 &amp; interactive JS</span></li>
-                    <li><i data-icon="check"></i><span>100% client-owned source code bundle</span></li>
-                    <li><i data-icon="check"></i><span>Zero mandatory ads + 7-day bug warranty</span></li>
-                  </ul>
-                </div>
-
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label lim">
-                    <i data-icon="info" class="icon-sm"></i>
-                    <span>Key Limits &amp; Scope</span>
-                  </div>
-                  <ul class="minimal-ul lim-ul">
-                    <li><i data-icon="info"></i><span>Domain &amp; web hosting fees separate</span></li>
-                    <li><i data-icon="info"></i><span>Auth, Cloud DB &amp; Payments via Step 2</span></li>
-                    <li><i data-icon="info"></i><span>Free Android Pack (₹0) does not apply</span></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tier-panel-footer">
-                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Customize with optional add-ons below</span>
-                <a href="terms-website-pack.html" class="card-terms-link">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>Veltro Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- =============================================================
-                 TAB PANEL 3: KORVEX — Custom Android App (₹2,499 / $29)
-                 ============================================================= -->
-            <div
-              role="tabpanel"
-              id="card-pack-android"
-              class="tier-panel-card plat-card-min"
-              data-val="android"
-              data-pack="modular"
-              data-pkg-name="Korvex"
-              data-pkg-subtitle="Custom Android App"
-              data-terms="terms-android-app-pack.html"
-              data-weeks="1"
-              data-inr="2499"
-              data-usd="29"
-              data-old-inr="6000"
-              data-old-usd="75"
-            >
-              <div class="tier-panel-header">
-                <div class="tier-title-cluster">
-                  <div class="tier-icon-box"><i data-icon="smartphone"></i></div>
-                  <div>
-                    <div class="tier-badge-row">
-                      <span class="tier-tag-pill">BESTSELLER • CLIENT-OWNED</span>
-                      <span class="tier-sla-badge">1 – 2 Weeks</span>
-                    </div>
-                    <div class="tier-heading-name">Korvex</div>
-                    <div class="tier-heading-sub">Custom Native Android App Pack</div>
-                  </div>
-                </div>
-
-                <div class="tier-price-cluster">
-                  <div class="tier-strike-row">
-                    <span class="tier-strike-val" data-old-price-label>₹6,000</span>
-                    <span class="tier-save-pill">SAVE 58%</span>
-                  </div>
-                  <div class="tier-big-price plat-card-price" data-price-label>₹2,499</div>
-                  <span class="tier-price-caption">Base one-time build</span>
-                </div>
-              </div>
-
-              <div class="tier-minimal-bullets-grid">
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label inc">
-                    <i data-icon="check-circle" class="icon-sm"></i>
-                    <span>What's Included</span>
-                  </div>
-                  <ul class="minimal-ul inc-ul">
-                    <li><i data-icon="check"></i><span>Native Kotlin &amp; Jetpack Compose UI</span></li>
-                    <li><i data-icon="check"></i><span>Signed APK, Play AAB &amp; source handover</span></li>
-                    <li><i data-icon="check"></i><span>100% client-owned (zero Easode ads)</span></li>
-                    <li><i data-icon="check"></i><span>14-day post-handover bug warranty</span></li>
-                  </ul>
-                </div>
-
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label lim">
-                    <i data-icon="info" class="icon-sm"></i>
-                    <span>Key Limits &amp; Scope</span>
-                  </div>
-                  <ul class="minimal-ul lim-ul">
-                    <li><i data-icon="info"></i><span>Client Play Console fee ($25) separate</span></li>
-                    <li><i data-icon="info"></i><span>Cloud, Auth &amp; Payments via Step 2</span></li>
-                    <li><i data-icon="info"></i><span>Single-platform Android build</span></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tier-panel-footer">
-                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Full IP ownership + modular add-ons</span>
-                <a href="terms-android-app-pack.html" class="card-terms-link">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>Korvex Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- =============================================================
-                 TAB PANEL 4: DRAVIX — Windows Desktop Software (₹3,499 / $42)
-                 ============================================================= -->
-            <div
-              role="tabpanel"
-              id="card-pack-windows"
-              class="tier-panel-card plat-card-min"
-              data-val="windows"
-              data-pack="modular"
-              data-pkg-name="Dravix"
-              data-pkg-subtitle="Windows Software"
-              data-terms="terms-windows-software-pack.html"
-              data-weeks="1.5"
-              data-inr="3499"
-              data-usd="42"
-              data-old-inr="8000"
-              data-old-usd="99"
-            >
-              <div class="tier-panel-header">
-                <div class="tier-title-cluster">
-                  <div class="tier-icon-box"><i data-icon="monitor"></i></div>
-                  <div>
-                    <div class="tier-badge-row">
-                      <span class="tier-tag-pill">DESKTOP ENGINE</span>
-                      <span class="tier-sla-badge">1.5 – 2.5 Weeks</span>
-                    </div>
-                    <div class="tier-heading-name">Dravix</div>
-                    <div class="tier-heading-sub">Windows 10/11 Desktop Software Pack</div>
-                  </div>
-                </div>
-
-                <div class="tier-price-cluster">
-                  <div class="tier-strike-row">
-                    <span class="tier-strike-val" data-old-price-label>₹8,000</span>
-                    <span class="tier-save-pill">SAVE 56%</span>
-                  </div>
-                  <div class="tier-big-price plat-card-price" data-price-label>₹3,499</div>
-                  <span class="tier-price-caption">Base one-time build</span>
-                </div>
-              </div>
-
-              <div class="tier-minimal-bullets-grid">
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label inc">
-                    <i data-icon="check-circle" class="icon-sm"></i>
-                    <span>What's Included</span>
-                  </div>
-                  <ul class="minimal-ul inc-ul">
-                    <li><i data-icon="check"></i><span>64-bit Windows 10/11 `.exe` / `.msi` build</span></li>
-                    <li><i data-icon="check"></i><span>Offline local database &amp; file workflows</span></li>
-                    <li><i data-icon="check"></i><span>Unlimited office PCs (zero seat fees)</span></li>
-                    <li><i data-icon="check"></i><span>Full source handover + 14-day warranty</span></li>
-                  </ul>
-                </div>
-
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label lim">
-                    <i data-icon="info" class="icon-sm"></i>
-                    <span>Key Limits &amp; Scope</span>
-                  </div>
-                  <ul class="minimal-ul lim-ul">
-                    <li><i data-icon="info"></i><span>Windows OS only (no macOS/Linux)</span></li>
-                    <li><i data-icon="info"></i><span>EV code-signing certificates separate</span></li>
-                    <li><i data-icon="info"></i><span>Cloud sync &amp; licensing via Step 2</span></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tier-panel-footer">
-                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Standalone desktop utility &amp; automation</span>
-                <a href="terms-windows-software-pack.html" class="card-terms-link">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>Dravix Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- =============================================================
-                 TAB PANEL 5: OMNIRA — Turnkey Done-for-You Suite (₹19,999 / $239)
-                 ============================================================= -->
-            <div
-              role="tabpanel"
-              id="dfy-package-card"
-              class="tier-panel-card dfy-pack-card"
-              data-val="done-for-you-pack"
-              data-pack="dfy"
-              data-pkg-name="Omnira"
-              data-pkg-subtitle="Turnkey Full-Stack Suite"
-              data-terms="terms-done-for-you-pack.html"
-              data-weeks="4"
-              data-inr="19999"
-              data-usd="239"
-              data-old-inr="65000"
-              data-old-usd="799"
-            >
-              <div class="tier-panel-header">
-                <div class="tier-title-cluster">
-                  <div class="tier-icon-box"><i data-icon="award"></i></div>
-                  <div>
-                    <div class="tier-badge-row">
-                      <span class="tier-tag-pill">ALL-INCLUSIVE TURNKEY</span>
-                      <span class="tier-sla-badge">3 – 5 Weeks</span>
-                    </div>
-                    <div class="tier-heading-name">Omnira</div>
-                    <div class="tier-heading-sub">Done-for-You End-to-End Application Pack</div>
-                  </div>
-                </div>
-
-                <div class="tier-price-cluster">
-                  <div class="tier-strike-row">
-                    <span class="tier-strike-val" data-old-price-label>₹65,000</span>
-                    <span class="tier-save-pill">SAVE 69%</span>
-                  </div>
-                  <div class="tier-big-price" id="dfy-price-badge" data-price-label>₹19,999</div>
-                  <span class="tier-price-caption">Complete agreed SOW</span>
-                </div>
-              </div>
-
-              <div class="tier-minimal-bullets-grid">
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label inc">
-                    <i data-icon="check-circle" class="icon-sm"></i>
-                    <span>What's Included</span>
-                  </div>
-                  <ul class="minimal-ul inc-ul">
-                    <li><i data-icon="check"></i><span>All 6 core feature modules pre-included</span></li>
-                    <li><i data-icon="check"></i><span>Custom UI/UX + admin panel + backend</span></li>
-                    <li><i data-icon="check"></i><span>Guided Play Store / Web / PC launch</span></li>
-                    <li><i data-icon="check"></i><span>Full IP handover + 30-day priority care</span></li>
-                  </ul>
-                </div>
-
-                <div class="minimal-bullet-box">
-                  <div class="minimal-box-label lim">
-                    <i data-icon="info" class="icon-sm"></i>
-                    <span>Key Limits &amp; Scope</span>
-                  </div>
-                  <ul class="minimal-ul lim-ul">
-                    <li><i data-icon="info"></i><span>Governed by written Statement of Work</span></li>
-                    <li><i data-icon="info"></i><span>Out-of-scope additions billed extra</span></li>
-                    <li><i data-icon="info"></i><span>3rd-party server/API bills separate</span></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tier-panel-footer">
-                <span><strong style="color:#1C7CE2;">● Active Package:</strong> Complete turnkey engineering</span>
-                <a href="terms-done-for-you-pack.html" class="card-terms-link">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>Omnira Terms &amp; Conditions</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- STEP 2: MINIMAL ADD-ON CHIPS -->
-          <div class="step2-minimal-box">
-            <div class="step2-top-row">
-              <span class="tabs-step-label" id="step-2-heading">2. Optional Feature Add-Ons (-15% on 3+)</span>
-              <div class="preset-mini-pills" id="addon-presets-bar">
-                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset([])">None</button>
-                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','storage'])">MVP (2)</button>
-                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','cloud','notifications'])">Cloud (3 • -15%)</button>
-                <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','storage','cloud','notifications','payments','custom'])">All 6 (-15%)</button>
-              </div>
-            </div>
-
-            <!-- Shown when Lumora (Free Pack) is active so the view stays minimal -->
-            <div id="free-addons-notice" class="free-addons-note">
-              <span><strong>Lumora (₹0)</strong> uses fixed eligible track scope. Need custom modules?</span>
-              <button type="button" class="preset-mini-btn" style="background:#1C7CE2;color:#fff;border-color:#1C7CE2;" onclick="selectPackById('android')">
-                Switch to Korvex (Android) →
-              </button>
-            </div>
-
-            <!-- Compact 2-Column Add-On Chips (Visible for Paid Tiers) -->
-            <div class="compact-addon-grid" id="module-chips" style="display:none;">
-              <button type="button" class="addon-pill selected" data-key="auth" data-weeks="0.25" data-inr="499" data-usd="6" onclick="toggleModule(this)">
-                <span class="addon-pill-left">
-                  <i data-icon="user" class="icon-sm"></i>
-                  <span>User Login &amp; Profiles</span>
-                </span>
-                <span class="addon-pill-price" data-price-label>+₹499</span>
-              </button>
-
-              <button type="button" class="addon-pill selected" data-key="storage" data-weeks="0.25" data-inr="499" data-usd="6" onclick="toggleModule(this)">
-                <span class="addon-pill-left">
-                  <i data-icon="hard-drive" class="icon-sm"></i>
-                  <span>Offline Save &amp; PDF Export</span>
-                </span>
-                <span class="addon-pill-price" data-price-label>+₹499</span>
-              </button>
-
-              <button type="button" class="addon-pill" data-key="cloud" data-weeks="0.5" data-inr="899" data-usd="11" onclick="toggleModule(this)">
-                <span class="addon-pill-left">
-                  <i data-icon="database" class="icon-sm"></i>
-                  <span>Cloud Database &amp; Sync</span>
-                </span>
-                <span class="addon-pill-price" data-price-label>+₹899</span>
-              </button>
-
-              <button type="button" class="addon-pill" data-key="notifications" data-weeks="0.25" data-inr="399" data-usd="5" onclick="toggleModule(this)">
-                <span class="addon-pill-left">
-                  <i data-icon="bell" class="icon-sm"></i>
-                  <span>Reminders &amp; Push Alerts</span>
-                </span>
-                <span class="addon-pill-price" data-price-label>+₹399</span>
-              </button>
-
-              <button type="button" class="addon-pill" data-key="payments" data-weeks="0.3" data-inr="699" data-usd="9" onclick="toggleModule(this)">
-                <span class="addon-pill-left">
-                  <i data-icon="shield" class="icon-sm"></i>
-                  <span>Payments / Licensing</span>
-                </span>
-                <span class="addon-pill-price" data-price-label>+₹699</span>
-              </button>
-
-              <button type="button" class="addon-pill" data-key="custom" data-weeks="0.3" data-inr="699" data-usd="9" onclick="toggleModule(this)">
-                <span class="addon-pill-left">
-                  <i data-icon="sparkles" class="icon-sm"></i>
-                  <span>AI / Custom Automation</span>
-                </span>
-                <span class="addon-pill-price" data-price-label>+₹699</span>
-              </button>
-            </div>
-          </div>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
+            id="tab-btn-dfy"
+            class="gemini-tab-btn"
+            data-target-val="done-for-you-pack"
+            onclick="selectPackById('done-for-you-pack')"
+          >
+            <span>Omnira</span>
+            <span class="gemini-tab-tag" data-tab-price="dfy">₹19,999</span>
+          </button>
         </div>
 
-        <!-- RIGHT COLUMN: Minimalist Sticky Order Summary & Checkout -->
-        <div class="summary-card-min" id="checkout-summary-panel">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-            <span style="font-family:var(--font-mono);font-size:0.72rem;color:#1C7CE2;font-weight:700;">QUOTE SUMMARY</span>
-            <span class="brand-badge" id="bp-timeline" style="display:inline-flex;">2 – 3 Weeks</span>
-          </div>
+        <div class="currency-toggle" role="group" aria-label="Currency selector">
+          <button type="button" class="curr-btn active" id="curr-inr" onclick="setCurrency('INR')">₹ INR</button>
+          <button type="button" class="curr-btn" id="curr-usd" onclick="setCurrency('USD')">$ USD</button>
+        </div>
+      </div>
 
-          <div class="price-banner" style="padding:14px 16px;">
+      <!-- GEMINI-INSPIRED 2-COLUMN PRICING & COSTING WORKSPACE -->
+      <div class="gemini-pricing-grid">
+
+        <!-- LEFT COLUMN: Single Active Gemini Costing Plan Card -->
+        <div id="platform-chips">
+
+          <!-- ===============================================================
+               PLAN 1: LUMORA (Free Android App Development Pack)
+               =============================================================== -->
+          <article
+            role="tabpanel"
+            id="free-android-package-card"
+            class="gemini-plan-card featured-plan active-tier-panel selected"
+            data-val="free-android"
+            data-pack="free"
+            data-pkg-name="Lumora"
+            data-pkg-subtitle="Free Android App Pack"
+            data-terms="terms-free-android-pack.html"
+            data-weeks="2"
+            data-inr="0"
+            data-usd="0"
+            data-old-inr="6000"
+            data-old-usd="75"
+          >
             <div>
-              <div class="total-lbl" id="bp-tier-tag" style="font-weight:700;color:#059669;">LUMORA • FREE TIER</div>
-              <div style="font-size:0.86rem;color:var(--text-primary);font-weight:700;margin-top:2px;" id="bp-title">Lumora — Free Android Pack</div>
+              <div class="gemini-card-top-bar">
+                <span class="gemini-plan-pill free-pill">
+                  <i data-icon="sparkles" class="icon-sm"></i>
+                  <span>Free Android Launchpad</span>
+                </span>
+                <span class="gemini-sla-text">Est. 2 – 3 weeks</span>
+              </div>
+
+              <h2 class="gemini-plan-name">Lumora</h2>
+              <p class="gemini-plan-tagline">
+                Launch your eligible Android app idea at zero upfront development cost, published on Easode’s Google Play account.
+              </p>
+
+              <div class="gemini-price-lockup">
+                <span class="gemini-price-starting">Upfront development fee</span>
+                <div class="gemini-price-row">
+                  <span class="gemini-price-number" id="free-pack-price-badge" data-price-label>₹0</span>
+                  <span class="gemini-price-unit">/ project with eligible Android scope</span>
+                </div>
+                <div class="gemini-price-highlight">
+                  <i data-icon="check-circle" class="icon-sm"></i>
+                  <span>Includes Play Store publishing ($25 fee saved)</span>
+                </div>
+              </div>
+
+              <!-- Eligible Track Pill Selector -->
+              <div class="gemini-track-selector">
+                <span class="gemini-track-label">Select eligible Android app track</span>
+                <div class="gemini-track-pills">
+                  <button type="button" class="lumora-track-chip active-track" data-track-val="E-commerce Application (Manageable Infrastructure)" onclick="pickLumoraTrack(this)">
+                    E-commerce Store
+                  </button>
+                  <button type="button" class="lumora-track-chip" data-track-val="Lightweight Online Application (Low Storage & Low Requests)" onclick="pickLumoraTrack(this)">
+                    Lightweight Online
+                  </button>
+                  <button type="button" class="lumora-track-chip" data-track-val="Offline Android Application (Offline-First Functionality)" onclick="pickLumoraTrack(this)">
+                    Offline Utility
+                  </button>
+                </div>
+              </div>
+
+              <!-- Subtle Minimal Visual Flow -->
+              <div class="gemini-visual-line">
+                <span>Idea approval → Native Kotlin build → Google Play release</span>
+                <svg class="gemini-visual-svg" viewBox="0 0 132 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="16" cy="16" r="10" fill="#10B981" fill-opacity="0.14" stroke="#059669" stroke-width="1.4"/>
+                  <path d="M13 16l2 2 4-4" stroke="#059669" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="30" y1="16" x2="52" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <rect x="56" y="6" width="20" height="20" rx="5" fill="#1a73e8" fill-opacity="0.12" stroke="#1a73e8" stroke-width="1.4"/>
+                  <line x1="80" y1="16" x2="102" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <circle cx="116" cy="16" r="10" fill="#10B981" fill-opacity="0.18" stroke="#059669" stroke-width="1.4"/>
+                  <polygon points="114,12 120,16 114,20" fill="#059669"/>
+                </svg>
+              </div>
+
+              <hr class="gemini-divider" />
+              <div class="gemini-list-intro">Included in Lumora:</div>
+
+              <ul class="gemini-feature-list">
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="smartphone" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Native Android application</strong>
+                    <span>Built in Kotlin &amp; Jetpack Compose with Material 3 UI</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="google-play" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Google Play publishing included</strong>
+                    <span>Hosted on Easode’s official Google Play Developer account</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="user" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Dedicated ‘About App’ attribution</strong>
+                    <span>Displays your business name, brand identity &amp; contact details</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon limit-icon"><i data-icon="info" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Scope &amp; monetization boundaries</strong>
+                    <span>Android only • Easode-managed ads • External hosting/APIs excluded</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <div style="text-align:right;">
-              <div class="total-val" id="bp-total-price">₹0 (FREE)</div>
-              <div style="font-family:var(--font-mono);font-size:0.65rem;color:#059669;font-weight:700;" id="bp-savings-note">You save ₹6,000 (100%)</div>
+
+            <div class="gemini-card-footer">
+              <span>Subject to technical feasibility &amp; eligibility approval</span>
+              <a href="terms-free-android-pack.html" class="gemini-terms-link">
+                <span>Lumora terms</span>
+                <i data-icon="arrow-right" class="icon-sm"></i>
+              </a>
             </div>
-          </div>
+          </article>
 
-          <div class="breakdown-list" id="bp-breakdown-list" style="max-height:175px;"></div>
-
-          <div class="bp-terms-bar" style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:0.72rem;">
-            <span style="color:var(--text-secondary);font-weight:600;" id="bp-terms-pack-lbl">Lumora Terms:</span>
-            <a id="bp-terms-link" href="terms-free-android-pack.html" class="card-terms-link">
-              <i data-icon="shield" class="icon-sm"></i>
-              <span>View Terms</span>
-            </a>
-          </div>
-
-          <div id="bp-dfy-disclaimer" class="dfy-scope-note" style="display:none;padding:8px 10px;font-size:0.71rem;">
-            <i data-icon="info" class="icon-sm"></i>
-            <span><strong>Omnira Scope:</strong> Includes all 6 core modules under an agreed SOW. Extra out-of-scope requests billed separately.</span>
-          </div>
-
-          <!-- Compact Eligibility Box for Lumora (Free Pack) -->
-          <div id="bp-free-pack-box" class="free-pack-summary-box" style="display:flex;">
+          <!-- ===============================================================
+               PLAN 2: VELTRO (Website / Web App Development Pack)
+               =============================================================== -->
+          <article
+            role="tabpanel"
+            id="card-pack-website"
+            class="gemini-plan-card plat-card-min"
+            data-val="website"
+            data-pack="modular"
+            data-pkg-name="Veltro"
+            data-pkg-subtitle="Website & Web App"
+            data-terms="terms-website-pack.html"
+            data-weeks="0.5"
+            data-inr="1499"
+            data-usd="19"
+            data-old-inr="3500"
+            data-old-usd="45"
+          >
             <div>
-              <label for="free-pack-app-type" style="display:block;font-family:var(--font-mono);font-size:0.65rem;color:var(--text-secondary);margin-bottom:4px;font-weight:700;">
-                ELIGIBLE ANDROID CATEGORY:
+              <div class="gemini-card-top-bar">
+                <span class="gemini-plan-pill">
+                  <i data-icon="globe" class="icon-sm"></i>
+                  <span>Responsive Web &amp; PWA</span>
+                </span>
+                <span class="gemini-sla-text">Est. 3 – 5 days</span>
+              </div>
+
+              <h2 class="gemini-plan-name">Veltro</h2>
+              <p class="gemini-plan-tagline">
+                Fast, responsive websites and interactive web applications engineered for mobile, tablet, and desktop browsers.
+              </p>
+
+              <div class="gemini-price-lockup">
+                <span class="gemini-price-starting">Starting at</span>
+                <div class="gemini-price-row">
+                  <span class="gemini-price-number plat-card-price" data-price-label>₹1,499</span>
+                  <span class="gemini-price-unit">/ base build + optional add-ons</span>
+                </div>
+                <div class="gemini-price-highlight">
+                  <i data-icon="check-circle" class="icon-sm"></i>
+                  <span>100% client-owned code bundle with zero ads</span>
+                </div>
+              </div>
+
+              <div class="gemini-visual-line">
+                <span>Responsive UI → Interactive modules → Full source bundle</span>
+                <svg class="gemini-visual-svg" viewBox="0 0 132 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="6" y="6" width="32" height="20" rx="4" fill="#1a73e8" fill-opacity="0.12" stroke="#1a73e8" stroke-width="1.4"/>
+                  <line x1="44" y1="16" x2="62" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <rect x="66" y="8" width="22" height="16" rx="3" fill="#6366f1" fill-opacity="0.12" stroke="#6366f1" stroke-width="1.4"/>
+                  <line x1="92" y1="16" x2="106" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <circle cx="118" cy="16" r="9" fill="#10B981" fill-opacity="0.15" stroke="#059669" stroke-width="1.4"/>
+                  <path d="M114 16l2.5 2.5 5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <hr class="gemini-divider" />
+              <div class="gemini-list-intro">Included in Veltro:</div>
+
+              <ul class="gemini-feature-list">
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="globe" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Responsive multi-device design</strong>
+                    <span>Fluid layouts optimized for mobile phones, tablets &amp; desktops</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="code" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Complete source code handover</strong>
+                    <span>Clean HTML5, CSS3 &amp; JavaScript bundle ready for deployment</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="shield" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Zero mandatory ads + 7-day warranty</strong>
+                    <span>Full monetization freedom and post-handover bug support</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon limit-icon"><i data-icon="info" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Scope &amp; infrastructure notes</strong>
+                    <span>Domain/hosting separate • Cloud DB, Auth &amp; Payments via add-ons</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="gemini-card-footer">
+              <span>Modular add-ons available in the costing panel</span>
+              <a href="terms-website-pack.html" class="gemini-terms-link">
+                <span>Veltro terms</span>
+                <i data-icon="arrow-right" class="icon-sm"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ===============================================================
+               PLAN 3: KORVEX (Custom Native Android App Pack)
+               =============================================================== -->
+          <article
+            role="tabpanel"
+            id="card-pack-android"
+            class="gemini-plan-card plat-card-min"
+            data-val="android"
+            data-pack="modular"
+            data-pkg-name="Korvex"
+            data-pkg-subtitle="Custom Android App"
+            data-terms="terms-android-app-pack.html"
+            data-weeks="1"
+            data-inr="2499"
+            data-usd="29"
+            data-old-inr="6000"
+            data-old-usd="75"
+          >
+            <div>
+              <div class="gemini-card-top-bar">
+                <span class="gemini-plan-pill">
+                  <i data-icon="smartphone" class="icon-sm"></i>
+                  <span>Native Kotlin &amp; Compose</span>
+                </span>
+                <span class="gemini-sla-text">Est. 1 – 2 weeks</span>
+              </div>
+
+              <h2 class="gemini-plan-name">Korvex</h2>
+              <p class="gemini-plan-tagline">
+                Custom, client-owned native Android application with signed release binaries and full source code handover.
+              </p>
+
+              <div class="gemini-price-lockup">
+                <span class="gemini-price-starting">Starting at</span>
+                <div class="gemini-price-row">
+                  <span class="gemini-price-number plat-card-price" data-price-label>₹2,499</span>
+                  <span class="gemini-price-unit">/ base build + optional add-ons</span>
+                </div>
+                <div class="gemini-price-highlight">
+                  <i data-icon="check-circle" class="icon-sm"></i>
+                  <span>Publish on your own Play Store • Zero Easode ads</span>
+                </div>
+              </div>
+
+              <div class="gemini-visual-line">
+                <span>Kotlin &amp; Compose UI → Signed APK/AAB → Full IP handover</span>
+                <svg class="gemini-visual-svg" viewBox="0 0 132 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="10" y="4" width="16" height="24" rx="3.5" fill="#1a73e8" fill-opacity="0.14" stroke="#1a73e8" stroke-width="1.4"/>
+                  <line x1="32" y1="16" x2="54" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <rect x="58" y="7" width="28" height="18" rx="4" fill="#6366f1" fill-opacity="0.14" stroke="#6366f1" stroke-width="1.4"/>
+                  <line x1="90" y1="16" x2="106" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <circle cx="118" cy="16" r="9" fill="#10B981" fill-opacity="0.15" stroke="#059669" stroke-width="1.4"/>
+                  <path d="M114 16l2.5 2.5 5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <hr class="gemini-divider" />
+              <div class="gemini-list-intro">Included in Korvex:</div>
+
+              <ul class="gemini-feature-list">
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="smartphone" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Native Kotlin &amp; Jetpack Compose</strong>
+                    <span>Smooth 60fps Material 3 Android interface for phones &amp; tablets</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="download" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Signed APK, Play AAB &amp; source code</strong>
+                    <span>100% client IP ownership upon completion with zero Easode ads</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="shield" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>14-day bug-fix warranty</strong>
+                    <span>Post-delivery stabilization and QA verification included</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon limit-icon"><i data-icon="info" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Scope &amp; infrastructure notes</strong>
+                    <span>Client Play Console fee ($25) separate • Cloud/Auth via add-ons</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="gemini-card-footer">
+              <span>15% bundle discount on 3+ add-ons</span>
+              <a href="terms-android-app-pack.html" class="gemini-terms-link">
+                <span>Korvex terms</span>
+                <i data-icon="arrow-right" class="icon-sm"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ===============================================================
+               PLAN 4: DRAVIX (Windows 10/11 Desktop Software Pack)
+               =============================================================== -->
+          <article
+            role="tabpanel"
+            id="card-pack-windows"
+            class="gemini-plan-card plat-card-min"
+            data-val="windows"
+            data-pack="modular"
+            data-pkg-name="Dravix"
+            data-pkg-subtitle="Windows Software"
+            data-terms="terms-windows-software-pack.html"
+            data-weeks="1.5"
+            data-inr="3499"
+            data-usd="42"
+            data-old-inr="8000"
+            data-old-usd="99"
+          >
+            <div>
+              <div class="gemini-card-top-bar">
+                <span class="gemini-plan-pill">
+                  <i data-icon="monitor" class="icon-sm"></i>
+                  <span>Windows 10 &amp; 11 Desktop</span>
+                </span>
+                <span class="gemini-sla-text">Est. 1.5 – 2.5 weeks</span>
+              </div>
+
+              <h2 class="gemini-plan-name">Dravix</h2>
+              <p class="gemini-plan-tagline">
+                Standalone Windows desktop applications, offline utilities, and workflow automation tools with zero seat fees.
+              </p>
+
+              <div class="gemini-price-lockup">
+                <span class="gemini-price-starting">Starting at</span>
+                <div class="gemini-price-row">
+                  <span class="gemini-price-number plat-card-price" data-price-label>₹3,499</span>
+                  <span class="gemini-price-unit">/ base build + optional add-ons</span>
+                </div>
+                <div class="gemini-price-highlight">
+                  <i data-icon="check-circle" class="icon-sm"></i>
+                  <span>Unlimited workstation installs • Full source handover</span>
+                </div>
+              </div>
+
+              <div class="gemini-visual-line">
+                <span>Desktop UI &amp; logic → Local DB/files → .EXE / .MSI installer</span>
+                <svg class="gemini-visual-svg" viewBox="0 0 132 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="6" y="5" width="30" height="18" rx="3" fill="#1a73e8" fill-opacity="0.14" stroke="#1a73e8" stroke-width="1.4"/>
+                  <line x1="15" y1="26" x2="27" y2="26" stroke="#1a73e8" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="42" y1="16" x2="62" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <rect x="66" y="7" width="26" height="18" rx="4" fill="#6366f1" fill-opacity="0.14" stroke="#6366f1" stroke-width="1.4"/>
+                  <line x1="96" y1="16" x2="106" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <circle cx="118" cy="16" r="9" fill="#10B981" fill-opacity="0.15" stroke="#059669" stroke-width="1.4"/>
+                  <path d="M114 16l2.5 2.5 5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <hr class="gemini-divider" />
+              <div class="gemini-list-intro">Included in Dravix:</div>
+
+              <ul class="gemini-feature-list">
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="monitor" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Native Windows 10/11 executable</strong>
+                    <span>Packaged 64-bit <code>.exe</code> / <code>.msi</code> installer plus source code</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="hard-drive" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Offline-capable local workflows</strong>
+                    <span>Fast local storage, file processing &amp; report generation</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="shield" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Zero per-seat licensing fees</strong>
+                    <span>Deploy across your office PCs with a 14-day bug warranty</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon limit-icon"><i data-icon="info" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Scope &amp; infrastructure notes</strong>
+                    <span>Windows OS only • External EV code-signing certificates separate</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="gemini-card-footer">
+              <span>15% bundle discount on 3+ add-ons</span>
+              <a href="terms-windows-software-pack.html" class="gemini-terms-link">
+                <span>Dravix terms</span>
+                <i data-icon="arrow-right" class="icon-sm"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ===============================================================
+               PLAN 5: OMNIRA (Turnkey Done-for-You Full-Stack Pack)
+               =============================================================== -->
+          <article
+            role="tabpanel"
+            id="dfy-package-card"
+            class="gemini-plan-card dfy-pack-card"
+            data-val="done-for-you-pack"
+            data-pack="dfy"
+            data-pkg-name="Omnira"
+            data-pkg-subtitle="Turnkey Full-Stack Suite"
+            data-terms="terms-done-for-you-pack.html"
+            data-weeks="4"
+            data-inr="19999"
+            data-usd="239"
+            data-old-inr="65000"
+            data-old-usd="799"
+          >
+            <div>
+              <div class="gemini-card-top-bar">
+                <span class="gemini-plan-pill">
+                  <i data-icon="award" class="icon-sm"></i>
+                  <span>End-to-End Turnkey Suite</span>
+                </span>
+                <span class="gemini-sla-text">Est. 3 – 5 weeks</span>
+              </div>
+
+              <h2 class="gemini-plan-name">Omnira</h2>
+              <p class="gemini-plan-tagline">
+                Complete end-to-end product engineering—custom architecture, UI/UX, backend, and all 6 core modules included.
+              </p>
+
+              <div class="gemini-price-lockup">
+                <span class="gemini-price-starting">Turnkey package price</span>
+                <div class="gemini-price-row">
+                  <span class="gemini-price-number" id="dfy-price-badge" data-price-label>₹19,999</span>
+                  <span class="gemini-price-unit">/ complete agreed Statement of Work</span>
+                </div>
+                <div class="gemini-price-highlight">
+                  <i data-icon="check-circle" class="icon-sm"></i>
+                  <span>Includes all 6 feature modules + 30-day priority care</span>
+                </div>
+              </div>
+
+              <div class="gemini-visual-line">
+                <span>Architecture &amp; UI/UX → All 6 modules → Guided launch</span>
+                <svg class="gemini-visual-svg" viewBox="0 0 132 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="6" y="7" width="24" height="18" rx="4" fill="#8b5cf6" fill-opacity="0.14" stroke="#8b5cf6" stroke-width="1.4"/>
+                  <line x1="34" y1="16" x2="52" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <rect x="56" y="6" width="30" height="20" rx="4" fill="#1a73e8" fill-opacity="0.14" stroke="#1a73e8" stroke-width="1.4"/>
+                  <line x1="90" y1="16" x2="106" y2="16" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <circle cx="118" cy="16" r="9" fill="#10B981" fill-opacity="0.16" stroke="#059669" stroke-width="1.4"/>
+                  <path d="M114 16l2.5 2.5 5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <hr class="gemini-divider" />
+              <div class="gemini-list-intro">Everything included in Omnira:</div>
+
+              <ul class="gemini-feature-list">
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="layers" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>All 6 core modules included</strong>
+                    <span>Auth, Cloud DB, Offline Export, Push, Payments &amp; AI/Automation</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="sparkles" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Custom UI/UX &amp; admin dashboard</strong>
+                    <span>Bespoke design system, backend APIs &amp; management console</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon"><i data-icon="check-circle" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Guided deployment &amp; 30-day care</strong>
+                    <span>Full source handover, store submission assist &amp; priority support</span>
+                  </div>
+                </li>
+                <li class="gemini-feature-item">
+                  <span class="gemini-feat-icon limit-icon"><i data-icon="info" class="icon-sm"></i></span>
+                  <div class="gemini-feat-text">
+                    <strong>Statement of Work (SOW) boundary</strong>
+                    <span>Out-of-scope additions &amp; 3rd-party server/API bills quoted separately</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="gemini-card-footer">
+              <span>Milestone-driven turnkey execution</span>
+              <a href="terms-done-for-you-pack.html" class="gemini-terms-link">
+                <span>Omnira terms</span>
+                <i data-icon="arrow-right" class="icon-sm"></i>
+              </a>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- ===============================================================
+             RIGHT COLUMN: GEMINI-STYLE "CALCULATE COSTING" & QUOTE CARD
+             =============================================================== -->
+        <aside class="gemini-calc-card summary-card-min" id="checkout-summary-panel" aria-label="Calculate Project Costing">
+          <div style="display:flex;flex-direction:column;gap:18px;">
+            <div class="gemini-calc-header">
+              <span class="gemini-calc-title">Calculate costing</span>
+              <span class="gemini-plan-pill" id="bp-timeline" style="display:inline-flex;">2 – 3 weeks</span>
+            </div>
+
+            <!-- Live Total Box -->
+            <div class="gemini-calc-total-box">
+              <div class="gemini-calc-plan-lbl" id="bp-tier-tag">Lumora • Free Android Pack</div>
+              <div class="gemini-calc-total-top" style="margin-top:4px;">
+                <div class="gemini-calc-total-val" id="bp-total-price">₹0 (FREE)</div>
+                <span style="font-size:0.76rem;color:#059669;font-weight:600;" id="bp-savings-note">You save ₹6,000 (100%)</span>
+              </div>
+              <div class="gemini-calc-subnote">
+                <span id="bp-title">Lumora — Free Android App Pack</span>
+                <a id="bp-terms-link" href="terms-free-android-pack.html" class="gemini-terms-link" style="font-size:0.74rem;">
+                  <span id="bp-terms-pack-lbl">Lumora terms</span>
+                  <i data-icon="external-link" class="icon-sm"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Optional Add-Ons Section -->
+            <div class="gemini-addons-section">
+              <div class="gemini-addons-top">
+                <span class="gemini-addons-lbl" id="step-2-heading">Optional feature add-ons</span>
+                <div class="preset-mini-pills" id="addon-presets-bar" style="display:none;">
+                  <button type="button" class="preset-mini-btn" onclick="applyAddonPreset([])">Base</button>
+                  <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','storage'])">MVP (2)</button>
+                  <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','cloud','notifications'])">Cloud (3 • -15%)</button>
+                  <button type="button" class="preset-mini-btn" onclick="applyAddonPreset(['auth','storage','cloud','notifications','payments','custom'])">All 6 (-15%)</button>
+                </div>
+              </div>
+
+              <!-- Shown when Lumora (Free Pack) is active -->
+              <div id="free-addons-notice" class="free-addons-note">
+                <span>Lumora uses an approved free-track scope. Need custom modules?</span>
+                <button type="button" class="preset-mini-btn" style="background:#1a73e8;color:#fff;border-color:#1a73e8;padding:4px 11px;" onclick="selectPackById('android')">
+                  Switch to Korvex →
+                </button>
+              </div>
+
+              <!-- Add-On Pills (Shown for Paid Tiers) -->
+              <div class="gemini-addon-grid" id="module-chips" style="display:none;">
+                <button type="button" class="addon-pill selected" data-key="auth" data-weeks="0.25" data-inr="499" data-usd="6" onclick="toggleModule(this)">
+                  <span class="addon-pill-left">
+                    <i data-icon="user" class="icon-sm"></i>
+                    <span>User Login &amp; Profiles</span>
+                  </span>
+                  <span class="addon-pill-price" data-price-label>+₹499</span>
+                </button>
+
+                <button type="button" class="addon-pill selected" data-key="storage" data-weeks="0.25" data-inr="499" data-usd="6" onclick="toggleModule(this)">
+                  <span class="addon-pill-left">
+                    <i data-icon="hard-drive" class="icon-sm"></i>
+                    <span>Offline Save &amp; PDF</span>
+                  </span>
+                  <span class="addon-pill-price" data-price-label>+₹499</span>
+                </button>
+
+                <button type="button" class="addon-pill" data-key="cloud" data-weeks="0.5" data-inr="899" data-usd="11" onclick="toggleModule(this)">
+                  <span class="addon-pill-left">
+                    <i data-icon="database" class="icon-sm"></i>
+                    <span>Cloud DB &amp; Sync</span>
+                  </span>
+                  <span class="addon-pill-price" data-price-label>+₹899</span>
+                </button>
+
+                <button type="button" class="addon-pill" data-key="notifications" data-weeks="0.25" data-inr="399" data-usd="5" onclick="toggleModule(this)">
+                  <span class="addon-pill-left">
+                    <i data-icon="bell" class="icon-sm"></i>
+                    <span>Reminders &amp; Push</span>
+                  </span>
+                  <span class="addon-pill-price" data-price-label>+₹399</span>
+                </button>
+
+                <button type="button" class="addon-pill" data-key="payments" data-weeks="0.3" data-inr="699" data-usd="9" onclick="toggleModule(this)">
+                  <span class="addon-pill-left">
+                    <i data-icon="shield" class="icon-sm"></i>
+                    <span>Payments / Licensing</span>
+                  </span>
+                  <span class="addon-pill-price" data-price-label>+₹699</span>
+                </button>
+
+                <button type="button" class="addon-pill" data-key="custom" data-weeks="0.3" data-inr="699" data-usd="9" onclick="toggleModule(this)">
+                  <span class="addon-pill-left">
+                    <i data-icon="sparkles" class="icon-sm"></i>
+                    <span>AI / Automation</span>
+                  </span>
+                  <span class="addon-pill-price" data-price-label>+₹699</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Itemized Breakdown -->
+            <div style="border-top:1px solid var(--border-subtle);padding-top:12px;">
+              <div class="breakdown-list" id="bp-breakdown-list"></div>
+            </div>
+
+            <div id="bp-dfy-disclaimer" class="dfy-scope-note" style="display:none;padding:9px 12px;font-size:0.74rem;border-radius:14px;">
+              <i data-icon="info" class="icon-sm"></i>
+              <span>Omnira includes all 6 core modules under a mutually signed SOW. Out-of-scope additions are quoted separately.</span>
+            </div>
+
+            <!-- Compact Eligibility Box for Lumora (Free Pack) -->
+            <div id="bp-free-pack-box" class="free-pack-summary-box" style="display:flex;border-radius:16px;padding:12px 14px;">
+              <div>
+                <label for="free-pack-app-type" style="display:block;font-size:0.72rem;color:var(--text-secondary);margin-bottom:5px;font-weight:600;">
+                  Eligible Android category
+                </label>
+                <select
+                  id="free-pack-app-type"
+                  class="neg-currency-select"
+                  style="width:100%;padding:8px 12px;font-size:0.78rem;border-radius:10px;"
+                  onchange="syncLumoraTrackFromSelect()"
+                >
+                  <option value="E-commerce Application (Manageable Infrastructure)">1. E-commerce Application</option>
+                  <option value="Lightweight Online Application (Low Storage & Low Requests)">2. Lightweight Online Application</option>
+                  <option value="Offline Android Application (Offline-First Functionality)">3. Offline Utility Application</option>
+                </select>
+              </div>
+
+              <label class="terms-accept-row" id="free-pack-terms-row" for="free-pack-terms-checkbox" style="border-radius:10px;">
+                <input type="checkbox" id="free-pack-terms-checkbox" onchange="handleFreePackTermsCheckbox()" />
+                <span>
+                  I accept the <a href="terms-free-android-pack.html" id="free-pack-inline-terms-link" style="color:#1a73e8;font-weight:600;text-decoration:underline;">Lumora Free Pack Terms</a>.
+                </span>
               </label>
-              <select
-                id="free-pack-app-type"
-                class="neg-currency-select"
-                style="width:100%;padding:6px 9px;font-size:0.74rem;"
-                onchange="syncLumoraTrackFromSelect()"
-              >
-                <option value="E-commerce Application (Manageable Infrastructure)">1. E-commerce Application</option>
-                <option value="Lightweight Online Application (Low Storage & Low Requests)">2. Lightweight Online Application</option>
-                <option value="Offline Android Application (Offline-First Functionality)">3. Offline Utility Application</option>
-              </select>
-            </div>
-
-            <label class="terms-accept-row" id="free-pack-terms-row" for="free-pack-terms-checkbox">
-              <input type="checkbox" id="free-pack-terms-checkbox" onchange="handleFreePackTermsCheckbox()" />
-              <span>
-                I accept the <a href="terms-free-android-pack.html" id="free-pack-inline-terms-link" style="color:#1C7CE2;font-weight:700;text-decoration:underline;">Lumora Free Pack Terms</a>.
-              </span>
-            </label>
-            <div id="free-pack-terms-warning" style="display:none;color:#dc2626;font-size:0.7rem;font-weight:600;">
-              Please accept the Lumora Terms &amp; Conditions above to continue.
+              <div id="free-pack-terms-warning" style="display:none;color:#dc2626;font-size:0.72rem;font-weight:600;">
+                Please accept the Lumora Terms &amp; Conditions above to continue.
+              </div>
             </div>
           </div>
 
-          <div style="padding-top:6px;border-top:1px solid var(--border-subtle);">
+          <!-- Bottom Pill Actions (Gemini "Get started" style) -->
+          <div style="padding-top:12px;border-top:1px solid var(--border-subtle);">
             <input
               type="text"
               id="client-project-name"
-              class="calc-project-input"
-              style="margin-bottom:9px;padding:9px 12px;font-size:0.81rem;"
+              class="gemini-input"
               placeholder="Project or app name (optional)"
               aria-label="Project or app name"
               oninput="updateBlueprint()"
@@ -7173,20 +7687,19 @@
               <a
                 id="mailto-launch-btn"
                 href="mailto:hello@easode.com"
-                class="btn-primary calc-action-btn"
-                style="padding:11px 16px;"
+                class="btn-gemini-primary"
                 onclick="return handleEstimateSubmitClick(event)"
               >
-                <i data-icon="send" class="icon-sm"></i>
-                <span id="mailto-launch-lbl">Claim Lumora Free Build (₹0)</span>
+                <span id="mailto-launch-lbl">Get started with Lumora (₹0)</span>
+                <i data-icon="arrow-right" class="icon-sm"></i>
               </a>
-              <button type="button" class="btn-negotiate calc-action-btn" id="request-negotiation-btn" style="padding:9px 14px;" onclick="openNegotiationModal()">
+              <button type="button" class="btn-gemini-outline" id="request-negotiation-btn" onclick="openNegotiationModal()">
                 <i data-icon="message-square" class="icon-sm"></i>
-                <span id="request-negotiation-lbl">Request Price Negotiation</span>
+                <span id="request-negotiation-lbl">Request price negotiation</span>
               </button>
             </div>
           </div>
-        </div>
+        </aside>
 
       </div>
     </section>
@@ -7197,7 +7710,7 @@
     <div class="modal-card">
       <div class="modal-top">
         <div>
-          <span class="brand-badge">FLEXIBLE PRICING</span>
+          <span class="brand-badge" style="display:inline-flex;">FLEXIBLE PRICING</span>
           <h3 id="neg-modal-title" style="font-size:1.22rem;margin-top:6px;">Request Price Negotiation</h3>
         </div>
         <button type="button" class="btn-icon" onclick="closeNegotiationModal()" aria-label="Close modal">
@@ -7243,8 +7756,8 @@
       <div class="negotiation-toast" id="negotiation-toast"></div>
 
       <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:4px;">
-        <button type="button" class="btn-secondary" onclick="closeNegotiationModal()">Cancel</button>
-        <button type="button" class="btn-primary" onclick="submitNegotiationRequest()">
+        <button type="button" class="btn-secondary" onclick="closeNegotiationModal()" style="border-radius:999px;">Cancel</button>
+        <button type="button" class="btn-primary" onclick="submitNegotiationRequest()" style="border-radius:999px;">
           <i data-icon="send" class="icon-sm"></i>
           <span>Send Request</span>
         </button>
@@ -7392,13 +7905,7 @@
     }
 
     /* =========================================================================
-       2. TAB-BASED MINIMALIST PRICE CALCULATOR ENGINE
-          Standard Package Names:
-          - Lumora  (Free Android Pack: ₹0 / $0)
-          - Veltro  (Website & Web App: ₹1,499 / $19)
-          - Korvex  (Custom Android App: ₹2,499 / $29)
-          - Dravix  (Windows Software: ₹3,499 / $42)
-          - Omnira  (Turnkey Full-Stack Suite: ₹19,999 / $239)
+       2. GEMINI-STYLE TABBED COSTING & CALCULATOR ENGINE
        ========================================================================= */
     let activeCurrency = 'INR';
     let activePlatformEl = document.getElementById('free-android-package-card');
@@ -7406,7 +7913,7 @@
 
     function formatCurrency(inrVal, usdVal, isDfy = false, isFree = false) {
       if (isFree) {
-        return activeCurrency === 'INR' ? '₹0 (FREE)' : '$0 (FREE)';
+        return activeCurrency === 'INR' ? '₹0' : '$0';
       }
       if (activeCurrency === 'INR') {
         return '₹' + Number(inrVal).toLocaleString('en-IN');
@@ -7446,14 +7953,10 @@
         if (priceLbl) {
           priceLbl.textContent = formatCurrency(card.dataset.inr, card.dataset.usd, false, isFree);
         }
-        const oldLbl = card.querySelector('[data-old-price-label]');
-        if (oldLbl && card.dataset.oldInr) {
-          oldLbl.textContent = formatCurrency(card.dataset.oldInr, card.dataset.oldUsd, false, false);
-        }
       });
 
       const tabPrices = {
-        free: curr === 'INR' ? '₹0 FREE' : '$0 FREE',
+        free: 'Free',
         website: curr === 'INR' ? '₹1,499' : '$19',
         android: curr === 'INR' ? '₹2,499' : '$29',
         windows: curr === 'INR' ? '₹3,499' : '$42',
@@ -7473,13 +7976,13 @@
     }
 
     function syncActiveTabUI(selectedVal) {
-      document.querySelectorAll('.tier-tab-btn').forEach(tabBtn => {
+      document.querySelectorAll('.gemini-tab-btn').forEach(tabBtn => {
         const isMatch = tabBtn.getAttribute('data-target-val') === selectedVal;
         tabBtn.classList.toggle('active-tab', isMatch);
         tabBtn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
       });
 
-      document.querySelectorAll('#platform-chips .tier-panel-card').forEach(panel => {
+      document.querySelectorAll('#platform-chips .gemini-plan-card').forEach(panel => {
         const isMatch = panel.getAttribute('data-val') === selectedVal;
         panel.classList.toggle('active-tier-panel', isMatch);
         panel.classList.toggle('selected', isMatch);
@@ -7505,14 +8008,14 @@
 
       if (panelEl.dataset.pack === 'dfy') {
         document.querySelectorAll('#module-chips .addon-pill').forEach(c => c.classList.remove('selected'));
-        if (step2Heading) step2Heading.textContent = '2. Optional Out-of-Scope Add-Ons (All 6 Core Modules Included in Omnira)';
+        if (step2Heading) step2Heading.textContent = 'Optional out-of-scope add-ons (6 core modules included)';
       } else {
         if (wasFree) {
           document.querySelectorAll('#module-chips .addon-pill').forEach(c => {
             c.classList.toggle('selected', savedPaidAddonKeys.includes(c.dataset.key));
           });
         }
-        if (step2Heading) step2Heading.textContent = `2. Optional ${panelEl.dataset.pkgName} Add-Ons (-15% on 3+)`;
+        if (step2Heading) step2Heading.textContent = `Optional ${panelEl.dataset.pkgName} add-ons (-15% on 3+)`;
       }
 
       updateBlueprint();
@@ -7538,7 +8041,7 @@
       if (presetsBar) presetsBar.style.display = 'none';
       if (freeNotice) freeNotice.style.display = 'flex';
       if (step2Heading) {
-        step2Heading.textContent = '2. Optional Feature Add-Ons';
+        step2Heading.textContent = 'Optional feature add-ons';
       }
 
       updateBlueprint();
@@ -7627,18 +8130,17 @@
         const appCatEl = document.getElementById('free-pack-app-type');
         const appCat = appCatEl ? appCatEl.value : 'Eligible Android App';
         breakdownHtml.push(
-          `<div class="breakdown-row"><span>Package: <strong>Lumora</strong> (Free Pack)</span><strong style="color:#10B981;">${formatCurrency(0, 0, false, true)}</strong></div>`,
-          `<div class="breakdown-row"><span>• Track: ${appCat.split('(')[0].trim()}</span><strong>Android Only</strong></div>`,
-          `<div class="breakdown-row"><span>• Easode Play Store Publishing</span><strong style="color:#10B981;">Included</strong></div>`,
-          `<div class="breakdown-row"><span>• Easode-Managed Ads</span><strong>Required</strong></div>`
+          `<div class="breakdown-row"><span>Lumora base development</span><strong style="color:#059669;">${formatCurrency(0, 0, false, true)}</strong></div>`,
+          `<div class="breakdown-row"><span>Track: ${appCat.split('(')[0].trim()}</span><strong>Included</strong></div>`,
+          `<div class="breakdown-row"><span>Easode Play Store publishing</span><strong style="color:#059669;">Included</strong></div>`
         );
       } else {
         breakdownHtml.push(
-          `<div class="breakdown-row"><span>Package: <strong>${pkgName}</strong> (${pkgSub})</span><strong>${formatCurrency(baseInr, baseUsd, isDfy, false)}</strong></div>`
+          `<div class="breakdown-row"><span>${pkgName} base package</span><strong>${formatCurrency(baseInr, baseUsd, isDfy, false)}</strong></div>`
         );
         if (isDfy) {
           breakdownHtml.push(
-            `<div class="breakdown-row"><span>• All 6 Core Feature Modules</span><strong style="color:#10B981;">Included</strong></div>`
+            `<div class="breakdown-row"><span>All 6 core feature modules</span><strong style="color:#059669;">Included</strong></div>`
           );
         }
       }
@@ -7665,14 +8167,17 @@
         discountInr = Math.round(addonsInr * 0.15);
         discountUsd = Math.max(1, Math.round(addonsUsd * 0.15));
         breakdownHtml.push(
-          `<div class="breakdown-row" style="color:#059669;"><span>★ 3+ Add-On Bundle Discount (-15%)</span><strong style="color:#059669;">-${formatCurrency(discountInr, discountUsd)}</strong></div>`
+          `<div class="breakdown-row" style="color:#059669;"><span>3+ add-on bundle discount (-15%)</span><strong style="color:#059669;">-${formatCurrency(discountInr, discountUsd)}</strong></div>`
         );
       }
 
       const totalInr = baseInr + addonsInr - discountInr;
       const totalUsd = baseUsd + addonsUsd - discountUsd;
 
-      const formattedTotal = formatCurrency(totalInr, totalUsd, isDfy && selectedModules.length === 0, isFree);
+      const formattedTotal = isFree
+        ? (activeCurrency === 'INR' ? '₹0 (FREE)' : '$0 (FREE)')
+        : formatCurrency(totalInr, totalUsd, isDfy && selectedModules.length === 0, false);
+
       document.getElementById('bp-total-price').textContent = formattedTotal;
       document.getElementById('bp-breakdown-list').innerHTML = breakdownHtml.join('');
 
@@ -7680,23 +8185,23 @@
       const savingsNoteEl = document.getElementById('bp-savings-note');
       if (tierTagEl) {
         tierTagEl.textContent = isFree
-          ? 'LUMORA • 100% FREE BUILD'
-          : `SELECTED • ${pkgName.toUpperCase()}`;
-        tierTagEl.style.color = isFree ? '#059669' : '#1C7CE2';
+          ? 'Lumora • Free Android Pack'
+          : `${pkgName} • ${pkgSub}`;
+        tierTagEl.style.color = isFree ? '#059669' : '#1a73e8';
       }
       if (savingsNoteEl) {
         const savedInr = Math.max(0, (oldBaseInr - baseInr) + discountInr);
         const savedUsd = Math.max(0, (oldBaseUsd - baseUsd) + discountUsd);
         savingsNoteEl.textContent = isFree
-          ? `You save ${formatCurrency(6000, 75)} (100%)`
-          : `You save ${formatCurrency(savedInr, savedUsd)} vs agency rates`;
+          ? `Saves ${formatCurrency(6000, 75)} upfront`
+          : `Saves ${formatCurrency(savedInr, savedUsd)} vs agency rates`;
       }
 
       const termsFile = activePlatformEl.dataset.terms || 'terms-android-app-pack.html';
       const bpTermsLink = document.getElementById('bp-terms-link');
       const bpTermsLbl = document.getElementById('bp-terms-pack-lbl');
       if (bpTermsLbl) {
-        bpTermsLbl.textContent = `${pkgName} Terms:`;
+        bpTermsLbl.textContent = `${pkgName} terms`;
       }
       if (bpTermsLink) {
         bpTermsLink.setAttribute('href', termsFile);
@@ -7715,8 +8220,8 @@
       const launchLbl = document.getElementById('mailto-launch-lbl');
       if (launchLbl) {
         launchLbl.textContent = isFree
-          ? `Claim Lumora Free Build (${formatCurrency(0, 0, false, true)})`
-          : `Order ${pkgName} (${formattedTotal})`;
+          ? `Get started with Lumora (${formatCurrency(0, 0, false, true)})`
+          : `Get started with ${pkgName} (${formattedTotal})`;
       }
 
       const projName = document.getElementById('client-project-name').value.trim();
@@ -7727,15 +8232,15 @@
       const minW = Math.max(1, Math.floor(totalWeeks));
       const maxW = Math.ceil(totalWeeks + (isDfy ? 1.5 : 0.8));
       document.getElementById('bp-timeline').textContent = isFree
-        ? `2 – 3 Weeks`
-        : (totalWeeks < 1 && selectedModules.length === 0 ? `3 – 5 Days` : `${minW} – ${maxW} Weeks`);
+        ? `2 – 3 weeks`
+        : (totalWeeks < 1 && selectedModules.length === 0 ? `3 – 5 days` : `${minW} – ${maxW} weeks`);
 
       const negEst = document.getElementById('neg-current-estimate');
       const negCnt = document.getElementById('neg-feature-count');
       if (negEst) negEst.textContent = formattedTotal;
       if (negCnt) {
         if (isFree) {
-          negCnt.textContent = 'Lumora Free Pack (₹0)';
+          negCnt.textContent = 'Lumora Free Pack';
         } else if (isDfy) {
           negCnt.textContent = selectedModules.length ? `Omnira + ${selectedModules.length} Extra` : 'Omnira Turnkey';
         } else {
@@ -7749,15 +8254,15 @@
 
       const subject = encodeURIComponent(
         isFree
-          ? `Easode Lumora (Free Android Pack) Inquiry: ${projName || 'Eligible Android App'} (₹0 / FREE)`
+          ? `Easode Lumora Inquiry: ${projName || 'Eligible Android App'} (₹0 / FREE)`
           : `Easode ${pkgName} Quote: ${projName || pkgSub} (${formattedTotal})`
       );
 
       const body = encodeURIComponent(
         isFree
-          ? `Hello Easode Team,\n\nI would like to apply for Lumora (Free Android App Development Pack — ₹0 / FREE):\n` +
+          ? `Hello Easode Team,\n\nI would like to apply for Lumora — Free Android App Development Pack (₹0 / FREE):\n` +
             `- Project / App Name: ${projName || 'New Android App Idea'}\n` +
-            `- Selected Package: Lumora (Free Android Pack — ₹0 / FREE)\n` +
+            `- Selected Package: Lumora — Free Android App Pack (₹0 / FREE)\n` +
             `- Eligible Application Category: ${freeAppCat}\n` +
             `- Terms & Conditions (terms-free-android-pack.html): ${cbAccepted}\n\n` +
             `Please evaluate my Android application idea and share the next steps.`
@@ -7854,7 +8359,7 @@
       const formattedBudget = formatNegotiationBudget(rawBudget, selectedCurr);
       const notes = document.getElementById('neg-notes').value.trim() || 'Flexible scope discussion';
       const calcQuote = window.currentFormattedQuote || '₹0 (FREE)';
-      const platName = window.currentPlatformName || 'Lumora (Free Android Pack)';
+      const platName = window.currentPlatformName || 'Lumora — Free Android App Pack';
       const feats = (window.currentSelectedFeatures || []).join(', ') || 'Base Scope';
 
       negToast.textContent = `Negotiation request ready for ${clientName} (Proposed Budget: ${formattedBudget} vs Estimate: ${calcQuote}). Opening your email app...`;
@@ -7875,6 +8380,52 @@
 
       window.location.href = `mailto:hello@easode.com?subject=${subject}&body=${body}`;
     }
+
+    /* =========================================================================
+       4. DYNAMIC SCROLL-AWARE TITLE BAR & SUBTLE ENTRANCE ANIMATIONS
+       ========================================================================= */
+    (function initEasodeDynamicUI() {
+      const navbar = document.querySelector('header.navbar');
+      const mobileDrawer = document.getElementById('mobile-nav-drawer');
+      let isNavVisible = false;
+      let ticking = false;
+
+      function updateNavbarVisibility() {
+        ticking = false;
+        if (!navbar) return;
+        const y = window.scrollY || window.pageYOffset || 0;
+        const drawerOpen = mobileDrawer && mobileDrawer.classList.contains('open');
+
+        if (drawerOpen || y > 38) {
+          if (!isNavVisible) {
+            isNavVisible = true;
+            navbar.classList.remove('navbar-at-top-hidden');
+            navbar.classList.add('navbar-scrolled-visible');
+          }
+        } else if (y < 12) {
+          if (isNavVisible) {
+            isNavVisible = false;
+            navbar.classList.remove('navbar-scrolled-visible');
+            navbar.classList.add('navbar-at-top-hidden');
+          }
+        }
+      }
+
+      if (navbar) {
+        const initY = window.scrollY || window.pageYOffset || 0;
+        if (initY > 38) {
+          isNavVisible = true;
+          navbar.classList.remove('navbar-at-top-hidden');
+          navbar.classList.add('navbar-scrolled-visible');
+        }
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(updateNavbarVisibility);
+          }
+        }, { passive: true });
+      }
+    })();
 
     renderAllIcons();
   </script>
