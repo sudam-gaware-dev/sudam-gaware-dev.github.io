@@ -8,12 +8,30 @@
   <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' width='100%25' height='100%25'%3E%3Cpath fill='%23FF7B1C' d='M 373,303 L 630,303 A 48,48 0 0 1 678,351 L 678,648 A 48,48 0 0 1 630,696 L 526,696 A 51,51 0 0 1 526,594 L 594,594 L 594,568 L 510,568 A 68,68 0 0 1 510,432 L 594,432 L 594,405 L 373,405 A 51,51 0 0 1 373,303 Z M 387,567 A 65,65 0 1 1 387,697 A 65,65 0 1 1 387,567 Z' /%3E%3C/svg%3E">
 
-  <!-- Open Graph -->
+  <!-- Canonical URL -->
+  <link rel="canonical" id="link-canonical" href="https://easode.com/diwali">
+
+  <!-- Open Graph (OG) Meta Tags for Rich WhatsApp, Facebook & Social Link Previews -->
+  <meta property="og:title" id="meta-og-title" content="Easode Diwali Wishes | Happy Diwali 2026">
+  <meta property="og:description" id="meta-og-description" content="Celebrate the Festival of Lights with an interactive 3D Star Lantern, sparkling Diwali firecrackers, and personalized wishes for your family and friends.">
+  <meta property="og:image" id="meta-og-image" content="https://images.ctfassets.net/r65x6q43xsmv/4YxOVeMsFuWqNMvTiuH6pH/c698c28d62fb3d93111fc0179fc69e6b/Untitled_design__1_.png?fm=jpg&w=1200&h=630&fit=fill&q=85">
+  <meta property="og:image:secure_url" content="https://images.ctfassets.net/r65x6q43xsmv/4YxOVeMsFuWqNMvTiuH6pH/c698c28d62fb3d93111fc0179fc69e6b/Untitled_design__1_.png?fm=jpg&w=1200&h=630&fit=fill&q=85">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Happy Diwali Festival of Lights Poster with Glowing Diya">
+  <meta property="og:url" id="meta-og-url" content="https://easode.com/diwali">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://easode.com/diwali">
-  <meta property="og:title" content="Happy Diwali | A Celebration from Easode">
-  <meta property="og:description" content="Step into a radiant 3D Diwali celebration featuring a floating diya in deep cosmos and personalized greetings.">
   <meta property="og:site_name" content="Easode">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Twitter Card Meta Tags for Cross-Platform Compatibility -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="meta-tw-title" content="Easode Diwali Wishes | Happy Diwali 2026">
+  <meta name="twitter:description" id="meta-tw-description" content="Celebrate the Festival of Lights with an interactive 3D Star Lantern, sparkling Diwali firecrackers, and personalized wishes for your family and friends.">
+  <meta name="twitter:image" id="meta-tw-image" content="https://images.ctfassets.net/r65x6q43xsmv/4YxOVeMsFuWqNMvTiuH6pH/c698c28d62fb3d93111fc0179fc69e6b/Untitled_design__1_.png?fm=jpg&w=1200&h=630&fit=fill&q=85">
+  <meta name="twitter:image:alt" content="Happy Diwali Festival of Lights Poster with Glowing Diya">
+  <meta name="twitter:url" id="meta-tw-url" content="https://easode.com/diwali">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -122,6 +140,17 @@
       z-index: 0;
     }
 
+    /* Distant Background Sky Rockets Canvas (z-5: behind form z-20, star lantern z-25, and texts z-35) */
+    #bg-fireworks-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
     /* 3D Foreground Star Lantern WebGL Canvas (z-25: above form z-20, below wishing text z-35) */
     #lantern-canvas {
       position: fixed;
@@ -209,6 +238,9 @@
     <canvas id="webgl-canvas" class="w-full h-full block"></canvas>
   </div>
 
+  <!-- Distant Background Multi-Color Rockets Canvas (z-5, far behind 3D Star Lantern & Wishing Texts) -->
+  <canvas id="bg-fireworks-canvas"></canvas>
+
   <!-- 3D Foreground Star Lantern Canvas (z-35, always above/in front of the form) -->
   <canvas id="lantern-canvas" class="w-full h-full block"></canvas>
 
@@ -217,13 +249,17 @@
 
   <!-- Sticky Top Header -->
   <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-3 flex items-center justify-between bg-black/50 backdrop-blur-md border-b border-white/10">
-    <!-- Brand (Official Easode Vector SVG Logo) -->
+    <!-- Brand (Official Easode Vector SVG Logo with Direct Orange-to-Amber Gradient Fill & Full w-8 h-8 Scale) -->
     <a href="https://easode.com" id="brand-link" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 group">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-orange-600 to-amber-400 flex items-center justify-center text-black shadow-md shadow-orange-500/25 group-hover:scale-105 transition-transform">
-        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" aria-hidden="true">
-          <path fill="currentColor" d="M 373,303 L 630,303 A 48,48 0 0 1 678,351 L 678,648 A 48,48 0 0 1 630,696 L 526,696 A 51,51 0 0 1 526,594 L 594,594 L 594,568 L 510,568 A 68,68 0 0 1 510,432 L 594,432 L 594,405 L 373,405 A 51,51 0 0 1 373,303 Z M 387,567 A 65,65 0 1 1 387,697 A 65,65 0 1 1 387,567 Z" />
-        </svg>
-      </div>
+      <svg class="w-8 h-8 shrink-0 group-hover:scale-105 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="322 303 356 394" aria-hidden="true">
+        <defs>
+          <linearGradient id="easode-brand-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#EA580C" />
+            <stop offset="100%" stop-color="#FBBF24" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#easode-brand-gradient)" d="M 373,303 L 630,303 A 48,48 0 0 1 678,351 L 678,648 A 48,48 0 0 1 630,696 L 526,696 A 51,51 0 0 1 526,594 L 594,594 L 594,568 L 510,568 A 68,68 0 0 1 510,432 L 594,432 L 594,405 L 373,405 A 51,51 0 0 1 373,303 Z M 387,567 A 65,65 0 1 1 387,697 A 65,65 0 1 1 387,567 Z" />
+      </svg>
       <div>
         <span class="font-bold text-base tracking-wider text-white">EASODE</span>
         <span class="hidden sm:inline-block text-[10px] text-white/60 tracking-widest uppercase ml-2 border-l border-white/15 pl-2">Diwali 2026</span>
@@ -1939,18 +1975,18 @@
         }
 
         function triggerLadi() {
-          // Placed randomly anywhere on the screen like Sutli Bomb; supports simultaneous Ladis!
+          // Placed randomly anywhere on the screen like Sutli Bomb; supports simultaneous Ladis with 32 densely packed bombs!
           const W = canvas.width;
           const H = canvas.height;
-          const minY = getTitleBarBottom() + 85;
-          const maxY = Math.max(minY + 60, getGroundAboveButtonsY(H) - 25);
-          const padX = Math.min(95, W * 0.15);
+          const minY = getTitleBarBottom() + 95;
+          const maxY = Math.max(minY + 60, getGroundAboveButtonsY(H) - 35);
+          const padX = Math.min(105, W * 0.16);
 
           const centerX = padX + Math.random() * Math.max(40, W - padX * 2);
           const centerY = minY + Math.random() * (maxY - minY);
-          const tiltAngle = -Math.PI * 0.5 + (Math.random() - 0.5) * 0.95;
-          const crackerCount = 14;
-          const totalLen = 112;
+          const tiltAngle = -Math.PI * 0.5 + (Math.random() - 0.5) * 0.90;
+          const crackerCount = 32;
+          const totalLen = 188;
 
           const crackers = [];
           for (let i = 0; i < crackerCount; i++) {
@@ -1958,15 +1994,16 @@
             const spineX = centerX + Math.cos(tiltAngle) * (t * totalLen);
             const spineY = centerY + Math.sin(tiltAngle) * (t * totalLen);
             const side = (i % 2 === 0) ? 1 : -1;
-            const perpAngle = tiltAngle + side * (Math.PI * 0.38);
+            const rowOffset = (i % 4 < 2) ? 11.5 : 15.5;
+            const perpAngle = tiltAngle + side * (Math.PI * 0.36);
             crackers.push({
               spineX: spineX,
               spineY: spineY,
-              cx: spineX + Math.cos(perpAngle) * 11,
-              cy: spineY + Math.sin(perpAngle) * 11,
+              cx: spineX + Math.cos(perpAngle) * rowOffset,
+              cy: spineY + Math.sin(perpAngle) * rowOffset,
               angle: perpAngle,
               popped: false,
-              popFrame: 18 + i * 7
+              popFrame: 14 + Math.floor(i * 3.8)
             });
           }
 
@@ -1976,11 +2013,11 @@
             tiltAngle: tiltAngle,
             totalLen: totalLen,
             age: 0,
-            maxAge: 18 + crackerCount * 7 + 8,
+            maxAge: 14 + Math.floor(crackerCount * 3.8) + 10,
             crackers: crackers
           });
 
-          AudioEngine.playFuseSizzle(0.32);
+          AudioEngine.playFuseSizzle(0.35);
           ensureLoopRunning();
         }
 
@@ -2825,6 +2862,238 @@
       })();
 
       // ==========================================
+      // 4B. FAR-DISTANCE BACKGROUND MULTI-COLOR SKY ROCKETS ENGINE
+      // Renders at z-index: 5 (far behind the 3D Star Lantern z-25 and Wishing Texts z-35)
+      // ==========================================
+      const BackgroundSkyRocketsEngine = (function () {
+        let canvas, ctx;
+        let bgRockets = [];
+        let bgSparks = [];
+        let bgFlashes = [];
+        let nextSpawnTimer = 25;
+
+        const COLOR_PALETTES = [
+          ['#00E5FF', '#84FFFF', '#FFFFFF'], // Electric Cyan & Ice
+          ['#FF4081', '#FF80AB', '#FFE57F'], // Festive Rose Magenta & Gold
+          ['#00E676', '#B9F6CA', '#FFF59D'], // Emerald Green & Lemon
+          ['#B388FF', '#EA80FC', '#FFFFFF'], // Royal Violet & Orchid
+          ['#FFD740', '#FF9100', '#FFFFFF'], // Golden Amber & Sunburst
+          ['#FF5252', '#FF8A80', '#FFD54F'], // Ruby Crimson & Gold
+          ['#40C4FF', '#82B1FF', '#E1F5FE'], // Celestial Sapphire
+          ['#AEEA00', '#64DD17', '#FFF9C4']  // Neon Lime & Warm White
+        ];
+
+        function init() {
+          canvas = document.getElementById('bg-fireworks-canvas');
+          if (!canvas) return;
+          ctx = canvas.getContext('2d');
+          resize();
+          window.addEventListener('resize', resize);
+
+          // Spawn a couple of distant background rockets shortly after load
+          spawnDistantRocket();
+          requestAnimationFrame(loop);
+        }
+
+        function resize() {
+          if (!canvas) return;
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+
+        function spawnDistantRocket() {
+          if (!canvas) return;
+          const W = canvas.width;
+          const H = canvas.height;
+
+          // Depth scale (0.26 = very far horizon, 0.56 = medium-far background)
+          const depth = 0.26 + Math.random() * 0.30;
+          const palette = COLOR_PALETTES[Math.floor(Math.random() * COLOR_PALETTES.length)];
+
+          const startX = W * (0.08 + Math.random() * 0.84);
+          const startY = H + 10;
+          const targetX = startX + (Math.random() - 0.5) * 70 * depth;
+          const targetY = H * (0.12 + Math.random() * 0.44);
+
+          const frames = Math.floor((56 + Math.random() * 24) / Math.sqrt(depth * 1.8));
+          const vx = (targetX - startX) / frames;
+          const vy = (targetY - startY) / frames;
+
+          bgRockets.push({
+            x: startX,
+            y: startY,
+            vx: vx,
+            vy: vy,
+            targetY: targetY,
+            depth: depth,
+            palette: palette,
+            age: 0
+          });
+        }
+
+        function explodeDistantRocket(rk) {
+          const depth = rk.depth;
+          const palette = rk.palette;
+
+          // Soft atmospheric distant sky glow flash
+          bgFlashes.push({
+            x: rk.x,
+            y: rk.y,
+            radius: 6 * depth,
+            maxRadius: (75 + Math.random() * 35) * depth,
+            color: palette[0],
+            alpha: 0.42 * (0.6 + depth * 0.6)
+          });
+
+          const count = Math.floor(42 + depth * 36);
+          for (let i = 0; i < count; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            // Two-tier spherical burst for authentic distant firework bloom
+            const isInnerRing = (i % 4 === 0);
+            const speed = (isInnerRing ? (Math.random() * 2.8 + 1.5) : (Math.random() * 5.8 + 2.8)) * depth;
+            const color = palette[i % palette.length];
+
+            bgSparks.push({
+              x: rk.x,
+              y: rk.y,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed - 0.4 * depth,
+              grav: 0.085 * depth,
+              drag: 0.978,
+              thickness: (Math.random() * 1.1 + 0.7) * Math.max(0.55, depth * 1.35),
+              color: color,
+              alpha: 0.55 + depth * 0.35,
+              decay: Math.random() * 0.014 + 0.010
+            });
+          }
+        }
+
+        function loop() {
+          requestAnimationFrame(loop);
+          if (!ctx || !canvas) return;
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          nextSpawnTimer--;
+          if (nextSpawnTimer <= 0 && bgRockets.length < 4) {
+            spawnDistantRocket();
+            if (Math.random() > 0.65 && bgRockets.length < 3) {
+              spawnDistantRocket();
+            }
+            nextSpawnTimer = 52 + Math.floor(Math.random() * 68);
+          }
+
+          ctx.save();
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.lineCap = 'round';
+
+          // 1. Update & Draw Ascending Distant Rockets
+          for (let r = bgRockets.length - 1; r >= 0; r--) {
+            const rk = bgRockets[r];
+            rk.age++;
+            const prevX = rk.x;
+            const prevY = rk.y;
+
+            rk.x += rk.vx + Math.sin(rk.age * 0.35) * 0.25 * rk.depth;
+            rk.y += rk.vy;
+
+            // Subtle distant tail sparks
+            if (rk.age % 2 === 0) {
+              bgSparks.push({
+                x: rk.x,
+                y: rk.y + 2,
+                vx: (Math.random() - 0.5) * 0.8 * rk.depth,
+                vy: Math.random() * 1.4 * rk.depth + 0.3,
+                grav: 0.04 * rk.depth,
+                drag: 0.95,
+                thickness: 0.9 * rk.depth + 0.4,
+                color: rk.palette[0],
+                alpha: 0.45 * rk.depth + 0.15,
+                decay: 0.06
+              });
+            }
+
+            // Distant ascending rocket head streak
+            ctx.globalAlpha = 0.45 + rk.depth * 0.35;
+            ctx.strokeStyle = rk.palette[0];
+            ctx.lineWidth = Math.max(1.0, 2.2 * rk.depth);
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY + 4 * rk.depth);
+            ctx.lineTo(rk.x, rk.y);
+            ctx.stroke();
+
+            if (rk.y <= rk.targetY) {
+              explodeDistantRocket(rk);
+              bgRockets.splice(r, 1);
+            }
+          }
+
+          // 2. Update & Draw Soft Distant Sky Flashes
+          for (let f = bgFlashes.length - 1; f >= 0; f--) {
+            const fl = bgFlashes[f];
+            fl.radius += (fl.maxRadius - fl.radius) * 0.16 + 1.5;
+            fl.alpha -= 0.024;
+            if (fl.alpha <= 0) {
+              bgFlashes.splice(f, 1);
+              continue;
+            }
+            const grad = ctx.createRadialGradient(fl.x, fl.y, 1, fl.x, fl.y, fl.radius);
+            grad.addColorStop(0, fl.color);
+            grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.globalAlpha = fl.alpha;
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(fl.x, fl.y, fl.radius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // 3. Update & Draw Distant Colored Burst Sparks
+          const H = canvas.height;
+          for (let i = bgSparks.length - 1; i >= 0; i--) {
+            const s = bgSparks[i];
+            s.vy += s.grav;
+            s.vx *= s.drag;
+            s.vy *= s.drag;
+
+            const prevX = s.x;
+            const prevY = s.y;
+
+            s.x += s.vx;
+            s.y += s.vy;
+            s.alpha -= s.decay;
+
+            if (s.alpha <= 0 || s.y > H + 20) {
+              bgSparks[i] = bgSparks[bgSparks.length - 1];
+              bgSparks.pop();
+              continue;
+            }
+
+            ctx.globalAlpha = s.alpha * 0.32;
+            ctx.strokeStyle = s.color;
+            ctx.lineWidth = s.thickness * 2.2;
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(s.x, s.y);
+            ctx.stroke();
+
+            ctx.globalAlpha = s.alpha;
+            ctx.strokeStyle = s.color;
+            ctx.lineWidth = s.thickness;
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(s.x, s.y);
+            ctx.stroke();
+          }
+
+          ctx.restore();
+        }
+
+        return {
+          init: init
+        };
+      })();
+
+      // ==========================================
       // 5. SPARKLING CURSOR TRAIL: SPARKS MORE ON DRAG
       // ==========================================
       function initSparklerCursor() {
@@ -3026,7 +3295,32 @@
         // Trigger staged unblur animation
         triggerStagedTextReveal();
 
-        document.title = (name ? `${name}'s Diwali Wish | ` : '') + 'Easode Festival of Lights';
+        const dynamicTitle = name
+          ? `${name} sent you a Happy Diwali Wish | Easode Diwali 2026`
+          : 'Easode Diwali Wishes | Happy Diwali 2026';
+        const dynamicDesc = name
+          ? `${name} wishes you and your family endless joy, light, and prosperity! Open this interactive 3D Diwali celebration from Easode.`
+          : 'Celebrate the Festival of Lights with an interactive 3D Star Lantern, sparkling Diwali firecrackers, and personalized wishes for your family and friends.';
+        const canonicalUrl = createShareUrl(name, langCode);
+
+        document.title = dynamicTitle;
+
+        const ogTitleEl = document.getElementById('meta-og-title');
+        if (ogTitleEl) ogTitleEl.setAttribute('content', dynamicTitle);
+        const twTitleEl = document.getElementById('meta-tw-title');
+        if (twTitleEl) twTitleEl.setAttribute('content', dynamicTitle);
+
+        const ogDescEl = document.getElementById('meta-og-description');
+        if (ogDescEl) ogDescEl.setAttribute('content', dynamicDesc);
+        const twDescEl = document.getElementById('meta-tw-description');
+        if (twDescEl) twDescEl.setAttribute('content', dynamicDesc);
+
+        const ogUrlEl = document.getElementById('meta-og-url');
+        if (ogUrlEl) ogUrlEl.setAttribute('content', canonicalUrl);
+        const twUrlEl = document.getElementById('meta-tw-url');
+        if (twUrlEl) twUrlEl.setAttribute('content', canonicalUrl);
+        const canonEl = document.getElementById('link-canonical');
+        if (canonEl) canonEl.setAttribute('href', canonicalUrl);
       }
 
       // ==========================================
@@ -3103,29 +3397,65 @@
       // ==========================================
       // 9. EVENT WIRING & INITIALIZATION
       // ==========================================
-      // Custom slow & smooth scroll to top animation (1400ms ease-in-out cubic)
+      // Custom slow & smooth scroll to top animation (overrides CSS scroll-smooth during RAF so it never stutters)
+      let activeScrollRaf = null;
       function smoothScrollToTopSlowly(duration) {
-        const startY = window.pageYOffset || document.documentElement.scrollTop;
+        if (activeScrollRaf) {
+          cancelAnimationFrame(activeScrollRaf);
+          activeScrollRaf = null;
+        }
+
+        const docEl = document.documentElement;
+        const bodyEl = document.body;
+        const startY = Math.max(
+          window.scrollY || 0,
+          window.pageYOffset || 0,
+          docEl ? docEl.scrollTop : 0,
+          bodyEl ? bodyEl.scrollTop : 0
+        );
+
         if (startY <= 0) return;
+
+        // Disable native CSS scroll-behavior: smooth during the custom slow interpolation
+        if (docEl) docEl.style.scrollBehavior = 'auto';
+        if (bodyEl) bodyEl.style.scrollBehavior = 'auto';
+
         const startTime = performance.now();
 
         function step(now) {
           const elapsed = now - startTime;
           const progress = Math.min(elapsed / duration, 1);
+          // Smooth cubic ease-in-out
           const ease = progress < 0.5
             ? 4 * progress * progress * progress
             : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 
-          window.scrollTo(0, startY * (1 - ease));
+          const nextY = Math.round(startY * (1 - ease));
+          window.scrollTo(0, nextY);
+          if (docEl) docEl.scrollTop = nextY;
+          if (bodyEl) bodyEl.scrollTop = nextY;
+
           if (progress < 1) {
-            requestAnimationFrame(step);
+            activeScrollRaf = requestAnimationFrame(step);
+          } else {
+            window.scrollTo(0, 0);
+            if (docEl) {
+              docEl.scrollTop = 0;
+              docEl.style.scrollBehavior = '';
+            }
+            if (bodyEl) {
+              bodyEl.scrollTop = 0;
+              bodyEl.style.scrollBehavior = '';
+            }
+            activeScrollRaf = null;
           }
         }
-        requestAnimationFrame(step);
+        activeScrollRaf = requestAnimationFrame(step);
       }
 
       document.addEventListener('DOMContentLoaded', function () {
         Scene3D.init();
+        BackgroundSkyRocketsEngine.init();
         SparkBlastEngine.init();
         initSparklerCursor();
 
@@ -3269,7 +3599,7 @@
         const btnFormCopy = document.getElementById('btn-form-copylink');
         if (btnFormCopy) btnFormCopy.addEventListener('click', copyShareLink);
 
-        // Preview Wish Button (Smoothly and slowly scrolls to top)
+        // Preview Wish Button (Always smoothly and slowly auto-scrolls to page top)
         const btnPreview = document.getElementById('btn-form-preview');
         if (btnPreview) {
           btnPreview.addEventListener('click', function () {
@@ -3277,18 +3607,19 @@
             const rawName = nameInput ? nameInput.value.trim() : '';
             const nameErr = document.getElementById('name-validation-err');
 
-            if (!rawName) {
-              if (nameErr) nameErr.classList.remove('hidden');
-              if (nameInput) nameInput.focus();
-              return;
-            }
             if (nameErr) nameErr.classList.add('hidden');
+            if (document.activeElement && typeof document.activeElement.blur === 'function') {
+              document.activeElement.blur();
+            }
 
-            updateUIForWish(rawName, currentLang);
-            const newUrl = createShareUrl(rawName, currentLang);
-            window.history.pushState({ name: rawName, lang: currentLang }, '', newUrl);
+            const previewName = rawName || currentSender || '';
+            updateUIForWish(previewName, currentLang);
+            try {
+              const newUrl = createShareUrl(previewName, currentLang);
+              window.history.pushState({ name: previewName, lang: currentLang }, '', newUrl);
+            } catch (e) {}
 
-            smoothScrollToTopSlowly(1450);
+            smoothScrollToTopSlowly(1800);
           });
         }
 
