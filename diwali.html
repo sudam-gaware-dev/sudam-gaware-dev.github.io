@@ -8,34 +8,30 @@
   <meta name="theme-color" content="#000000">
 
   <!-- Mysterious & Curiosity-Inducing Open Graph (OG) Meta Tags for WhatsApp & Social Previews -->
+  <!-- Note: og:url is intentionally omitted from static HTML so WhatsApp does NOT collapse ?e=... links into an old cached base URL -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Secret Surprise">
   <meta property="og:locale" content="en_IN">
-  <meta property="og:url" id="meta-og-url" content="https://easode.com/diwali">
   <meta property="og:title" id="meta-og-title" content="🔒 Someone Sent You a Secret Surprise — Tap to Unlock ✨">
   <meta property="og:description" id="meta-og-description" content="A private, interactive 3D experience with sound and a hidden message is waiting for you. Tap the link to unblur and discover who sent it!">
-  <meta property="og:image" itemprop="image" id="meta-og-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png">
-  <meta property="og:image:secure_url" id="meta-og-image-secure" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png">
+  <meta property="og:image" itemprop="image" id="meta-og-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png?v=2">
+  <meta property="og:image:secure_url" id="meta-og-image-secure" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png?v=2">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="A Secret Surprise Awaits You — Tap to Unlock & Reveal It">
-  <!-- Compressed JPG fallback transform from the exact same Cloudinary asset for strict <300KB WhatsApp mobile scrapers -->
-  <meta property="og:image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/f_jpg,q_auto:good,w_1200,h_630/v1793942226/secret-surprise-og-mockup-1200x630.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
 
   <!-- Twitter Card Meta Tags for Cross-Platform Compatibility -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" id="meta-tw-url" content="https://easode.com/diwali">
   <meta name="twitter:title" id="meta-tw-title" content="🔒 Someone Sent You a Secret Surprise — Tap to Unlock ✨">
   <meta name="twitter:description" id="meta-tw-description" content="A private, interactive 3D experience with sound and a hidden message is waiting for you. Tap the link to unblur and discover who sent it!">
-  <meta name="twitter:image" id="meta-tw-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png">
+  <meta name="twitter:image" id="meta-tw-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png?v=2">
   <meta name="twitter:image:alt" content="A Secret Surprise Awaits You — Tap to Unlock & Reveal It">
 
-  <!-- Canonical URL & Inline SVG Favicon (Placed After OG Tags) -->
-  <link rel="canonical" id="link-canonical" href="https://easode.com/diwali">
+  <!-- Preserved hidden IDs for script compatibility without triggering static crawler canonical cache -->
+  <meta id="meta-og-url" name="og-url-dynamic" content="">
+  <meta id="meta-tw-url" name="tw-url-dynamic" content="">
+  <link rel=" alternate" id="link-canonical" href="">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' width='100%25' height='100%25'%3E%3Cpath fill='%23FF7B1C' d='M 373,303 L 630,303 A 48,48 0 0 1 678,351 L 678,648 A 48,48 0 0 1 630,696 L 526,696 A 51,51 0 0 1 526,594 L 594,594 L 594,568 L 510,568 A 68,68 0 0 1 510,432 L 594,432 L 594,405 L 373,405 A 51,51 0 0 1 373,303 Z M 387,567 A 65,65 0 1 1 387,697 A 65,65 0 1 1 387,567 Z' /%3E%3C/svg%3E">
 
   <!-- Tailwind CSS CDN -->
@@ -295,6 +291,21 @@
     .quote-gallery-card:not(.active-quote) {
       opacity: 0.45;
     }
+
+    /* Title Bar & Form 3D Lantern Switcher Active State */
+    .header-lantern-btn.active-lantern {
+      background: rgba(255, 123, 28, 0.28);
+      border-color: rgba(255, 123, 28, 0.9);
+      box-shadow: 0 0 14px rgba(255, 123, 28, 0.4);
+    }
+    .form-lantern-option {
+      transition: all 0.25s ease;
+    }
+    .form-lantern-option.active-lantern {
+      background: linear-gradient(135deg, rgba(255, 123, 28, 0.20) 0%, rgba(25, 18, 12, 0.95) 100%);
+      border-color: rgba(255, 123, 28, 0.85);
+      box-shadow: 0 6px 20px rgba(255, 123, 28, 0.22);
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -332,21 +343,61 @@
       </div>
     </a>
 
-    <!-- Top Action Toolbar -->
-    <div class="flex items-center gap-2.5">
-      <!-- Music Toggle Circle Button (Pure icon inside circle container, NO text) -->
-      <button id="btn-toggle-audio" title="Toggle Diwali Music" class="w-9 h-9 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-sm">
-        <svg id="icon-sound-on" class="w-4 h-4 hidden text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-        </svg>
-        <svg id="icon-sound-off" class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-          <line x1="23" y1="9" x2="17" y2="15"/>
-          <line x1="17" y1="9" x2="23" y2="15"/>
-        </svg>
-      </button>
+    <!-- Top Action Toolbar (Includes 3 Lantern Switcher Buttons + Audio Toggle + Send Wish) -->
+    <div class="flex items-center gap-1.5 sm:gap-2.5">
+      <!-- 3D Lantern Switcher Buttons in Title Bar (1: Star Lantern, 2: Sky Lantern, 3: Lamp Lantern) -->
+      <div class="flex items-center gap-1 sm:gap-1.5 bg-white/5 border border-white/15 rounded-full p-1" role="group" aria-label="Select 3D Lantern">
+        <!-- 1. Star Lantern Button -->
+        <button
+          id="btn-header-lantern-1"
+          type="button"
+          data-lantern="1"
+          title="Star Lantern"
+          aria-label="Select Star Lantern"
+          class="header-lantern-btn active-lantern w-7 h-7 sm:w-8 sm:h-8 rounded-full glass-circle-btn text-white flex items-center justify-center"
+        >
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <!-- 2. Sky Lantern Button -->
+        <button
+          id="btn-header-lantern-2"
+          type="button"
+          data-lantern="2"
+          title="Sky Lantern"
+          aria-label="Select Sky Lantern"
+          class="header-lantern-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full glass-circle-btn text-white flex items-center justify-center"
+        >
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9c0-4 2.7-6 6-6s6 2 6 6c0 3.5-2.2 8-3.2 10.5H9.2C8.2 17 6 12.5 6 9z"/>
+            <ellipse cx="12" cy="19.5" rx="2.8" ry="1.2"/>
+            <circle cx="12" cy="16.5" r="1.4" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <!-- 3. Modern Lamp Lantern Button -->
+        <button
+          id="btn-header-lantern-3"
+          type="button"
+          data-lantern="3"
+          title="Modern Lamp Lantern"
+          aria-label="Select Modern Lamp Lantern"
+          class="header-lantern-btn w-7 h-7 sm:w-8 sm:h-8 rounded-full glass-circle-btn text-white flex items-center justify-center"
+        >
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="12" y1="2" x2="12" y2="4"/>
+            <polygon points="8 4 16 4 19 10 15 16 9 16 5 10"/>
+            <line x1="5" y1="10" x2="19" y2="10"/>
+            <line x1="12" y1="4" x2="12" y2="16"/>
+            <path d="M9 16v5"/>
+            <path d="M12 16v6"/>
+            <path d="M15 16v5"/>
+          </svg>
+        </button>
+      </div>
 
       <!-- Scroll to Form Quick Button -->
       <button id="btn-header-create" class="px-3.5 py-1.5 rounded-full btn-orange-luxury text-xs flex items-center gap-1.5 shadow-sm">
@@ -587,9 +638,65 @@
                   <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
                   <span class="font-medium text-sm text-[#FFFFFF]">मराठी (Marathi)</span>
                 </div>
-                <span class="text-xs text-white/60">हार्दिक शुभेच्छा</span>
+                <span class="text-xs text-white/60">शुभ दिवाळी</span>
               </button>
             </div>
+          </div>
+        </div>
+
+        <!-- 3D Lantern Selection Parameter (1. Star Lantern, 2. Sky Lantern, 3. Lamp Lantern) -->
+        <div>
+          <label id="label-lantern-picker" class="block text-xs font-semibold text-[#FFFFFF] uppercase tracking-wider mb-2">
+            Select 3D Lantern
+          </label>
+          <div class="grid grid-cols-3 gap-2.5" role="radiogroup" aria-labelledby="label-lantern-picker">
+            <!-- Option 1: Star Lantern -->
+            <button
+              type="button"
+              id="btn-form-lantern-1"
+              data-lantern="1"
+              class="form-lantern-option active-lantern py-3 px-2 rounded-xl bg-neutral-950 border border-white/20 text-[#FFFFFF] flex flex-col items-center justify-center gap-1.5 text-center"
+            >
+              <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              </svg>
+              <span id="label-lantern-1" class="text-xs font-semibold text-white">Star Lantern</span>
+            </button>
+
+            <!-- Option 2: Sky Lantern -->
+            <button
+              type="button"
+              id="btn-form-lantern-2"
+              data-lantern="2"
+              class="form-lantern-option py-3 px-2 rounded-xl bg-neutral-950 border border-white/20 text-[#FFFFFF] flex flex-col items-center justify-center gap-1.5 text-center"
+            >
+              <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 9c0-4 2.7-6 6-6s6 2 6 6c0 3.5-2.2 8-3.2 10.5H9.2C8.2 17 6 12.5 6 9z"/>
+                <ellipse cx="12" cy="19.5" rx="2.8" ry="1.2"/>
+                <circle cx="12" cy="16.5" r="1.4" fill="currentColor"/>
+              </svg>
+              <span id="label-lantern-2" class="text-xs font-semibold text-white">Sky Lantern</span>
+            </button>
+
+            <!-- Option 3: Modern Lamp Lantern -->
+            <button
+              type="button"
+              id="btn-form-lantern-3"
+              data-lantern="3"
+              class="form-lantern-option py-3 px-2 rounded-xl bg-neutral-950 border border-white/20 text-[#FFFFFF] flex flex-col items-center justify-center gap-1.5 text-center"
+            >
+              <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="12" y1="2" x2="12" y2="4"/>
+                <polygon points="8 4 16 4 19 10 15 16 9 16 5 10"/>
+                <line x1="5" y1="10" x2="19" y2="10"/>
+                <line x1="12" y1="4" x2="12" y2="16"/>
+                <path d="M9 16v5"/>
+                <path d="M12 16v6"/>
+                <path d="M15 16v5"/>
+              </svg>
+              <span id="label-lantern-3" class="text-xs font-semibold text-white">Lamp Lantern</span>
+            </button>
           </div>
         </div>
 
@@ -735,6 +842,8 @@
           formSub: 'Enter your name, choose your language, swipe to pick a quote, and share with family and friends.',
           nameLabel: 'Your Name',
           namePlaceholder: 'Enter your name',
+          lanternPickerLabel: 'Select 3D Lantern',
+          lanternNames: ['Star Lantern', 'Sky Lantern', 'Lamp Lantern'],
           quotePickerLabel: 'Select Wishing Quote',
           quoteWord: 'Quote',
           shareWa: 'Share on WhatsApp',
@@ -748,24 +857,26 @@
           native: 'हिन्दी',
           headline: 'शुभ दीपावली',
           quotes: [
-            'आपको एवं आपके पूरे परिवार को सुख, शांति और समृद्धि की हार्दिक शुभकामनाएँ।',
-            'दीपों का यह पावन त्योहार आपके जीवन में नई रोशनी, खुशहाली और उत्तम स्वास्थ्य लेकर आए।',
-            'माँ लक्ष्मी और भगवान गणेश की कृपा से आपके घर में सदैव धन, वैभव और आनंद का वास रहे।',
-            'जगमगाते दीपों की तरह आपका जीवन भी सदैव मुस्कान, प्रेम और सफलता से चमकता रहे।',
-            'अंधकार पर प्रकाश की विजय का यह पर्व आपके जीवन में नई आशा और नई ऊर्जा का संचार करे।',
+            'इस पावन दीपावली पर आपको एवं आपके पूरे परिवार को सुख, शांति और समृद्धि की हार्दिक शुभकामनाएँ।',
+            'दीपावली का यह पावन त्योहार आपके जीवन में नई रोशनी, खुशहाली और उत्तम स्वास्थ्य लेकर आए।',
+            'इस दीपावली माँ लक्ष्मी और भगवान गणेश की कृपा से आपके घर में सदैव धन, वैभव और आनंद का वास रहे।',
+            'दीपावली के जगमगाते दीपों की तरह आपका जीवन भी सदैव मुस्कान, प्रेम और सफलता से चमकता रहे।',
+            'दीपावली का यह प्रकाश पर्व आपके जीवन में नई आशा, सुख और नई ऊर्जा का संचार करे।',
             'मिठाइयों की मिठास और अपनों के प्यार के साथ आपकी दीपावली मंगलमय और यादगार हो।',
-            'हर जलता दीपक आपके आँगन में खुशियों की बहार और सौभाग्य का उजाला भर दे।',
-            'स्नेह, उत्साह और उमंग के इस पावन पर्व पर आपकी सभी मनोकामनाएँ पूर्ण हों।',
-            'दीपों की सुनहरी आभा आपके परिवार में अटूट प्रेम, एकता और समृद्धि का आशीर्वाद लाए।',
+            'दीपावली का हर जलता दीपक आपके आँगन में खुशियों की बहार और सौभाग्य का उजाला भर दे।',
+            'दीपावली के इस पावन पर्व पर आपकी सभी मनोकामनाएँ पूर्ण हों और घर में आनंद रहे।',
+            'दीपावली की सुनहरी आभा आपके परिवार में अटूट प्रेम, एकता और समृद्धि का आशीर्वाद लाए।',
             'इस शुभ दीपावली पर आपके जीवन का हर पल खुशियों के उजाले से जगमगा उठे।'
           ],
           senderPrefix: '',
-          senderSuffix: ' की ओर से सप्रेम शुभकामनाएँ',
-          formHeading: 'रोशनियों का पावन संदेश भेजें',
-          formSub: 'अपना नाम दर्ज करें, भाषा और शुभकामना संदेश चुनें तथा अपने प्रियजनों को भेजें।',
+          senderSuffix: ' की ओर से दीपावली की सप्रेम शुभकामनाएँ',
+          formHeading: 'दीपावली का पावन संदेश भेजें',
+          formSub: 'अपना नाम दर्ज करें, भाषा और दीपावली शुभकामना संदेश चुनें तथा अपने प्रियजनों को भेजें।',
           nameLabel: 'आपका नाम',
           namePlaceholder: 'अपना नाम दर्ज करें',
-          quotePickerLabel: 'शुभकामना संदेश चुनें',
+          lanternPickerLabel: '3D कंदील चुनें',
+          lanternNames: ['स्टार कंदील', 'स्काई लैंटर्न', 'लैंप कंदील'],
+          quotePickerLabel: 'दीपावली शुभकामना संदेश चुनें',
           quoteWord: 'संदेश',
           shareWa: 'व्हाट्सएप पर शेयर करें',
           copyLink: 'लिंक कॉपी करें',
@@ -776,26 +887,28 @@
           legacyCode: 'mr',
           name: 'Marathi',
           native: 'मराठी',
-          headline: 'दीपावलीच्या हार्दिक शुभेच्छा',
+          headline: 'दिवाळीच्या हार्दिक शुभेच्छा',
           quotes: [
-            'तुम्हाला व तुमच्या संपूर्ण परिवाराला सुख, आरोग्य आणि भरभराटीच्या शुभेच्छा.',
-            'पणत्यांच्या लखलखत्या प्रकाशाने तुमचे आयुष्य आनंद, शांती आणि समृद्धीने उजळून निघो.',
+            'या दिवाळीनिमित्त तुम्हाला व तुमच्या संपूर्ण परिवाराला सुख, आरोग्य आणि भरभराटीच्या शुभेच्छा.',
+            'दिवाळीच्या पणत्यांच्या लखलखत्या प्रकाशाने तुमचे आयुष्य आनंद, शांती आणि समृद्धीने उजळून निघो.',
             'ही दिवाळी तुमच्या जीवनात नवचैतन्य, उत्तम आरोग्य आणि यशाची नवी पहाट घेऊन येवो.',
-            'लक्ष्मीच्या पावलांनी तुमच्या घरात सुख-समृद्धी आणि अखंड समाधानाचे आगमन होवो.',
-            'आकाशकंदिलाच्या तेजस्वी प्रकाशाप्रमाणे तुमचे भविष्यही सदैव उज्ज्वल आणि आनंदी राहो.',
-            'फराळाचा गोडवा आणि आपुलकीचा ओलावा तुमच्या नात्यात सदैव टिकून राहो, शुभ दीपावली!',
-            'प्रत्येक पेटणारी पणती तुमच्या घरादारात सौख्य, ऐश्वर्य आणि सकारात्मकता घेऊन येवो.',
+            'या दिवाळीत लक्ष्मीच्या पावलांनी तुमच्या घरात सुख-समृद्धी आणि अखंड समाधानाचे आगमन होवो.',
+            'दिवाळीच्या आकाशकंदिलाच्या तेजस्वी प्रकाशाप्रमाणे तुमचे भविष्यही सदैव उज्ज्वल आणि आनंदी राहो.',
+            'फराळाचा गोडवा आणि आपुलकीचा ओलावा तुमच्या नात्यात सदैव टिकून राहो, शुभ दिवाळी!',
+            'दिवाळीची प्रत्येक पेटणारी पणती तुमच्या घरादारात सौख्य, ऐश्वर्य आणि सकारात्मकता घेऊन येवो.',
             'दिवाळीच्या या मंगलमय पर्वावर तुमच्या सर्व इच्छा आणि स्वप्ने पूर्ण होवोत हीच सदिच्छा.',
-            'स्नेहाचा दिवा असाच तेवत राहो आणि तुमच्या आयुष्यात आनंदाची आतिषबाजी घडो.',
-            'दीपावलीच्या पावन सणानिमित्त तुम्हाला आणि तुमच्या कुटुंबीयांना उदंड आयुष्य व भरभराट लाभो.'
+            'दिवाळीत स्नेहाचा दिवा असाच तेवत राहो आणि तुमच्या आयुष्यात आनंदाची आतिषबाजी घडो.',
+            'दिवाळीच्या पावन सणानिमित्त तुम्हाला आणि तुमच्या कुटुंबीयांना उदंड आयुष्य व भरभराट लाभो.'
           ],
           senderPrefix: '',
-          senderSuffix: ' यांच्याकडून सस्नेह शुभेच्छा',
-          formHeading: 'दीपावलीच्या मंगलमय शुभेच्छा पाठवा',
-          formSub: 'तुमचे नाव टाका, भाषा व शुभेच्छा संदेश निवडा आणि आप्तेष्टांना 3D दिवाळी भेट पाठवा.',
+          senderSuffix: ' यांच्याकडून दिवाळीच्या सस्नेह शुभेच्छा',
+          formHeading: 'दिवाळीच्या मंगलमय शुभेच्छा पाठवा',
+          formSub: 'तुमचे नाव टाका, भाषा व दिवाळी शुभेच्छा संदेश निवडा आणि आप्तेष्टांना 3D दिवाळी भेट पाठवा.',
           nameLabel: 'तुमचे नाव',
           namePlaceholder: 'तुमचे नाव टाका',
-          quotePickerLabel: 'शुभेच्छा संदेश निवडा (स्वाइप करा)',
+          lanternPickerLabel: '3D आकाशकंदील निवडा',
+          lanternNames: ['चांदणी कंदील', 'स्काय कंदील', 'लैंप कंदील'],
+          quotePickerLabel: 'दिवाळी शुभेच्छा संदेश निवडा',
           quoteWord: 'संदेश',
           shareWa: 'व्हॉट्सॲपवर शेअर करा',
           copyLink: 'लिंक कॉपी करा',
@@ -818,9 +931,16 @@
         return parsed;
       }
 
+      function normalizeLanternType(raw) {
+        const parsed = parseInt(raw, 10);
+        if (parsed === 2 || parsed === 3) return parsed;
+        return 1;
+      }
+
       let currentLang = 'e';
       let currentSender = '';
       let currentQuoteIndex = 1; // 1-based index (1 to 10)
+      let currentLanternType = 1; // 1: Star Lantern, 2: Sky Lantern, 3: Lamp Lantern
 
       // ==========================================
       // 2. AUDIO SYNTHESIZER (WEB AUDIO API)
@@ -1394,14 +1514,15 @@
         let scene, lanternScene, camera, renderer, lanternRenderer;
         let canvas, lanternCanvas;
         let floatingDiyaGroup, flameMesh, flameLight;
+        let starLanternSubGroup, skyLanternSubGroup, lampLanternSubGroup;
+        let skyFlameCoreMesh = null;
+        let lampStreamerMeshes = [];
+        let activeLanternModel = 1;
         let starPoints, starData = [];
         let time = 0;
 
         let scrollY = 0;
         let targetScrollY = 0;
-
-        // Base isometric X-axis rotation (~27.5 degrees) so user sees angled top view of bowl, oil & wick
-        const BASE_ISOMETRIC_X = 0.48;
 
         function init() {
           canvas = document.getElementById('webgl-canvas');
@@ -1412,7 +1533,7 @@
           scene = new THREE.Scene();
           scene.background = new THREE.Color(0x000000);
 
-          // Foreground Scene (3D Star Lantern on transparent canvas at z-35, always above the form)
+          // Foreground Scene (3D Lanterns on transparent canvas at z-15)
           lanternScene = new THREE.Scene();
 
           camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.1, 500);
@@ -1439,7 +1560,6 @@
           lanternRenderer.toneMapping = THREE.ACESFilmicToneMapping;
           lanternRenderer.toneMappingExposure = 1.05;
 
-          // Balanced warm studio lighting in lanternScene so the Orange Star Lantern stays rich and vibrant
           const ambientLight = new THREE.AmbientLight(0xFFCC99, 0.85);
           lanternScene.add(ambientLight);
 
@@ -1456,7 +1576,7 @@
           lanternScene.add(rimFillLight);
 
           buildOmnidirectionalStars();
-          buildIsometricFloatingDiya();
+          buildAllThreeLanternModels();
 
           window.addEventListener('resize', onResize);
           window.addEventListener('scroll', onScroll, { passive: true });
@@ -1521,7 +1641,6 @@
           scene.add(starPoints);
         }
 
-        // Helper to draw a crisp 5-pointed star cutout on a 2D canvas context
         function drawFivePointStar(ctx, cx, cy, outerR, innerR, rot) {
           ctx.beginPath();
           for (let i = 0; i < 10; i++) {
@@ -1536,8 +1655,9 @@
           ctx.fill();
         }
 
-        // High-Resolution Procedural Texture & Emissive Map:
-        // Rich Orange Lantern Body + Brightly Shining Small Stars!
+        // =========================================================================
+        // MODEL 1: 3D STAR LANTERN TEXTURES & MESH
+        // =========================================================================
         function createStarLanternTextures(R_outer, R_inner) {
           const size = 1024;
           const half = size / 2;
@@ -1553,7 +1673,6 @@
           emissiveCanvas.height = size;
           const eCtx = emissiveCanvas.getContext('2d');
 
-          // 1. Rich, Saturated Festive Orange Base Gradient (Color Map)
           const bgGrad = cCtx.createRadialGradient(half, half, 10, half, half, half * 0.92);
           bgGrad.addColorStop(0.0, '#FF8C1A');
           bgGrad.addColorStop(0.22, '#F26400');
@@ -1563,7 +1682,6 @@
           cCtx.fillStyle = bgGrad;
           cCtx.fillRect(0, 0, size, size);
 
-          // 2. Dark Warm Emissive Base so ONLY the small stars & pinholes shine brightly!
           const emGrad = eCtx.createRadialGradient(half, half, 5, half, half, half * 0.50);
           emGrad.addColorStop(0.0, '#6E2600');
           emGrad.addColorStop(0.40, '#2B0C00');
@@ -1571,7 +1689,6 @@
           eCtx.fillStyle = emGrad;
           eCtx.fillRect(0, 0, size, size);
 
-          // 3. Alternating 10-Sector Orange Facet Shading & Crisp Crease Lines
           for (let i = 0; i < 10; i++) {
             const a0 = -Math.PI / 2 + (i * Math.PI) / 5;
             const a1 = -Math.PI / 2 + ((i + 1) * Math.PI) / 5;
@@ -1593,7 +1710,6 @@
             cCtx.fill();
             cCtx.restore();
 
-            // Crisp fold ridge line
             cCtx.save();
             cCtx.strokeStyle = (i % 2 === 0) ? 'rgba(255, 195, 100, 0.55)' : 'rgba(75, 18, 0, 0.65)';
             cCtx.lineWidth = (i % 2 === 0) ? 2.5 : 2.0;
@@ -1604,14 +1720,12 @@
             cCtx.restore();
           }
 
-          // 4. Deterministic PRNG for perforations
           let seed = 1337;
           function rand() {
             seed = (seed * 16807) % 2147483647;
             return (seed - 1) / 2147483646;
           }
 
-          // Populate each of the 10 triangular sectors with brightly glowing small stars & pinholes
           for (let i = 0; i < 10; i++) {
             const isTipFirst = (i % 2 === 0);
             const aTip = -Math.PI / 2 + ((isTipFirst ? i : i + 1) * Math.PI) / 5;
@@ -1622,7 +1736,6 @@
             const valX = Math.cos(aVal) * R_inner;
             const valY = Math.sin(aVal) * R_inner;
 
-            // A. Scatter glowing pinhole dots across the orange facet
             for (let p = 0; p < 75; p++) {
               let u = rand();
               let v = rand();
@@ -1647,7 +1760,6 @@
               eCtx.fill();
             }
 
-            // B. Place brightly glowing small 5-pointed star cutouts inside each orange facet
             const starCutouts = [
               { u: 0.16, v: 0.18, s: 12.5 },
               { u: 0.14, v: 0.44, s: 11.5 },
@@ -1668,7 +1780,6 @@
               const cy = half - (sc.u * tipY + sc.v * valY) * scale;
               const rot = aTip + (idx * 0.5);
 
-              // Draw bright glowing star cutout on Color Map
               cCtx.save();
               cCtx.shadowColor = '#FFD54F';
               cCtx.shadowBlur = 10;
@@ -1676,7 +1787,6 @@
               drawFivePointStar(cCtx, cx, cy, sc.s, sc.s * 0.44, rot);
               cCtx.restore();
 
-              // Draw high-intensity pure white-gold star cutout on Emissive Map so small stars shine!
               eCtx.save();
               eCtx.shadowColor = '#FFD740';
               eCtx.shadowBlur = 18;
@@ -1692,28 +1802,8 @@
           };
         }
 
-        // Soft Warm Orange Background Glow Texture behind the star lantern
-        function createBackGlowTexture() {
-          const gCanvas = document.createElement('canvas');
-          gCanvas.width = 512;
-          gCanvas.height = 512;
-          const ctx = gCanvas.getContext('2d');
-          const grad = ctx.createRadialGradient(256, 256, 15, 256, 256, 250);
-          grad.addColorStop(0.0, 'rgba(255, 115, 15, 0.38)');
-          grad.addColorStop(0.38, 'rgba(175, 55, 5, 0.18)');
-          grad.addColorStop(0.72, 'rgba(85, 18, 0, 0.05)');
-          grad.addColorStop(1.0, 'rgba(0, 0, 0, 0)');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, 512, 512);
-          return new THREE.CanvasTexture(gCanvas);
-        }
-
-        // Watertight 3D Star Shape Lantern (Akash Kandil) — Zero Gaps, Rich Orange Body, Bright Small Stars
-        function buildIsometricFloatingDiya() {
-          floatingDiyaGroup = new THREE.Group();
-          // Moved upward to y = -0.18 so it sits higher in the center viewport
-          floatingDiyaGroup.position.set(0, -0.18, 0);
-
+        function buildStarLanternSubGroup() {
+          const group = new THREE.Group();
           const R_outer = 1.56;
           const R_inner = 0.54;
           const Z_apex = 0.46;
@@ -1721,8 +1811,6 @@
           const textures = createStarLanternTextures(R_outer, R_inner);
           const halfScale = 0.90 / (2 * R_outer);
 
-          // All 10 perimeter vertices (tips AND valleys) lie strictly in the z = 0.0 plane
-          // so Front and Back shells meet along identical edges with ZERO gaps!
           const ringVerts = [];
           for (let i = 0; i < 10; i++) {
             const isTip = (i % 2 === 0);
@@ -1735,10 +1823,8 @@
             });
           }
 
-          // Watertight 20-triangle closed star bipyramid
           const positions = [];
           const uvs = [];
-
           function pushVertex(vx, vy, vz) {
             positions.push(vx, vy, vz);
             uvs.push(0.5 + vx * halfScale, 0.5 + vy * halfScale);
@@ -1748,12 +1834,10 @@
             const v0 = ringVerts[i];
             const v1 = ringVerts[(i + 1) % 10];
 
-            // Front facet triangle: Center Front Apex -> v0 -> v1
             pushVertex(0, 0, Z_apex);
             pushVertex(v0.x, v0.y, v0.z);
             pushVertex(v1.x, v1.y, v1.z);
 
-            // Back facet triangle: Center Back Apex -> v1 -> v0 (shares exact edge v0-v1 with front!)
             pushVertex(0, 0, -Z_apex);
             pushVertex(v1.x, v1.y, v1.z);
             pushVertex(v0.x, v0.y, v0.z);
@@ -1775,16 +1859,616 @@
           });
 
           const starMesh = new THREE.Mesh(starGeo, starMat);
-          floatingDiyaGroup.add(starMesh);
+          group.add(starMesh);
 
-          // Sleek hanging cord extending upward from the top inner valley (i = 5 -> angle = +90 deg)
           const cordGeo = new THREE.CylinderGeometry(0.012, 0.012, 3.2, 8);
           const cordMat = new THREE.MeshBasicMaterial({ color: 0x4A2208 });
           const cordMesh = new THREE.Mesh(cordGeo, cordMat);
           cordMesh.position.set(0, R_inner + 1.6, 0);
-          floatingDiyaGroup.add(cordMesh);
+          group.add(cordMesh);
 
-          // Soft warm orange halo sprite placed behind the 3D star lantern
+          return group;
+        }
+
+        // =========================================================================
+        // MODEL 2: 3D SKY LANTERN (HOT-AIR PAPER BALLOON, FAITHFUL TO 1000344447.jpg)
+        // =========================================================================
+        function createSkyLanternTextures() {
+          const w = 1024;
+          const h = 1024;
+
+          const cCanvas = document.createElement('canvas');
+          cCanvas.width = w;
+          cCanvas.height = h;
+          const cCtx = cCanvas.getContext('2d');
+
+          const eCanvas = document.createElement('canvas');
+          eCanvas.width = w;
+          eCanvas.height = h;
+          const eCtx = eCanvas.getContext('2d');
+
+          // Vertical gradient from top cap (y=0 in canvas) to glowing bottom burner opening (y=h)
+          const colGrad = cCtx.createLinearGradient(0, 0, 0, h);
+          colGrad.addColorStop(0.0, '#D95B16');   // Top cap warm deep orange
+          colGrad.addColorStop(0.28, '#F0741E');  // Upper dome rich orange
+          colGrad.addColorStop(0.45, '#E66012');  // Horizontal seam equator
+          colGrad.addColorStop(0.68, '#FF8F1F');  // Lower body luminous orange
+          colGrad.addColorStop(0.86, '#FFC947');  // Bright golden glow near bottom
+          colGrad.addColorStop(0.96, '#FFF7B2');  // Intense white-yellow flame illumination
+          colGrad.addColorStop(1.0, '#FFE066');
+          cCtx.fillStyle = colGrad;
+          cCtx.fillRect(0, 0, w, h);
+
+          // Emissive map: glowing brightly from the bottom flame upward through the translucent paper
+          const emGrad = eCtx.createLinearGradient(0, 0, 0, h);
+          emGrad.addColorStop(0.0, '#421703');
+          emGrad.addColorStop(0.32, '#6E2806');
+          emGrad.addColorStop(0.55, '#B54708');
+          emGrad.addColorStop(0.76, '#F5820D');
+          emGrad.addColorStop(0.90, '#FFD659');
+          emGrad.addColorStop(1.0, '#FFFFFF');
+          eCtx.fillStyle = emGrad;
+          eCtx.fillRect(0, 0, w, h);
+
+          // Horizontal paper equator seam crease (around y = 0.43 * h, matching 1000344447.jpg)
+          const seamY = h * 0.43;
+          cCtx.strokeStyle = 'rgba(135, 38, 4, 0.55)';
+          cCtx.lineWidth = 4;
+          cCtx.beginPath();
+          cCtx.moveTo(0, seamY);
+          cCtx.lineTo(w, seamY);
+          cCtx.stroke();
+
+          cCtx.strokeStyle = 'rgba(255, 210, 140, 0.42)';
+          cCtx.lineWidth = 2.5;
+          cCtx.beginPath();
+          cCtx.moveTo(0, seamY + 4);
+          cCtx.lineTo(w, seamY + 4);
+          cCtx.stroke();
+
+          // 4 Vertical Gore Seams & Realistic Paper Crinkles
+          for (let s = 0; s < 4; s++) {
+            const sx = (s / 4) * w;
+            cCtx.strokeStyle = 'rgba(120, 32, 2, 0.65)';
+            cCtx.lineWidth = 5;
+            cCtx.beginPath();
+            cCtx.moveTo(sx, 0);
+            cCtx.lineTo(sx, h);
+            cCtx.stroke();
+
+            eCtx.strokeStyle = 'rgba(35, 8, 0, 0.5)';
+            eCtx.lineWidth = 4;
+            eCtx.beginPath();
+            eCtx.moveTo(sx, 0);
+            eCtx.lineTo(sx, h);
+            eCtx.stroke();
+
+            // Subtle diagonal paper fold wrinkles radiating from the seams
+            for (let wIdx = 1; wIdx < 9; wIdx++) {
+              const wy = (wIdx / 9) * h;
+              cCtx.strokeStyle = (wIdx % 2 === 0)
+                ? 'rgba(255, 200, 130, 0.22)'
+                : 'rgba(130, 38, 4, 0.18)';
+              cCtx.lineWidth = 2;
+              cCtx.beginPath();
+              cCtx.moveTo(sx, wy);
+              cCtx.lineTo(sx + (wIdx % 2 === 0 ? 55 : -55), wy + 28);
+              cCtx.stroke();
+            }
+          }
+
+          return {
+            colorMap: new THREE.CanvasTexture(cCanvas),
+            emissiveMap: new THREE.CanvasTexture(eCanvas)
+          };
+        }
+
+        function buildSkyLanternSubGroup() {
+          const group = new THREE.Group();
+          const textures = createSkyLanternTextures();
+
+          // Parametric 3D Sky Lantern Balloon Geometry with 4 subtle paper gores and open bottom rim
+          const radSegs = 64;
+          const heightSegs = 44;
+          const yBottom = -1.16;
+          const yTop = 1.26;
+          const totalH = yTop - yBottom;
+
+          // Profile radius function r(v) where v=0 is bottom rim and v=1 is top cap (faithful to 1000344447.jpg)
+          function getBalloonRadius(v) {
+            if (v < 0.56) {
+              // Lower tapered cone expanding from bottom rim (0.44) up to equator (1.14)
+              const t = v / 0.56;
+              const curve = Math.pow(t, 0.86);
+              const pinch = Math.abs(v - 0.56) < 0.03 ? -0.015 * (1 - Math.abs(v - 0.56) / 0.03) : 0;
+              return 0.44 + (1.14 - 0.44) * curve + pinch;
+            } else if (v < 0.90) {
+              // Upper rounded shoulder dome
+              const t = (v - 0.56) / 0.34;
+              return 1.14 * Math.cos(t * 0.62) + 0.04 * Math.sin(t * Math.PI);
+            } else {
+              // Gently domed flat-ish top cap closing to 0
+              const t = (v - 0.90) / 0.10;
+              const rStart = 1.14 * Math.cos(0.62);
+              return rStart * (1 - Math.pow(t, 1.6));
+            }
+          }
+
+          const positions = [];
+          const uvs = [];
+          const indices = [];
+
+          for (let j = 0; j <= heightSegs; j++) {
+            const v = j / heightSegs; // 0 = bottom, 1 = top
+            const baseR = getBalloonRadius(v);
+            // Flatten top cap slightly in Y
+            const y = yBottom + v * totalH;
+
+            for (let i = 0; i <= radSegs; i++) {
+              const u = i / radSegs;
+              const theta = u * Math.PI * 2;
+              // 4 subtle paper gores (puffing slightly between the 4 vertical seams)
+              const gorePuff = (v > 0.04 && v < 0.94)
+                ? (1.0 + 0.038 * Math.abs(Math.sin(theta * 2)))
+                : 1.0;
+              const r = baseR * gorePuff;
+
+              const vx = r * Math.cos(theta);
+              const vz = r * Math.sin(theta);
+
+              positions.push(vx, y, vz);
+              uvs.push(u, v);
+            }
+          }
+
+          for (let j = 0; j < heightSegs; j++) {
+            for (let i = 0; i < radSegs; i++) {
+              const a = j * (radSegs + 1) + i;
+              const b = (j + 1) * (radSegs + 1) + i;
+              const c = (j + 1) * (radSegs + 1) + (i + 1);
+              const d = j * (radSegs + 1) + (i + 1);
+
+              indices.push(a, b, d);
+              indices.push(b, c, d);
+            }
+          }
+
+          const balloonGeo = new THREE.BufferGeometry();
+          balloonGeo.setIndex(indices);
+          balloonGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+          balloonGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+          balloonGeo.computeVertexNormals();
+
+          const balloonMat = new THREE.MeshStandardMaterial({
+            map: textures.colorMap,
+            emissive: 0xFFAE42,
+            emissiveMap: textures.emissiveMap,
+            emissiveIntensity: 1.25,
+            roughness: 0.55,
+            metalness: 0.05,
+            side: THREE.DoubleSide
+          });
+
+          const balloonMesh = new THREE.Mesh(balloonGeo, balloonMat);
+          group.add(balloonMesh);
+
+          // Bottom Reddish-Orange Bamboo/Wire Rim Ring
+          const rimGeo = new THREE.TorusGeometry(0.445, 0.024, 12, 48);
+          const rimMat = new THREE.MeshStandardMaterial({
+            color: 0xC83E0B,
+            emissive: 0x5E1902,
+            roughness: 0.4
+          });
+          const rimMesh = new THREE.Mesh(rimGeo, rimMat);
+          rimMesh.rotation.x = Math.PI / 2;
+          rimMesh.position.y = yBottom;
+          group.add(rimMesh);
+
+          // Cross-Wires & Fuel Burner Holder at Bottom Opening
+          const wireMat = new THREE.MeshBasicMaterial({ color: 0x3E2723 });
+          const wire1 = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.88, 6), wireMat);
+          wire1.rotation.z = Math.PI / 2;
+          wire1.position.y = yBottom;
+          group.add(wire1);
+
+          const wire2 = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.88, 6), wireMat);
+          wire2.rotation.x = Math.PI / 2;
+          wire2.position.y = yBottom;
+          group.add(wire2);
+
+          // Dark Fuel Wax Block at Center of Cross-Wires
+          const burnerBlock = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.065, 0.05, 0.06, 12),
+            new THREE.MeshBasicMaterial({ color: 0x212121 })
+          );
+          burnerBlock.position.y = yBottom - 0.01;
+          group.add(burnerBlock);
+
+          // Blazing White-Gold Inner Flame Core right above the burner block
+          const flameCoreGeo = new THREE.SphereGeometry(0.19, 16, 16);
+          flameCoreGeo.scale(0.85, 1.65, 0.85);
+          const flameCoreMat = new THREE.MeshBasicMaterial({
+            color: 0xFFFFFF,
+            transparent: true,
+            opacity: 0.96
+          });
+          skyFlameCoreMesh = new THREE.Mesh(flameCoreGeo, flameCoreMat);
+          skyFlameCoreMesh.position.set(0, yBottom + 0.24, 0);
+          group.add(skyFlameCoreMesh);
+
+          return group;
+        }
+
+        // =========================================================================
+        // MODEL 3: MODERN 3D ARCHITECTURAL ORIGAMI & DIAMOND-LATTICE LAMP LANTERN
+        // Sculpted 12-faceted diamond-bell body with laser-cut mandala/geometric
+        // glowing lattice, metallic rose-gold structural ribs, inner filament core,
+        // and multi-tier twisted modern silk-and-prism chandelier tassels!
+        // =========================================================================
+        function createModernLatticeLanternTextures() {
+          const w = 1024;
+          const h = 1024;
+
+          const cCanvas = document.createElement('canvas');
+          cCanvas.width = w;
+          cCanvas.height = h;
+          const cCtx = cCanvas.getContext('2d');
+
+          const eCanvas = document.createElement('canvas');
+          eCanvas.width = w;
+          eCanvas.height = h;
+          const eCtx = eCanvas.getContext('2d');
+
+          // 1. Rich Warm Architectural Orange-Amber Faceted Base Gradient
+          const bgGrad = cCtx.createLinearGradient(0, 0, 0, h);
+          bgGrad.addColorStop(0.0, '#A82E00');
+          bgGrad.addColorStop(0.22, '#E65100');
+          bgGrad.addColorStop(0.50, '#FF7B1C');
+          bgGrad.addColorStop(0.78, '#E65100');
+          bgGrad.addColorStop(1.0, '#9E2A00');
+          cCtx.fillStyle = bgGrad;
+          cCtx.fillRect(0, 0, w, h);
+
+          // Emissive Warm Internal Glow Base
+          const emGrad = eCtx.createLinearGradient(0, 0, 0, h);
+          emGrad.addColorStop(0.0, '#2B0900');
+          emGrad.addColorStop(0.25, '#8C2D00');
+          emGrad.addColorStop(0.50, '#E65C00');
+          emGrad.addColorStop(0.75, '#8C2D00');
+          emGrad.addColorStop(1.0, '#2B0900');
+          eCtx.fillStyle = emGrad;
+          eCtx.fillRect(0, 0, w, h);
+
+          // 2. 12 Vertical Origami Facet Panels with Alternating Shading & Laser-Cut Geometric Windows
+          const panels = 12;
+          const panelW = w / panels;
+
+          for (let i = 0; i < panels; i++) {
+            const x0 = i * panelW;
+            const cx = x0 + panelW * 0.5;
+
+            // Alternating origami fold shading
+            cCtx.fillStyle = (i % 2 === 0)
+              ? 'rgba(255, 200, 120, 0.14)'
+              : 'rgba(60, 12, 0, 0.28)';
+            cCtx.fillRect(x0, 0, panelW, h);
+
+            // Golden metallic structural seam line
+            cCtx.strokeStyle = '#FFD54F';
+            cCtx.lineWidth = 3.5;
+            cCtx.beginPath();
+            cCtx.moveTo(x0, 0);
+            cCtx.lineTo(x0, h);
+            cCtx.stroke();
+
+            // Helper to draw glowing laser-cut geometric diamond/lotus window on both Color & Emissive maps
+            function drawGlowingDiamond(dx, dy, dw, dh) {
+              [cCtx, eCtx].forEach((ctx, isEm) => {
+                ctx.save();
+                ctx.shadowColor = isEm ? '#FFFFFF' : '#FFD740';
+                ctx.shadowBlur = isEm ? 18 : 10;
+                ctx.fillStyle = isEm ? '#FFFFFF' : '#FFF9C4';
+                ctx.strokeStyle = '#FFD54F';
+                ctx.lineWidth = 2.2;
+                ctx.beginPath();
+                ctx.moveTo(dx, dy - dh);
+                ctx.lineTo(dx + dw, dy);
+                ctx.lineTo(dx, dy + dh);
+                ctx.lineTo(dx - dw, dy);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+              });
+            }
+
+            // Center Equatorial Large Ornate Diamond Lattice Cutout (y = 0.50 * h)
+            drawGlowingDiamond(cx, h * 0.50, panelW * 0.34, h * 0.085);
+            // Upper & Lower Tiered Geometric Diamonds
+            drawGlowingDiamond(cx, h * 0.30, panelW * 0.26, h * 0.058);
+            drawGlowingDiamond(cx, h * 0.70, panelW * 0.26, h * 0.058);
+            // Delicate Crown & Base Star Pinholes
+            drawGlowingDiamond(cx, h * 0.15, panelW * 0.16, h * 0.032);
+            drawGlowingDiamond(cx, h * 0.85, panelW * 0.16, h * 0.032);
+
+            // Diagonal Origami Crease Lines connecting the diamond vertices
+            cCtx.strokeStyle = 'rgba(255, 213, 79, 0.55)';
+            cCtx.lineWidth = 2.0;
+            cCtx.beginPath();
+            cCtx.moveTo(x0, h * 0.22);
+            cCtx.lineTo(x0 + panelW, h * 0.50);
+            cCtx.lineTo(x0, h * 0.78);
+            cCtx.moveTo(x0 + panelW, h * 0.22);
+            cCtx.lineTo(x0, h * 0.50);
+            cCtx.lineTo(x0 + panelW, h * 0.78);
+            cCtx.stroke();
+          }
+
+          // Horizontal Geometric Gold Fretwork Bands at Origami Waist & Shoulders
+          [0.22, 0.39, 0.61, 0.78].forEach(frac => {
+            const by = h * frac;
+            cCtx.strokeStyle = '#FFD54F';
+            cCtx.lineWidth = 4;
+            cCtx.beginPath();
+            cCtx.moveTo(0, by);
+            cCtx.lineTo(w, by);
+            cCtx.stroke();
+          });
+
+          return {
+            colorMap: new THREE.CanvasTexture(cCanvas),
+            emissiveMap: new THREE.CanvasTexture(eCanvas)
+          };
+        }
+
+        function createModernTasselTexture() {
+          const w = 64;
+          const h = 512;
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+
+          // Sleek modern gradient: white-gold top -> vibrant tangerine -> deep ruby-orange tip with gold chevron accents
+          const grad = ctx.createLinearGradient(0, 0, 0, h);
+          grad.addColorStop(0.0, '#FFFFFF');
+          grad.addColorStop(0.14, '#FFE082');
+          grad.addColorStop(0.42, '#FF8F00');
+          grad.addColorStop(0.76, '#E65100');
+          grad.addColorStop(1.0, '#B71C1C');
+          ctx.fillStyle = grad;
+
+          // Tapered diamond-tipped modern pendant ribbon shape
+          ctx.beginPath();
+          ctx.moveTo(10, 0);
+          ctx.lineTo(w - 10, 0);
+          ctx.lineTo(w - 6, h * 0.88);
+          ctx.lineTo(w * 0.5, h);
+          ctx.lineTo(6, h * 0.88);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.strokeStyle = '#FFD54F';
+          ctx.lineWidth = 3.5;
+          ctx.stroke();
+
+          return new THREE.CanvasTexture(canvas);
+        }
+
+        function buildLampLanternSubGroup() {
+          const group = new THREE.Group();
+          lampStreamerMeshes = [];
+
+          // Center the modern diamond-bell body at y = 0.42 so the body + chandelier tassels balance in the viewport
+          const bodyCenterY = 0.42;
+          const textures = createModernLatticeLanternTextures();
+
+          // 1. Sleek Hanging Cord & Metallic Brass Top Suspension Finial
+          const cordGeo = new THREE.CylinderGeometry(0.012, 0.012, 2.8, 8);
+          const cordMat = new THREE.MeshBasicMaterial({ color: 0x5D2906 });
+          const cordMesh = new THREE.Mesh(cordGeo, cordMat);
+          cordMesh.position.set(0, bodyCenterY + 0.86 + 1.4, 0);
+          group.add(cordMesh);
+
+          const goldMetalMat = new THREE.MeshStandardMaterial({
+            color: 0xFFB300,
+            emissive: 0x6E3800,
+            roughness: 0.25,
+            metalness: 0.82
+          });
+
+          // Top Finial Cap & Halo Ring
+          const topCap = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.34, 0.14, 12), goldMetalMat);
+          topCap.position.y = bodyCenterY + 0.84;
+          group.add(topCap);
+
+          const topRing = new THREE.Mesh(new THREE.TorusGeometry(0.35, 0.024, 12, 36), goldMetalMat);
+          topRing.rotation.x = Math.PI / 2;
+          topRing.position.y = bodyCenterY + 0.78;
+          group.add(topRing);
+
+          // 2. Inner Radiant Frosted Glass Filament Core (Shines Warm White-Gold Inside the Lattice)
+          const innerCoreGeo = new THREE.CylinderGeometry(0.34, 0.28, 1.32, 24);
+          const innerCoreMat = new THREE.MeshBasicMaterial({
+            color: 0xFFF8E1,
+            transparent: true,
+            opacity: 0.94
+          });
+          const innerCoreMesh = new THREE.Mesh(innerCoreGeo, innerCoreMat);
+          innerCoreMesh.position.y = bodyCenterY;
+          group.add(innerCoreMesh);
+
+          // 3. Sculpted 12-Faceted 3D Origami Diamond-Chalice Lantern Shell
+          // Profile stations from bottom (v=0) to top (v=1) creating a sharp, modern geometric designer silhouette
+          const stations = [
+            { v: 0.00, y: -0.78, r: 0.34, twist: 0.0 },
+            { v: 0.22, y: -0.46, r: 0.68, twist: Math.PI / 12 },
+            { v: 0.39, y: -0.18, r: 0.56, twist: 0.0 },      // Sculpted inward origami waist fold
+            { v: 0.50, y:  0.00, r: 0.98, twist: Math.PI / 12 }, // Wide diamond equatorial crown
+            { v: 0.61, y:  0.18, r: 0.56, twist: 0.0 },      // Upper origami waist fold
+            { v: 0.78, y:  0.46, r: 0.68, twist: Math.PI / 12 },
+            { v: 1.00, y:  0.78, r: 0.34, twist: 0.0 }
+          ];
+
+          const radSegs = 12; // Crisp 12-sided geometric origami facets
+          const positions = [];
+          const uvs = [];
+          const indices = [];
+
+          for (let j = 0; j < stations.length; j++) {
+            const st = stations[j];
+            for (let i = 0; i <= radSegs; i++) {
+              const u = i / radSegs;
+              const theta = u * Math.PI * 2 + st.twist;
+              const vx = st.r * Math.cos(theta);
+              const vy = bodyCenterY + st.y;
+              const vz = st.r * Math.sin(theta);
+
+              positions.push(vx, vy, vz);
+              uvs.push(u, st.v);
+            }
+          }
+
+          for (let j = 0; j < stations.length - 1; j++) {
+            for (let i = 0; i < radSegs; i++) {
+              const a = j * (radSegs + 1) + i;
+              const b = (j + 1) * (radSegs + 1) + i;
+              const c = (j + 1) * (radSegs + 1) + (i + 1);
+              const d = j * (radSegs + 1) + (i + 1);
+
+              indices.push(a, b, d);
+              indices.push(b, c, d);
+            }
+          }
+
+          const shellGeo = new THREE.BufferGeometry();
+          shellGeo.setIndex(indices);
+          shellGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+          shellGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+          shellGeo.computeVertexNormals();
+
+          const shellMat = new THREE.MeshStandardMaterial({
+            map: textures.colorMap,
+            emissive: 0xFF9800,
+            emissiveMap: textures.emissiveMap,
+            emissiveIntensity: 1.35,
+            roughness: 0.36,
+            metalness: 0.18,
+            side: THREE.DoubleSide
+          });
+
+          const shellMesh = new THREE.Mesh(shellGeo, shellMat);
+          group.add(shellMesh);
+
+          // 4. Exterior Floating Metallic Gold Equatorial & Shoulder Accent Rings
+          const eqRing = new THREE.Mesh(new THREE.TorusGeometry(0.99, 0.016, 10, 12), goldMetalMat);
+          eqRing.rotation.x = Math.PI / 2;
+          eqRing.rotation.z = Math.PI / 12;
+          eqRing.position.y = bodyCenterY;
+          group.add(eqRing);
+
+          const botRingY = bodyCenterY - 0.78;
+          const botRing = new THREE.Mesh(new THREE.TorusGeometry(0.35, 0.024, 12, 36), goldMetalMat);
+          botRing.rotation.x = Math.PI / 2;
+          botRing.position.y = botRingY;
+          group.add(botRing);
+
+          // 5. Modern 2-Tier Chandelier Tassel Array (Outer Diamond-Tipped Silk Pendants + Inner Longer Tails + Center Crystal Finial)
+          const tasselTex = createModernTasselTexture();
+          const tasselMat = new THREE.MeshStandardMaterial({
+            map: tasselTex,
+            emissive: 0xFF8C00,
+            emissiveMap: tasselTex,
+            emissiveIntensity: 1.05,
+            transparent: true,
+            alphaTest: 0.1,
+            roughness: 0.4,
+            side: THREE.DoubleSide
+          });
+
+          const totalTassels = 18;
+          for (let t = 0; t < totalTassels; t++) {
+            const isOuter = (t % 2 === 0);
+            const ringR = isOuter ? 0.34 : 0.20;
+            const ang = (t / totalTassels) * Math.PI * 2;
+            const tLen = isOuter ? 1.05 : 1.38;
+            const tWidth = isOuter ? 0.115 : 0.095;
+
+            const segGeo = new THREE.PlaneGeometry(tWidth, tLen, 1, 10);
+            const posAttr = segGeo.attributes.position;
+            for (let k = 0; k < posAttr.count; k++) {
+              const py = posAttr.getY(k);
+              const normDown = (tLen * 0.5 - py) / tLen;
+              const curveZ = Math.sin(normDown * Math.PI) * (isOuter ? 0.08 : 0.04);
+              posAttr.setZ(k, curveZ);
+            }
+            segGeo.computeVertexNormals();
+
+            const pivot = new THREE.Group();
+            pivot.position.set(
+              Math.cos(ang) * ringR,
+              botRingY - 0.02,
+              Math.sin(ang) * ringR
+            );
+            pivot.rotation.y = -ang + Math.PI / 2;
+
+            const mesh = new THREE.Mesh(segGeo, tasselMat);
+            mesh.position.y = -tLen * 0.5;
+            pivot.add(mesh);
+
+            group.add(pivot);
+            lampStreamerMeshes.push({
+              pivot: pivot,
+              baseRotX: 0,
+              baseRotZ: isOuter ? 0.05 : 0.02,
+              phase: t * 0.55
+            });
+          }
+
+          // Central Suspended Glowing Diamond Finial Drop at the Bottom Center
+          const finialGeo = new THREE.OctahedronGeometry(0.13, 0);
+          finialGeo.scale(0.85, 1.65, 0.85);
+          const finialMat = new THREE.MeshStandardMaterial({
+            color: 0xFFE082,
+            emissive: 0xFF8F00,
+            emissiveIntensity: 1.4,
+            roughness: 0.2,
+            metalness: 0.5
+          });
+          const finialMesh = new THREE.Mesh(finialGeo, finialMat);
+          finialMesh.position.set(0, botRingY - 1.42, 0);
+          group.add(finialMesh);
+
+          return group;
+        }
+
+        function createBackGlowTexture() {
+          const gCanvas = document.createElement('canvas');
+          gCanvas.width = 512;
+          gCanvas.height = 512;
+          const ctx = gCanvas.getContext('2d');
+          const grad = ctx.createRadialGradient(256, 256, 15, 256, 256, 250);
+          grad.addColorStop(0.0, 'rgba(255, 115, 15, 0.38)');
+          grad.addColorStop(0.38, 'rgba(175, 55, 5, 0.18)');
+          grad.addColorStop(0.72, 'rgba(85, 18, 0, 0.05)');
+          grad.addColorStop(1.0, 'rgba(0, 0, 0, 0)');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, 512, 512);
+          return new THREE.CanvasTexture(gCanvas);
+        }
+
+        function buildAllThreeLanternModels() {
+          floatingDiyaGroup = new THREE.Group();
+          floatingDiyaGroup.position.set(0, -0.18, 0);
+
+          starLanternSubGroup = buildStarLanternSubGroup();
+          skyLanternSubGroup = buildSkyLanternSubGroup();
+          lampLanternSubGroup = buildLampLanternSubGroup();
+
+          floatingDiyaGroup.add(starLanternSubGroup);
+          floatingDiyaGroup.add(skyLanternSubGroup);
+          floatingDiyaGroup.add(lampLanternSubGroup);
+
           const glowGeo = new THREE.PlaneGeometry(3.8, 3.8);
           const glowMat = new THREE.MeshBasicMaterial({
             map: createBackGlowTexture(),
@@ -1796,13 +2480,20 @@
           flameMesh.position.set(0, -0.18, -0.85);
           lanternScene.add(flameMesh);
 
-          // Balanced warm light so orange facets stay rich and dimensional
           flameLight = new THREE.PointLight(0xFF8C00, 1.4, 14);
           flameLight.position.set(0, 0, 1.4);
           floatingDiyaGroup.add(flameLight);
 
+          setLanternType(currentLanternType);
           updateDiyaScale();
           lanternScene.add(floatingDiyaGroup);
+        }
+
+        function setLanternType(typeNum) {
+          activeLanternModel = normalizeLanternType(typeNum);
+          if (starLanternSubGroup) starLanternSubGroup.visible = (activeLanternModel === 1);
+          if (skyLanternSubGroup) skyLanternSubGroup.visible = (activeLanternModel === 2);
+          if (lampLanternSubGroup) lampLanternSubGroup.visible = (activeLanternModel === 3);
         }
 
         function getBaseLanternScale() {
@@ -1835,9 +2526,6 @@
           requestAnimationFrame(animate);
           time += 0.016;
 
-          // SCROLL-DRIVEN 2-PHASE CHOREOGRAPHY:
-          // Phase 1 (0.0 -> 0.45): Star moves upward keeping centered in the visible window, stopping with safe space from top.
-          // Phase 2 (0.45 -> 1.0): Star stops moving upward, shrinks to a compact size, and docks at the left side above the form!
           scrollY += (targetScrollY - scrollY) * 0.09;
           const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
           const scrollFrac = Math.min(Math.max(scrollY / maxScroll, 0), 1);
@@ -1847,14 +2535,11 @@
           const halfH = 4.8 * Math.tan((46 * Math.PI / 180) / 2);
           const halfW = halfH * (camera ? camera.aspect : (window.innerWidth / Math.max(window.innerHeight, 1)));
 
-          // Safe ceiling in 3D world units (at least 92px below top of viewport so star NEVER goes behind the 56px title bar)
           const safeTopPx = 92;
           const safeCeilingWorldY = (1 - (safeTopPx / Math.max(window.innerHeight, 1)) * 2) * halfH;
 
-          // Max center Y while star is still full-size in Phase 1 (accounting for top star tips = 1.262 * baseScale)
           const phase1StopY = Math.min(0.24, safeCeilingWorldY - 1.28 * baseScale);
 
-          // Docked Y position right above the form card when shrunk (30% scale), clamped well below the title bar (min 140px from top)
           let dockedTopY = 0.76;
           const formCardEl = document.getElementById('wish-form-card');
           if (formCardEl) {
@@ -1863,7 +2548,6 @@
             dockedTopY = (1 - (targetPxY / Math.max(window.innerHeight, 1)) * 2) * halfH;
           }
 
-          // Compute exact 3D world X for the left side of the form container (max-w-xl = 576px)
           const formWidthPx = Math.min(window.innerWidth - 32, 576);
           const formLeftPx = (window.innerWidth - formWidthPx) / 2 + 40;
           const leftTargetX = ((formLeftPx / Math.max(window.innerWidth, 1)) * 2 - 1) * halfW;
@@ -1883,13 +2567,12 @@
           } else {
             const p2 = (scrollFrac - 0.35) / 0.65;
             const s2 = p2 * p2 * (3 - 2 * p2);
-            scaleMult = 1.0 - s2 * 0.70; // Resizes down to 30% of base size
+            scaleMult = 1.0 - s2 * 0.70;
             curY = phase1StopY + s2 * (dockedTopY - phase1StopY);
-            curX = (desktopStartX * 0.5) + s2 * (leftTargetX - desktopStartX * 0.5); // Glides to left side above the form
+            curX = (desktopStartX * 0.5) + s2 * (leftTargetX - desktopStartX * 0.5);
           }
 
           const finalScale = baseScale * scaleMult;
-          // Hard safety clamp: top tips of the star (1.28 * finalScale above center) can NEVER cross safeCeilingWorldY
           const maxAllowedY = safeCeilingWorldY - 1.28 * finalScale;
           curY = Math.min(curY, maxAllowedY);
 
@@ -1899,27 +2582,39 @@
             floatingDiyaGroup.position.set(curX, curY + hoverBob, 0);
             floatingDiyaGroup.scale.setScalar(finalScale);
 
-            // Rotate 3D star lantern smoothly around Y on scroll + subtle idle 3D shimmer
             floatingDiyaGroup.rotation.y = scrollFrac * Math.PI * 2.2 + Math.sin(time * 0.8) * 0.14;
             floatingDiyaGroup.rotation.x = Math.sin(scrollFrac * Math.PI) * 0.15 + Math.cos(time * 0.6) * 0.04;
           }
 
+          // Animate Sky Lantern internal flame flicker (Model 2)
+          if (activeLanternModel === 2 && skyFlameCoreMesh) {
+            const fScale = 1.0 + Math.sin(time * 14) * 0.08 + Math.cos(time * 23) * 0.05;
+            skyFlameCoreMesh.scale.set(0.85 * fScale, 1.65 * fScale, 0.85 * fScale);
+          }
+
+          // Animate Lamp Lantern flowing streamer ribbons in the breeze (Model 3)
+          if (activeLanternModel === 3 && lampStreamerMeshes.length > 0) {
+            for (let m = 0; m < lampStreamerMeshes.length; m++) {
+              const sm = lampStreamerMeshes[m];
+              sm.pivot.rotation.z = sm.baseRotZ + Math.sin(time * 2.2 + sm.phase) * 0.045;
+              sm.pivot.rotation.x = Math.cos(time * 1.8 + sm.phase) * 0.035;
+            }
+          }
+
           if (starPoints) {
-            // Opposite rotation for 360° starfield parallax
             starPoints.rotation.y = -scrollFrac * Math.PI * 1.5;
             starPoints.rotation.x = -scrollFrac * 0.4;
           }
 
-          // Keep warm back-glow sprite locked behind the star lantern as it moves & resizes
           if (flameMesh && flameLight) {
             const pulse = Math.sin(time * 4.5) * 0.05 + Math.cos(time * 7.2) * 0.03;
-            flameMesh.position.set(curX, curY + hoverBob, -0.85);
+            const glowYOffset = activeLanternModel === 3 ? 0.35 * finalScale : 0;
+            flameMesh.position.set(curX, curY + hoverBob + glowYOffset, -0.85);
             const glowScale = scaleMult * (1 + pulse);
             flameMesh.scale.set(glowScale, glowScale, 1);
             flameLight.intensity = 1.4 + pulse * 1.1;
           }
 
-          // Random Opacity Stars (0 to 0.8 transition)
           if (starPoints && starData.length > 0) {
             const colors = starPoints.geometry.attributes.color.array;
             for (let i = 0; i < starData.length; i++) {
@@ -1947,7 +2642,8 @@
 
         return {
           init: init,
-          flashFlame: flashFlame
+          flashFlame: flashFlame,
+          setLanternType: setLanternType
         };
       })();
 
@@ -3492,12 +4188,27 @@
         const parsedIdx = parseInt(quoteDigits, 10);
         if (isNaN(parsedIdx) || parsedIdx < 1 || parsedIdx > 10) return null;
 
-        const encodedNamePart = eVal.substring(3);
+        // 4th character (index 3) is reserved for Lantern Selection ('1', '2', or '3')
+        let lanternNum = 1;
+        let encodedNamePart = '';
+        if (eVal.length >= 4) {
+          const fourthChar = eVal.charAt(3);
+          if (fourthChar === '1' || fourthChar === '2' || fourthChar === '3') {
+            lanternNum = parseInt(fourthChar, 10);
+            encodedNamePart = eVal.substring(4);
+          } else {
+            // Backward compatibility for links without the 4th lantern digit
+            lanternNum = 1;
+            encodedNamePart = eVal.substring(3);
+          }
+        }
+
         const decodedName = encodedNamePart ? decodeSenderName(encodedNamePart) : '';
 
         return {
           lang: langChar,
           quoteIndex: parsedIdx,
+          lanternType: lanternNum,
           name: decodedName
         };
       }
@@ -3505,7 +4216,7 @@
       function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
 
-        // 1. Primary compact format: ?e=m05...
+        // 1. Primary compact format: ?e=m051...
         const eParam = params.get('e');
         const parsedE = parseCompactEParam(eParam);
         if (parsedE) {
@@ -3525,11 +4236,13 @@
         let name = params.get('n') !== null ? params.get('n') : params.get('name');
         let lang = params.get('l') !== null ? params.get('l') : params.get('lang');
         let quoteIdx = params.get('i') !== null ? params.get('i') : params.get('quote');
+        let lantern = params.get('k') !== null ? params.get('k') : '1';
 
         return {
           name: name ? name.trim() : '',
           lang: normalizeLangCode(lang),
-          quoteIndex: normalizeQuoteIndex(quoteIdx)
+          quoteIndex: normalizeQuoteIndex(quoteIdx),
+          lanternType: normalizeLanternType(lantern)
         };
       }
 
@@ -3538,7 +4251,6 @@
         if (host.indexOf('easode.com') !== -1) {
           return 'https://easode.com/diwali';
         }
-        // Strip any trailing /index.html or .html extension so generated URLs are always clean and short
         let cleanPath = (window.location.pathname || '/diwali')
           .replace(/\/index\.html$/i, '')
           .replace(/\.html$/i, '');
@@ -3549,12 +4261,13 @@
         return origin + cleanPath;
       }
 
-      function createShareUrl(name, lang, quoteIndex) {
+      function createShareUrl(name, lang, quoteIndex, lanternType) {
         const normLang = normalizeLangCode(lang);
         const normIdx = normalizeQuoteIndex(quoteIndex || currentQuoteIndex);
+        const normLantern = normalizeLanternType(lanternType || currentLanternType);
         const twoDigitIdx = String(normIdx).padStart(2, '0');
         const encodedName = encodeSenderName(name || '');
-        const compactPayload = `${normLang}${twoDigitIdx}${encodedName}`;
+        const compactPayload = `${normLang}${twoDigitIdx}${normLantern}${encodedName}`;
 
         const baseUrl = getCleanBaseUrl();
         return `${baseUrl}?e=${compactPayload}`;
@@ -3714,7 +4427,7 @@
           try {
             const nameInput = document.getElementById('input-sender-name');
             const activeName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : currentSender;
-            const newUrl = createShareUrl(activeName, currentLang, currentQuoteIndex);
+            const newUrl = createShareUrl(activeName, currentLang, currentQuoteIndex, currentLanternType);
             const qIdx = newUrl.indexOf('?');
             window.history.replaceState({ name: activeName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', qIdx !== -1 ? newUrl.substring(qIdx) : newUrl);
           } catch (e) {}
@@ -3786,12 +4499,64 @@
         });
       }
 
-      function updateUIForWish(name, langCode, quoteIndex) {
+      function updateLanternSelectionUI(lanternType) {
+        const normLantern = normalizeLanternType(lanternType);
+        currentLanternType = normLantern;
+        Scene3D.setLanternType(normLantern);
+
+        // Update Title Bar 3 Lantern Buttons
+        document.querySelectorAll('.header-lantern-btn').forEach(btn => {
+          const btnType = parseInt(btn.getAttribute('data-lantern'), 10);
+          if (btnType === normLantern) {
+            btn.classList.add('active-lantern');
+            btn.setAttribute('aria-pressed', 'true');
+          } else {
+            btn.classList.remove('active-lantern');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+        });
+
+        // Update Form 3 Lantern Options
+        document.querySelectorAll('.form-lantern-option').forEach(btn => {
+          const btnType = parseInt(btn.getAttribute('data-lantern'), 10);
+          if (btnType === normLantern) {
+            btn.classList.add('active-lantern');
+            btn.setAttribute('aria-checked', 'true');
+          } else {
+            btn.classList.remove('active-lantern');
+            btn.setAttribute('aria-checked', 'false');
+          }
+        });
+      }
+
+      function selectLanternType(newLanternType, syncUrl) {
+        const normLantern = normalizeLanternType(newLanternType);
+        updateLanternSelectionUI(normLantern);
+
+        if (syncUrl) {
+          try {
+            const nameInput = document.getElementById('input-sender-name');
+            const activeName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : currentSender;
+            const newUrl = createShareUrl(activeName, currentLang, currentQuoteIndex, currentLanternType);
+            const qIdx = newUrl.indexOf('?');
+            window.history.replaceState(
+              { name: activeName, lang: currentLang, quoteIndex: currentQuoteIndex, lanternType: currentLanternType },
+              '',
+              qIdx !== -1 ? newUrl.substring(qIdx) : newUrl
+            );
+          } catch (e) {}
+        }
+      }
+
+      function updateUIForWish(name, langCode, quoteIndex, lanternType) {
         const normLang = normalizeLangCode(langCode);
         const normQuoteIdx = normalizeQuoteIndex(quoteIndex !== undefined ? quoteIndex : currentQuoteIndex);
+        const normLantern = normalizeLanternType(lanternType !== undefined ? lanternType : currentLanternType);
         currentLang = normLang;
         currentSender = name;
         currentQuoteIndex = normQuoteIdx;
+        currentLanternType = normLantern;
+        updateLanternSelectionUI(normLantern);
 
         const langData = LANGUAGES[normLang] || LANGUAGES.e;
         const selectedQuoteText = langData.quotes[normQuoteIdx - 1] || langData.quotes[0];
@@ -3852,6 +4617,19 @@
           lblName.textContent = langData.nameLabel;
         }
 
+        const lblLanternPicker = document.getElementById('label-lantern-picker');
+        if (lblLanternPicker && langData.lanternPickerLabel) {
+          lblLanternPicker.textContent = langData.lanternPickerLabel;
+        }
+        if (langData.lanternNames && langData.lanternNames.length === 3) {
+          const l1 = document.getElementById('label-lantern-1');
+          const l2 = document.getElementById('label-lantern-2');
+          const l3 = document.getElementById('label-lantern-3');
+          if (l1) l1.textContent = langData.lanternNames[0];
+          if (l2) l2.textContent = langData.lanternNames[1];
+          if (l3) l3.textContent = langData.lanternNames[2];
+        }
+
         const nameInput = document.getElementById('input-sender-name');
         if (nameInput) {
           nameInput.placeholder = langData.namePlaceholder || 'Enter your name';
@@ -3868,7 +4646,7 @@
 
         const dynamicTitle = '🔒 Someone Sent You a Secret Surprise — Tap to Unlock ✨';
         const dynamicDesc = 'A private, interactive 3D experience with sound and a hidden message is waiting for you. Tap the link to unblur and discover who sent it!';
-        const canonicalUrl = createShareUrl(name, normLang, normQuoteIdx);
+        const canonicalUrl = createShareUrl(name, normLang, normQuoteIdx, normLantern);
 
         document.title = name
           ? `🔒 Secret Surprise Unlocked | ${langData.headline}`
@@ -3909,7 +4687,7 @@
 
         currentSender = rawName;
         const langData = LANGUAGES[currentLang] || LANGUAGES.e;
-        const shareUrl = createShareUrl(rawName, currentLang, currentQuoteIndex);
+        const shareUrl = createShareUrl(rawName, currentLang, currentQuoteIndex, currentLanternType);
         const text = `${langData.waShareText.replace('{NAME}', rawName)}
 
 ${shareUrl}`;
@@ -3930,7 +4708,7 @@ ${shareUrl}`;
         if (nameErr) nameErr.classList.add('hidden');
 
         currentSender = rawName;
-        const shareUrl = createShareUrl(rawName, currentLang, currentQuoteIndex);
+        const shareUrl = createShareUrl(rawName, currentLang, currentQuoteIndex, currentLanternType);
         const cpBtn = document.getElementById('label-copy-link');
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -4044,8 +4822,16 @@ ${shareUrl}`;
         initSparklerCursor();
         initQuoteCarouselInteractions();
 
+        // Wire Title Bar 3 Lantern Switcher Buttons & Form 3 Lantern Options
+        document.querySelectorAll('.header-lantern-btn, .form-lantern-option').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const chosenType = parseInt(this.getAttribute('data-lantern'), 10);
+            selectLanternType(chosenType, true);
+          });
+        });
+
         const q = getQueryParams();
-        updateUIForWish(q.name, q.lang, q.quoteIndex);
+        updateUIForWish(q.name, q.lang, q.quoteIndex, q.lanternType);
         setTimeout(function () {
           scrollQuoteCardToCenter(currentQuoteIndex, false);
         }, 80);
@@ -4120,23 +4906,7 @@ ${shareUrl}`;
           });
         }
 
-        // Music Toggle Circle Button (Pure Icon, NO text)
-        const btnAudio = document.getElementById('btn-toggle-audio');
-        const iconSoundOn = document.getElementById('icon-sound-on');
-        const iconSoundOff = document.getElementById('icon-sound-off');
 
-        if (btnAudio) {
-          btnAudio.addEventListener('click', function () {
-            const isPlaying = AudioEngine.toggleMusic();
-            if (isPlaying) {
-              if (iconSoundOn) iconSoundOn.classList.remove('hidden');
-              if (iconSoundOff) iconSoundOff.classList.add('hidden');
-            } else {
-              if (iconSoundOn) iconSoundOn.classList.add('hidden');
-              if (iconSoundOff) iconSoundOff.classList.remove('hidden');
-            }
-          });
-        }
 
         // Custom Dropdown Menu Handlers
         const btnCustomLang = document.getElementById('btn-custom-lang');
@@ -4168,9 +4938,9 @@ ${shareUrl}`;
             const normCode = normalizeLangCode(rawCode);
             const nameInput = document.getElementById('input-sender-name');
             const name = nameInput ? nameInput.value.trim() : currentSender;
-            updateUIForWish(name, normCode, currentQuoteIndex);
+            updateUIForWish(name, normCode, currentQuoteIndex, currentLanternType);
             try {
-              const newUrl = createShareUrl(name, normCode, currentQuoteIndex);
+              const newUrl = createShareUrl(name, normCode, currentQuoteIndex, currentLanternType);
               const qIdx = newUrl.indexOf('?');
               window.history.replaceState({ name: name, lang: normCode, quoteIndex: currentQuoteIndex }, '', qIdx !== -1 ? newUrl.substring(qIdx) : newUrl);
             } catch (e) {}
@@ -4203,9 +4973,9 @@ ${shareUrl}`;
             }
 
             const previewName = rawName || currentSender || '';
-            updateUIForWish(previewName, currentLang, currentQuoteIndex);
+            updateUIForWish(previewName, currentLang, currentQuoteIndex, currentLanternType);
             try {
-              const newUrl = createShareUrl(previewName, currentLang, currentQuoteIndex);
+              const newUrl = createShareUrl(previewName, currentLang, currentQuoteIndex, currentLanternType);
               const qIdx = newUrl.indexOf('?');
               window.history.pushState({ name: previewName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', qIdx !== -1 ? newUrl.substring(qIdx) : newUrl);
             } catch (e) {}
@@ -4216,7 +4986,7 @@ ${shareUrl}`;
 
         window.addEventListener('popstate', function () {
           const q = getQueryParams();
-          updateUIForWish(q.name, q.lang, q.quoteIndex);
+          updateUIForWish(q.name, q.lang, q.quoteIndex, q.lanternType);
         });
       });
 
