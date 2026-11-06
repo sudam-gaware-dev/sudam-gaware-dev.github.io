@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-black">
+<html lang="en" itemscope itemtype="https://schema.org/WebPage" class="scroll-smooth bg-black">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -14,12 +14,17 @@
   <meta property="og:url" id="meta-og-url" content="https://easode.com/diwali">
   <meta property="og:title" id="meta-og-title" content="🔒 Someone Sent You a Secret Surprise — Tap to Unlock ✨">
   <meta property="og:description" id="meta-og-description" content="A private, interactive 3D experience with sound and a hidden message is waiting for you. Tap the link to unblur and discover who sent it!">
-  <meta property="og:image" id="meta-og-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png">
+  <meta property="og:image" itemprop="image" id="meta-og-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png">
   <meta property="og:image:secure_url" id="meta-og-image-secure" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793942226/secret-surprise-og-mockup-1200x630.png">
-  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="A Secret Surprise Awaits You — Tap to Unlock & Reveal It">
+  <!-- Compressed JPG fallback transform from the exact same Cloudinary asset for strict <300KB WhatsApp mobile scrapers -->
+  <meta property="og:image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/f_jpg,q_auto:good,w_1200,h_630/v1793942226/secret-surprise-og-mockup-1200x630.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
   <!-- Twitter Card Meta Tags for Cross-Platform Compatibility -->
   <meta name="twitter:card" content="summary_large_image">
@@ -105,6 +110,31 @@
       min-height: 100svh;
       min-height: var(--app-height, 100svh);
       height: var(--app-height, 100svh);
+    }
+
+    /* Responsive Cracker Controls Placement:
+       - Smartphone (<768px): Horizontally centered near bottom of hero section
+       - Desktop (>=768px): Stacked vertically on the right side of hero section */
+    #firework-controls-container {
+      position: absolute;
+      bottom: calc(1.75rem + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      #firework-controls-container {
+        bottom: auto;
+        left: auto;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        flex-direction: column;
+      }
     }
 
     /* Glassmorphic Styles */
@@ -332,34 +362,34 @@
   <!-- HERO VIEWPORT: PERFECTLY ALIGNED TEXT & DIYA   -->
   <!-- Text strictly #FFFFFF, Sender Name in Orange   -->
   <!-- ============================================== -->
-  <section id="hero-section" class="relative z-35 hero-safe-screen w-full flex flex-col justify-between items-center px-4 pt-16 sm:pt-20 pb-10 pointer-events-none" style="z-index: 35;">
+  <section id="hero-section" class="relative z-35 hero-safe-screen w-full flex flex-col md:flex-row justify-between md:justify-start items-center px-4 sm:px-8 lg:px-14 pt-16 sm:pt-20 pb-8 pointer-events-none" style="z-index: 35;">
     
-    <!-- TOP SECTION: Perfectly Aligned Straight Text for Smartphone & Desktop Browsers -->
-    <div class="w-full max-w-3xl mx-auto text-center mt-2 sm:mt-5 px-2 flex flex-col items-center space-y-2 sm:space-y-2.5">
+    <!-- WISHING TEXTS: Centered at top on Smartphone; Placed on Left Side on Desktop (md+) -->
+    <div class="w-full md:w-[46%] lg:w-[44%] max-w-xl md:max-w-none mx-auto md:mx-0 text-center md:text-left mt-2 sm:mt-5 md:mt-0 px-2 md:px-0 flex flex-col items-center md:items-start space-y-2 sm:space-y-3">
       
       <!-- Line 1: Main Festive Wish (Strictly #FFFFFF) -->
-      <h1 id="wish-line-1" class="unblur-item text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#FFFFFF] leading-tight">
+      <h1 id="wish-line-1" class="unblur-item text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#FFFFFF] leading-tight">
         Happy Diwali
       </h1>
 
-      <!-- Line 2: Dynamically Selected Quote (Responsive width & height for Smartphone & Desktop) -->
-      <p id="wish-line-2" class="unblur-item text-xs sm:text-base md:text-xl font-normal text-[#FFFFFF] max-w-[92vw] sm:max-w-xl md:max-w-2xl mx-auto leading-relaxed min-h-[2.6rem] sm:min-h-[3.2rem] flex items-center justify-center text-center px-1">
+      <!-- Line 2: Dynamically Selected Quote (Centered on Smartphone, Left-aligned on Desktop) -->
+      <p id="wish-line-2" class="unblur-item text-xs sm:text-base lg:text-xl font-normal text-[#FFFFFF] max-w-[92vw] sm:max-w-xl md:max-w-lg mx-auto md:mx-0 leading-relaxed min-h-[2.6rem] sm:min-h-[3.2rem] flex items-center justify-center md:justify-start text-center md:text-left px-1 md:px-0">
         Wishing you and your family endless joy, light, and prosperity.
       </p>
 
       <!-- Line 3: Sender Greeting Line (Text #FFFFFF, Sender Name strictly Orange #FF7B1C) -->
-      <div id="wish-line-3" class="unblur-item pt-0.5 text-sm sm:text-xl md:text-2xl font-semibold text-[#FFFFFF] tracking-wide">
+      <div id="wish-line-3" class="unblur-item pt-0.5 text-sm sm:text-xl lg:text-2xl font-semibold text-[#FFFFFF] tracking-wide">
         <span id="sender-prefix-text" class="text-[#FFFFFF]">Warm wishes from </span>
         <span id="sender-name-highlight" class="text-[#FF7B1C] font-extrabold">Easode</span>
       </div>
 
     </div>
 
-    <!-- MIDDLE/LOWER SPACE: Completely clear so the floating 3D Star Lantern shines unobstructed -->
+    <!-- MIDDLE/LOWER SPACE: Clear space for the 3D Star Lantern -->
     <div class="flex-grow"></div>
 
-    <!-- ABSOLUTE POSITIONED CRACKERS BUTTONS MOVED UPWARD RIGHT ABOVE SCROLL ANIMATION BUTTON (ANDROID CHROME SAFE) -->
-    <div id="firework-controls-container" class="absolute bottom-24 sm:bottom-[96px] left-1/2 -translate-x-1/2 z-40 pointer-events-auto flex items-center justify-center gap-1.5 sm:gap-2.5" style="bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));">
+    <!-- CRACKERS BUTTONS: Bottom-center horizontal row on Smartphone; Vertically stacked at Right Side on Desktop -->
+    <div id="firework-controls-container" class="z-40 pointer-events-auto gap-1.5 sm:gap-2.5">
       <!-- 1. Nag Goli (Snake Tablets) Button -->
       <button id="btn-launch-naggoli" type="button" title="Light Snake Tablet (Nag Goli)" aria-label="Light Snake Tablet Nag Goli" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
         <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
@@ -463,14 +493,6 @@
       </button>
     </div>
 
-    <!-- BOTTOM SCROLL ANIMATION BUTTON MOVED UPWARD FOR ANDROID CHROME VISIBLE VIEWPORT -->
-    <div class="absolute bottom-9 sm:bottom-9 left-1/2 -translate-x-1/2 z-40 pointer-events-auto flex flex-col items-center" style="bottom: calc(2.15rem + env(safe-area-inset-bottom, 0px));">
-      <button id="btn-scroll-down" aria-label="Scroll down" class="w-10 h-10 rounded-full glass-circle-btn flex items-center justify-center animate-bounce-slow shadow-xl focus:outline-none">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-        </svg>
-      </button>
-    </div>
   </section>
 
   <!-- ============================================== -->
@@ -1846,22 +1868,24 @@
           const formLeftPx = (window.innerWidth - formWidthPx) / 2 + 40;
           const leftTargetX = ((formLeftPx / Math.max(window.innerWidth, 1)) * 2 - 1) * halfW;
 
-          let curX = 0;
-          let curY = startY;
+          const desktopStartX = window.innerWidth >= 768 ? Math.min(halfW * 0.34, 1.15) : 0;
+          const desktopStartY = window.innerWidth >= 768 ? -0.02 : startY;
+          let curX = desktopStartX;
+          let curY = desktopStartY;
           let scaleMult = 1.0;
 
           if (scrollFrac <= 0.35) {
             const p1 = scrollFrac / 0.35;
             const s1 = p1 * p1 * (3 - 2 * p1);
-            curY = startY + s1 * (phase1StopY - startY);
-            curX = 0;
+            curY = desktopStartY + s1 * (phase1StopY - desktopStartY);
+            curX = desktopStartX * (1 - s1 * 0.5);
             scaleMult = 1.0;
           } else {
             const p2 = (scrollFrac - 0.35) / 0.65;
             const s2 = p2 * p2 * (3 - 2 * p2);
             scaleMult = 1.0 - s2 * 0.70; // Resizes down to 30% of base size
             curY = phase1StopY + s2 * (dockedTopY - phase1StopY);
-            curX = s2 * leftTargetX; // Glides to left side above the form
+            curX = (desktopStartX * 0.5) + s2 * (leftTargetX - desktopStartX * 0.5); // Glides to left side above the form
           }
 
           const finalScale = baseScale * scaleMult;
@@ -1979,7 +2003,7 @@
 
         // Helper to compute safe ground Y strictly ABOVE the bottom buttons
         function getGroundAboveButtonsY(H) {
-          return H - 148;
+          return window.innerWidth >= 768 ? (H - 36) : (H - 96);
         }
 
         function getTitleBarBottom() {
@@ -3509,6 +3533,22 @@
         };
       }
 
+      function getCleanBaseUrl() {
+        const host = (window.location.hostname || '').toLowerCase();
+        if (host.indexOf('easode.com') !== -1) {
+          return 'https://easode.com/diwali';
+        }
+        // Strip any trailing /index.html or .html extension so generated URLs are always clean and short
+        let cleanPath = (window.location.pathname || '/diwali')
+          .replace(/\/index\.html$/i, '')
+          .replace(/\.html$/i, '');
+        if (!cleanPath || cleanPath === '/') cleanPath = '/diwali';
+        const origin = (window.location.origin && window.location.origin !== 'null')
+          ? window.location.origin
+          : 'https://easode.com';
+        return origin + cleanPath;
+      }
+
       function createShareUrl(name, lang, quoteIndex) {
         const normLang = normalizeLangCode(lang);
         const normIdx = normalizeQuoteIndex(quoteIndex || currentQuoteIndex);
@@ -3516,7 +3556,7 @@
         const encodedName = encodeSenderName(name || '');
         const compactPayload = `${normLang}${twoDigitIdx}${encodedName}`;
 
-        const baseUrl = window.location.origin + window.location.pathname;
+        const baseUrl = getCleanBaseUrl();
         return `${baseUrl}?e=${compactPayload}`;
       }
 
@@ -3675,7 +3715,8 @@
             const nameInput = document.getElementById('input-sender-name');
             const activeName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : currentSender;
             const newUrl = createShareUrl(activeName, currentLang, currentQuoteIndex);
-            window.history.replaceState({ name: activeName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', newUrl);
+            const qIdx = newUrl.indexOf('?');
+            window.history.replaceState({ name: activeName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', qIdx !== -1 ? newUrl.substring(qIdx) : newUrl);
           } catch (e) {}
         }
       }
@@ -4014,14 +4055,7 @@ ${shareUrl}`;
           SparkBlastEngine.triggerBlast();
         }, 400);
 
-        // Scroll Down Button (Icon only)
-        const btnScrollDown = document.getElementById('btn-scroll-down');
         const createSec = document.getElementById('create-section');
-        if (btnScrollDown && createSec) {
-          btnScrollDown.addEventListener('click', function () {
-            createSec.scrollIntoView({ behavior: 'smooth' });
-          });
-        }
 
         // Header Send Wish Button
         const btnHeaderCreate = document.getElementById('btn-header-create');
@@ -4137,7 +4171,8 @@ ${shareUrl}`;
             updateUIForWish(name, normCode, currentQuoteIndex);
             try {
               const newUrl = createShareUrl(name, normCode, currentQuoteIndex);
-              window.history.replaceState({ name: name, lang: normCode, quoteIndex: currentQuoteIndex }, '', newUrl);
+              const qIdx = newUrl.indexOf('?');
+              window.history.replaceState({ name: name, lang: normCode, quoteIndex: currentQuoteIndex }, '', qIdx !== -1 ? newUrl.substring(qIdx) : newUrl);
             } catch (e) {}
             toggleDropdown(false);
           });
@@ -4171,7 +4206,8 @@ ${shareUrl}`;
             updateUIForWish(previewName, currentLang, currentQuoteIndex);
             try {
               const newUrl = createShareUrl(previewName, currentLang, currentQuoteIndex);
-              window.history.pushState({ name: previewName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', newUrl);
+              const qIdx = newUrl.indexOf('?');
+              window.history.pushState({ name: previewName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', qIdx !== -1 ? newUrl.substring(qIdx) : newUrl);
             } catch (e) {}
 
             smoothScrollToTopSlowly(1800);
