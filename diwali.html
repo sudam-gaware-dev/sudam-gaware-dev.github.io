@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Easode Diwali Wishes | Happy Diwali 2026</title>
-  <meta name="description" content="Celebrate the Festival of Lights with an interactive 3D Star Lantern, sparkling Diwali firecrackers, and personalized wishes for your family and friends.">
+  <title>🔒 A Secret Surprise Awaits You — Tap to Unlock ✨</title>
+  <meta name="description" content="Someone created a private, interactive 3D surprise with sound and a hidden message just for you. Tap to unblur and reveal who sent it!">
   <meta name="theme-color" content="#000000">
 
-  <!-- Open Graph (OG) Meta Tags Placed at Very Top of <head> for WhatsApp & Social Crawlers -->
+  <!-- Mysterious & Curiosity-Inducing Open Graph (OG) Meta Tags for WhatsApp & Social Previews -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Easode">
+  <meta property="og:site_name" content="Secret Surprise">
   <meta property="og:locale" content="en_IN">
   <meta property="og:url" id="meta-og-url" content="https://easode.com/diwali">
-  <meta property="og:title" id="meta-og-title" content="Easode Diwali Wishes | Happy Diwali 2026">
-  <meta property="og:description" id="meta-og-description" content="Celebrate the Festival of Lights with an interactive 3D Star Lantern, sparkling Diwali firecrackers, and personalized wishes for your family and friends.">
+  <meta property="og:title" id="meta-og-title" content="🔒 Someone Sent You a Secret Surprise — Tap to Unlock ✨">
+  <meta property="og:description" id="meta-og-description" content="A private, interactive 3D experience with sound and a hidden message is waiting for you. Tap the link to unblur and discover who sent it!">
   <meta property="og:image" id="meta-og-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793887252/secret-surprise-og-mockup-1200x630.jpg">
-  <meta property="og:image:secure_url" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793887252/secret-surprise-og-mockup-1200x630.jpg">
+  <meta property="og:image:secure_url" id="meta-og-image-secure" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793887252/secret-surprise-og-mockup-1200x630.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -24,8 +24,8 @@
   <!-- Twitter Card Meta Tags for Cross-Platform Compatibility -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" id="meta-tw-url" content="https://easode.com/diwali">
-  <meta name="twitter:title" id="meta-tw-title" content="Easode Diwali Wishes | Happy Diwali 2026">
-  <meta name="twitter:description" id="meta-tw-description" content="Celebrate the Festival of Lights with an interactive 3D Star Lantern, sparkling Diwali firecrackers, and personalized wishes for your family and friends.">
+  <meta name="twitter:title" id="meta-tw-title" content="🔒 Someone Sent You a Secret Surprise — Tap to Unlock ✨">
+  <meta name="twitter:description" id="meta-tw-description" content="A private, interactive 3D experience with sound and a hidden message is waiting for you. Tap the link to unblur and discover who sent it!">
   <meta name="twitter:image" id="meta-tw-image" content="https://res.cloudinary.com/dc8dt3jvo/image/upload/v1793887252/secret-surprise-og-mockup-1200x630.jpg">
   <meta name="twitter:image:alt" content="A Secret Surprise Awaits You — Tap to Unlock & Reveal It">
 
@@ -86,6 +86,10 @@
     ::-webkit-scrollbar-thumb { background: #FF7B1C; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #FFA040; }
 
+    :root {
+      --app-height: 100vh;
+    }
+
     body {
       background-color: #000000;
       color: #FFFFFF;
@@ -93,6 +97,14 @@
       min-height: 100vh;
       overflow-x: hidden;
       touch-action: pan-y;
+    }
+
+    /* Android Chrome & Mobile Browser Safe Visible Viewport Height */
+    .hero-safe-screen {
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: var(--app-height, 100svh);
+      height: var(--app-height, 100svh);
     }
 
     /* Glassmorphic Styles */
@@ -151,14 +163,14 @@
       pointer-events: none;
     }
 
-    /* 3D Foreground Star Lantern WebGL Canvas (z-25: above form z-20, below wishing text z-35) */
+    /* 3D Star Lantern WebGL Canvas (z-15: behind form z-25 when scrolling, above background stars & distant rockets) */
     #lantern-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 25;
+      z-index: 15;
       pointer-events: none;
     }
 
@@ -229,6 +241,30 @@
     .animate-bounce-slow {
       animation: bounceSlow 2.2s infinite ease-in-out;
     }
+
+    /* Hide scrollbar for Chrome, Safari and Opera in Quote Carousel */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .quote-gallery-card {
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      transition: background 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+    }
+    .quote-gallery-card.active-quote {
+      background: linear-gradient(135deg, rgba(255, 123, 28, 0.14) 0%, rgba(18, 16, 14, 0.96) 100%);
+      border-color: rgba(255, 123, 28, 0.75);
+      opacity: 1;
+    }
+    .quote-gallery-card:not(.active-quote) {
+      opacity: 0.45;
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -249,9 +285,9 @@
 
   <!-- Sticky Top Header -->
   <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-3 flex items-center justify-between bg-black/50 backdrop-blur-md border-b border-white/10">
-    <!-- Brand (Official Easode Vector SVG Logo with Direct Orange-to-Amber Gradient Fill & Full w-8 h-8 Scale) -->
-    <a href="https://easode.com" id="brand-link" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 group">
-      <svg class="w-8 h-8 shrink-0 group-hover:scale-105 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="322 303 356 394" aria-hidden="true">
+    <!-- Brand (Official Easode Vector SVG Logo Scaled Harmoniously to Match Title Bar Size) -->
+    <a href="https://easode.com" id="brand-link" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 group">
+      <svg class="w-[22px] h-[22px] sm:w-6 sm:h-6 shrink-0 group-hover:scale-105 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="322 303 356 394" aria-hidden="true">
         <defs>
           <linearGradient id="easode-brand-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#EA580C" />
@@ -292,159 +328,143 @@
     </div>
   </header>
 
-  <!-- Fixed Bottom-Right Firework Controls Container (Matches Header's px-4 sm:px-8 and py-3 edge spacing) -->
-  <div id="firework-controls-container" class="fixed bottom-3 right-4 sm:right-8 z-40 flex items-center gap-1.5 sm:gap-2.5">
-    <!-- 1. Nag Goli (Snake Tablets) Button with Custom Coiling Snake & Tablet SVG Icon -->
-    <button id="btn-launch-naggoli" type="button" title="Light Snake Tablet (Nag Goli)" aria-label="Light Snake Tablet Nag Goli" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- Round Black Snake Tablet Disc at Base -->
-        <ellipse cx="12" cy="19.5" rx="5.5" ry="2" fill="currentColor" fill-opacity="0.25"/>
-        <!-- Coiling Ash Snake Rising from Tablet -->
-        <path d="M12 18.5c-4-1.2-4.5-3.8 0-5s4.5-3.8 0-5c-3.5-1-3.5-3.2 0-4.2 1.8-.5 3.2 0 4 1"/>
-        <!-- Snake Head & Forked Tongue Accent -->
-        <circle cx="15.5" cy="5" r="1" fill="currentColor"/>
-        <path d="M16.5 5l2-.8"/>
-        <path d="M16.5 5l2 .8"/>
-        <!-- Base Ignition Sparks -->
-        <path d="M5 17.5l1.5 1"/>
-        <path d="M19 17.5l-1.5 1"/>
-      </svg>
-    </button>
-
-    <!-- 2. Phuljhadi (Sparkler) Button with Custom Sparkler Wand SVG Icon -->
-    <button id="btn-launch-phuljhadi" type="button" title="Light Phuljhadi (Sparkler)" aria-label="Light Phuljhadi Sparkler" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- Sparkler Wire Stem & Coated Rod -->
-        <path d="M3.5 20.5L13 11"/>
-        <path d="M7.5 16.5L13 11" stroke-width="2.8"/>
-        <!-- Radiating 8-Point Starburst Sparks at Tip (15, 9) -->
-        <circle cx="15" cy="9" r="1.2" fill="currentColor"/>
-        <path d="M15 2.5v3.2"/>
-        <path d="M15 12.3v3.2"/>
-        <path d="M8.5 9h3.2"/>
-        <path d="M18.3 9h3.2"/>
-        <path d="M10.4 4.4l2.3 2.3"/>
-        <path d="M17.3 11.3l2.3 2.3"/>
-        <path d="M19.6 4.4l-2.3 2.3"/>
-        <path d="M12.7 11.3l-2.3 2.3"/>
-      </svg>
-    </button>
-
-    <!-- 3. Chakri (Ground Spinner) Button with Custom Spiral Pinwheel SVG Icon -->
-    <button id="btn-launch-chakri" type="button" title="Spin Chakri (Ground Spinner)" aria-label="Launch Chakri Ground Spinner" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- Chakri Center Hub & Inner Coil -->
-        <circle cx="12" cy="12" r="2.2" fill="currentColor"/>
-        <circle cx="12" cy="12" r="5.5"/>
-        <!-- Tangential Swirling Firework Jets & Sparks -->
-        <path d="M12 6.5c3.6 0 6.8 2.1 7.8 5.2"/>
-        <path d="M17.5 12c0 3.6-2.1 6.8-5.2 7.8"/>
-        <path d="M12 17.5c-3.6 0-6.8-2.1-7.8-5.2"/>
-        <path d="M6.5 12c0-3.6 2.1-6.8 5.2-7.8"/>
-        <path d="M20.5 8.5l1.2-1.2"/>
-        <path d="M15.5 20.5l1.2 1.2"/>
-        <path d="M3.5 15.5l-1.2 1.2"/>
-        <path d="M8.5 3.5L7.3 2.3"/>
-      </svg>
-    </button>
-
-    <!-- 4. Ladi (Firecracker Garland) Button with Custom Braided Cracker String SVG Icon -->
-    <button id="btn-launch-ladi" type="button" title="Blast Ladi (Firecracker Garland)" aria-label="Blast Ladi Firecracker Garland" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300">
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- Central Garland Fuse Spine -->
-        <path d="M6 18L17.5 6.5"/>
-        <!-- Alternating Red Cracker Cylinders Along the Garland -->
-        <path d="M7.5 16.5l-3.2-1.2" stroke-width="2.4"/>
-        <path d="M9.2 14.8l1.2 3.2" stroke-width="2.4"/>
-        <path d="M11 13l-3.2-1.2" stroke-width="2.4"/>
-        <path d="M12.8 11.2l1.2 3.2" stroke-width="2.4"/>
-        <path d="M14.5 9.5l-3.2-1.2" stroke-width="2.4"/>
-        <path d="M16.2 7.8l1.2 3.2" stroke-width="2.4"/>
-        <!-- Top Loop & Bottom Sparking Fuse Star -->
-        <circle cx="18.8" cy="5.2" r="1.4"/>
-        <path d="M4.5 19.5l-1.5 1.5"/>
-        <path d="M3.5 18l2 3"/>
-        <path d="M6 19.5l-3 1"/>
-      </svg>
-    </button>
-
-    <!-- 5. Sutli Bomb (Traditional Loud Cracker) Button with Custom Twine-Wrapped Bomb SVG Icon -->
-    <button id="btn-launch-sutli" type="button" title="Detonate Sutli Bomb (Loud Cracker)" aria-label="Detonate Sutli Bomb Cracker" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300">
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- Twine-Wrapped Cylindrical/Round Sutli Cracker Body -->
-        <rect x="6" y="10.5" width="12" height="10.5" rx="2.5"/>
-        <!-- Jute Sutli Criss-Cross Twine Bindings -->
-        <path d="M6 14h12"/>
-        <path d="M6 17.5h12"/>
-        <path d="M9.8 10.5v10.5"/>
-        <path d="M14.2 10.5v10.5"/>
-        <!-- Curved Fuse & Burning Spark Star -->
-        <path d="M12 10.5c0-2.4 1.4-3.8 3.5-4.3"/>
-        <path d="M17.5 3v4.4"/>
-        <path d="M15.3 5.2h4.4"/>
-        <path d="M16 3.7l3 3"/>
-        <path d="M19 3.7l-3 3"/>
-      </svg>
-    </button>
-
-    <!-- 6. Anar (Flower Pot) Firework Button with Custom Conical Fountain SVG Icon -->
-    <button id="btn-launch-anar" type="button" title="Launch Anar (Flower Pot) Firework" aria-label="Launch Anar Firework" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- Conical Anar Flower Pot Body -->
-        <path d="M7 21h10l-2.6-9H9.6L7 21z"/>
-        <path d="M8.3 16.5h7.4"/>
-        <!-- Erupting Fountain Sparks -->
-        <path d="M12 12V3"/>
-        <path d="M12 10c-2-2.5-4.5-3-6.5-1.8"/>
-        <path d="M12 10c2-2.5 4.5-3 6.5-1.8"/>
-        <path d="M12 6.5c-1.5-2-3.5-2.5-5-1.5"/>
-        <path d="M12 6.5c1.5-2 3.5-2.5 5-1.5"/>
-      </svg>
-    </button>
-
-    <!-- 7. Rocket Firework Button -->
-    <button id="btn-blast-bomb" type="button" title="Launch Firecracker Rocket" aria-label="Launch Rocket Firework" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300">
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-      </svg>
-    </button>
-  </div>
-
   <!-- ============================================== -->
   <!-- HERO VIEWPORT: PERFECTLY ALIGNED TEXT & DIYA   -->
   <!-- Text strictly #FFFFFF, Sender Name in Orange   -->
   <!-- ============================================== -->
-  <section id="hero-section" class="relative z-35 min-h-screen w-full flex flex-col justify-between items-center px-4 pt-20 pb-8 pointer-events-none" style="z-index: 35;">
+  <section id="hero-section" class="relative z-35 hero-safe-screen w-full flex flex-col justify-between items-center px-4 pt-16 sm:pt-20 pb-10 pointer-events-none" style="z-index: 35;">
     
-    <!-- TOP SECTION: Perfectly Aligned Straight Text (Above Diya, Zero Tilt, Google Sans) -->
-    <div class="w-full max-w-3xl mx-auto text-center mt-4 sm:mt-6 flex flex-col items-center space-y-2.5">
+    <!-- TOP SECTION: Perfectly Aligned Straight Text for Smartphone & Desktop Browsers -->
+    <div class="w-full max-w-3xl mx-auto text-center mt-2 sm:mt-5 px-2 flex flex-col items-center space-y-2 sm:space-y-2.5">
       
       <!-- Line 1: Main Festive Wish (Strictly #FFFFFF) -->
       <h1 id="wish-line-1" class="unblur-item text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#FFFFFF] leading-tight">
         Happy Diwali
       </h1>
 
-      <!-- Line 2: Heartfelt Subline (Strictly #FFFFFF) -->
-      <p id="wish-line-2" class="unblur-item text-sm sm:text-lg md:text-xl font-normal text-[#FFFFFF] max-w-xl mx-auto leading-relaxed">
+      <!-- Line 2: Dynamically Selected Quote (Responsive width & height for Smartphone & Desktop) -->
+      <p id="wish-line-2" class="unblur-item text-xs sm:text-base md:text-xl font-normal text-[#FFFFFF] max-w-[92vw] sm:max-w-xl md:max-w-2xl mx-auto leading-relaxed min-h-[2.6rem] sm:min-h-[3.2rem] flex items-center justify-center text-center px-1">
         Wishing you and your family endless joy, light, and prosperity.
       </p>
 
       <!-- Line 3: Sender Greeting Line (Text #FFFFFF, Sender Name strictly Orange #FF7B1C) -->
-      <div id="wish-line-3" class="unblur-item pt-1 text-base sm:text-xl md:text-2xl font-semibold text-[#FFFFFF] tracking-wide">
+      <div id="wish-line-3" class="unblur-item pt-0.5 text-sm sm:text-xl md:text-2xl font-semibold text-[#FFFFFF] tracking-wide">
         <span id="sender-prefix-text" class="text-[#FFFFFF]">Warm wishes from </span>
         <span id="sender-name-highlight" class="text-[#FF7B1C] font-extrabold">Easode</span>
       </div>
 
     </div>
 
-    <!-- MIDDLE/LOWER SPACE: Completely clear so the isometric floating 3D Diya shines unobstructed -->
+    <!-- MIDDLE/LOWER SPACE: Completely clear so the floating 3D Star Lantern shines unobstructed -->
     <div class="flex-grow"></div>
 
-    <!-- BOTTOM SCROLL BUTTON ONLY (Text removed as requested) -->
-    <div class="pointer-events-auto pb-3 flex flex-col items-center">
+    <!-- ABSOLUTE POSITIONED CRACKERS BUTTONS MOVED UPWARD RIGHT ABOVE SCROLL ANIMATION BUTTON (ANDROID CHROME SAFE) -->
+    <div id="firework-controls-container" class="absolute bottom-24 sm:bottom-[96px] left-1/2 -translate-x-1/2 z-40 pointer-events-auto flex items-center justify-center gap-1.5 sm:gap-2.5" style="bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));">
+      <!-- 1. Nag Goli (Snake Tablets) Button -->
+      <button id="btn-launch-naggoli" type="button" title="Light Snake Tablet (Nag Goli)" aria-label="Light Snake Tablet Nag Goli" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <ellipse cx="12" cy="19.5" rx="5.5" ry="2" fill="currentColor" fill-opacity="0.25"/>
+          <path d="M12 18.5c-4-1.2-4.5-3.8 0-5s4.5-3.8 0-5c-3.5-1-3.5-3.2 0-4.2 1.8-.5 3.2 0 4 1"/>
+          <circle cx="15.5" cy="5" r="1" fill="currentColor"/>
+          <path d="M16.5 5l2-.8"/>
+          <path d="M16.5 5l2 .8"/>
+          <path d="M5 17.5l1.5 1"/>
+          <path d="M19 17.5l-1.5 1"/>
+        </svg>
+      </button>
+
+      <!-- 2. Phuljhadi (Sparkler) Button -->
+      <button id="btn-launch-phuljhadi" type="button" title="Light Phuljhadi (Sparkler)" aria-label="Light Phuljhadi Sparkler" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3.5 20.5L13 11"/>
+          <path d="M7.5 16.5L13 11" stroke-width="2.8"/>
+          <circle cx="15" cy="9" r="1.2" fill="currentColor"/>
+          <path d="M15 2.5v3.2"/>
+          <path d="M15 12.3v3.2"/>
+          <path d="M8.5 9h3.2"/>
+          <path d="M18.3 9h3.2"/>
+          <path d="M10.4 4.4l2.3 2.3"/>
+          <path d="M17.3 11.3l2.3 2.3"/>
+          <path d="M19.6 4.4l-2.3 2.3"/>
+          <path d="M12.7 11.3l-2.3 2.3"/>
+        </svg>
+      </button>
+
+      <!-- 3. Chakri (Ground Spinner) Button -->
+      <button id="btn-launch-chakri" type="button" title="Spin Chakri (Ground Spinner)" aria-label="Launch Chakri Ground Spinner" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="2.2" fill="currentColor"/>
+          <circle cx="12" cy="12" r="5.5"/>
+          <path d="M12 6.5c3.6 0 6.8 2.1 7.8 5.2"/>
+          <path d="M17.5 12c0 3.6-2.1 6.8-5.2 7.8"/>
+          <path d="M12 17.5c-3.6 0-6.8-2.1-7.8-5.2"/>
+          <path d="M6.5 12c0-3.6 2.1-6.8 5.2-7.8"/>
+          <path d="M20.5 8.5l1.2-1.2"/>
+          <path d="M15.5 20.5l1.2 1.2"/>
+          <path d="M3.5 15.5l-1.2 1.2"/>
+          <path d="M8.5 3.5L7.3 2.3"/>
+        </svg>
+      </button>
+
+      <!-- 4. Ladi (Firecracker Garland) Button -->
+      <button id="btn-launch-ladi" type="button" title="Blast Ladi (Firecracker Garland)" aria-label="Blast Ladi Firecracker Garland" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 18L17.5 6.5"/>
+          <path d="M7.5 16.5l-3.2-1.2" stroke-width="2.4"/>
+          <path d="M9.2 14.8l1.2 3.2" stroke-width="2.4"/>
+          <path d="M11 13l-3.2-1.2" stroke-width="2.4"/>
+          <path d="M12.8 11.2l1.2 3.2" stroke-width="2.4"/>
+          <path d="M14.5 9.5l-3.2-1.2" stroke-width="2.4"/>
+          <path d="M16.2 7.8l1.2 3.2" stroke-width="2.4"/>
+          <circle cx="18.8" cy="5.2" r="1.4"/>
+          <path d="M4.5 19.5l-1.5 1.5"/>
+          <path d="M3.5 18l2 3"/>
+          <path d="M6 19.5l-3 1"/>
+        </svg>
+      </button>
+
+      <!-- 5. Sutli Bomb (Traditional Loud Cracker) Button -->
+      <button id="btn-launch-sutli" type="button" title="Detonate Sutli Bomb (Loud Cracker)" aria-label="Detonate Sutli Bomb Cracker" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="6" y="10.5" width="12" height="10.5" rx="2.5"/>
+          <path d="M6 14h12"/>
+          <path d="M6 17.5h12"/>
+          <path d="M9.8 10.5v10.5"/>
+          <path d="M14.2 10.5v10.5"/>
+          <path d="M12 10.5c0-2.4 1.4-3.8 3.5-4.3"/>
+          <path d="M17.5 3v4.4"/>
+          <path d="M15.3 5.2h4.4"/>
+          <path d="M16 3.7l3 3"/>
+          <path d="M19 3.7l-3 3"/>
+        </svg>
+      </button>
+
+      <!-- 6. Anar (Flower Pot) Firework Button -->
+      <button id="btn-launch-anar" type="button" title="Launch Anar (Flower Pot) Firework" aria-label="Launch Anar Firework" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 21h10l-2.6-9H9.6L7 21z"/>
+          <path d="M8.3 16.5h7.4"/>
+          <path d="M12 12V3"/>
+          <path d="M12 10c-2-2.5-4.5-3-6.5-1.8"/>
+          <path d="M12 10c2-2.5 4.5-3 6.5-1.8"/>
+          <path d="M12 6.5c-1.5-2-3.5-2.5-5-1.5"/>
+          <path d="M12 6.5c1.5-2 3.5-2.5 5-1.5"/>
+        </svg>
+      </button>
+
+      <!-- 7. Rocket Firework Button -->
+      <button id="btn-blast-bomb" type="button" title="Launch Firecracker Rocket" aria-label="Launch Rocket Firework" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg transition-all duration-300">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- BOTTOM SCROLL ANIMATION BUTTON MOVED UPWARD FOR ANDROID CHROME VISIBLE VIEWPORT -->
+    <div class="absolute bottom-9 sm:bottom-9 left-1/2 -translate-x-1/2 z-40 pointer-events-auto flex flex-col items-center" style="bottom: calc(2.15rem + env(safe-area-inset-bottom, 0px));">
       <button id="btn-scroll-down" aria-label="Scroll down" class="w-10 h-10 rounded-full glass-circle-btn flex items-center justify-center animate-bounce-slow shadow-xl focus:outline-none">
         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
           <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
@@ -456,7 +476,7 @@
   <!-- ============================================== -->
   <!-- SECTION 2: CREATE & SHARE YOUR DIWALI WISH     -->
   <!-- ============================================== -->
-  <section id="create-section" class="relative z-20 w-full min-h-screen pt-44 sm:pt-48 pb-10 px-4 flex flex-col items-center justify-center bg-transparent">
+  <section id="create-section" class="relative w-full min-h-screen pt-44 sm:pt-48 pb-10 px-4 flex flex-col items-center justify-center bg-transparent" style="z-index: 25;">
     <div id="wish-form-card" class="w-full max-w-xl mx-auto glass-luxury rounded-3xl p-6 sm:p-9 shadow-2xl relative">
       
       <!-- Header -->
@@ -551,6 +571,61 @@
           </div>
         </div>
 
+        <!-- Horizontal Swipeable Diwali Wishing Quote Gallery (10 Unique Quotes per Language) -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label id="label-quote-picker" class="block text-xs font-semibold text-[#FFFFFF] uppercase tracking-wider">
+              Select Wishing Quote
+            </label>
+            <span id="quote-counter-badge" class="hidden" aria-hidden="true"></span>
+          </div>
+
+          <!-- Gallery Wrapper with Consistently Vertically-Centered Prev / Next Buttons & Full-Width Swipe Track -->
+          <div class="relative">
+            <!-- Left Prev Arrow Wrapper (Flex-centered so button hover/active transform never shifts vertically) -->
+            <div class="absolute inset-y-0 left-2.5 z-20 flex items-center pointer-events-none">
+              <button
+                type="button"
+                id="btn-quote-prev"
+                aria-label="Previous Quote"
+                class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg hidden"
+              >
+                <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Horizontal Scroll-Snap Gallery Container (100%-width centered cards, swipe like image gallery) -->
+            <div
+              id="quote-carousel-track"
+              class="flex items-stretch overflow-x-auto no-scrollbar snap-x snap-mandatory select-none cursor-grab active:cursor-grabbing rounded-2xl"
+              style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;"
+            >
+              <!-- Populated dynamically with 10 full-width quote cards -->
+            </div>
+
+            <!-- Right Next Arrow Wrapper (Flex-centered so button hover/active transform never shifts vertically) -->
+            <div class="absolute inset-y-0 right-2.5 z-20 flex items-center pointer-events-none">
+              <button
+                type="button"
+                id="btn-quote-next"
+                aria-label="Next Quote"
+                class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 rounded-full glass-circle-btn text-white flex items-center justify-center shadow-lg"
+              >
+                <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="m9 18 6-6-6-6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 10 Gallery Pagination Dots (Uniform baseline alignment) -->
+          <div id="quote-dots-container" class="flex items-center justify-center gap-1.5 mt-3 h-3">
+            <!-- 10 interactive dots populated dynamically -->
+          </div>
+        </div>
+
         <!-- Action Buttons: Share on WhatsApp & Copy Link -->
         <div class="pt-4 space-y-3">
           <!-- WhatsApp Share -->
@@ -610,62 +685,120 @@
       'use strict';
 
       // ==========================================
-      // 1. STREAMLINED 3-LANGUAGE CONFIGURATION
-      // English, Hindi (हिन्दी), Marathi (मराठी)
+      // 1. STREAMLINED 3-LANGUAGE CONFIGURATION + 10 UNIQUE QUOTES PER LANGUAGE
+      // URL Philosophy: ?n=Pratu&l=e&i=1 (l: e = English, h = Hindi, m = Marathi; i: 1..10)
       // ==========================================
       const LANGUAGES = {
-        en: {
-          code: 'en',
+        e: {
+          code: 'e',
+          legacyCode: 'en',
           name: 'English',
           native: 'English',
           headline: 'Happy Diwali',
-          subline: 'Wishing you and your family endless joy, light, and prosperity.',
+          quotes: [
+            'Wishing you and your family endless joy, light, and prosperity.',
+            'May the divine glow of diyas illuminate your life with peace, good health, and boundless happiness.',
+            'May this Festival of Lights bring new hope, bright beginnings, and sweet moments to your home.',
+            'May Goddess Lakshmi bless your home with wealth, harmony, and everlasting fortune this Diwali.',
+            'Let every sparkling lamp guide your path toward success, laughter, and cherished memories.',
+            'May the warmth of festive lights fill every corner of your heart with love and positivity.',
+            'Wishing you a season of sparkling celebrations, sweet traditions, and radiant togetherness.',
+            'May darkness fade away and a thousand golden lights brighten your year ahead.',
+            'Sending heartfelt prayers for your happiness, prosperity, and a truly magical Diwali celebration.',
+            'May the joyous spirit of Diwali shine brightly in your life today and throughout the coming year.'
+          ],
           senderPrefix: 'Warm wishes from ',
           senderSuffix: '',
           formHeading: 'Spread the Light & Happiness',
-          formSub: 'Enter your name, choose your language, and share this 3D Diwali celebration with family and friends.',
+          formSub: 'Enter your name, choose your language, swipe to pick a quote, and share with family and friends.',
           nameLabel: 'Your Name',
           namePlaceholder: 'Enter your name',
+          quotePickerLabel: 'Select Wishing Quote',
+          quoteWord: 'Quote',
           shareWa: 'Share on WhatsApp',
           copyLink: 'Copy My Link',
-          waShareText: "{NAME} has sent you a special 3D Diwali wish! Open and celebrate: "
+          waShareText: "🤫 Someone has locked a secret 3D surprise for you! Tap the link to unblur and discover who sent it: "
         },
-        hi: {
-          code: 'hi',
+        h: {
+          code: 'h',
+          legacyCode: 'hi',
           name: 'Hindi',
           native: 'हिन्दी',
           headline: 'शुभ दीपावली',
-          subline: 'आपको एवं आपके पूरे परिवार को सुख, शांति और समृद्धि की हार्दिक शुभकामनाएँ।',
+          quotes: [
+            'आपको एवं आपके पूरे परिवार को सुख, शांति और समृद्धि की हार्दिक शुभकामनाएँ।',
+            'दीपों का यह पावन त्योहार आपके जीवन में नई रोशनी, खुशहाली और उत्तम स्वास्थ्य लेकर आए।',
+            'माँ लक्ष्मी और भगवान गणेश की कृपा से आपके घर में सदैव धन, वैभव और आनंद का वास रहे।',
+            'जगमगाते दीपों की तरह आपका जीवन भी सदैव मुस्कान, प्रेम और सफलता से चमकता रहे।',
+            'अंधकार पर प्रकाश की विजय का यह पर्व आपके जीवन में नई आशा और नई ऊर्जा का संचार करे।',
+            'मिठाइयों की मिठास और अपनों के प्यार के साथ आपकी दीपावली मंगलमय और यादगार हो।',
+            'हर जलता दीपक आपके आँगन में खुशियों की बहार और सौभाग्य का उजाला भर दे।',
+            'स्नेह, उत्साह और उमंग के इस पावन पर्व पर आपकी सभी मनोकामनाएँ पूर्ण हों।',
+            'दीपों की सुनहरी आभा आपके परिवार में अटूट प्रेम, एकता और समृद्धि का आशीर्वाद लाए।',
+            'इस शुभ दीपावली पर आपके जीवन का हर पल खुशियों के उजाले से जगमगा उठे।'
+          ],
           senderPrefix: '',
           senderSuffix: ' की ओर से सप्रेम शुभकामनाएँ',
           formHeading: 'रोशनियों का पावन संदेश भेजें',
-          formSub: 'अपना नाम दर्ज करें, भाषा चुनें और अपने प्रियजनों को 3D दीपावली शुभकामना भेजें।',
+          formSub: 'अपना नाम दर्ज करें, भाषा और शुभकामना संदेश चुनें तथा अपने प्रियजनों को भेजें।',
           nameLabel: 'आपका नाम',
           namePlaceholder: 'अपना नाम दर्ज करें',
+          quotePickerLabel: 'शुभकामना संदेश चुनें',
+          quoteWord: 'संदेश',
           shareWa: 'व्हाट्सएप पर शेयर करें',
           copyLink: 'लिंक कॉपी करें',
-          waShareText: "{NAME} ने आपके लिए 3D दीपावली शुभकामना भेजी है! यहाँ देखें: "
+          waShareText: "🤫 किसी ने आपके लिए एक गुप्त 3D सरप्राइज भेजा है! इसे अनलॉक करने और नाम जानने के लिए लिंक पर टैप करें: "
         },
-        mr: {
-          code: 'mr',
+        m: {
+          code: 'm',
+          legacyCode: 'mr',
           name: 'Marathi',
           native: 'मराठी',
           headline: 'दीपावलीच्या हार्दिक शुभेच्छा',
-          subline: 'तुम्हाला व तुमच्या संपूर्ण परिवाराला सुख, आरोग्य आणि भरभराटीच्या शुभेच्छा.',
+          quotes: [
+            'तुम्हाला व तुमच्या संपूर्ण परिवाराला सुख, आरोग्य आणि भरभराटीच्या शुभेच्छा.',
+            'पणत्यांच्या लखलखत्या प्रकाशाने तुमचे आयुष्य आनंद, शांती आणि समृद्धीने उजळून निघो.',
+            'ही दिवाळी तुमच्या जीवनात नवचैतन्य, उत्तम आरोग्य आणि यशाची नवी पहाट घेऊन येवो.',
+            'लक्ष्मीच्या पावलांनी तुमच्या घरात सुख-समृद्धी आणि अखंड समाधानाचे आगमन होवो.',
+            'आकाशकंदिलाच्या तेजस्वी प्रकाशाप्रमाणे तुमचे भविष्यही सदैव उज्ज्वल आणि आनंदी राहो.',
+            'फराळाचा गोडवा आणि आपुलकीचा ओलावा तुमच्या नात्यात सदैव टिकून राहो, शुभ दीपावली!',
+            'प्रत्येक पेटणारी पणती तुमच्या घरादारात सौख्य, ऐश्वर्य आणि सकारात्मकता घेऊन येवो.',
+            'दिवाळीच्या या मंगलमय पर्वावर तुमच्या सर्व इच्छा आणि स्वप्ने पूर्ण होवोत हीच सदिच्छा.',
+            'स्नेहाचा दिवा असाच तेवत राहो आणि तुमच्या आयुष्यात आनंदाची आतिषबाजी घडो.',
+            'दीपावलीच्या पावन सणानिमित्त तुम्हाला आणि तुमच्या कुटुंबीयांना उदंड आयुष्य व भरभराट लाभो.'
+          ],
           senderPrefix: '',
           senderSuffix: ' यांच्याकडून सस्नेह शुभेच्छा',
           formHeading: 'दीपावलीच्या मंगलमय शुभेच्छा पाठवा',
-          formSub: 'तुमचे नाव टाका, भाषा निवडा आणि आप्तेष्टांना 3D दिवाळी भेट पाठवा.',
+          formSub: 'तुमचे नाव टाका, भाषा व शुभेच्छा संदेश निवडा आणि आप्तेष्टांना 3D दिवाळी भेट पाठवा.',
           nameLabel: 'तुमचे नाव',
           namePlaceholder: 'तुमचे नाव टाका',
+          quotePickerLabel: 'शुभेच्छा संदेश निवडा (स्वाइप करा)',
+          quoteWord: 'संदेश',
           shareWa: 'व्हॉट्सॲपवर शेअर करा',
           copyLink: 'लिंक कॉपी करा',
-          waShareText: "{NAME} यांनी तुमच्यासाठी 3D दिवाळी शुभेच्छा पाठवली आहे! उघडून पहा: "
+          waShareText: "🤫 कोणीतरी तुमच्यासाठी एक खास गुप्त 3D सरप्राईज पाठवले आहे! ते उघडण्यासाठी आणि नाव पाहण्यासाठी लिंकवर टॅप करा: "
         }
       };
 
-      let currentLang = 'en';
+      function normalizeLangCode(raw) {
+        if (!raw) return 'e';
+        const c = String(raw).trim().toLowerCase();
+        if (c === 'h' || c === 'hi' || c === 'hindi') return 'h';
+        if (c === 'm' || c === 'mr' || c === 'marathi') return 'm';
+        return 'e';
+      }
+
+      function normalizeQuoteIndex(raw) {
+        const parsed = parseInt(raw, 10);
+        if (isNaN(parsed) || parsed < 1) return 1;
+        if (parsed > 10) return 10;
+        return parsed;
+      }
+
+      let currentLang = 'e';
       let currentSender = '';
+      let currentQuoteIndex = 1; // 1-based index (1 to 10)
 
       // ==========================================
       // 2. AUDIO SYNTHESIZER (WEB AUDIO API)
@@ -1846,7 +1979,7 @@
 
         // Helper to compute safe ground Y strictly ABOVE the bottom buttons
         function getGroundAboveButtonsY(H) {
-          return H - 88;
+          return H - 148;
         }
 
         function getTitleBarBottom() {
@@ -2935,22 +3068,22 @@
           const depth = rk.depth;
           const palette = rk.palette;
 
-          // Soft atmospheric distant sky glow flash
+          // Brighter atmospheric distant sky glow flash
           bgFlashes.push({
             x: rk.x,
             y: rk.y,
-            radius: 6 * depth,
-            maxRadius: (75 + Math.random() * 35) * depth,
+            radius: 8 * depth,
+            maxRadius: (95 + Math.random() * 45) * depth,
             color: palette[0],
-            alpha: 0.42 * (0.6 + depth * 0.6)
+            alpha: 0.72 * (0.7 + depth * 0.45)
           });
 
-          const count = Math.floor(42 + depth * 36);
+          const count = Math.floor(58 + depth * 44);
           for (let i = 0; i < count; i++) {
             const angle = Math.random() * Math.PI * 2;
             // Two-tier spherical burst for authentic distant firework bloom
             const isInnerRing = (i % 4 === 0);
-            const speed = (isInnerRing ? (Math.random() * 2.8 + 1.5) : (Math.random() * 5.8 + 2.8)) * depth;
+            const speed = (isInnerRing ? (Math.random() * 3.1 + 1.6) : (Math.random() * 6.4 + 3.0)) * depth;
             const color = palette[i % palette.length];
 
             bgSparks.push({
@@ -2960,10 +3093,10 @@
               vy: Math.sin(angle) * speed - 0.4 * depth,
               grav: 0.085 * depth,
               drag: 0.978,
-              thickness: (Math.random() * 1.1 + 0.7) * Math.max(0.55, depth * 1.35),
+              thickness: (Math.random() * 1.4 + 0.95) * Math.max(0.7, depth * 1.45),
               color: color,
-              alpha: 0.55 + depth * 0.35,
-              decay: Math.random() * 0.014 + 0.010
+              alpha: Math.min(1.0, 0.88 + depth * 0.22),
+              decay: Math.random() * 0.013 + 0.009
             });
           }
         }
@@ -3013,12 +3146,12 @@
               });
             }
 
-            // Distant ascending rocket head streak
-            ctx.globalAlpha = 0.45 + rk.depth * 0.35;
+            // Brightened distant ascending rocket head streak
+            ctx.globalAlpha = Math.min(1.0, 0.75 + rk.depth * 0.3);
             ctx.strokeStyle = rk.palette[0];
-            ctx.lineWidth = Math.max(1.0, 2.2 * rk.depth);
+            ctx.lineWidth = Math.max(1.3, 2.6 * rk.depth);
             ctx.beginPath();
-            ctx.moveTo(prevX, prevY + 4 * rk.depth);
+            ctx.moveTo(prevX, prevY + 5 * rk.depth);
             ctx.lineTo(rk.x, rk.y);
             ctx.stroke();
 
@@ -3068,21 +3201,26 @@
               continue;
             }
 
-            ctx.globalAlpha = s.alpha * 0.32;
+            ctx.globalAlpha = Math.min(1.0, s.alpha * 0.58);
             ctx.strokeStyle = s.color;
-            ctx.lineWidth = s.thickness * 2.2;
+            ctx.lineWidth = s.thickness * 2.8;
             ctx.beginPath();
             ctx.moveTo(prevX, prevY);
             ctx.lineTo(s.x, s.y);
             ctx.stroke();
 
-            ctx.globalAlpha = s.alpha;
+            ctx.globalAlpha = Math.min(1.0, s.alpha);
             ctx.strokeStyle = s.color;
-            ctx.lineWidth = s.thickness;
+            ctx.lineWidth = s.thickness * 1.15;
             ctx.beginPath();
             ctx.moveTo(prevX, prevY);
             ctx.lineTo(s.x, s.y);
             ctx.stroke();
+
+            // Bright sparkle tip
+            const tipR = s.thickness * 0.55;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(s.x - tipR, s.y - tipR, tipR * 2, tipR * 2);
           }
 
           ctx.restore();
@@ -3191,42 +3329,431 @@
       }
 
       // ==========================================
-      // 7. URL QUERY & PERSONALIZATION HANDLER
+      // 7. COMPACT OBFUSCATED "?e=m05..." URL ENCODER & DECODER
+      // Format: ?e=<lang:e|m|h><quote:01..10><encoded_sender_name>
+      // Rules:
+      // 1. First char: 'e' (English), 'm' (Marathi), 'h' (Hindi)
+      // 2. Next 2 digits: '01' to '10' (Quote index)
+      // 3. Remaining chars: Reversible alphanumeric substitution cipher of sender's name
+      // 4. Spaces replaced with '+' ("Sudam Gaware" -> "Sudam+Gaware") before encoding
+      // 5. Marathi/Hindi Devanagari (U+0900..U+097F) & Unicode compactly encoded into [0-9a-zA-Z]
       // ==========================================
-      function getQueryParams() {
-        const params = new URLSearchParams(window.location.search);
-        let name = params.get('name');
-        let lang = params.get('lang');
+      const CIPHER_ALPHABET = 'K7mP9xR2vL5zJ8bF4hT6yC1dG3nQ0wS5pV8kM2jB7fN4rW9gH3sZ6cY1tX0uAeaUiEoOlI';
+      // Build exact 62-character bijective alphabet from [0-9a-zA-Z]
+      const ALPHANUM_62 = 'q7W9xK2mP4nR8vL5zJ3bF6hT1yC0dGakUisEoOlIepVBMjNrwgHSZcYtXuAEDO';
+      // Verify 62 unique chars in JS runtime:
+      const BASE62_CHARS = (function () {
+        const seed = 'q7W9xK2mP4nR8vL5zJ3bF6hT1yC0dGakUisEoOlIpVBMjNrwgHSZcYtXuAEDO0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let out = '';
+        for (let i = 0; i < seed.length; i++) {
+          if (out.indexOf(seed[i]) === -1) out += seed[i];
+        }
+        return out; // Strictly 62 unique English alphanumeric chars [0-9a-zA-Z]
+      })();
 
-        if (!name && window.location.hash) {
-          const hashParams = new URLSearchParams(window.location.hash.substring(1));
-          name = hashParams.get('name');
-          lang = hashParams.get('lang');
+      function encodeSenderName(rawName) {
+        if (!rawName) return '';
+        // Rule 4: Replace spaces with '+' before applying the encoding technique
+        const plusNormalized = String(rawName).trim().replace(/\s+/g, '+');
+        if (!plusNormalized) return '';
+
+        const tokens = [];
+        for (let i = 0; i < plusNormalized.length; i++) {
+          const cp = plusNormalized.codePointAt(i);
+          if (cp > 0xFFFF) i++; // Advance past surrogate pair
+
+          if (cp >= 97 && cp <= 122) {
+            // 'a'..'z' -> 0..25 (1 char)
+            tokens.push(cp - 97);
+          } else if (cp >= 65 && cp <= 90) {
+            // 'A'..'Z' -> 26..51 (1 char)
+            tokens.push(cp - 65 + 26);
+          } else if (cp === 43) {
+            // '+' (Space placeholder from Rule 4) -> 52 (1 char)
+            tokens.push(52);
+          } else if (cp >= 0x0900 && cp <= 0x097F) {
+            // Rule 5: Marathi & Hindi Devanagari block (0..127) -> 2 compact alphanumeric chars!
+            const d = cp - 0x0900;
+            tokens.push(53 + Math.floor(d / 62)); // 53, 54, or 55
+            tokens.push(d % 62);
+          } else if (cp >= 32 && cp <= 126) {
+            // Digits & ASCII punctuation -> 2 alphanumeric chars
+            const a = cp - 32;
+            tokens.push(56 + Math.floor(a / 62)); // 56 or 57
+            tokens.push(a % 62);
+          } else if (cp <= 0xFFFF) {
+            // Any other BMP Unicode character -> 4 alphanumeric chars
+            tokens.push(58);
+            tokens.push(Math.floor(cp / 3844) % 62);
+            tokens.push(Math.floor(cp / 62) % 62);
+            tokens.push(cp % 62);
+          } else {
+            // Supplementary Unicode / Emoji -> 5 alphanumeric chars
+            tokens.push(59);
+            tokens.push(Math.floor(cp / 238328) % 62);
+            tokens.push(Math.floor(cp / 3844) % 62);
+            tokens.push(Math.floor(cp / 62) % 62);
+            tokens.push(cp % 62);
+          }
         }
 
+        // Apply position-dependent polyalphabetic substitution over BASE62_CHARS
+        let encoded = '';
+        for (let k = 0; k < tokens.length; k++) {
+          const shifted = (tokens[k] + k * 19 + 11) % 62;
+          encoded += BASE62_CHARS.charAt(shifted);
+        }
+        return encoded;
+      }
+
+      function decodeSenderName(encodedStr) {
+        if (!encodedStr) return '';
+        const clean = String(encodedStr).trim();
+        if (!clean) return '';
+
+        const tokens = [];
+        for (let k = 0; k < clean.length; k++) {
+          const idx = BASE62_CHARS.indexOf(clean.charAt(k));
+          if (idx === -1) {
+            // Fallback if unencoded character was manually typed in URL
+            return clean.replace(/\+/g, ' ');
+          }
+          const origToken = (idx - ((k * 19 + 11) % 62) + 62) % 62;
+          tokens.push(origToken);
+        }
+
+        let decodedWithPlus = '';
+        let i = 0;
+        while (i < tokens.length) {
+          const t = tokens[i++];
+          if (t >= 0 && t <= 25) {
+            decodedWithPlus += String.fromCharCode(97 + t);
+          } else if (t >= 26 && t <= 51) {
+            decodedWithPlus += String.fromCharCode(65 + (t - 26));
+          } else if (t === 52) {
+            decodedWithPlus += '+';
+          } else if (t >= 53 && t <= 55 && i < tokens.length) {
+            const t2 = tokens[i++];
+            const d = (t - 53) * 62 + t2;
+            decodedWithPlus += String.fromCharCode(0x0900 + d);
+          } else if ((t === 56 || t === 57) && i < tokens.length) {
+            const t2 = tokens[i++];
+            const a = (t - 56) * 62 + t2;
+            decodedWithPlus += String.fromCharCode(32 + a);
+          } else if (t === 58 && i + 2 < tokens.length) {
+            const c1 = tokens[i++];
+            const c2 = tokens[i++];
+            const c3 = tokens[i++];
+            decodedWithPlus += String.fromCharCode(c1 * 3844 + c2 * 62 + c3);
+          } else if (t === 59 && i + 3 < tokens.length) {
+            const c1 = tokens[i++];
+            const c2 = tokens[i++];
+            const c3 = tokens[i++];
+            const c4 = tokens[i++];
+            const cp = ((c1 * 62 + c2) * 62 + c3) * 62 + c4;
+            decodedWithPlus += String.fromCodePoint(cp);
+          }
+        }
+
+        // Convert '+' back to space for display
+        return decodedWithPlus.replace(/\+/g, ' ').trim();
+      }
+
+      function parseCompactEParam(eVal) {
+        if (!eVal || typeof eVal !== 'string' || eVal.length < 3) return null;
+        const langChar = eVal.charAt(0).toLowerCase();
+        if (langChar !== 'e' && langChar !== 'm' && langChar !== 'h') return null;
+
+        const quoteDigits = eVal.substring(1, 3);
+        const parsedIdx = parseInt(quoteDigits, 10);
+        if (isNaN(parsedIdx) || parsedIdx < 1 || parsedIdx > 10) return null;
+
+        const encodedNamePart = eVal.substring(3);
+        const decodedName = encodedNamePart ? decodeSenderName(encodedNamePart) : '';
+
         return {
-          name: name ? name.trim() : '',
-          lang: lang ? lang.trim().toLowerCase() : 'en'
+          lang: langChar,
+          quoteIndex: parsedIdx,
+          name: decodedName
         };
       }
 
-      function createShareUrl(name, lang) {
-        const url = new URL(window.location.href);
-        if (name && name.length > 0) {
-          url.searchParams.set('name', name);
-        } else {
-          url.searchParams.delete('name');
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+
+        // 1. Primary compact format: ?e=m05...
+        const eParam = params.get('e');
+        const parsedE = parseCompactEParam(eParam);
+        if (parsedE) {
+          return parsedE;
         }
-        url.searchParams.set('lang', lang);
-        return url.toString();
+
+        // Also check hash if present
+        if (window.location.hash) {
+          const hashParams = new URLSearchParams(window.location.hash.substring(1));
+          const parsedHashE = parseCompactEParam(hashParams.get('e'));
+          if (parsedHashE) {
+            return parsedHashE;
+          }
+        }
+
+        // 2. Fallback for legacy ?n=&l=&i= or ?name=&lang= links
+        let name = params.get('n') !== null ? params.get('n') : params.get('name');
+        let lang = params.get('l') !== null ? params.get('l') : params.get('lang');
+        let quoteIdx = params.get('i') !== null ? params.get('i') : params.get('quote');
+
+        return {
+          name: name ? name.trim() : '',
+          lang: normalizeLangCode(lang),
+          quoteIndex: normalizeQuoteIndex(quoteIdx)
+        };
       }
 
-      function updateUIForWish(name, langCode) {
-        if (!LANGUAGES[langCode]) langCode = 'en';
-        currentLang = langCode;
-        currentSender = name;
+      function createShareUrl(name, lang, quoteIndex) {
+        const normLang = normalizeLangCode(lang);
+        const normIdx = normalizeQuoteIndex(quoteIndex || currentQuoteIndex);
+        const twoDigitIdx = String(normIdx).padStart(2, '0');
+        const encodedName = encodeSenderName(name || '');
+        const compactPayload = `${normLang}${twoDigitIdx}${encodedName}`;
 
-        const langData = LANGUAGES[langCode];
+        const baseUrl = window.location.origin + window.location.pathname;
+        return `${baseUrl}?e=${compactPayload}`;
+      }
+
+      let isProgrammaticCarouselScroll = false;
+      let carouselScrollTimeout = null;
+
+      function renderQuoteGallery(langCode, activeIdx, scrollIntoViewSmooth) {
+        const normLang = normalizeLangCode(langCode);
+        const langData = LANGUAGES[normLang] || LANGUAGES.e;
+        const track = document.getElementById('quote-carousel-track');
+        const dotsContainer = document.getElementById('quote-dots-container');
+        const pickerLabel = document.getElementById('label-quote-picker');
+
+        if (pickerLabel && langData.quotePickerLabel) {
+          pickerLabel.textContent = langData.quotePickerLabel;
+        }
+
+        if (!track || !dotsContainer) return;
+
+        if (track.children.length !== langData.quotes.length) {
+          track.innerHTML = '';
+          dotsContainer.innerHTML = '';
+
+          langData.quotes.forEach((qText, idx) => {
+            const oneBased = idx + 1;
+
+            // Full-width (w-full) snap card with symmetric horizontal padding (px-12 sm:px-14) so text never collides with Prev/Next buttons
+            const card = document.createElement('div');
+            card.className = 'quote-gallery-card w-full shrink-0 rounded-2xl border border-white/15 bg-neutral-950/90 px-12 sm:px-14 py-4 sm:py-5 min-h-[108px] sm:min-h-[116px] flex flex-col items-center justify-center text-center cursor-pointer select-none';
+            card.setAttribute('data-quote-index', String(oneBased));
+
+            const p = document.createElement('p');
+            p.className = 'quote-card-text text-xs sm:text-sm text-white font-medium leading-relaxed text-center max-w-md mx-auto';
+            p.textContent = qText;
+            card.appendChild(p);
+
+            card.addEventListener('click', function () {
+              selectQuoteByIndex(oneBased, true, true);
+            });
+
+            track.appendChild(card);
+
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.setAttribute('aria-label', `Select Quote ${oneBased}`);
+            dot.setAttribute('data-quote-index', String(oneBased));
+            dot.className = 'h-2 rounded-full transition-all duration-300 bg-white/25 w-2 hover:bg-orange-400/60 shrink-0';
+            dot.addEventListener('click', function () {
+              selectQuoteByIndex(oneBased, true, true);
+            });
+            dotsContainer.appendChild(dot);
+          });
+        } else {
+          Array.from(track.children).forEach((card, idx) => {
+            const textEl = card.querySelector('.quote-card-text');
+            if (textEl) textEl.textContent = langData.quotes[idx] || '';
+          });
+        }
+
+        updateQuoteGalleryHighlight(activeIdx);
+        if (scrollIntoViewSmooth !== false) {
+          scrollQuoteCardToCenter(activeIdx, scrollIntoViewSmooth === true);
+        }
+      }
+
+      function updateQuoteGalleryHighlight(activeIdx) {
+        const normLang = normalizeLangCode(currentLang);
+        const langData = LANGUAGES[normLang] || LANGUAGES.e;
+        const totalQuotes = langData.quotes.length;
+        const track = document.getElementById('quote-carousel-track');
+        const dotsContainer = document.getElementById('quote-dots-container');
+        const btnPrev = document.getElementById('btn-quote-prev');
+        const btnNext = document.getElementById('btn-quote-next');
+
+        // Hide Previous button on first page (1) and hide Next button on last page (totalQuotes)
+        if (btnPrev) {
+          if (activeIdx <= 1) {
+            btnPrev.classList.add('hidden');
+          } else {
+            btnPrev.classList.remove('hidden');
+          }
+        }
+        if (btnNext) {
+          if (activeIdx >= totalQuotes) {
+            btnNext.classList.add('hidden');
+          } else {
+            btnNext.classList.remove('hidden');
+          }
+        }
+
+        if (track) {
+          Array.from(track.children).forEach((card, idx) => {
+            const oneBased = idx + 1;
+            if (oneBased === activeIdx) {
+              card.classList.add('active-quote');
+            } else {
+              card.classList.remove('active-quote');
+            }
+          });
+        }
+
+        if (dotsContainer) {
+          Array.from(dotsContainer.children).forEach((dot, idx) => {
+            const oneBased = idx + 1;
+            if (oneBased === activeIdx) {
+              dot.className = 'h-2 rounded-full transition-all duration-300 bg-orange-500 w-5 shrink-0';
+            } else {
+              dot.className = 'h-2 rounded-full transition-all duration-300 bg-white/25 w-2 hover:bg-orange-400/60 shrink-0';
+            }
+          });
+        }
+      }
+
+      function scrollQuoteCardToCenter(activeIdx, smooth) {
+        const track = document.getElementById('quote-carousel-track');
+        if (!track) return;
+        const card = track.children[activeIdx - 1];
+        if (!card) return;
+
+        isProgrammaticCarouselScroll = true;
+        clearTimeout(carouselScrollTimeout);
+
+        const targetScrollLeft = (activeIdx - 1) * track.clientWidth;
+
+        track.scrollTo({
+          left: Math.max(0, targetScrollLeft),
+          behavior: smooth ? 'smooth' : 'auto'
+        });
+
+        carouselScrollTimeout = setTimeout(function () {
+          isProgrammaticCarouselScroll = false;
+        }, smooth ? 420 : 60);
+      }
+
+      function selectQuoteByIndex(newIdx, smoothScroll, syncUrl) {
+        const clamped = normalizeQuoteIndex(newIdx);
+        currentQuoteIndex = clamped;
+
+        const normLang = normalizeLangCode(currentLang);
+        const langData = LANGUAGES[normLang] || LANGUAGES.e;
+        const chosenQuote = langData.quotes[clamped - 1] || langData.quotes[0];
+
+        // Update Hero Line 2 immediately with the selected quote
+        const line2 = document.getElementById('wish-line-2');
+        if (line2) {
+          line2.textContent = chosenQuote;
+        }
+
+        updateQuoteGalleryHighlight(clamped);
+        if (smoothScroll !== false) {
+          scrollQuoteCardToCenter(clamped, smoothScroll === true);
+        }
+
+        if (syncUrl) {
+          try {
+            const nameInput = document.getElementById('input-sender-name');
+            const activeName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : currentSender;
+            const newUrl = createShareUrl(activeName, currentLang, currentQuoteIndex);
+            window.history.replaceState({ name: activeName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', newUrl);
+          } catch (e) {}
+        }
+      }
+
+      function initQuoteCarouselInteractions() {
+        const track = document.getElementById('quote-carousel-track');
+        const btnPrev = document.getElementById('btn-quote-prev');
+        const btnNext = document.getElementById('btn-quote-next');
+        if (!track) return;
+
+        if (btnPrev) {
+          btnPrev.addEventListener('click', function () {
+            if (currentQuoteIndex > 1) {
+              selectQuoteByIndex(currentQuoteIndex - 1, true, true);
+            }
+          });
+        }
+
+        if (btnNext) {
+          btnNext.addEventListener('click', function () {
+            if (currentQuoteIndex < 10) {
+              selectQuoteByIndex(currentQuoteIndex + 1, true, true);
+            }
+          });
+        }
+
+        // Keep active card aligned on window/orientation resize
+        window.addEventListener('resize', function () {
+          scrollQuoteCardToCenter(currentQuoteIndex, false);
+        });
+
+        // Detect swipe / manual horizontal scroll and snap-select the visible quote card
+        let scrollDebounce = null;
+        track.addEventListener('scroll', function () {
+          if (isProgrammaticCarouselScroll) return;
+          clearTimeout(scrollDebounce);
+          scrollDebounce = setTimeout(function () {
+            const w = Math.max(track.clientWidth, 1);
+            const closestIdx = Math.min(10, Math.max(1, Math.round(track.scrollLeft / w) + 1));
+            if (closestIdx !== currentQuoteIndex) {
+              selectQuoteByIndex(closestIdx, false, true);
+            } else {
+              updateQuoteGalleryHighlight(closestIdx);
+            }
+          }, 60);
+        }, { passive: true });
+
+        // Support desktop mouse drag to swipe the gallery smoothly
+        let isMouseDown = false;
+        let startX = 0;
+        let scrollLeftStart = 0;
+
+        track.addEventListener('mousedown', function (e) {
+          isMouseDown = true;
+          startX = e.pageX - track.offsetLeft;
+          scrollLeftStart = track.scrollLeft;
+        });
+        window.addEventListener('mouseup', function () {
+          isMouseDown = false;
+        });
+        track.addEventListener('mousemove', function (e) {
+          if (!isMouseDown) return;
+          e.preventDefault();
+          const x = e.pageX - track.offsetLeft;
+          const walk = (x - startX) * 1.25;
+          track.scrollLeft = scrollLeftStart - walk;
+        });
+      }
+
+      function updateUIForWish(name, langCode, quoteIndex) {
+        const normLang = normalizeLangCode(langCode);
+        const normQuoteIdx = normalizeQuoteIndex(quoteIndex !== undefined ? quoteIndex : currentQuoteIndex);
+        currentLang = normLang;
+        currentSender = name;
+        currentQuoteIndex = normQuoteIdx;
+
+        const langData = LANGUAGES[normLang] || LANGUAGES.e;
+        const selectedQuoteText = langData.quotes[normQuoteIdx - 1] || langData.quotes[0];
 
         // Update Perfectly Aligned Hero Text (Strictly #FFF, Sender Name strictly Orange #FF7B1C)
         const line1 = document.getElementById('wish-line-1');
@@ -3234,7 +3761,7 @@
         const line3 = document.getElementById('wish-line-3');
 
         if (line1) line1.textContent = langData.headline;
-        if (line2) line2.textContent = langData.subline;
+        if (line2) line2.textContent = selectedQuoteText;
 
         if (line3) {
           const displaySender = (name && name.length > 0) ? name : 'Easode';
@@ -3292,18 +3819,19 @@
           }
         }
 
+        // Render & synchronize the 10-quote horizontal swipe gallery
+        renderQuoteGallery(normLang, normQuoteIdx, false);
+
         // Trigger staged unblur animation
         triggerStagedTextReveal();
 
-        const dynamicTitle = name
-          ? `${name} sent you a Happy Diwali Wish | Easode Diwali 2026`
-          : 'Easode Diwali Wishes | Happy Diwali 2026';
-        const dynamicDesc = name
-          ? `${name} wishes you and your family endless joy, light, and prosperity! Open this interactive 3D Diwali celebration from Easode.`
-          : 'Celebrate the Festival of Lights with an interactive 3D Star Lantern, sparkling Diwali firecrackers, and personalized wishes for your family and friends.';
-        const canonicalUrl = createShareUrl(name, langCode);
+        const dynamicTitle = '🔒 Someone Sent You a Secret Surprise — Tap to Unlock ✨';
+        const dynamicDesc = 'A private, interactive 3D experience with sound and a hidden message is waiting for you. Tap the link to unblur and discover who sent it!';
+        const canonicalUrl = createShareUrl(name, normLang, normQuoteIdx);
 
-        document.title = dynamicTitle;
+        document.title = name
+          ? `🔒 Secret Surprise Unlocked | ${langData.headline}`
+          : dynamicTitle;
 
         const ogTitleEl = document.getElementById('meta-og-title');
         if (ogTitleEl) ogTitleEl.setAttribute('content', dynamicTitle);
@@ -3324,7 +3852,7 @@
       }
 
       // ==========================================
-      // 8. SHARING HANDLERS
+      // 8. SHARING HANDLERS (?n=Name&l=e&i=1)
       // ==========================================
       function shareOnWhatsApp() {
         const nameInput = document.getElementById('input-sender-name');
@@ -3339,9 +3867,11 @@
         if (nameErr) nameErr.classList.add('hidden');
 
         currentSender = rawName;
-        const langData = LANGUAGES[currentLang] || LANGUAGES.en;
-        const shareUrl = createShareUrl(rawName, currentLang);
-        const text = `${langData.waShareText.replace('{NAME}', rawName)}\n\n${shareUrl}`;
+        const langData = LANGUAGES[currentLang] || LANGUAGES.e;
+        const shareUrl = createShareUrl(rawName, currentLang, currentQuoteIndex);
+        const text = `${langData.waShareText.replace('{NAME}', rawName)}
+
+${shareUrl}`;
         const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
         window.open(waUrl, '_blank');
       }
@@ -3359,7 +3889,7 @@
         if (nameErr) nameErr.classList.add('hidden');
 
         currentSender = rawName;
-        const shareUrl = createShareUrl(rawName, currentLang);
+        const shareUrl = createShareUrl(rawName, currentLang, currentQuoteIndex);
         const cpBtn = document.getElementById('label-copy-link');
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -3453,14 +3983,31 @@
         activeScrollRaf = requestAnimationFrame(step);
       }
 
+      function syncAndroidViewportHeight() {
+        const vh = window.innerHeight;
+        if (vh && vh > 200) {
+          document.documentElement.style.setProperty('--app-height', `${vh}px`);
+        }
+      }
+      syncAndroidViewportHeight();
+      window.addEventListener('resize', syncAndroidViewportHeight);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(syncAndroidViewportHeight, 120);
+      });
+
       document.addEventListener('DOMContentLoaded', function () {
+        syncAndroidViewportHeight();
         Scene3D.init();
         BackgroundSkyRocketsEngine.init();
         SparkBlastEngine.init();
         initSparklerCursor();
+        initQuoteCarouselInteractions();
 
         const q = getQueryParams();
-        updateUIForWish(q.name, q.lang || 'en');
+        updateUIForWish(q.name, q.lang, q.quoteIndex);
+        setTimeout(function () {
+          scrollQuoteCardToCenter(currentQuoteIndex, false);
+        }, 80);
 
         // Automatically launch a celebratory rocket on initial page load
         setTimeout(function () {
@@ -3481,12 +4028,15 @@
         if (btnHeaderCreate && createSec) {
           btnHeaderCreate.addEventListener('click', function () {
             createSec.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(function () {
+              scrollQuoteCardToCenter(currentQuoteIndex, false);
+            }, 350);
             const nInput = document.getElementById('input-sender-name');
             if (nInput) nInput.focus();
           });
         }
 
-        // Bottom-Right Firework Buttons (Nag Goli, Phuljhadi, Chakri, Ladi, Sutli Bomb, Anar, Rocket)
+        // Horizontally Centered Firework Buttons (Nag Goli, Phuljhadi, Chakri, Ladi, Sutli Bomb, Anar, Rocket)
         const btnNagGoli = document.getElementById('btn-launch-naggoli');
         if (btnNagGoli) {
           btnNagGoli.addEventListener('click', function () {
@@ -3580,10 +4130,15 @@
 
         document.querySelectorAll('.lang-option').forEach(opt => {
           opt.addEventListener('click', function () {
-            const code = this.getAttribute('data-code');
+            const rawCode = this.getAttribute('data-code');
+            const normCode = normalizeLangCode(rawCode);
             const nameInput = document.getElementById('input-sender-name');
             const name = nameInput ? nameInput.value.trim() : currentSender;
-            updateUIForWish(name, code);
+            updateUIForWish(name, normCode, currentQuoteIndex);
+            try {
+              const newUrl = createShareUrl(name, normCode, currentQuoteIndex);
+              window.history.replaceState({ name: name, lang: normCode, quoteIndex: currentQuoteIndex }, '', newUrl);
+            } catch (e) {}
             toggleDropdown(false);
           });
         });
@@ -3599,7 +4154,7 @@
         const btnFormCopy = document.getElementById('btn-form-copylink');
         if (btnFormCopy) btnFormCopy.addEventListener('click', copyShareLink);
 
-        // Preview Wish Button (Always smoothly and slowly auto-scrolls to page top)
+        // Preview Wish Button (Always smoothly and slowly auto-scrolls to page top & updates URL ?n=...&l=...&i=...)
         const btnPreview = document.getElementById('btn-form-preview');
         if (btnPreview) {
           btnPreview.addEventListener('click', function () {
@@ -3613,10 +4168,10 @@
             }
 
             const previewName = rawName || currentSender || '';
-            updateUIForWish(previewName, currentLang);
+            updateUIForWish(previewName, currentLang, currentQuoteIndex);
             try {
-              const newUrl = createShareUrl(previewName, currentLang);
-              window.history.pushState({ name: previewName, lang: currentLang }, '', newUrl);
+              const newUrl = createShareUrl(previewName, currentLang, currentQuoteIndex);
+              window.history.pushState({ name: previewName, lang: currentLang, quoteIndex: currentQuoteIndex }, '', newUrl);
             } catch (e) {}
 
             smoothScrollToTopSlowly(1800);
@@ -3625,7 +4180,7 @@
 
         window.addEventListener('popstate', function () {
           const q = getQueryParams();
-          updateUIForWish(q.name, q.lang || 'en');
+          updateUIForWish(q.name, q.lang, q.quoteIndex);
         });
       });
 
