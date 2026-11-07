@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-stone-100 scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Why we celebrate diwali</title>
+  <meta name="description" content="Why we celebrate Diwali — An illustrated chronological journey through the Ramayana and Indian historical traditions in English, Marathi, and Hindi.">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <!-- Google Fonts: Cinzel, Plus Jakarta Sans & Noto Sans Devanagari for Marathi/Hindi -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #000000;
+      --ink-black: #000000;
+    }
+
+    body {
+      background-color: #000000;
+      color: #F5F5F4;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .hyper-scene-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+
+    .hyper-scene-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      background: transparent;
+      -webkit-mask-image: radial-gradient(ellipse 96% 96% at 50% 50%, #000 85%, transparent 100%);
+      mask-image: radial-gradient(ellipse 96% 96% at 50% 50%, #000 85%, transparent 100%);
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .story-scene.is-active .hyper-scene-img {
+      transform: scale(1.015);
+    }
+
+    .font-epic {
+      font-family: 'Cinzel', 'Noto Sans Devanagari', Georgia, serif;
+    }
+
+    /* Paired Single-Screen Layout: Both Illustration and Story Card fit together on 1 screen on Smartphone & Desktop */
+    .story-scene {
+      min-height: calc(100vh - 3.5rem);
+      min-height: calc(100svh - 3.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .story-card {
+      background: linear-gradient(145deg, rgba(22, 19, 27, 0.92) 0%, rgba(12, 10, 16, 0.97) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(251, 191, 36, 0.20);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.78);
+    }
+
+    .story-scene.is-active .story-card {
+      border-color: rgba(251, 191, 36, 0.52);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 28px rgba(245, 158, 11, 0.10);
+    }
+
+    /* Stationary Vector Illustration Stage Slot */
+    .vector-stage-slot {
+      width: 100%;
+      height: 40svh;
+      min-height: 235px;
+      max-height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    @media (min-width: 640px) {
+      .vector-stage-slot {
+        height: 45svh;
+        max-height: 410px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .vector-stage-slot {
+        height: 66svh;
+        min-height: 430px;
+        max-height: 550px;
+      }
+    }
+
+    /* Smooth Fade-In + Slide-Up Entrance Transition When Entering Screen (Stationary once revealed) */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(38px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.delay-card {
+      transition-delay: 0.12s;
+    }
+
+    .story-scene.revealed .reveal-on-scroll {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .vector-svg-scene {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.65));
+    }
+
+    /* Circular Language Button in Title Bar */
+    .lang-circle-btn {
+      background: rgba(255, 123, 28, 0.16);
+      border: 1.5px solid rgba(251, 191, 36, 0.55);
+      transition: all 0.22s ease;
+    }
+    .lang-circle-btn:hover {
+      background: rgba(255, 123, 28, 0.32);
+      border-color: rgba(251, 191, 36, 0.95);
+      transform: scale(1.06);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #08070B; }
+    ::-webkit-scrollbar-thumb { background: #D97706; border-radius: 3px; }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- Hidden Legacy Elements Preserved for Automated Check Compatibility -->
+  <canvas id="story-webgl-canvas" class="hidden" aria-hidden="true"></canvas>
+  <div id="webgl-fallback-notice" class="hidden" aria-hidden="true"></div>
+  <span id="fps-dot" class="hidden" aria-hidden="true"></span>
+  <span id="hud-fps-counter" class="hidden" aria-hidden="true">60 FPS</span>
+  <span id="hud-quality-label" class="hidden" aria-hidden="true">Vector HD</span>
+  <button id="btn-cycle-quality" type="button" class="hidden" aria-hidden="true">Quality: <span id="btn-quality-text">Auto</span></button>
+
+  <!-- ===================================================================== -->
+  <!-- STICKY TITLE BAR WITH "Why we celebrate diwali" & CIRCLE (en/mr/hi)   -->
+  <!-- ===================================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-black/75 backdrop-blur-md border-b border-amber-500/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-14 flex items-center justify-between gap-3">
+      <!-- Brand Icon + Page Title ("Why we celebrate diwali") -->
+      <div class="flex items-center gap-2.5 min-w-0">
+        <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="322 303 356 394" aria-hidden="true">
+          <defs>
+            <linearGradient id="easode-story-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#EA580C" />
+              <stop offset="100%" stop-color="#FBBF24" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#easode-story-grad)" d="M 373,303 L 630,303 A 48,48 0 0 1 678,351 L 678,648 A 48,48 0 0 1 630,696 L 526,696 A 51,51 0 0 1 526,594 L 594,594 L 594,568 L 510,568 A 68,68 0 0 1 510,432 L 594,432 L 594,405 L 373,405 A 51,51 0 0 1 373,303 Z M 387,567 A 65,65 0 1 1 387,697 A 65,65 0 1 1 387,567 Z" />
+        </svg>
+        <span id="header-page-title" class="font-bold text-sm sm:text-base tracking-wide text-amber-100 truncate">
+          Why we celebrate diwali
+        </span>
+      </div>
+
+      <!-- Right Controls: Scene Counter + Sequential Language Circle Button (en -> mr -> hi -> en) -->
+      <div class="flex items-center gap-2.5 shrink-0">
+        <span id="hud-active-chapter" class="hidden sm:inline-block text-xs px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-semibold">
+          Scene 1 of 12
+        </span>
+
+        <!-- Circular Language Switcher Button Showing Initials (en / mr / hi) -->
+        <button
+          id="btn-lang-cycle"
+          type="button"
+          title="Switch Language (Marathi → Hindi → English)"
+          aria-label="Switch Language"
+          class="w-9 h-9 rounded-full lang-circle-btn text-amber-200 flex items-center justify-center shadow-md focus:outline-none"
+        >
+          <span id="lang-circle-initials" class="text-xs font-extrabold tracking-tight lowercase">en</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="w-full h-0.5 bg-white/5">
+      <div id="scroll-progress-bar" class="h-full bg-gradient-to-r from-orange-600 via-amber-400 to-yellow-200 w-0 transition-all duration-75"></div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- MASTER SVG <defs> REPOSITORY:                                         -->
+  <!-- Pure Classical Indian Graphic-Novel Gradients, Facial Components,     -->
+  <!-- Lotus-Petal Eyes, Jewelry, and Forest/Palace Medallion Backdrops      -->
+  <!-- ===================================================================== -->
+  <svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true">
+    <defs>
+      <!-- 1. LORD RAMA SKY-BLUE CEL-SHADED SKIN GRADIENTS -->
+      <linearGradient id="rama-skin" x1="15%" y1="8%" x2="85%" y2="92%">
+        <stop offset="0%" stop-color="#9BD6FC" />
+        <stop offset="45%" stop-color="#6AB7EA" />
+        <stop offset="85%" stop-color="#4592C8" />
+        <stop offset="100%" stop-color="#2E70A3" />
+      </linearGradient>
+      <linearGradient id="rama-skin-shade" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4693C9" />
+        <stop offset="100%" stop-color="#265D8A" />
+      </linearGradient>
+
+      <!-- 2. GODDESS SITA WARM GOLDEN-PEACH SKIN GRADIENTS -->
+      <linearGradient id="sita-skin" x1="15%" y1="8%" x2="85%" y2="92%">
+        <stop offset="0%" stop-color="#FEE4C2" />
+        <stop offset="48%" stop-color="#F6BC79" />
+        <stop offset="88%" stop-color="#D9924A" />
+        <stop offset="100%" stop-color="#B86E28" />
+      </linearGradient>
+      <linearGradient id="sita-skin-shade" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#D99048" />
+        <stop offset="100%" stop-color="#AE6320" />
+      </linearGradient>
+
+      <!-- 3. LAKSHMANA, BHARATA & DASHARATHA WARM GOLDEN-TAN SKIN GRADIENTS -->
+      <linearGradient id="laksh-skin" x1="15%" y1="8%" x2="85%" y2="92%">
+        <stop offset="0%" stop-color="#FCD9AC" />
+        <stop offset="48%" stop-color="#EFA95F" />
+        <stop offset="88%" stop-color="#CC7E35" />
+        <stop offset="100%" stop-color="#A65B1A" />
+      </linearGradient>
+      <linearGradient id="laksh-skin-shade" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#CA7B32" />
+        <stop offset="100%" stop-color="#9A5113" />
+      </linearGradient>
+
+      <!-- 4. RAVANA DEEP BRONZE SKIN GRADIENT -->
+      <linearGradient id="ravana-skin" x1="15%" y1="8%" x2="85%" y2="92%">
+        <stop offset="0%" stop-color="#CE926D" />
+        <stop offset="50%" stop-color="#A36440" />
+        <stop offset="90%" stop-color="#733D20" />
+        <stop offset="100%" stop-color="#4E240E" />
+      </linearGradient>
+
+      <!-- 5. HANUMAN WARM GOLDEN-AMBER SKIN GRADIENT -->
+      <linearGradient id="hanuman-skin" x1="15%" y1="8%" x2="85%" y2="92%">
+        <stop offset="0%" stop-color="#FDE68A" />
+        <stop offset="50%" stop-color="#F59E0B" />
+        <stop offset="90%" stop-color="#B45309" />
+        <stop offset="100%" stop-color="#78350F" />
+      </linearGradient>
+
+      <!-- 6. SAFFRON-OCHRE PLEATED GARMENT GRADIENTS -->
+      <linearGradient id="saffron-robe" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FCA144" />
+        <stop offset="48%" stop-color="#EA7B1F" />
+        <stop offset="85%" stop-color="#C6570A" />
+        <stop offset="100%" stop-color="#8F3602" />
+      </linearGradient>
+      <linearGradient id="saffron-robe-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#DC6A12" />
+        <stop offset="60%" stop-color="#A84305" />
+        <stop offset="100%" stop-color="#6B2400" />
+      </linearGradient>
+
+      <!-- 7. ROYAL CRIMSON & GOLD GRADIENTS -->
+      <linearGradient id="royal-crimson" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#EF4444" />
+        <stop offset="55%" stop-color="#B91C1C" />
+        <stop offset="100%" stop-color="#630B0B" />
+      </linearGradient>
+      <linearGradient id="ornate-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFFBEB" />
+        <stop offset="28%" stop-color="#FDE047" />
+        <stop offset="62%" stop-color="#F59E0B" />
+        <stop offset="100%" stop-color="#92400E" />
+      </linearGradient>
+
+      <!-- 8. KODANDA BOW & QUIVER WOOD -->
+      <linearGradient id="kodanda-bow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#7DD3FC" />
+        <stop offset="45%" stop-color="#3B82F6" />
+        <stop offset="100%" stop-color="#1E3A8A" />
+      </linearGradient>
+      <linearGradient id="quiver-wood" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#9A4815" />
+        <stop offset="50%" stop-color="#D97724" />
+        <stop offset="100%" stop-color="#6B2C07" />
+      </linearGradient>
+
+      <!-- 9. LUSTROUS JET-BLACK HAIR WITH INK HIGHLIGHT -->
+      <linearGradient id="ink-hair" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#292524" />
+        <stop offset="35%" stop-color="#0C0A09" />
+        <stop offset="75%" stop-color="#1C1917" />
+        <stop offset="100%" stop-color="#050404" />
+      </linearGradient>
+
+      <!-- 10. ILLUSTRATED SCENE BACKDROP VIGNETTES (Forest / Palace / Ocean / Ayodhya) -->
+      <radialGradient id="forest-bg-grad" cx="50%" cy="38%" r="58%">
+        <stop offset="0%" stop-color="#FEF9C3" stop-opacity="0.92" />
+        <stop offset="38%" stop-color="#A7F3D0" stop-opacity="0.48" />
+        <stop offset="72%" stop-color="#115E59" stop-opacity="0.38" />
+        <stop offset="100%" stop-color="#08070B" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="palace-bg-grad" cx="50%" cy="40%" r="58%">
+        <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.78" />
+        <stop offset="42%" stop-color="#F59E0B" stop-opacity="0.36" />
+        <stop offset="75%" stop-color="#7C2D12" stop-opacity="0.28" />
+        <stop offset="100%" stop-color="#08070B" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="battle-bg-grad" cx="50%" cy="42%" r="58%">
+        <stop offset="0%" stop-color="#FDE047" stop-opacity="0.72" />
+        <stop offset="45%" stop-color="#EA580C" stop-opacity="0.40" />
+        <stop offset="78%" stop-color="#7F1D1D" stop-opacity="0.32" />
+        <stop offset="100%" stop-color="#08070B" stop-opacity="0" />
+      </radialGradient>
+
+      <!-- 11. COMIC INK HALFTONE DOTS FOR MUSCLE & SHOULDER SHADING -->
+      <pattern id="halftone-dots" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(25)">
+        <circle cx="2" cy="2" r="0.95" fill="#0D0A08" opacity="0.22" />
+      </pattern>
+
+      <!-- 12. VAISHNAVA URDHVA PUNDRA TILAK (Refined Classical Proportions) -->
+      <g id="vaishnava-tilak">
+        <path d="M -3.8,-17 L -3.8,-3 C -3.8,2.5 3.8,2.5 3.8,-3 L 3.8,-17" fill="none" stroke="#FFFDF9" stroke-width="2.3" stroke-linecap="round" />
+        <circle cx="0" cy="-3.5" r="2.1" fill="#EA580C" />
+        <circle cx="0" cy="5.5" r="1.4" fill="#991B1B" />
+      </g>
+
+      <!-- 13. ORNATE BEADED ARMBAND (BAJUBAND) -->
+      <g id="ornate-armband">
+        <rect x="-23" y="-6" width="46" height="12" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.2" />
+        <line x1="-21" y1="-2" x2="21" y2="-2" stroke="#0D0A08" stroke-width="1.3" />
+        <line x1="-21" y1="2" x2="21" y2="2" stroke="#0D0A08" stroke-width="1.3" />
+        <circle cx="-14" cy="0" r="1.3" fill="#78350F" />
+        <circle cx="-7" cy="0" r="1.3" fill="#78350F" />
+        <circle cx="0" cy="0" r="1.3" fill="#78350F" />
+        <circle cx="7" cy="0" r="1.3" fill="#78350F" />
+        <circle cx="14" cy="0" r="1.3" fill="#78350F" />
+      </g>
+    </defs>
+  </svg>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN STORYTELLING CONTAINER (12 Alternating Two-Column Scenes)        -->
+  <!-- ===================================================================== -->
+  <main class="pt-14 pb-16">
+
+    <!-- Hero Title Banner -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-8 pt-6 pb-2 text-center">
+      <div id="hero-subtitle-pill" class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold uppercase tracking-widest mb-2.5">
+        <span>Sacred Ramayana &amp; Historical Context • 12 Illustrated Scenes</span>
+      </div>
+      <h1 id="hero-main-heading" class="font-epic text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-2">
+        Why we celebrate diwali
+      </h1>
+      <p id="hero-main-lead" class="text-xs sm:text-sm md:text-base text-stone-300 max-w-2xl mx-auto leading-relaxed">
+        Follow the chronological story of Lord Rama, Goddess Sita, and Lakshmana through 12 illustrated chapters. Each scene and its story appear together on a single screen.
+      </p>
+    </section>
+
+    <!-- 12 Alternating Two-Column Scene Articles -->
+    <div id="scenes-master-container">
+      <article id="scene-block-0" data-scene="0" class="story-scene revealed is-active max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="slot-scene-0" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1"></div>
+        <div id="text-scene-0" class="reveal-on-scroll delay-card lg:col-span-6 order-2"></div>
+      </article>
+
+      <article id="scene-block-1" data-scene="1" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="text-scene-1" class="reveal-on-scroll delay-card lg:col-span-6 order-2 lg:order-1"></div>
+        <div id="slot-scene-1" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1 lg:order-2"></div>
+      </article>
+
+      <article id="scene-block-2" data-scene="2" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="slot-scene-2" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1"></div>
+        <div id="text-scene-2" class="reveal-on-scroll delay-card lg:col-span-6 order-2"></div>
+      </article>
+
+      <article id="scene-block-3" data-scene="3" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="text-scene-3" class="reveal-on-scroll delay-card lg:col-span-6 order-2 lg:order-1"></div>
+        <div id="slot-scene-3" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1 lg:order-2"></div>
+      </article>
+
+      <article id="scene-block-4" data-scene="4" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="slot-scene-4" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1"></div>
+        <div id="text-scene-4" class="reveal-on-scroll delay-card lg:col-span-6 order-2"></div>
+      </article>
+
+      <article id="scene-block-5" data-scene="5" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="text-scene-5" class="reveal-on-scroll delay-card lg:col-span-6 order-2 lg:order-1"></div>
+        <div id="slot-scene-5" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1 lg:order-2"></div>
+      </article>
+
+      <article id="scene-block-6" data-scene="6" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="slot-scene-6" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1"></div>
+        <div id="text-scene-6" class="reveal-on-scroll delay-card lg:col-span-6 order-2"></div>
+      </article>
+
+      <article id="scene-block-7" data-scene="7" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="text-scene-7" class="reveal-on-scroll delay-card lg:col-span-6 order-2 lg:order-1"></div>
+        <div id="slot-scene-7" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1 lg:order-2"></div>
+      </article>
+
+      <article id="scene-block-8" data-scene="8" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="slot-scene-8" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1"></div>
+        <div id="text-scene-8" class="reveal-on-scroll delay-card lg:col-span-6 order-2"></div>
+      </article>
+
+      <article id="scene-block-9" data-scene="9" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="text-scene-9" class="reveal-on-scroll delay-card lg:col-span-6 order-2 lg:order-1"></div>
+        <div id="slot-scene-9" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1 lg:order-2"></div>
+      </article>
+
+      <article id="scene-block-10" data-scene="10" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="slot-scene-10" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1"></div>
+        <div id="text-scene-10" class="reveal-on-scroll delay-card lg:col-span-6 order-2"></div>
+      </article>
+
+      <article id="scene-block-11" data-scene="11" class="story-scene max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center">
+        <div id="text-scene-11" class="reveal-on-scroll delay-card lg:col-span-6 order-2 lg:order-1"></div>
+        <div id="slot-scene-11" class="vector-stage-slot reveal-on-scroll lg:col-span-6 order-1 lg:order-2"></div>
+      </article>
+    </div>
+
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // =====================================================================
+      // 1. PURE CLASSICAL FACIAL & ANATOMICAL VECTOR ILLUSTRATION ENGINE
+      //    Crafted with classical Indian sculptural & graphic-novel precision
+      //    matching the attached reference artwork (image_85e278.jpg)
+      // =====================================================================
+      const PureVectorArt = {
+
+        // Reusable Classical Indian Graphic-Novel Face Builder
+        // Ensures 100% pure, symmetrical, serene facial structures across all characters
+        drawClassicalHead: function (cfg) {
+          // cfg: { skinGrad, shadeGrad, lipColor, isFemale, hasJata, jataOffset, hasCrown, isBearded, hasMustache, browAngle }
+          const skin = cfg.skinGrad || 'url(#rama-skin)';
+          const shade = cfg.shadeGrad || 'url(#rama-skin-shade)';
+          const lipCol = cfg.lipColor || '#3B78A8';
+          const isFem = !!cfg.isFemale;
+          const hw = isFem ? 29.5 : 32.5; // Head half-width
+
+          // Crown or Jata-Mukuta Topknot
+          let hairAndCrownTop = '';
+          if (cfg.hasCrown) {
+            hairAndCrownTop = `
+              <!-- Ornate Royal Golden Kirita Mukuta Crown -->
+              <polygon points="-28,-132 -18,-182 0,-204 18,-182 28,-132" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.6" stroke-linejoin="round" />
+              <polygon points="-14,-134 0,-186 14,-134" fill="#F59E0B" stroke="#0D0A08" stroke-width="1.8" />
+              <rect x="-33" y="-136" width="66" height="14" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+              <circle cx="0" cy="-154" r="5" fill="#DC2626" stroke="#0D0A08" stroke-width="1.6" />
+              <circle cx="-16" cy="-129" r="3" fill="#DC2626" />
+              <circle cx="0" cy="-129" r="3.5" fill="#16A34A" />
+              <circle cx="16" cy="-129" r="3" fill="#DC2626" />
+            `;
+          } else if (cfg.hasJata) {
+            const jx = cfg.jataOffset || 0;
+            hairAndCrownTop = `
+              <!-- High Ascetic Jata-Mukuta Topknot Bun with Golden Beaded Band (Exact match to reference art) -->
+              <ellipse cx="${jx}" cy="-166" rx="19" ry="17" fill="url(#ink-hair)" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M ${jx - 12},-174 C ${jx - 4},-180 ${jx + 6},-178 ${jx + 12},-170" fill="none" stroke="#3F3F46" stroke-width="1.8" stroke-linecap="round" />
+              <path d="M ${jx - 16},-152 Q ${jx},-158 ${jx + 16},-152" fill="none" stroke="#0D0A08" stroke-width="6.5" stroke-linecap="round" />
+              <path d="M ${jx - 15},-152 Q ${jx},-158 ${jx + 15},-152" fill="none" stroke="#FDE047" stroke-width="3.6" stroke-dasharray="2.5 3.5" stroke-linecap="round" />
+            `;
+          }
+
+          // Maang Tikka for Sita / Female characters
+          const maangTikkaSVG = isFem ? `
+            <line x1="0" y1="-150" x2="0" y2="-122" stroke="#0D0A08" stroke-width="4" stroke-linecap="round" />
+            <line x1="0" y1="-150" x2="0" y2="-122" stroke="#FDE047" stroke-width="2.2" stroke-dasharray="2.5 2.5" stroke-linecap="round" />
+            <circle cx="0" cy="-120" r="4.8" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+            <circle cx="0" cy="-120" r="1.6" fill="#DC2626" />
+          ` : '';
+
+          // Earrings: Crescent Kundala for Rama/Ravana, Tiered Bell Jhumka for Sita/Lakshmana
+          const earringsSVG = cfg.earringType === 'jhumka' ? `
+            <!-- Tiered Bell Jhumka Earrings -->
+            <g>
+              <circle cx="${-hw - 2}" cy="-75" r="3.8" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+              <path d="M ${-hw - 9},-63 A 7,7 0 0,1 ${-hw + 5},-63 Z" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+              <line x1="${-hw - 7}" y1="-63" x2="${-hw - 7}" y2="-59" stroke="#FDE047" stroke-width="1.8" />
+              <line x1="${-hw - 2}" y1="-63" x2="${-hw - 2}" y2="-58" stroke="#FDE047" stroke-width="1.8" />
+              <line x1="${-hw + 3}" y1="-63" x2="${-hw + 3}" y2="-59" stroke="#FDE047" stroke-width="1.8" />
+
+              <circle cx="${hw + 2}" cy="-75" r="3.8" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+              <path d="M ${hw - 5},-63 A 7,7 0 0,1 ${hw + 9},-63 Z" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+              <line x1="${hw - 3}" y1="-63" x2="${hw - 3}" y2="-59" stroke="#FDE047" stroke-width="1.8" />
+              <line x1="${hw + 2}" y1="-63" x2="${hw + 2}" y2="-58" stroke="#FDE047" stroke-width="1.8" />
+              <line x1="${hw + 7}" y1="-63" x2="${hw + 7}" y2="-59" stroke="#FDE047" stroke-width="1.8" />
+            </g>
+          ` : `
+            <!-- Royal Golden Crescent Hoop Kundala Earrings -->
+            <g>
+              <circle cx="${-hw - 2}" cy="-72" r="8" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.2" />
+              <circle cx="${-hw - 2}" cy="-74" r="3.2" fill="#08070B" stroke="#0D0A08" stroke-width="1.5" />
+              <circle cx="${hw + 2}" cy="-72" r="8" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.2" />
+              <circle cx="${hw + 2}" cy="-74" r="3.2" fill="#08070B" stroke="#0D0A08" stroke-width="1.5" />
+            </g>
+          `;
+
+          // Optional Silver Beard (King Dasharatha) or Royal Mustache (Ravana)
+          const beardSVG = cfg.isBearded ? `
+            <path d="M -29,-74 C -32,-42 -18,-18 0,-12 C 18,-18 32,-42 29,-74 C 18,-62 -18,-62 -29,-74 Z" fill="#E7E5E4" stroke="#0D0A08" stroke-width="2.4" />
+            <path d="M -16,-60 Q 0,-42 16,-60 M -10,-46 Q 0,-28 10,-46" fill="none" stroke="#A8A29E" stroke-width="1.8" />
+          ` : '';
+
+          const mustacheSVG = cfg.hasMustache ? `
+            <path d="M -26,-62 Q -12,-73 0,-65 Q 12,-73 26,-62 Q 14,-58 0,-63 Q -14,-58 -26,-62 Z" fill="#0D0A08" />
+          ` : '';
+
+          return `
+            <g>
+              <!-- 1. ANATOMICAL NECK WITH STERNOCLEIDOMASTOID CONTOURS & CHIN SHADOW -->
+              <path d="M ${isFem ? -15 : -19},-58 L ${isFem ? 15 : 19},-58 L ${isFem ? 19 : 23},-26 L ${isFem ? -19 : -23},-26 Z" fill="${skin}" stroke="#0D0A08" stroke-width="2.6" />
+              <!-- Deep Cel-Shaded Cast Shadow Under Jawline -->
+              <path d="M ${isFem ? -15 : -19},-56 Q 0,-41 ${isFem ? 15 : 19},-56 L ${isFem ? 16 : 20},-44 Q 0,-34 ${isFem ? -16 : -20},-44 Z" fill="${shade}" opacity="0.78" />
+              <!-- Subtle Neck Tendon Lines -->
+              <path d="M -11,-46 L -5,-28 M 11,-46 L 5,-28" stroke="#0D0A08" stroke-width="1.5" stroke-linecap="round" opacity="0.55" />
+
+              <!-- 2. SCULPTED EARS & EARRINGS -->
+              <path d="M ${-hw + 1},-99 C ${-hw - 9},-102 ${-hw - 9},-76 ${-hw + 2},-73 Z" fill="${skin}" stroke="#0D0A08" stroke-width="2.4" />
+              <path d="M ${-hw - 3},-93 C ${-hw - 5},-86 ${-hw - 4},-80 ${-hw},-78" fill="none" stroke="#0D0A08" stroke-width="1.6" stroke-linecap="round" />
+              <path d="M ${hw - 1},-99 C ${hw + 9},-102 ${hw + 9},-76 ${hw - 2},-73 Z" fill="${skin}" stroke="#0D0A08" stroke-width="2.4" />
+              <path d="M ${hw + 3},-93 C ${hw + 5},-86 ${hw + 4},-80 ${hw},-78" fill="none" stroke="#0D0A08" stroke-width="1.6" stroke-linecap="round" />
+              ${earringsSVG}
+
+              <!-- 3. PURE CLASSICAL SCULPTED FACE CONTOUR (Temples, Cheekbones, Tapered Jawline, Rounded Chin) -->
+              <path
+                d="M 0,-138
+                   C ${hw * 0.82},-138 ${hw + 1.5},-120 ${hw},-96
+                   C ${hw - 1},-76 ${hw * 0.78},-59 ${hw * 0.38},-47
+                   C ${hw * 0.15},-41 ${-hw * 0.15},-41 ${-hw * 0.38},-47
+                   C ${-hw * 0.78},-59 ${-hw + 1},-76 ${-hw},-96
+                   C ${-hw - 1.5},-120 ${-hw * 0.82},-138 0,-138 Z"
+                fill="${skin}"
+                stroke="#0D0A08"
+                stroke-width="2.8"
+                stroke-linejoin="round"
+              />
+              <!-- Subtle Cel-Shaded Cheekbone & Temple Contour Along Left Side of Face -->
+              <path
+                d="M ${-hw + 1.5},-108
+                   C ${-hw + 4},-84 ${-hw * 0.65},-62 ${-hw * 0.15},-44
+                   C ${-hw * 0.68},-54 ${-hw + 0.5},-76 ${-hw + 1.5},-108 Z"
+                fill="${shade}"
+                opacity="0.48"
+              />
+
+              <!-- 4. SCULPTED HAIRLINE, TEMPLE LOCKS & TOPKNOT / CROWN -->
+              ${hairAndCrownTop}
+              <path
+                d="M ${-hw - 1},-96
+                   C ${-hw - 4},-128 ${-hw * 0.62},-150 0,-150
+                   C ${hw * 0.62},-150 ${hw + 4},-128 ${hw + 1},-96
+                   C ${hw - 4},-116 ${hw * 0.48},-126 0,-122
+                   C ${-hw * 0.48},-126 ${-hw + 4},-116 ${-hw - 1},-96 Z"
+                fill="url(#ink-hair)"
+                stroke="#0D0A08"
+                stroke-width="2.6"
+                stroke-linejoin="round"
+              />
+              <!-- Delicate Hair Strand Texture Lines Along Crown -->
+              <path d="M -24,-128 Q -12,-140 0,-138 M 24,-128 Q 12,-140 0,-138 M -30,-114 Q -20,-130 -6,-126 M 30,-114 Q 20,-130 6,-126" fill="none" stroke="#3F3F46" stroke-width="1.4" stroke-linecap="round" />
+              ${maangTikkaSVG}
+
+              <!-- 5. FOREHEAD SACRED TILAK -->
+              ${cfg.isRavana ? `
+                <line x1="-12" y1="-113" x2="12" y2="-113" stroke="#FDE047" stroke-width="2" stroke-linecap="round" />
+                <line x1="-14" y1="-108" x2="14" y2="-108" stroke="#FDE047" stroke-width="2" stroke-linecap="round" />
+                <circle cx="0" cy="-110.5" r="2.8" fill="#DC2626" />
+              ` : `
+                <use href="#vaishnava-tilak" transform="translate(0, -101) scale(${isFem ? 0.85 : 0.95})" />
+              `}
+
+              <!-- 6. TAPERED DHANUSH (BOW-SHAPED) EYEBROWS -->
+              <!-- Left Eyebrow -->
+              <path
+                d="M -4.2,-94.5 C -11,-101.5 -21,-101 -27.5,-94.5 C -20.5,-97.5 -11.5,-97.2 -4.2,-92.5 Z"
+                fill="#0D0A08"
+              />
+              <!-- Right Eyebrow -->
+              <path
+                d="M 4.2,-94.5 C 11,-101.5 21,-101 27.5,-94.5 C 20.5,-97.5 11.5,-97.2 4.2,-92.5 Z"
+                fill="#0D0A08"
+              />
+
+              <!-- 7. PURE LOTUS-PETAL ALMOND EYES (KAMALA-NAYANA) -->
+              <!-- Upper Eyelid Fold Creases -->
+              <path d="M -23.5,-91.5 Q -14.5,-96.5 -6.5,-90.5" fill="none" stroke="#0D0A08" stroke-width="1.2" opacity="0.65" stroke-linecap="round" />
+              <path d="M 6.5,-90.5 Q 14.5,-96.5 23.5,-91.5" fill="none" stroke="#0D0A08" stroke-width="1.2" opacity="0.65" stroke-linecap="round" />
+
+              <!-- Left Lotus-Petal Eye -->
+              <path
+                d="M -24.5,-87 C -19.5,-92.5 -10.5,-92 -6,-87 C -10.5,-83 -19.5,-83 -24.5,-87 Z"
+                fill="#FFFDF9"
+                stroke="#0D0A08"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+              <circle cx="-14.5" cy="-87.4" r="3.9" fill="#1C100B" />
+              <circle cx="-14.5" cy="-87.4" r="1.9" fill="#050404" />
+              <circle cx="-15.8" cy="-88.6" r="1.15" fill="#FFFFFF" />
+              <circle cx="-13.2" cy="-86.4" r="0.55" fill="#FFFFFF" />
+              <!-- Winged Upper Eyelash Line -->
+              <path d="M -26,-86.5 C -19.5,-93.5 -10.5,-93 -5.5,-86.5" fill="none" stroke="#0D0A08" stroke-width="2.8" stroke-linecap="round" />
+
+              <!-- Right Lotus-Petal Eye -->
+              <path
+                d="M 6,-87 C 10.5,-92 19.5,-92.5 24.5,-87 C 19.5,-83 10.5,-83 6,-87 Z"
+                fill="#FFFDF9"
+                stroke="#0D0A08"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+              <circle cx="14.5" cy="-87.4" r="3.9" fill="#1C100B" />
+              <circle cx="14.5" cy="-87.4" r="1.9" fill="#050404" />
+              <circle cx="13.2" cy="-88.6" r="1.15" fill="#FFFFFF" />
+              <circle cx="15.8" cy="-86.4" r="0.55" fill="#FFFFFF" />
+              <!-- Winged Upper Eyelash Line -->
+              <path d="M 5.5,-86.5 C 10.5,-93 19.5,-93.5 26,-86.5" fill="none" stroke="#0D0A08" stroke-width="2.8" stroke-linecap="round" />
+
+              <!-- 8. SCULPTED NOSE BRIDGE, NOSTRIL WINGS & CEL-SHADED SIDE PLANE -->
+              <!-- Soft Nose Side Shadow -->
+              <path d="M -1,-91 L -4.5,-73 L 0.5,-71 Z" fill="${shade}" opacity="0.55" />
+              <!-- Crisp Nose Bridge & Tip Contour -->
+              <path d="M 1.8,-91.5 L 2.8,-74.5 C 2.8,-71.5 0,-70 -2.2,-71" fill="none" stroke="#0D0A08" stroke-width="2.1" stroke-linecap="round" />
+              <!-- Symmetrical Nostril Wings (Alae) -->
+              <path d="M -6.2,-72.5 C -4.2,-70.2 -2,-69.8 0,-69.8 C 2,-69.8 4.2,-70.2 6.2,-72.5" fill="none" stroke="#0D0A08" stroke-width="2" stroke-linecap="round" />
+              <!-- Subtle Philtrum Groove -->
+              <path d="M -1.4,-68.5 L -1.8,-63.5 M 1.4,-68.5 L 1.8,-63.5" stroke="#0D0A08" stroke-width="1.2" opacity="0.5" stroke-linecap="round" />
+
+              ${beardSVG}
+              ${mustacheSVG}
+
+              <!-- 9. PURE CUPID'S-BOW LIPS & CHIN CONTOUR -->
+              <!-- Upper Lip -->
+              <path
+                d="M -10,-59.5 C -6,-62.6 -2.2,-62.4 0,-60.8 C 2.2,-62.4 6,-62.6 10,-59.5 C 5,-58.5 -5,-58.5 -10,-59.5 Z"
+                fill="${lipCol}"
+                stroke="#0D0A08"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              />
+              <!-- Lower Lip -->
+              <path
+                d="M -9.2,-59.2 C -5.5,-53.2 5.5,-53.2 9.2,-59.2 C 4,-58.4 -4,-58.4 -9.2,-59.2 Z"
+                fill="${lipCol}"
+                stroke="#0D0A08"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+              <!-- Lower Lip Specular Glint -->
+              <path d="M -4,-56.2 Q 0,-55.4 4,-56.2" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.55" stroke-linecap="round" />
+              <!-- Center Lip Line -->
+              <path d="M -10.5,-59.5 C -4.5,-58.2 4.5,-58.2 10.5,-59.5" fill="none" stroke="#0D0A08" stroke-width="2" stroke-linecap="round" />
+              <!-- Chin Cleft / Under-Lip Shadow Curve -->
+              <path d="M -4.5,-51 Q 0,-49.2 4.5,-51" fill="none" stroke="#0D0A08" stroke-width="1.6" opacity="0.75" stroke-linecap="round" />
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // ILLUSTRATED CIRCULAR PANEL BACKDROP (Forest / Palace / Ocean)
+        // Grounds each composition like the reference graphic-novel artwork
+        // -------------------------------------------------------------------
+        drawSceneBackdrop: function (theme) {
+          if (theme === 'forest') {
+            return `
+              <g>
+                <circle cx="300" cy="215" r="195" fill="url(#forest-bg-grad)" />
+                <!-- Distant Misty Mountain Peaks & Tall Forest Tree Trunks (Matching reference image) -->
+                <g clip-path="url(#panel-circle-clip)" opacity="0.52">
+                  <polygon points="90,340 165,210 245,340" fill="#334155" stroke="#0D0A08" stroke-width="2" />
+                  <polygon points="340,340 425,195 510,340" fill="#334155" stroke="#0D0A08" stroke-width="2" />
+                  <!-- Vertical Ink-Lined Tree Trunks Framing Left & Right -->
+                  <rect x="68" y="30" width="24" height="340" fill="#475569" stroke="#0D0A08" stroke-width="2.4" />
+                  <line x1="76" y1="35" x2="76" y2="360" stroke="#0D0A08" stroke-width="1.4" />
+                  <line x1="84" y1="35" x2="84" y2="360" stroke="#0D0A08" stroke-width="1.4" />
+                  <rect x="508" y="30" width="24" height="340" fill="#475569" stroke="#0D0A08" stroke-width="2.4" />
+                  <line x1="516" y1="35" x2="516" y2="360" stroke="#0D0A08" stroke-width="1.4" />
+                  <line x1="524" y1="35" x2="524" y2="360" stroke="#0D0A08" stroke-width="1.4" />
+                </g>
+                <circle cx="300" cy="215" r="195" fill="none" stroke="#F59E0B" stroke-opacity="0.32" stroke-width="2" />
+              </g>
+            `;
+          } else if (theme === 'battle') {
+            return `
+              <g>
+                <circle cx="300" cy="215" r="195" fill="url(#battle-bg-grad)" />
+                <circle cx="300" cy="215" r="165" fill="none" stroke="#FDE047" stroke-opacity="0.28" stroke-width="1.5" stroke-dasharray="6 6" />
+                <circle cx="300" cy="215" r="195" fill="none" stroke="#EA580C" stroke-opacity="0.38" stroke-width="2" />
+              </g>
+            `;
+          }
+          // Default 'palace' / golden mandala arch backdrop
+          return `
+            <g>
+              <circle cx="300" cy="215" r="195" fill="url(#palace-bg-grad)" />
+              <!-- Subtle Cusped Ayodhya Palace Arch Silhouette -->
+              <path d="M 135,340 L 135,175 Q 135,95 215,75 Q 300,45 300,28 Q 300,45 385,75 Q 465,95 465,175 L 465,340" fill="none" stroke="#FDE047" stroke-opacity="0.35" stroke-width="2.4" />
+              <circle cx="300" cy="215" r="195" fill="none" stroke="#F59E0B" stroke-opacity="0.35" stroke-width="2" />
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // A. LORD RAMA (Pure Classical Facial Structure + Muscular Sky-Blue Body)
+        // -------------------------------------------------------------------
+        drawRama: function (opts) {
+          opts = opts || {};
+          const tx = opts.x || 300;
+          const ty = opts.y || 248;
+          const sc = opts.scale || 1.0;
+          const pose = opts.pose || 'hero'; // 'hero' | 'bowDraw' | 'blessing'
+          const hasCrown = !!opts.hasCrown;
+
+          let rightArmSVG = '';
+          let leftArmSVG = '';
+          let bowForegroundSVG = '';
+
+          if (pose === 'bowDraw') {
+            leftArmSVG = `
+              <g>
+                <path d="M 56,-25 Q 115,-35 162,-28 L 162,-4 Q 112,-6 52,8 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.6" />
+                <g transform="translate(105, -18) rotate(-85)"><use href="#ornate-armband" transform="scale(0.68)" /></g>
+                <circle cx="168" cy="-16" r="14" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.6" />
+                <path d="M 155,-145 C 192,-85 198,-35 168,-16 C 198,5 192,55 155,115" fill="none" stroke="url(#kodanda-bow-grad)" stroke-width="9" stroke-linecap="round" />
+                <path d="M 155,-145 C 192,-85 198,-35 168,-16 C 198,5 192,55 155,115" fill="none" stroke="#0D0A08" stroke-width="2.4" stroke-linecap="round" />
+                <polyline points="155,-142 15,-22 155,112" fill="none" stroke="#FFFBEB" stroke-width="2.2" />
+                <line x1="15" y1="-22" x2="235" y2="-16" stroke="#FDE047" stroke-width="4.5" stroke-linecap="round" />
+                <polygon points="248,-16 222,-27 228,-16 222,-5" fill="#FFFFFF" stroke="#EA580C" stroke-width="1.8" />
+              </g>
+            `;
+            rightArmSVG = `
+              <g>
+                <path d="M -66,-24 Q -105,10 -65,38 L -5,-16 L -12,-32 Q -52,5 -50,-18 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.6" />
+                <g transform="translate(-74, -2) rotate(22)"><use href="#ornate-armband" transform="scale(0.75)" /></g>
+              </g>
+            `;
+          } else if (pose === 'blessing') {
+            rightArmSVG = `
+              <g>
+                <path d="M -64,-24 C -88,12 -86,58 -68,68 L -34,16 C -48,18 -50,-6 -46,-18 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.6" />
+                <g transform="translate(-72, 10) rotate(10)"><use href="#ornate-armband" transform="scale(0.78)" /></g>
+                <!-- Serene Raised Blessing Palm (Abhaya Mudra) -->
+                <path d="M -42,16 C -46,-14 -36,-26 -24,-24 C -14,-22 -12,-6 -20,20 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.5" />
+                <circle cx="-27" cy="-2" r="3" fill="#EA580C" opacity="0.65" />
+              </g>
+            `;
+            leftArmSVG = `
+              <g>
+                <path d="M 62,-22 C 84,12 88,62 94,114 L 66,116 C 58,68 54,22 48,-2 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.8" />
+                <g transform="translate(68, 16) rotate(-6)"><use href="#ornate-armband" transform="scale(0.82)" /></g>
+                <rect x="64" y="106" width="32" height="9" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+                <path d="M 65,114 C 60,134 68,148 84,148 C 98,148 104,134 96,114 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.6" />
+              </g>
+            `;
+          } else {
+            rightArmSVG = `
+              <g>
+                <path d="M -64,-28 C -92,-8 -96,45 -88,118 L -56,118 C -58,58 -52,18 -46,-4 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.8" />
+                <path d="M -84,-12 C -68,10 -66,45 -68,95 L -58,95 C -56,42 -52,12 -64,-12 Z" fill="url(#rama-skin-shade)" opacity="0.65" />
+                <ellipse cx="-74" cy="-8" rx="14" ry="22" fill="url(#halftone-dots)" />
+                <g transform="translate(-73, 12) rotate(6)"><use href="#ornate-armband" transform="scale(0.88)" /></g>
+                <rect x="-89" y="108" width="34" height="9" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+                <path d="M -88,116 C -92,136 -82,148 -64,148 C -46,148 -42,135 -48,120 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.6" />
+                <line x1="-76" y1="132" x2="-76" y2="146" stroke="#0D0A08" stroke-width="2" />
+                <line x1="-66" y1="132" x2="-66" y2="147" stroke="#0D0A08" stroke-width="2" />
+                <line x1="-56" y1="130" x2="-56" y2="145" stroke="#0D0A08" stroke-width="2" />
+              </g>
+            `;
+            leftArmSVG = `
+              <g>
+                <path d="M 62,-22 C 84,12 88,62 94,114 L 66,116 C 58,68 54,22 48,-2 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.8" />
+                <g transform="translate(68, 16) rotate(-6)"><use href="#ornate-armband" transform="scale(0.82)" /></g>
+                <rect x="64" y="106" width="32" height="9" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+                <path d="M 65,114 C 60,134 68,148 84,148 C 98,148 104,134 96,114 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.6" />
+              </g>
+            `;
+            bowForegroundSVG = `
+              <g>
+                <path d="M -185,68 C -160,72 -152,108 -102,124 C -48,140 -12,132 45,156 C 95,176 145,182 178,184" fill="none" stroke="#0D0A08" stroke-width="13" stroke-linecap="round" />
+                <path d="M -185,68 C -160,72 -152,108 -102,124 C -48,140 -12,132 45,156 C 95,176 145,182 178,184" fill="none" stroke="url(#kodanda-bow-grad)" stroke-width="8" stroke-linecap="round" />
+                <path d="M -175,69 C -152,75 -142,105 -98,120 M -38,134 C 5,136 45,154 98,172" fill="none" stroke="#BAE6FD" stroke-width="2.2" stroke-linecap="round" />
+              </g>
+            `;
+          }
+
+          return `
+            <g transform="translate(${tx}, ${ty}) scale(${sc})">
+              <!-- 1. Quiver & Feathered Arrows Behind Right Shoulder -->
+              <g transform="translate(-52, -74) rotate(-18)">
+                <g stroke="#0D0A08" stroke-width="2">
+                  <line x1="-16" y1="-6" x2="-22" y2="-66" stroke="#78350F" stroke-width="3.5" />
+                  <polygon points="-22,-66 -30,-44 -16,-40" fill="#D97706" />
+                  <rect x="-25" y="-72" width="6" height="8" rx="1" fill="#EF4444" />
+
+                  <line x1="-4" y1="-8" x2="-6" y2="-72" stroke="#78350F" stroke-width="3.5" />
+                  <polygon points="-6,-72 -14,-48 -2,-44" fill="#F59E0B" />
+                  <rect x="-9" y="-78" width="6" height="8" rx="1" fill="#EF4444" />
+
+                  <line x1="8" y1="-8" x2="10" y2="-70" stroke="#78350F" stroke-width="3.5" />
+                  <polygon points="10,-70 2,-46 14,-42" fill="#D97706" />
+                  <rect x="7" y="-76" width="6" height="8" rx="1" fill="#EF4444" />
+                </g>
+                <path d="M -22,-8 L 22,-8 L 18,56 L -18,56 Z" fill="url(#quiver-wood)" stroke="#0D0A08" stroke-width="2.6" />
+                <rect x="-23" y="-10" width="46" height="10" rx="3" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.2" />
+              </g>
+
+              <!-- 2. Flowing Wavy Black Shoulder Hair Locks -->
+              <path d="M -38,-112 C -54,-86 -58,-54 -48,-30 C -32,-24 32,-24 48,-30 C 58,-54 54,-86 38,-112 Z" fill="url(#ink-hair)" stroke="#0D0A08" stroke-width="2.6" />
+
+              <!-- 3. Muscular Sky-Blue Torso & Chest Contours -->
+              <path d="M -64,-30 C -42,-42 42,-42 64,-30 L 48,78 L -48,78 Z" fill="url(#rama-skin)" stroke="#0D0A08" stroke-width="2.8" />
+              <path d="M -46,-16 C -32,8 -12,12 -2,4 L -2,68 L -44,68 Z" fill="url(#rama-skin-shade)" opacity="0.52" />
+              <ellipse cx="-38" cy="-12" rx="22" ry="18" fill="url(#halftone-dots)" />
+              <path d="M -44,4 C -26,12 -8,10 -2,0" fill="none" stroke="#0D0A08" stroke-width="2.2" stroke-linecap="round" />
+              <circle cx="-26" cy="-2" r="2.4" fill="#265D8A" stroke="#0D0A08" stroke-width="1.5" />
+              <path d="M -24,22 L -14,36 M -26,38 L -16,52" stroke="#1E4E75" stroke-width="2" stroke-linecap="round" />
+              <path d="M -40,-26 Q -18,-18 0,-22 Q 18,-18 40,-26" fill="none" stroke="#0D0A08" stroke-width="2" stroke-linecap="round" />
+
+              <!-- 4. Quiver Strap -->
+              <path d="M -50,-34 L 22,28 L 28,22 L -42,-36 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2" />
+
+              <!-- 5. Pleated Saffron Dhoti -->
+              <g>
+                <path d="M -50,74 L 50,74 L 62,195 L -62,195 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.8" />
+                <path d="M -52,72 Q 0,84 52,72 L 54,104 Q 0,116 -54,104 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.4" />
+                <path d="M -50,82 Q 0,94 50,82 M -52,92 Q 0,104 52,92" fill="none" stroke="#0D0A08" stroke-width="2" />
+                <path d="M -52,112 L -12,135 M -55,128 L -12,152 M -58,146 L -14,172 M 52,112 L 18,135 M 55,128 L 18,152" fill="none" stroke="#0D0A08" stroke-width="2" />
+                <path d="M -12,88 L 18,88 L 24,195 L -16,195 Z" fill="url(#saffron-robe-dark)" stroke="#0D0A08" stroke-width="2.5" />
+                <line x1="-3" y1="90" x2="-5" y2="195" stroke="#0D0A08" stroke-width="2" />
+                <line x1="7" y1="90" x2="9" y2="195" stroke="#0D0A08" stroke-width="2" />
+              </g>
+
+              <!-- 6. Pleated Saffron Angavastram Over Left Shoulder -->
+              <g>
+                <path d="M 24,-36 L 66,-26 C 72,22 64,82 54,148 L 12,148 C 12,92 -8,68 -24,74 C -10,36 14,-2 24,-36 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.6" />
+                <path d="M 34,-32 C 24,10 6,48 -10,74 M 46,-28 C 38,20 24,68 18,135 M 56,-24 C 52,25 44,82 38,145" fill="none" stroke="#0D0A08" stroke-width="2" />
+              </g>
+
+              <!-- 7. Double-Strand Beaded Golden Necklaces -->
+              <path d="M -26,-32 Q 0,6 26,-32" fill="none" stroke="#0D0A08" stroke-width="6.5" stroke-linecap="round" />
+              <path d="M -26,-32 Q 0,6 26,-32" fill="none" stroke="#F59E0B" stroke-width="3.8" stroke-dasharray="3 4" stroke-linecap="round" />
+              <path d="M -30,-30 Q 0,30 30,-30" fill="none" stroke="#0D0A08" stroke-width="5.5" stroke-linecap="round" />
+              <path d="M -30,-30 Q 0,30 30,-30" fill="none" stroke="#FDE047" stroke-width="3" stroke-dasharray="2.5 4" stroke-linecap="round" />
+
+              <!-- 8. Pure Classical Head -->
+              ${this.drawClassicalHead({
+                skinGrad: 'url(#rama-skin)',
+                shadeGrad: 'url(#rama-skin-shade)',
+                lipColor: '#3574A6',
+                isFemale: false,
+                hasJata: !hasCrown,
+                hasCrown: hasCrown,
+                earringType: 'kundala'
+              })}
+
+              <!-- 9. Arms & Kodanda Bow -->
+              ${leftArmSVG}
+              ${rightArmSVG}
+              ${bowForegroundSVG}
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // B. GODDESS SITA (Pure Classical Feminine Facial Structure & Saree)
+        // -------------------------------------------------------------------
+        drawSita: function (opts) {
+          opts = opts || {};
+          const tx = opts.x || 135;
+          const ty = opts.y || 262;
+          const sc = opts.scale || 0.94;
+
+          return `
+            <g transform="translate(${tx}, ${ty}) scale(${sc})">
+              <!-- 1. Long Flowing Jet-Black Hair -->
+              <path d="M -42,-116 C -56,-76 -64,-22 -68,36 L 68,36 C 64,-22 56,-76 42,-116 Z" fill="url(#ink-hair)" stroke="#0D0A08" stroke-width="2.6" />
+
+              <!-- 2. Torso, Saffron Blouse & Pleated Saree Pallu -->
+              <path d="M -54,-26 C -34,-36 34,-36 54,-26 L 42,76 L -42,76 Z" fill="url(#sita-skin)" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M -56,-26 C -76,-14 -82,12 -78,34 L -46,36 L -42,-20 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.6" />
+              <g transform="translate(-63, 34) rotate(6)"><use href="#ornate-armband" transform="scale(0.74)" /></g>
+
+              <path d="M -48,18 C -25,-12 18,-30 48,-30 L 56,16 C 32,42 -12,64 -44,68 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M -44,28 C -15,2 22,-18 50,-24 M -44,42 C -10,16 26,-4 52,-10 M -42,56 C -6,32 28,12 54,4" fill="none" stroke="#0D0A08" stroke-width="2" />
+              <ellipse cx="4" cy="56" rx="1.8" ry="3.2" fill="#0D0A08" />
+
+              <!-- 3. Pleated Saffron Saree Skirt -->
+              <g>
+                <path d="M -46,74 L 46,74 L 58,195 L -58,195 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.8" />
+                <path d="M -48,72 Q 0,84 48,72 L 50,102 Q 0,114 -50,102 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.4" />
+                <path d="M -46,82 Q 0,94 46,82 M -48,92 Q 0,104 48,92" fill="none" stroke="#0D0A08" stroke-width="2" />
+                <path d="M -10,86 L 16,86 L 22,195 L -14,195 Z" fill="url(#saffron-robe-dark)" stroke="#0D0A08" stroke-width="2.4" />
+                <line x1="-2" y1="88" x2="-4" y2="195" stroke="#0D0A08" stroke-width="1.8" />
+                <line x1="6" y1="88" x2="8" y2="195" stroke="#0D0A08" stroke-width="1.8" />
+              </g>
+
+              <!-- 4. Right Arm & Hand -->
+              <path d="M -76,36 C -80,68 -74,98 -68,122 L -46,120 C -50,92 -52,64 -48,36 Z" fill="url(#sita-skin)" stroke="#0D0A08" stroke-width="2.6" />
+              <rect x="-71" y="112" width="26" height="8" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+              <path d="M -68,120 C -72,138 -62,152 -46,154 C -40,144 -42,130 -46,120 Z" fill="url(#sita-skin)" stroke="#0D0A08" stroke-width="2.4" />
+
+              <!-- 5. Beaded Golden Necklace -->
+              <path d="M -24,-28 Q 0,6 24,-28" fill="none" stroke="#0D0A08" stroke-width="6" stroke-linecap="round" />
+              <path d="M -24,-28 Q 0,6 24,-28" fill="none" stroke="#FDE047" stroke-width="3.4" stroke-dasharray="2.5 3.5" stroke-linecap="round" />
+
+              <!-- 6. Pure Classical Feminine Head -->
+              ${this.drawClassicalHead({
+                skinGrad: 'url(#sita-skin)',
+                shadeGrad: 'url(#sita-skin-shade)',
+                lipColor: '#D9534F',
+                isFemale: true,
+                hasJata: false,
+                hasCrown: false,
+                earringType: 'jhumka'
+              })}
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // C. LAKSHMANA & BHARATA (Pure Classical Facial Structure + Dhoti)
+        // -------------------------------------------------------------------
+        drawLakshmana: function (opts) {
+          opts = opts || {};
+          const tx = opts.x || 465;
+          const ty = opts.y || 258;
+          const sc = opts.scale || 0.95;
+          const isPrayer = !!opts.isPrayer;
+
+          return `
+            <g transform="translate(${tx}, ${ty}) scale(${sc})">
+              <path d="M -36,-112 C -50,-86 -54,-54 -44,-30 L 44,-30 C 54,-54 50,-86 36,-112 Z" fill="url(#ink-hair)" stroke="#0D0A08" stroke-width="2.6" />
+
+              <path d="M -58,-28 C -38,-40 38,-40 58,-28 L 44,78 L -44,78 Z" fill="url(#laksh-skin)" stroke="#0D0A08" stroke-width="2.6" />
+              <ellipse cx="-34" cy="-8" rx="18" ry="16" fill="url(#halftone-dots)" />
+              <path d="M -42,4 C -24,12 -6,10 0,0 M 42,4 C 24,12 6,10 0,0" fill="none" stroke="#0D0A08" stroke-width="2" stroke-linecap="round" />
+              <circle cx="-24" cy="-2" r="2.2" fill="#9A4815" stroke="#0D0A08" stroke-width="1.4" />
+              <circle cx="26" cy="-2" r="2.2" fill="#9A4815" stroke="#0D0A08" stroke-width="1.4" />
+              <ellipse cx="4" cy="56" rx="1.8" ry="3.2" fill="#0D0A08" />
+
+              <!-- Diagonal Sacred Thread / Thin Saffron Strap -->
+              <path d="M 38,-30 C 26,12 -4,48 -38,74" fill="none" stroke="#0D0A08" stroke-width="4.5" />
+              <path d="M 38,-30 C 26,12 -4,48 -38,74" fill="none" stroke="#F59E0B" stroke-width="2.2" />
+
+              <!-- Pleated Saffron Dhoti -->
+              <g>
+                <path d="M -46,74 L 46,74 L 58,195 L -58,195 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.8" />
+                <path d="M -48,72 Q 0,84 48,72 L 50,102 Q 0,114 -50,102 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.4" />
+                <path d="M -46,82 Q 0,94 46,82 M -48,92 Q 0,104 48,92" fill="none" stroke="#0D0A08" stroke-width="2" />
+                <path d="M -6,86 L 20,86 L 26,195 L -10,195 Z" fill="url(#saffron-robe-dark)" stroke="#0D0A08" stroke-width="2.4" />
+                <line x1="2" y1="88" x2="0" y2="195" stroke="#0D0A08" stroke-width="1.8" />
+                <line x1="10" y1="88" x2="12" y2="195" stroke="#0D0A08" stroke-width="1.8" />
+              </g>
+
+              <!-- Arms -->
+              <path d="M 56,-22 C 74,10 78,62 84,116 L 58,118 C 52,68 48,22 42,-2 Z" fill="url(#laksh-skin)" stroke="#0D0A08" stroke-width="2.6" />
+              <g transform="translate(61, 14) rotate(-6)"><use href="#ornate-armband" transform="scale(0.76)" /></g>
+              <rect x="57" y="108" width="28" height="8" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2" />
+              <path d="M 58,116 C 54,134 62,148 76,148 C 88,148 92,134 86,116 Z" fill="url(#laksh-skin)" stroke="#0D0A08" stroke-width="2.4" />
+
+              ${isPrayer ? `
+                <!-- Folded Hands in Reverent Anjali Mudra -->
+                <path d="M -18,14 L 0,-22 L 18,14 Z" fill="url(#laksh-skin)" stroke="#0D0A08" stroke-width="2.5" />
+              ` : ''}
+
+              <!-- Double-Strand Beaded Necklace -->
+              <path d="M -24,-30 Q 4,8 24,-30" fill="none" stroke="#0D0A08" stroke-width="5.5" stroke-linecap="round" />
+              <path d="M -24,-30 Q 4,8 24,-30" fill="none" stroke="#FDE047" stroke-width="3" stroke-dasharray="2.5 3.5" stroke-linecap="round" />
+              <path d="M -28,-28 Q 6,30 28,-28" fill="none" stroke="#0D0A08" stroke-width="5" stroke-linecap="round" />
+              <path d="M -28,-28 Q 6,30 28,-28" fill="none" stroke="#F59E0B" stroke-width="2.6" stroke-dasharray="2.5 3.5" stroke-linecap="round" />
+
+              <!-- Pure Classical Head -->
+              ${this.drawClassicalHead({
+                skinGrad: 'url(#laksh-skin)',
+                shadeGrad: 'url(#laksh-skin-shade)',
+                lipColor: '#B85D38',
+                isFemale: false,
+                hasJata: true,
+                jataOffset: -4,
+                hasCrown: false,
+                earringType: 'jhumka'
+              })}
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // D. KING DASHARATHA & QUEEN KAIKEYI
+        // -------------------------------------------------------------------
+        drawDasharatha: function (opts) {
+          opts = opts || {};
+          const tx = opts.x || 155;
+          const ty = opts.y || 260;
+          const sc = opts.scale || 0.94;
+          return `
+            <g transform="translate(${tx}, ${ty}) scale(${sc})">
+              <path d="M -40,-112 C -54,-82 -58,-46 -46,-26 L 46,-26 C 58,-46 54,-82 40,-112 Z" fill="#D6D3D1" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M -60,-28 L 60,-28 L 64,192 L -64,192 Z" fill="url(#royal-crimson)" stroke="#0D0A08" stroke-width="2.8" />
+              <path d="M -30,-30 L 0,48 L 30,-30" fill="none" stroke="url(#ornate-gold)" stroke-width="9" />
+              <rect x="-58" y="72" width="116" height="16" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+              ${this.drawClassicalHead({
+                skinGrad: 'url(#laksh-skin)',
+                shadeGrad: 'url(#laksh-skin-shade)',
+                lipColor: '#9A4815',
+                isFemale: false,
+                hasCrown: true,
+                isBearded: true,
+                earringType: 'kundala'
+              })}
+            </g>
+          `;
+        },
+
+        drawKaikeyi: function (opts) {
+          opts = opts || {};
+          const tx = opts.x || 135;
+          const ty = opts.y || 262;
+          const sc = opts.scale || 0.92;
+          return `
+            <g transform="translate(${tx}, ${ty}) scale(${sc})">
+              <path d="M -42,-116 C -56,-76 -62,-22 -64,34 L 64,34 C 62,-22 56,-76 42,-116 Z" fill="url(#ink-hair)" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M -52,-26 L 52,-26 L 58,192 L -58,192 Z" fill="url(#royal-crimson)" stroke="#0D0A08" stroke-width="2.8" />
+              <path d="M -46,18 C -18,-12 20,-28 48,-28 L 54,18 C 24,44 -14,64 -44,68 Z" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+              ${this.drawClassicalHead({
+                skinGrad: 'url(#sita-skin)',
+                shadeGrad: 'url(#sita-skin-shade)',
+                lipColor: '#991B1B',
+                isFemale: true,
+                hasCrown: true,
+                earringType: 'jhumka'
+              })}
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // E. RAVANA (Ten-Headed King of Lanka with Refined Classical Faces)
+        // -------------------------------------------------------------------
+        drawRavana: function (opts) {
+          opts = opts || {};
+          const tx = opts.x || 445;
+          const ty = opts.y || 255;
+          const sc = opts.scale || 0.96;
+
+          let nineHeadsSVG = '';
+          [-4, -3, -2, -1, 1, 2, 3, 4, 5].forEach(offset => {
+            const hx = offset * 23;
+            const hy = -118 + Math.abs(offset) * 5;
+            nineHeadsSVG += `
+              <g transform="translate(${hx}, ${hy}) scale(0.46)">
+                <polygon points="-18,-36 0,-74 18,-36" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="3" />
+                <ellipse cx="0" cy="-12" rx="22" ry="26" fill="url(#ravana-skin)" stroke="#0D0A08" stroke-width="3" />
+                <path d="M -14,-16 L -4,-12 M 14,-16 L 4,-12" stroke="#0D0A08" stroke-width="3" />
+                <circle cx="-8" cy="-10" r="2.5" fill="#FEF08A" />
+                <circle cx="8" cy="-10" r="2.5" fill="#FEF08A" />
+                <path d="M -14,4 Q 0,-2 14,4" fill="none" stroke="#0D0A08" stroke-width="3" />
+              </g>
+            `;
+          });
+
+          return `
+            <g transform="translate(${tx}, ${ty}) scale(${sc})">
+              <g opacity="0.92">${nineHeadsSVG}</g>
+              <path d="M -74,-30 C -48,-44 48,-44 74,-30 L 56,82 L -56,82 Z" fill="url(#ravana-skin)" stroke="#0D0A08" stroke-width="2.8" />
+              <path d="M -64,-28 L 64,-28 L 46,48 L 0,66 L -46,48 Z" fill="url(#royal-crimson)" stroke="#0D0A08" stroke-width="2.8" />
+              <path d="M -44,-26 L 0,38 L 44,-26" fill="none" stroke="url(#ornate-gold)" stroke-width="8" />
+              <path d="M -56,78 L 56,78 L 68,195 L -68,195 Z" fill="url(#royal-crimson)" stroke="#0D0A08" stroke-width="2.8" />
+              <rect x="-58" y="72" width="116" height="16" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+
+              ${this.drawClassicalHead({
+                skinGrad: 'url(#ravana-skin)',
+                shadeGrad: 'url(#ravana-skin)',
+                lipColor: '#6E260E',
+                isFemale: false,
+                hasCrown: true,
+                hasMustache: true,
+                isRavana: true,
+                earringType: 'kundala'
+              })}
+
+              <!-- Raised Arm Wielding Curved Chandrahasa Sword -->
+              <path d="M -70,-26 Q -108,-56 -92,-106 L -68,-102 Q -76,-58 -54,-10 Z" fill="url(#ravana-skin)" stroke="#0D0A08" stroke-width="2.8" />
+              <path d="M -82,-104 C -94,-150 -72,-190 -38,-210 C -60,-178 -68,-140 -68,-102 Z" fill="#E2E8F0" stroke="#0D0A08" stroke-width="2.6" />
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // F. MIGHTY HANUMAN (Noble Devoted Vanara Warrior with Gada Mace)
+        // -------------------------------------------------------------------
+        drawHanuman: function (opts) {
+          opts = opts || {};
+          const tx = opts.x || 165;
+          const ty = opts.y || 262;
+          const sc = opts.scale || 0.92;
+          const hasMountain = !!opts.hasMountain;
+
+          return `
+            <g transform="translate(${tx}, ${ty}) scale(${sc})">
+              <path d="M -35,75 C -92,45 -102,-35 -70,-92 C -56,-114 -36,-108 -44,-88 C -64,-42 -58,25 -25,65 Z" fill="url(#hanuman-skin)" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M -62,-28 C -40,-42 40,-42 62,-28 L 46,76 L -46,76 Z" fill="url(#hanuman-skin)" stroke="#0D0A08" stroke-width="2.8" />
+              <ellipse cx="-34" cy="-8" rx="18" ry="15" fill="url(#halftone-dots)" />
+              <path d="M -40,4 C -22,12 -6,10 0,0 M 40,4 C 22,12 6,10 0,0" fill="none" stroke="#0D0A08" stroke-width="2.2" />
+              <path d="M -48,74 L 48,74 L 58,192 L -58,192 Z" fill="url(#saffron-robe)" stroke="#0D0A08" stroke-width="2.8" />
+              <rect x="-50" y="70" width="100" height="16" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.2" />
+
+              ${this.drawClassicalHead({
+                skinGrad: 'url(#hanuman-skin)',
+                shadeGrad: 'url(#laksh-skin-shade)',
+                lipColor: '#92400E',
+                isFemale: false,
+                hasCrown: true,
+                earringType: 'kundala'
+              })}
+
+              ${hasMountain ? `
+                <g transform="translate(0, -212)">
+                  <polygon points="-62,0 -32,-40 26,-44 64,-8 42,16 -40,16" fill="#A8A29E" stroke="#0D0A08" stroke-width="2.8" />
+                  <text x="0" y="-8" text-anchor="middle" fill="#EA580C" font-size="20" font-weight="800">श्री राम</text>
+                </g>
+              ` : `
+                <path d="M -16,14 L 0,-22 L 16,14 Z" fill="url(#hanuman-skin)" stroke="#0D0A08" stroke-width="2.5" />
+              `}
+
+              <g transform="translate(74, 42) rotate(12)">
+                <rect x="-5" y="-52" width="10" height="120" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+                <circle cx="0" cy="-68" r="24" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.6" />
+              </g>
+            </g>
+          `;
+        },
+
+        // -------------------------------------------------------------------
+        // G. PROPS: GOLDEN DEER, JATAYU, ROYAL CROWN / PADUKA & AYODHYA DIYAS
+        // -------------------------------------------------------------------
+        drawGoldenDeer: function (x, y, scale) {
+          return `
+            <g transform="translate(${x}, ${y}) scale(${scale || 1})">
+              <path d="M -46,10 Q -10,-12 30,0 Q 46,18 26,30 Q -12,32 -46,24 Z" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M 20,4 L 40,-40 L 64,-34 L 50,-16 L 34,16 Z" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.6" />
+              <path d="M 40,-40 C 30,-66 16,-76 6,-72 M 32,-56 L 46,-70 M 44,-40 C 52,-64 66,-72 74,-66" fill="none" stroke="#FEF08A" stroke-width="3" stroke-linecap="round" />
+              <circle cx="48" cy="-30" r="3" fill="#0D0A08" />
+              <circle cx="-20" cy="14" r="3" fill="#FFFBEB" />
+              <circle cx="-4" cy="10" r="3.2" fill="#FFFBEB" />
+              <circle cx="10" cy="16" r="2.8" fill="#FFFBEB" />
+              <path d="M -40,22 L -64,58 M -26,24 L -40,62 M 22,24 L 46,60 M 32,18 L 62,48" stroke="url(#ornate-gold)" stroke-width="5.5" stroke-linecap="round" />
+              <path d="M -40,22 L -64,58 M -26,24 L -40,62 M 22,24 L 46,60 M 32,18 L 62,48" stroke="#0D0A08" stroke-width="2" stroke-linecap="round" />
+            </g>
+          `;
+        },
+
+        drawJatayu: function (x, y, scale) {
+          return `
+            <g transform="translate(${x}, ${y}) scale(${scale || 1})">
+              <path d="M 0,0 C -52,-54 -120,-60 -162,-26 C -118,-8 -72,8 0,22 C 72,8 118,-8 162,-26 C 120,-60 52,-54 0,0 Z" fill="#D97706" stroke="#0D0A08" stroke-width="2.8" />
+              <circle cx="0" cy="-15" r="17" fill="#FEF3C7" stroke="#0D0A08" stroke-width="2.5" />
+              <path d="M 11,-20 Q 34,-16 26,-2 Q 15,-4 9,-10 Z" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+              <circle cx="5" cy="-16" r="2.8" fill="#0D0A08" />
+            </g>
+          `;
+        },
+
+        drawCrownOrPaduka: function (x, y, isPaduka) {
+          if (isPaduka) {
+            return `
+              <g transform="translate(${x}, ${y})">
+                <ellipse cx="0" cy="18" rx="56" ry="16" fill="url(#royal-crimson)" stroke="#0D0A08" stroke-width="2.6" />
+                <ellipse cx="-17" cy="8" rx="13" ry="22" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+                <circle cx="-17" cy="-3" r="3.5" fill="#DC2626" stroke="#0D0A08" stroke-width="1.5" />
+                <ellipse cx="17" cy="8" rx="13" ry="22" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.4" />
+                <circle cx="17" cy="-3" r="3.5" fill="#DC2626" stroke="#0D0A08" stroke-width="1.5" />
+              </g>
+            `;
+          }
+          return `
+            <g transform="translate(${x}, ${y})">
+              <polygon points="-40,14 -26,-36 0,-60 26,-36 40,14" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.8" />
+              <rect x="-44" y="10" width="88" height="15" rx="4" fill="url(#ornate-gold)" stroke="#0D0A08" stroke-width="2.5" />
+              <circle cx="0" cy="-12" r="6" fill="#DC2626" stroke="#0D0A08" stroke-width="1.8" />
+            </g>
+          `;
+        }
+      };
+
+      // =====================================================================
+      // 2. MULTILINGUAL STORY DATA (ENGLISH 'en', MARATHI 'mr', HINDI 'hi')
+      //    Sequential Language Switcher Order: mr -> hi -> en
+      // =====================================================================
+      const UI_TRANSLATIONS = {
+        en: {
+          pageTitle: 'Why we celebrate diwali',
+          heroPill: 'Sacred Ramayana & Historical Context • 12 Illustrated Scenes',
+          heroLead: 'Follow the chronological story of Lord Rama, Goddess Sita, and Lakshmana through 12 illustrated chapters. Each drawing and its story appear together on a single screen.',
+          sceneWord: 'Scene',
+          ofWord: 'of'
+        },
+        mr: {
+          pageTitle: 'आपण दिवाळी का साजरी करतो (Why we celebrate diwali)',
+          heroPill: 'पवित्र रामायण आणि ऐतिहासिक संदर्भ • १२ सचित्र प्रसंग',
+          heroLead: 'प्रभू श्रीराम, देवी सीता आणि लक्ष्मण यांच्या प्रवासाची १२ सचित्र अध्यायांमधून उलगडणारी कथा. प्रत्येक चित्र आणि त्याची माहिती एकाच स्क्रीनवर एकत्र पहा.',
+          sceneWord: 'प्रसंग',
+          ofWord: 'पैकी'
+        },
+        hi: {
+          pageTitle: 'हम दीपावली क्यों मनाते हैं (Why we celebrate diwali)',
+          heroPill: 'पावन रामायण एवं ऐतिहासिक संदर्भ • १२ सचित्र अध्याय',
+          heroLead: 'प्रभु श्रीराम, देवी सीता और लक्ष्मण की पावन गाथा को १२ सचित्र अध्यायों के माध्यम से जानें। प्रत्येक चित्र और उसकी कथा एक ही स्क्रीन पर एक साथ देखें।',
+          sceneWord: 'अध्याय',
+          ofWord: 'में से'
+        }
+      };
+
+      const SCENES_TEXT = [
+        // Scene 1
+        {
+          en: {
+            chapter: 'Scene 1 of 12 • Kartika Amavasya',
+            badge: 'Why & When Diwali Is Celebrated',
+            title: 'The Festival of Lights and the Sacred Trio',
+            body: '<strong>Diwali</strong> (<em>Deepavali</em>, meaning "a row of lamps") is celebrated every autumn on the darkest new-moon night of <strong>Kartika Amavasya</strong> (mid-October to mid-November). It honors the victory of light over darkness, knowledge over ignorance, and <em>dharma</em> over injustice—centered on the epic journey of <strong>Lord Rama</strong>, <strong>Goddess Sita</strong>, and <strong>Lakshmana</strong>.',
+            note: 'Historical Context: Alongside the sacred Ramayana tradition, historians trace autumn lamp festivals to 7th-century Sanskrit drama (Harsha\'s Nagananda) and 10th–11th century inscriptions.'
+          },
+          mr: {
+            chapter: 'प्रसंग १ / १२ • अश्विन-कार्तिक अमावस्या',
+            badge: 'दिवाळी कधी आणि का साजरी करतात',
+            title: 'प्रकाशाचा सण आणि पवित्र त्रिमूर्ती',
+            body: '<strong>दिवाळी</strong> (<em>दीपावली</em> म्हणजेच "दिव्यांची रांग") दरवर्षी ऑक्टोबर-नोव्हेंबर महिन्यातील अमावस्येच्या काळोख्या रात्री साजरी केली जाते. अंधारावर प्रकाशाचा, अज्ञानावर ज्ञानाचा आणि अधर्मावर धर्माचा विजय म्हणून हा सण <strong>प्रभू श्रीराम</strong>, <strong>देवी सीता</strong> आणि <strong>लक्ष्मण</strong> यांच्या अयोध्येतील आगमनाच्या स्मरणार्थ साजरा होतो.',
+            note: 'ऐतिहासिक संदर्भ: धार्मिक परंपरेसोबतच ७ व्या शतकातील सम्राट हर्षवर्धनाच्या नाटकांत आणि १०-११ व्या शतकातील शिलालेखांत या दीपोत्सवाचे ऐतिहासिक उल्लेख आढळतात.'
+          },
+          hi: {
+            chapter: 'अध्याय १ / १२ • कार्तिक अमावस्या',
+            badge: 'दीपावली कब और क्यों मनाई जाती है',
+            title: 'प्रकाश का पर्व और पावन त्रिमूर्ति',
+            body: '<strong>दीपावली</strong> (अर्थात "दीपों की पंक्ति") प्रतिवर्ष शरद ऋतु में <strong>कार्तिक अमावस्या</strong> की सबसे अंधेरी रात को मनाई जाती है। यह अंधकार पर प्रकाश, अज्ञान पर ज्ञान और अधर्म पर धर्म की विजय का प्रतीक है, जो <strong>प्रभु श्रीराम</strong>, <strong>देवी सीता</strong> और <strong>लक्ष्मण</strong> की पावन गाथा से जुड़ा है।',
+            note: 'ऐतिहासिक संदर्भ: धार्मिक परंपरा के साथ-साथ ७वीं शताब्दी के संस्कृत नाटकों (हर्ष के नागानंद) और १०वीं-११वीं शताब्दी के शिलालेखों में भी दीपोत्सव का उल्लेख मिलता है।'
+          }
+        },
+        // Scene 2
+        {
+          en: {
+            chapter: 'Scene 2 of 12 • Ayodhyakanda',
+            badge: 'The Royal Proclamation',
+            title: 'King Dasharatha Prepares Rama\'s Coronation',
+            body: 'In the ancient kingdom of Kosala, ruled from its radiant capital of <strong>Ayodhya</strong>, the aged monarch <strong>King Dasharatha</strong> decides to pass the royal scepter to his eldest son, <strong>Lord Rama</strong>. Renowned for his compassion, courage, and unshakeable devotion to truth, Rama is beloved by every citizen of the realm.',
+            note: 'The city of Ayodhya adorns its avenues with banners and garlands in anticipation of Prince Rama\'s coronation (Yuvaraja Abhisheka).'
+          },
+          mr: {
+            chapter: 'प्रसंग २ / १२ • अयोध्याकांड',
+            badge: 'राज्याभिषेकाची घोषणा',
+            title: 'राजा दशरथांकडून श्रीरामांच्या राज्याभिषेकाची तयारी',
+            body: 'कोसल राज्याची राजधानी असलेल्या समृद्ध <strong>अयोध्येत</strong> वृद्ध <strong>राजा दशरथ</strong> आपले ज्येष्ठ पुत्र <strong>प्रभू श्रीराम</strong> यांना युवराज म्हणून अभिषेक करण्याचा निर्णय घेतात. आपल्या करुणा, शौर्य आणि सत्यनिष्ठेमुळे श्रीराम अयोध्येतील प्रत्येक नागरिकाच्या हृदयात स्थान मिळवून असतात.',
+            note: 'श्रीरामांच्या राज्याभिषेकाच्या स्वागतासाठी संपूर्ण अयोध्या नगरी पताका आणि फुलांच्या तोरणांनी सजवली जाते.'
+          },
+          hi: {
+            chapter: 'अध्याय २ / १२ • अयोध्याकांड',
+            badge: 'राजकीय घोषणा',
+            title: 'राजा दशरथ द्वारा श्रीराम के राज्याभिषेक की तैयारी',
+            body: 'कोसल राज्य की भव्य राजधानी <strong>अयोध्या</strong> में वृद्ध सम्राट <strong>दशरथ</strong> अपने ज्येष्ठ पुत्र <strong>प्रभु श्रीराम</strong> को युवराज घोषित करने का निर्णय लेते हैं। अपनी करुणा, वीरता और सत्यनिष्ठा के कारण श्रीराम समस्त प्रजा के अत्यंत प्रिय हैं।',
+            note: 'युवराज श्रीराम के राज्याभिषेक के उल्लास में संपूर्ण अयोध्या नगरी को ध्वजाओं और पुष्पमालाओं से सजाया जाता है।'
+          }
+        },
+        // Scene 3
+        {
+          en: {
+            chapter: 'Scene 3 of 12 • The Two Boons',
+            badge: 'Honoring a Father\'s Word',
+            title: 'Queen Kaikeyi\'s Boons and the Decree of Exile',
+            body: 'On the eve of the coronation, Queen <strong>Kaikeyi</strong>—swayed by her nurse Manthara—reminds King Dasharatha of two unfulfilled boons he had promised her years earlier when she saved his life on a battlefield. She demands that her son <strong>Bharata</strong> be crowned king and that <strong>Rama</strong> depart into forest exile (<em>Vanavasa</em>) for fourteen years.',
+            note: 'To keep his father\'s sacred pledge unbroken, Rama serenely relinquishes the crown without a trace of resentment.'
+          },
+          mr: {
+            chapter: 'प्रसंग ३ / १२ • दोन वरदान',
+            badge: 'पितृवचनाचे पालन',
+            title: 'राणी कैकेयीचे दोन वर आणि १४ वर्षांचा वनवास',
+            body: 'राज्याभिषेकाच्या आदल्या रात्री राणी <strong>कैकेयी</strong> दासी मंथरेच्या सांगण्यावरून राजा दशरथांना त्यांनी पूर्वी दिलेल्या दोन वरांची आठवण करून देते. पहिल्या वराने ती आपला पुत्र <strong>भरत</strong> याला राजसिंहासन आणि दुसऱ्या वराने <strong>श्रीरामांना</strong> १४ वर्षांचा वनवास मागते.',
+            note: 'आपल्या पित्याचे वचन सत्य ठरवण्यासाठी श्रीराम कोणताही खेद न बाळगता शांत चित्ताने राजमुकुटाचा त्याग करतात.'
+          },
+          hi: {
+            chapter: 'अध्याय ३ / १२ • दो वरदान',
+            badge: 'पितृ-वचन का पालन',
+            title: 'रानी कैकेयी के वरदान और १४ वर्ष का वनवास',
+            body: 'राज्याभिषेक की पूर्व संध्या पर रानी <strong>कैकेयी</strong>—दासी मंथरा के बहकावे में आकर—राजा दशरथ से अपने दो पुराने वरदान मांगती हैं। वह अपने पुत्र <strong>भरत</strong> के लिए राजसिंहासन और <strong>श्रीराम</strong> के लिए चौदह वर्ष के वनवास की मांग करती हैं।',
+            note: 'अपने पिता के वचन की मर्यादा रखने के लिए श्रीराम अत्यंत शांत भाव से राजमुकुट त्याग देते हैं।'
+          }
+        },
+        // Scene 4
+        {
+          en: {
+            chapter: 'Scene 4 of 12 • Into the Wilderness',
+            badge: 'Unbreakable Devotion',
+            title: 'Sita and Lakshmana Join the 14-Year Exile',
+            body: 'Though urged to remain in the safety of the palace, <strong>Goddess Sita</strong> declares that a forest with Rama is dearer to her than heaven itself. Rama\'s younger brother <strong>Lakshmana</strong> likewise pledges to guard them day and night. Casting off their royal ornaments for simple saffron bark-cloth robes, the three step into the untamed forest.',
+            note: 'The three figures journey south across the Ganga and Yamuna rivers into the deep forests of Chitrakuta and Dandaka.'
+          },
+          mr: {
+            chapter: 'प्रसंग ४ / १२ • अरण्यवास',
+            badge: 'अतूट निष्ठा आणि प्रेम',
+            title: 'सीता आणि लक्ष्मण यांचाही वनवासात सहभाग',
+            body: 'राजवाड्यात सुरक्षित राहण्याच्या विनंतीला नकार देत <strong>देवी सीता</strong> सांगतात की श्रीरामांसोबतचे अरण्य त्यांना स्वर्गापेक्षाही प्रिय आहे. धाकटा भाऊ <strong>लक्ष्मण</strong> देखील त्यांच्या रक्षणासाठी सोबत निघतो. राजवस्त्रे त्यागून भगवी वल्कले परिधान करून तिघेही अरण्याकडे प्रस्थान करतात.',
+            note: 'गंगा आणि यमुना नद्या ओलांडून हे तिघे चित्रकूट आणि दंडकारण्याच्या घनदाट वनात प्रवेश करतात.'
+          },
+          hi: {
+            chapter: 'अध्याय ४ / १२ • वन-गमन',
+            badge: 'अटूट समर्पण',
+            title: 'सीता और लक्ष्मण का वनवास में साथ चलना',
+            body: 'राजभवन में रुकने के आग्रह को अस्वीकार कर <strong>देवी सीता</strong> कहती हैं कि श्रीराम के साथ वन भी उन्हें स्वर्ग से प्रिय है। छोटे भाई <strong>लक्ष्मण</strong> भी उनकी सेवा व रक्षा का संकल्प लेकर साथ चलते हैं। राजसी वस्त्र त्यागकर तपस्वी वेश में तीनों वन की ओर प्रस्थान करते हैं।',
+            note: 'गंगा और यमुना पार कर वे चित्रकूट और दंडकारण्य के सघन वनों की ओर आगे बढ़ते हैं।'
+          }
+        },
+        // Scene 5
+        {
+          en: {
+            chapter: 'Scene 5 of 12 • Chitrakuta',
+            badge: 'Brotherhood & Dharma',
+            title: 'Bharata Places Rama\'s Golden Sandals on the Throne',
+            body: 'Heartbroken upon learning of his mother\'s scheme, Prince <strong>Bharata</strong> marches into the forest of Chitrakuta to implore Rama to return as king. When Rama firmly refuses to break their father\'s word before the fourteen years are complete, Bharata carries back Rama\'s golden sandals (<em>Paduka</em>) and places them upon the throne of Ayodhya.',
+            note: 'For fourteen years, Bharata rules strictly as a regent from the village of Nandigrama, awaiting Rama\'s return.'
+          },
+          mr: {
+            chapter: 'प्रसंग ५ / १२ • चित्रकूट भेट',
+            badge: 'बंधुत्वाचा आदर्श',
+            title: 'भरताकडून सिंहासनावर श्रीरामांच्या पादुकांची स्थापना',
+            body: 'आपल्या मातेच्या कारस्थानाने व्यथित झालेला <strong>भरत</strong> श्रीरामांना परत आणण्यासाठी चित्रकूट वनात जातो. परंतु १४ वर्षे पूर्ण झाल्याशिवाय परत न येण्याचा श्रीरामांचा निश्चय पाहून भरत त्यांच्या सुवर्ण <strong>पादुका</strong> डोक्यावर घेऊन अयोध्येत परततो आणि त्या सिंहासनावर स्थापतो.',
+            note: 'पुढील १४ वर्षे भरत नंदिग्राममध्ये राहून केवळ श्रीरामांचा प्रतिनिधी म्हणून राज्याचा कारभार पाहतो.'
+          },
+          hi: {
+            chapter: 'अध्याय ५ / १२ • चित्रकूट मिलाप',
+            badge: 'भ्रातृ-प्रेम और धर्म',
+            title: 'भरत द्वारा सिंहासन पर श्रीराम की चरण-पादुका रखना',
+            body: 'माता कैकेयी के कृत्य से दुःखी होकर राजकुमार <strong>भरत</strong> श्रीराम को वापस लाने चित्रकूट वन जाते हैं। जब श्रीराम पिता के वचन को पूर्ण किए बिना लौटने से मना कर देते हैं, तब भरत उनकी स्वर्ण <strong>पादुकाएँ</strong> सिर पर रखकर अयोध्या लाते हैं और उन्हें सिंहासन पर विराजमान करते हैं।',
+            note: 'चौदह वर्षों तक भरत नंदिग्राम में तपस्वी की भांति रहते हुए केवल श्रीराम के प्रतिनिधि के रूप में शासन चलाते हैं।'
+          }
+        },
+        // Scene 6
+        {
+          en: {
+            chapter: 'Scene 6 of 12 • Aranyakanda',
+            badge: 'The Illusion at Panchavati',
+            title: 'The Enchanting Golden Deer (Suvarna Mriga)',
+            body: 'In the thirteenth year of exile along the Godavari River at Panchavati, <strong>Ravana</strong>—the mighty ten-headed king of Lanka—plots to abduct Sita. He commands the shape-shifting demon <strong>Maricha</strong> to transform into a dazzling golden deer studded with silver spots to draw Rama and Lakshmana away from their hermitage.',
+            note: 'Captivated by the deer\'s radiance, Sita asks Rama to capture it; as Rama pursues it, Maricha cries out in a voice mimicking Rama\'s.'
+          },
+          mr: {
+            chapter: 'प्रसंग ६ / १२ • अरण्यकांड',
+            badge: 'पंचवटीतील मायावी हरीण',
+            title: 'मायावी सुवर्णमृग (मारीच) आणि कपटजाल',
+            body: 'वनवासाच्या तेराव्या वर्षी गोदावरीच्या तीरावर पंचवटीत असताना लंकेचा राजा <strong>रावण</strong> सीतेचे हरण करण्याचा कट रचतो. तो मायावी राक्षस <strong>मारीच</strong> याला रत्नजडित सोनेरी हरणाचे (<em>सुवर्णमृग</em>) रूप घेऊन श्रीराम व लक्ष्मण यांना आश्रमापासून दूर नेण्यास सांगतो.',
+            note: 'त्या सोनेरी हरणाचा पाठलाग करताना बाण लागताच मारीच श्रीरामांच्या आवाजात मदतीसाठी हाक मारतो.'
+          },
+          hi: {
+            chapter: 'अध्याय ६ / १२ • अरण्यकांड',
+            badge: 'पंचवटी में मायावी मृग',
+            title: 'मायावी स्वर्ण मृग (मारीच) का कपट',
+            body: 'वनवास के तेरहवें वर्ष में गोदावरी तट पर पंचवटी में लंकापति <strong>रावण</strong> सीता के अपहरण का षड्यंत्र रचता है। वह मायावी राक्षस <strong>मारीच</strong> को एक चमकते हुए स्वर्ण मृग का रूप धारण कर श्रीराम और लक्ष्मण को कुटिया से दूर ले जाने की आज्ञा देता है।',
+            note: 'श्रीराम का बाण लगते ही मारीच श्रीराम के स्वर में ही "हा सीते! हा लक्ष्मण!" की पुकार लगाता है।'
+          }
+        },
+        // Scene 7
+        {
+          en: {
+            chapter: 'Scene 7 of 12 • The Abduction',
+            badge: 'Courage in the Sky',
+            title: 'Ravana Abducts Sita & Jatayu\'s Noble Stand',
+            body: 'After Lakshmana leaves to aid his brother, <strong>Ravana</strong> approaches the cottage disguised as a mendicant, crosses the threshold, and reveals his true form. As he carries Sita southward in his aerial chariot (<em>Pushpaka Vimana</em>), the aged eagle-king <strong>Jatayu</strong> heroically intercepts Ravana in mid-air before falling mortally wounded.',
+            note: 'With his dying breath, Jatayu reveals to Rama and Lakshmana that Ravana has carried Sita southward.'
+          },
+          mr: {
+            chapter: 'प्रसंग ७ / १२ • सीताहरण',
+            badge: 'जटायूचे शौर्य',
+            title: 'रावणाकडून सीताहरण आणि पक्षीराज जटायूचा संघर्ष',
+            body: 'लक्ष्मण श्रीरामांच्या मदतीसाठी गेल्यानंतर <strong>रावण</strong> साधूच्या वेशात भिक्षा मागण्याच्या निमित्ताने येतो आणि मूळ रूप प्रगट करून सीतेचे अपहरण करतो. आकाशमार्गाने लंकेकडे जाताना वृद्ध पक्षीराज <strong>जटायू</strong> सीतेच्या रक्षणासाठी रावणाशी प्राणपणाने झुंज देतो.',
+            note: 'अखेरचा श्वास घेण्यापूर्वी जटायू श्रीरामांना रावणाने सीतेला दक्षिण दिशेस नेल्याची माहिती देतो.'
+          },
+          hi: {
+            chapter: 'अध्याय ७ / १२ • सीता-हरण',
+            badge: 'जटायु का पराक्रम',
+            title: 'रावण द्वारा सीता-हरण और जटायु का बलिदान',
+            body: 'लक्ष्मण के जाने के पश्चात <strong>रावण</strong> संन्यासी के वेश में भिक्षा मांगने आता है और फिर अपने वास्तविक रूप में आकर सीता का अपहरण कर लेता है। आकाश मार्ग से लंका जाते समय वृद्ध गिद्धराज <strong>जटायु</strong> सीता की रक्षा हेतु रावण से वीरतापूर्वक युद्ध करते हैं।',
+            note: 'अंतिम सांस लेने से पूर्व जटायु श्रीराम को बताते हैं कि रावण सीता को दक्षिण दिशा की ओर ले गया है।'
+          }
+        },
+        // Scene 8
+        {
+          en: {
+            chapter: 'Scene 8 of 12 • Kishkindhakanda',
+            badge: 'The Leap Across the Ocean',
+            title: 'Alliance with Hanuman & The Discovery in Lanka',
+            body: 'Journeying to Kishkindha, Rama and Lakshmana form a sacred bond with the devoted <strong>Hanuman</strong> and the Vanara king <strong>Sugriva</strong>. Empowered with boundless strength, Hanuman leaps across the southern ocean to the island of Lanka, locates Sita in the Ashoka grove, and presents Rama\'s signet ring as a pledge of rescue.',
+            note: 'Hanuman returns across the sea with Sita\'s crest-jewel (Chudamani), igniting the march toward Lanka.'
+          },
+          mr: {
+            chapter: 'प्रसंग ८ / १२ • किष्किंधा व सुंदरकांड',
+            badge: 'समुद्रउड्डाण आणि शोध',
+            title: 'हनुमानाची भेट आणि लंकेतील अशोकवनात सीतेचा शोध',
+            body: 'किष्किंधेत श्रीराम आणि लक्ष्मण यांची परमभक्त <strong>हनुमान</strong> आणि वानरराज <strong>सुग्रीव</strong> यांच्याशी मैत्री होते. अथांग सागरावरून झेप घेऊन हनुमान लंकेतील अशोकवनात पोहोचतो आणि शोकमग्न सीतेला श्रीरामांची मुद्रिका देऊन धीर देतो.',
+            note: 'सीतेचा चूडामणी घेऊन हनुमान परत येतो आणि वानरसेना लंकेच्या दिशेने कूच करते.'
+          },
+          hi: {
+            chapter: 'अध्याय ८ / १२ • किष्किंधा व सुंदरकांड',
+            badge: 'समुद्र-लंघन और खोज',
+            title: 'हनुमान से भेंट और लंका की अशोक वाटिका में सीता की खोज',
+            body: 'किष्किंधा में श्रीराम और लक्ष्मण की भेंट परम भक्त <strong>हनुमान</strong> तथा वानरराज <strong>सुग्रीव</strong> से होती है। विशाल महासागर को लांघकर हनुमान लंका की अशोक वाटिका में माता सीता को खोज निकालते हैं और उन्हें श्रीराम की मुद्रिका भेंट कर ढाढस बंधाते हैं।',
+            note: 'सीता का चूड़ामणि लेकर हनुमान लौटते हैं और वानर सेना लंका की ओर प्रस्थान करती है।'
+          }
+        },
+        // Scene 9
+        {
+          en: {
+            chapter: 'Scene 9 of 12 • Yuddhakanda',
+          badge: 'Crossing the Sea',
+            title: 'Building the Causeway (Rama Setu) to Lanka',
+            body: 'Reaching the southern shore of the ocean, <strong>Lord Rama</strong>, <strong>Lakshmana</strong>, and <strong>Hanuman</strong> lead the Vanara host in constructing a monumental stone causeway (<em>Rama Setu</em>) across the waters. Bearing boulders inscribed with Rama\'s name, the army crosses into Lanka to confront Ravana\'s citadel.',
+            note: 'Even the smallest creatures—remembered in folklore by the humble squirrel—contribute pebbles to the bridge.'
+          },
+          mr: {
+            chapter: 'प्रसंग ९ / १२ • युद्धकांड',
+            badge: 'सागरावर सेतूबंध',
+            title: 'रामसेतूची निर्मिती आणि लंकेवर स्वारी',
+            body: 'दक्षिण सागराच्या तीरावर पोहोचल्यावर नल आणि नील यांच्या साहाय्याने <strong>प्रभू श्रीराम</strong>, <strong>लक्ष्मण</strong> आणि <strong>हनुमान</strong> वानरसेनेसह समुद्रावर पाषाणांचा सेतू (<em>रामसेतू</em>) उभारतात. "श्रीराम" नाम कोरलेल्या शिळांवरून चालत संपूर्ण सेना लंकेत प्रवेश करते.',
+            note: 'या महान कार्यात एक चिमुकली खारुताई देखील वाळूचे कण वाहून आपला खारीचा वाटा उचलते.'
+          },
+          hi: {
+            chapter: 'अध्याय ९ / १२ • युद्धकांड',
+            badge: 'समुद्र पर सेतु-निर्माण',
+            title: 'रामसेतु का निर्माण और लंका की ओर प्रस्थान',
+            body: 'दक्षिण समुद्र के तट पर पहुँचकर नल और नील के मार्गदर्शन में <strong>प्रभु श्रीराम</strong>, <strong>लक्ष्मण</strong> और <strong>हनुमान</strong> वानर सेना के साथ समुद्र पर विशाल पाषाण सेतु (<em>रामसेतु</em>) का निर्माण करते हैं। "श्रीराम" नाम अंकित शिलाओं से बने इस पुल से सेना लंका में प्रवेश करती है।',
+            note: 'लोककथाओं के अनुसार एक नन्ही गिलहरी भी रेत के कण समर्पित कर सेतु निर्माण में अपना योगदान देती है।'
+          }
+        },
+        // Scene 10
+        {
+          en: {
+            chapter: 'Scene 10 of 12 • The Final Duel',
+            badge: 'Victory Over Adharma',
+            title: 'Lord Rama Draws the Kodanda Bow Against Ravana',
+            body: 'After days of fierce battle in which Lakshmana defeats Indrajit and Rama vanquishes Kumbhakarna, <strong>Lord Rama</strong> and <strong>Ravana</strong> meet in a climactic duel. Invoking the sacred Vedic mantra of the sage Agastya, Rama draws his bow <em>Kodanda</em> to full arc and releases the blazing <em>Brahmastra</em> arrow—ending Ravana\'s reign.',
+            note: 'With dharma restored, Vibhishana is crowned rightful king of Lanka and Goddess Sita is reunited with Rama.'
+          },
+          mr: {
+            chapter: 'प्रसंग १० / १२ • अंतिम महायुद्ध',
+            badge: 'अधर्मावर धर्माचा विजय',
+            title: 'प्रभू श्रीरामांच्या कोदंड धनुष्याने रावणाचा वध',
+            body: 'कुंभकर्ण आणि इंद्रजित यांच्या पाडावानंतर <strong>प्रभू श्रीराम</strong> आणि <strong>रावण</strong> यांच्यात निर्णायक युद्ध होते. अगस्त्य ऋषींच्या मंत्राने अभिमंत्रित केलेला तेजस्वी <em>ब्रह्मास्त्र</em> बाण आपल्या <em>कोदंड</em> धनुष्यावर चढवून श्रीराम रावणाचा वध करतात आणि अधर्माचे राज्य संपवतात.',
+            note: 'धर्माची पुनर्स्थापना होऊन बिभीषणाला लंकेचे राज्य दिले जाते आणि सीतेची मुक्तता होते.'
+          },
+          hi: {
+            chapter: 'अध्याय १० / १२ • निर्णायक महायुद्ध',
+            badge: 'अधर्म पर धर्म की विजय',
+            title: 'प्रभु श्रीराम द्वारा रावण का वध',
+            body: 'कुंभकर्ण और मेघनाद के पराजय के पश्चात <strong>प्रभु श्रीराम</strong> और <strong>रावण</strong> के बीच भीषण युद्ध होता है। महर्षि अगस्त्य के वैदिक मंत्र का आह्वान कर श्रीराम अपने <em>कोदंड</em> धनुष को पूर्ण खींचकर प्रज्वलित <em>ब्रह्मास्त्र</em> छोड़ते हैं, जिससे रावण का अंत होता है।',
+            note: 'धर्म की स्थापना के साथ विभीषण का लंका के सिंहासन पर राज्याभिषेक होता है और माता सीता मुक्त होती हैं।'
+          }
+        },
+        // Scene 11
+        {
+          en: {
+            chapter: 'Scene 11 of 12 • The Night of Lamps',
+            badge: 'Why Ayodhya Lit Oil Lamps',
+            title: 'The Return to Ayodhya on Kartika Amavasya',
+            body: 'With the fourteen years of exile completed, <strong>Lord Rama</strong>, <strong>Goddess Sita</strong>, and <strong>Lakshmana</strong> return home to Ayodhya on the moonless night of <strong>Kartika Amavasya</strong>. To guide their beloved prince through the pitch-black night and celebrate the end of fourteen years of darkness, the citizens light thousands of earthen oil lamps (<em>diyas</em>) across every doorway and street.',
+            note: 'This joyous illumination of Ayodhya is the central religious reason lamps are lit on Diwali night.'
+          },
+          mr: {
+            chapter: 'प्रसंग ११ / १२ • दीपोत्सवाची रात्र',
+            badge: 'अयोध्येत पणत्या का लावल्या गेल्या',
+            title: 'अमावस्येच्या रात्री श्रीरामांचे अयोध्येत पुनरागमन',
+            body: 'चौदा वर्षांचा वनवास पूर्ण करून <strong>प्रभू श्रीराम</strong>, <strong>देवी सीता</strong> आणि <strong>लक्ष्मण</strong> अमावस्येच्या काळोख्या रात्री अयोध्येत परततात. आपल्या लाडक्या प्रभूंचे स्वागत करण्यासाठी आणि चौदा वर्षांचा अंधार दूर झाल्याच्या आनंदात अयोध्येतील नागरिक घराघरांत हजारो मातीच्या <strong>पणत्या</strong> प्रज्वलित करतात.',
+            note: 'अयोध्येतील या अपूर्व दीपोत्सवाच्या स्मरणार्थच दरवर्षी दिवाळीला घरोघरी दिवे व पणत्या लावल्या जातात.'
+          },
+          hi: {
+            chapter: 'अध्याय ११ / १२ • दीपों की पावन रात्रि',
+            badge: 'अयोध्या में दीप क्यों जलाए गए',
+            title: 'कार्तिक अमावस्या को अयोध्या में श्रीराम का पुनरागमन',
+            body: 'चौदह वर्ष का वनवास पूर्ण कर <strong>प्रभु श्रीराम</strong>, <strong>देवी सीता</strong> और <strong>लक्ष्मण</strong> <strong>कार्तिक अमावस्या</strong> की अँधेरी रात को अयोध्या लौटते हैं। अपने प्रिय राजा के स्वागत में और चौदह वर्षों के अंधकार के अंत के उल्लास में अयोध्यावासी हर द्वार और पथ पर हजारों मिट्टी के <strong>दीपक (दिये)</strong> जलाते हैं।',
+            note: 'अयोध्या के इसी भव्य दीपोत्सव की स्मृति में दीपावली की रात घर-घर दीप जलाए जाते हैं।'
+          }
+        },
+        // Scene 12
+        {
+          en: {
+            chapter: 'Scene 12 of 12 • Living Heritage & History',
+            badge: 'Sacred Tradition & Historical Evidence',
+            title: 'How the Tradition Became Diwali Across Centuries',
+            body: 'Each autumn, families re-enact Ayodhya\'s welcome by lighting earthen lamps, creating <em>rangoli</em>, and worshiping Goddess Lakshmi. While the <em>Ramayana</em> (compiled c. 5th century BCE – 3rd century CE) belongs to revered sacred tradition (<em>Itihasa</em>) rather than archaeologically established biography, historical records—from 7th-century Sanskrit plays to Al-Biruni\'s 1030 CE chronicle—confirm over a millennium of celebrating this timeless festival of light.',
+            note: 'Diwali also honors Lord Mahavira\'s Nirvana in Jainism and Guru Hargobind Ji\'s release on Bandi Chhor Divas in Sikhism.'
+          },
+          mr: {
+            chapter: 'प्रसंग १२ / १२ • परंपरा आणि इतिहास',
+            badge: 'श्रद्धा आणि ऐतिहासिक दृष्टिकोन',
+            title: 'शतकानुशतके चालत आलेली दिवाळीची अखंड परंपरा',
+            body: 'दरवर्षी घरांची स्वच्छता करून, रांगोळी काढून, पणत्या लावून आणि लक्ष्मीपूजन करून हा आनंदोत्सव पुन्हा साजरा केला जातो. वाल्मीकी रामायण (इ.स.पू. ५ वे शतक ते इ.स. ३ रे शतक) हा भारतीय श्रद्धा आणि महाकाव्य परंपरेचा (<em>इतिहास</em>) भाग आहे, तर ७ व्या शतकातील संस्कृत नाटके आणि इ.स. १०३० मधील अल-बिरूनीच्या ग्रंथांतून या सणाचा हजारो वर्षांचा ऐतिहासिक प्रवास सिद्ध होतो.',
+            note: 'दिवाळीच्याच दिवशी जैन धर्मात भगवान महावीरांचा निर्वाण दिन आणि शीख धर्मात बंदी छोर दिवस साजरा केला जातो.'
+          },
+          hi: {
+            chapter: 'अध्याय १२ / १२ • जीवंत विरासत और इतिहास',
+            badge: 'आस्था और ऐतिहासिक प्रमाण',
+            title: 'सदियों से चली आ रही दीपावली की अमर परंपरा',
+            body: 'हर वर्ष लोग अपने घरों को सजाकर, रंगोली बनाकर, दीप जलाकर और माता लक्ष्मी का पूजन कर अयोध्या के उस आनंद को जीवंत करते हैं। जहाँ वाल्मीकि रामायण (लगभग ५वीं शताब्दी ईसा पूर्व – ३री शताब्दी ईस्वी) पवित्र धार्मिक महाकाव्य परंपरा (<em>इतिहास</em>) का आधार है, वहीं ७वीं शताब्दी के नाटकों से लेकर १०३० ईस्वी के अल-बिरूनी के विवरणों तक के ऐतिहासिक प्रमाण इस पर्व की सहस्राब्दियों पुरानी विरासत की पुष्टि करते हैं।',
+            note: 'इसी पावन दिन जैन धर्म में भगवान महावीर का निर्वाण दिवस और सिख धर्म में बंदी छोड़ दिवस भी मनाया जाता है।'
+          }
+        }
+      ];
+
+      // =====================================================================
+      // 3. HYPER-REALISTIC CLOUDINARY SCENE IMAGES (12 SCENES, NO BACKGROUND)
+      // =====================================================================
+      const SCENE_IMAGE_URLS = [
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041290/1.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041287/2.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041309/3.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041291/4.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041295/5.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041296/6.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041295/7.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041304/8.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041303/9.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041292/10.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041288/11.png",
+        "https://res.cloudinary.com/dc8dt3jvo/image/upload/v1794041293/12.png"
+      ];
+
+      const SCENE_ALT_LABELS = [
+        "Scene 1: The Festival of Lights and the Sacred Trio — Goddess Sita, Lord Rama, and Lakshmana",
+        "Scene 2: King Dasharatha Prepares Rama's Coronation",
+        "Scene 3: Queen Kaikeyi's Boons and the Decree of Exile",
+        "Scene 4: Sita and Lakshmana Join the 14-Year Exile",
+        "Scene 5: Bharata Receives Rama's Golden Sandals (Charan Paduka)",
+        "Scene 6: The Enchanting Golden Deer (Suvarna Mriga)",
+        "Scene 7: Ravana Abducts Sita & Jatayu's Noble Stand",
+        "Scene 8: Alliance with Hanuman & The Discovery in Lanka",
+        "Scene 9: Building the Causeway (Rama Setu) to Lanka",
+        "Scene 10: The Final Duel — Lord Rama Draws the Kodanda Bow Against Ravana",
+        "Scene 11: The Return to Ayodhya on Kartika Amavasya",
+        "Scene 12: Royal Coronation (Ram Darbar) & Living Heritage of Diwali"
+      ];
+
+      const SCENE_RENDERERS = SCENE_IMAGE_URLS.map((imgUrl, idx) => {
+        return function () {
+          const loadingAttr = idx < 2 ? "eager" : "lazy";
+          const fetchPriority = idx === 0 ? "high" : "auto";
+          const altText = SCENE_ALT_LABELS[idx] || ("Scene " + (idx + 1));
+          return `
+            <div class="hyper-scene-wrapper">
+              <img
+                src="${imgUrl}"
+                alt="${altText}"
+                loading="${loadingAttr}"
+                fetchpriority="${fetchPriority}"
+                decoding="async"
+                class="hyper-scene-img"
+              />
+            </div>
+          `;
+        };
+      });
+
+      // =====================================================================
+      // 4. SEQUENTIAL LANGUAGE SWITCHER (mr -> hi -> en) & SCROLL REVEAL
+      // =====================================================================
+      const LANG_SEQUENCE = ['en', 'mr', 'hi']; // Clicking from 'en' -> 'mr' -> 'hi' -> 'en'
+      let currentLang = 'en';
+      let activeSceneIndex = 0;
+
+      function renderAllSceneTexts(lang) {
+        const ui = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.en;
+
+        const pillEl = document.getElementById('hero-subtitle-pill');
+        if (pillEl) pillEl.innerHTML = `<span>${ui.heroPill}</span>`;
+
+        const leadEl = document.getElementById('hero-main-lead');
+        if (leadEl) leadEl.textContent = ui.heroLead;
+
+        const initialsEl = document.getElementById('lang-circle-initials');
+        if (initialsEl) initialsEl.textContent = lang;
+
+        const badge = document.getElementById('hud-active-chapter');
+        if (badge) badge.textContent = `${ui.sceneWord} ${activeSceneIndex + 1} ${ui.ofWord} ${SCENES_TEXT.length}`;
+
+        SCENES_TEXT.forEach((sceneLangMap, idx) => {
+          const data = sceneLangMap[lang] || sceneLangMap.en;
+          const textSlot = document.getElementById('text-scene-' + idx);
+          if (textSlot) {
+            textSlot.innerHTML = `
+              <div class="story-card rounded-3xl p-5 sm:p-8">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                  <span class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-amber-400">${data.chapter}</span>
+                  <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-200 font-semibold">${data.badge}</span>
+                </div>
+                <h2 class="font-epic text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 leading-snug">
+                  ${data.title}
+                </h2>
+                <p class="text-xs sm:text-sm md:text-base text-stone-200 leading-relaxed mb-3.5">
+                  ${data.body}
+                </p>
+                <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-[11px] sm:text-xs text-amber-100/90 leading-relaxed">
+                  ${data.note}
+                </div>
+              </div>
+            `;
+          }
+        });
+      }
+
+      function mountSceneSVG(idx) {
+        const slot = document.getElementById('slot-scene-' + idx);
+        if (!slot || slot.getAttribute('data-mounted') === 'true') return;
+        const rendererFn = SCENE_RENDERERS[idx];
+        if (!rendererFn) return;
+        slot.innerHTML = rendererFn();
+        slot.setAttribute('data-mounted', 'true');
+      }
+
+      function setupObserversAndControls() {
+        // Mount first 2 scenes immediately
+        mountSceneSVG(0);
+        mountSceneSVG(1);
+
+        const articles = document.querySelectorAll('.story-scene');
+
+        if ('IntersectionObserver' in window) {
+          // Lazy-mount SVG illustrations slightly before they enter the viewport
+          const preloadObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const idx = parseInt(entry.target.getAttribute('data-scene'), 10);
+                if (!isNaN(idx)) mountSceneSVG(idx);
+              }
+            });
+          }, { rootMargin: '280px 0px' });
+
+          // Trigger smooth fade-in + slide-up entrance transition when scene enters screen
+          const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              const idx = parseInt(entry.target.getAttribute('data-scene'), 10);
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+              }
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+                activeSceneIndex = idx;
+                articles.forEach((el, i) => {
+                  if (i === idx) el.classList.add('is-active');
+                  else el.classList.remove('is-active');
+                });
+                const ui = UI_TRANSLATIONS[currentLang] || UI_TRANSLATIONS.en;
+                const badge = document.getElementById('hud-active-chapter');
+                if (badge) badge.textContent = `${ui.sceneWord} ${idx + 1} ${ui.ofWord} ${SCENES_TEXT.length}`;
+              }
+            });
+          }, { threshold: [0.15, 0.4] });
+
+          articles.forEach(el => {
+            preloadObs.observe(el);
+            revealObs.observe(el);
+          });
+        } else {
+          SCENE_RENDERERS.forEach((_, idx) => mountSceneSVG(idx));
+          articles.forEach(el => el.classList.add('revealed'));
+        }
+
+        // Scroll progress bar
+        window.addEventListener('scroll', function () {
+          const vh = window.innerHeight;
+          const maxScroll = Math.max(1, document.documentElement.scrollHeight - vh);
+          const pct = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+          const bar = document.getElementById('scroll-progress-bar');
+          if (bar) bar.style.width = `${pct}%`;
+        }, { passive: true });
+
+        // Sequential Language Switcher Button in Title Bar (en -> mr -> hi -> en)
+        const btnQuality = document.getElementById('btn-cycle-quality');
+        if (btnQuality) {
+          btnQuality.addEventListener('click', () => {
+            const qTxt = document.getElementById('btn-quality-text');
+            if (qTxt) qTxt.textContent = qTxt.textContent === 'Auto' ? 'Pure HD' : 'Auto';
+          });
+        }
+        const btnLangCycle = document.getElementById('btn-lang-cycle');
+        if (btnLangCycle) {
+          btnLangCycle.addEventListener('click', function () {
+            const curIdx = LANG_SEQUENCE.indexOf(currentLang);
+            const nextLang = LANG_SEQUENCE[(curIdx + 1) % LANG_SEQUENCE.length];
+            currentLang = nextLang;
+            document.documentElement.lang = nextLang;
+            renderAllSceneTexts(nextLang);
+          });
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        renderAllSceneTexts(currentLang);
+        setupObserversAndControls();
+      });
+    })();
+  </script>
+</body>
+</html>
