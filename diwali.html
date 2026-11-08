@@ -300,6 +300,61 @@
       border-color: rgba(255, 123, 28, 0.9);
       box-shadow: 0 0 14px rgba(255, 123, 28, 0.4);
     }
+    .header-lantern-btn.active-lantern.is-rotating-lantern {
+      background: rgba(255, 153, 0, 0.36);
+      border-color: #FCD475;
+      box-shadow: 0 0 18px rgba(252, 212, 117, 0.78), inset 0 0 8px rgba(255, 123, 28, 0.45);
+    }
+    .header-lantern-btn.active-lantern.is-rotating-lantern svg {
+      animation: gentleSpinPulse 3.6s linear infinite;
+    }
+    @keyframes gentleSpinPulse {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(180deg); }
+      100% { transform: rotateY(360deg); }
+    }
+
+    /* Mode Tooltip ("rotating lantern" / "standby lantern") */
+    #lantern-mode-tooltip {
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -6px) scale(0.94);
+      transition: opacity 0.24s cubic-bezier(0.22, 1, 0.36, 1), transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), left 0.2s ease;
+      background: rgba(14, 14, 20, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(252, 212, 117, 0.45);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.75), 0 0 14px rgba(255, 123, 28, 0.22);
+    }
+    #lantern-mode-tooltip.tooltip-visible {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+
+    /* First-Visit Step-Wise Interactive Tool Guide */
+    #onboarding-guide-root {
+      transition: opacity 0.3s ease;
+    }
+    #onboarding-spotlight-ring {
+      position: fixed;
+      z-index: 91;
+      pointer-events: none;
+      border-radius: 9999px;
+      border: 2px solid #FCD475;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.68), 0 0 24px rgba(255, 123, 28, 0.85), inset 0 0 14px rgba(252, 212, 117, 0.45);
+      transition: all 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #onboarding-guide-card {
+      position: fixed;
+      z-index: 92;
+      width: min(90vw, 330px);
+      background: linear-gradient(155deg, rgba(22, 20, 28, 0.97) 0%, rgba(11, 10, 15, 0.99) 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(252, 212, 117, 0.42);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.88), 0 0 28px rgba(255, 123, 28, 0.18);
+      transition: top 0.38s cubic-bezier(0.22, 1, 0.36, 1), left 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
     .form-lantern-option {
       transition: all 0.25s ease;
     }
@@ -348,7 +403,7 @@
     <!-- Top Action Toolbar (Includes 3 Lantern Switcher Buttons + Audio Toggle + Send Wish) -->
     <div class="flex items-center gap-1.5 sm:gap-2.5">
       <!-- 3D Lantern Switcher Buttons in Title Bar (1: Star Lantern, 2: Sky Lantern, 3: Lamp Lantern) -->
-      <div class="flex items-center gap-1 sm:gap-1.5 bg-white/5 border border-white/15 rounded-full p-1" role="group" aria-label="Select 3D Lantern">
+      <div id="header-lantern-switcher-group" class="relative flex items-center gap-1 sm:gap-1.5 bg-white/5 border border-white/15 rounded-full p-1" role="group" aria-label="Select 3D Lantern">
         <!-- 1. Star Lantern Button -->
         <button
           id="btn-header-lantern-1"
@@ -399,6 +454,18 @@
             <path d="M15 16v5"/>
           </svg>
         </button>
+      
+        <!-- Floating Mode Tooltip ("rotating lantern" / "standby lantern") -->
+        <div
+          id="lantern-mode-tooltip"
+          role="status"
+          aria-live="polite"
+          style="left: 50%;"
+          class="absolute top-full mt-2 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide text-amber-100 whitespace-nowrap flex items-center gap-1.5 z-50"
+        >
+          <span id="lantern-mode-tooltip-dot" class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+          <span id="lantern-mode-tooltip-text">standby lantern</span>
+        </div>
       </div>
 
       <!-- Scroll to Form Quick Button -->
@@ -1520,6 +1587,10 @@
         let skyFlameCoreMesh = null;
         let lampStreamerMeshes = [];
         let activeLanternModel = 1;
+        let isAutoRotating = false;
+        let autoRotationAngle = 0;
+        let standbySwayBlend = 1.0;
+        let prevAnimTime = performance.now() * 0.001;
         let starPoints, starData = [];
         let time = 0;
 
@@ -2580,11 +2651,18 @@
 
           const hoverBob = Math.sin(time * 1.4) * (0.04 * scaleMult);
 
+          const dt = Math.min(0.1, Math.max(0, time - prevAnimTime));
+          prevAnimTime = time;
+          standbySwayBlend += ((isAutoRotating ? 0.0 : 1.0) - standbySwayBlend) * 0.08;
+          if (isAutoRotating) {
+            autoRotationAngle = (autoRotationAngle + dt * 1.45) % (Math.PI * 2);
+          }
+
           if (floatingDiyaGroup) {
             floatingDiyaGroup.position.set(curX, curY + hoverBob, 0);
             floatingDiyaGroup.scale.setScalar(finalScale);
 
-            floatingDiyaGroup.rotation.y = scrollFrac * Math.PI * 2.2 + Math.sin(time * 0.8) * 0.14;
+            floatingDiyaGroup.rotation.y = scrollFrac * Math.PI * 2.2 + autoRotationAngle + Math.sin(time * 0.8) * 0.14 * standbySwayBlend;
             floatingDiyaGroup.rotation.x = Math.sin(scrollFrac * Math.PI) * 0.15 + Math.cos(time * 0.6) * 0.04;
           }
 
@@ -2642,10 +2720,21 @@
           }
         }
 
+        function toggleAutoRotation() {
+          isAutoRotating = !isAutoRotating;
+          return isAutoRotating;
+        }
+
+        function getAutoRotationState() {
+          return isAutoRotating;
+        }
+
         return {
           init: init,
           flashFlame: flashFlame,
-          setLanternType: setLanternType
+          setLanternType: setLanternType,
+          toggleAutoRotation: toggleAutoRotation,
+          getAutoRotationState: getAutoRotationState
         };
       })();
 
@@ -4501,6 +4590,50 @@
         });
       }
 
+      let lanternTooltipTimer = null;
+
+      function syncHeaderLanternRotationVisuals() {
+        const isRot = Scene3D.getAutoRotationState ? Scene3D.getAutoRotationState() : false;
+        document.querySelectorAll('.header-lantern-btn').forEach(btn => {
+          const btnType = parseInt(btn.getAttribute('data-lantern'), 10);
+          if (btnType === currentLanternType && isRot) {
+            btn.classList.add('is-rotating-lantern');
+          } else {
+            btn.classList.remove('is-rotating-lantern');
+          }
+        });
+      }
+
+      function showLanternModeTooltip(isRotating, targetBtn) {
+        const tooltip = document.getElementById('lantern-mode-tooltip');
+        const textEl = document.getElementById('lantern-mode-tooltip-text');
+        const dotEl = document.getElementById('lantern-mode-tooltip-dot');
+        const groupEl = document.getElementById('header-lantern-switcher-group');
+        if (!tooltip || !textEl) return;
+
+        textEl.textContent = isRotating ? 'rotating lantern' : 'standby lantern';
+        if (dotEl) {
+          dotEl.className = isRotating
+            ? 'w-2 h-2 rounded-full bg-amber-400 animate-ping'
+            : 'w-1.5 h-1.5 rounded-full bg-amber-300/80';
+        }
+
+        if (targetBtn && groupEl) {
+          const groupRect = groupEl.getBoundingClientRect();
+          const btnRect = targetBtn.getBoundingClientRect();
+          const centerOffset = (btnRect.left + btnRect.width / 2) - groupRect.left;
+          tooltip.style.left = `${centerOffset}px`;
+        } else {
+          tooltip.style.left = '50%';
+        }
+
+        tooltip.classList.add('tooltip-visible');
+        if (lanternTooltipTimer) clearTimeout(lanternTooltipTimer);
+        lanternTooltipTimer = setTimeout(function () {
+          tooltip.classList.remove('tooltip-visible');
+        }, 2200);
+      }
+
       function updateLanternSelectionUI(lanternType) {
         const normLantern = normalizeLanternType(lanternType);
         currentLanternType = normLantern;
@@ -4517,6 +4650,7 @@
             btn.setAttribute('aria-pressed', 'false');
           }
         });
+        syncHeaderLanternRotationVisuals();
 
         // Update Form 3 Lantern Options
         document.querySelectorAll('.form-lantern-option').forEach(btn => {
@@ -4816,6 +4950,164 @@ ${shareUrl}`;
         setTimeout(syncAndroidViewportHeight, 120);
       });
 
+
+      function initFirstVisitToolGuide() {
+        const STORAGE_KEY = 'easode_diwali_tools_guide_v1';
+        let alreadySeen = false;
+        try {
+          alreadySeen = localStorage.getItem(STORAGE_KEY) === '1';
+        } catch (e) {
+          alreadySeen = false;
+        }
+        if (alreadySeen) return;
+
+        const rootEl = document.getElementById('onboarding-guide-root');
+        const ringEl = document.getElementById('onboarding-spotlight-ring');
+        const cardEl = document.getElementById('onboarding-guide-card');
+        const badgeEl = document.getElementById('onboarding-step-badge');
+        const titleEl = document.getElementById('onboarding-step-title');
+        const descEl = document.getElementById('onboarding-step-desc');
+        const dotsEl = document.getElementById('onboarding-step-dots');
+        const btnPrev = document.getElementById('btn-onboarding-prev');
+        const btnNext = document.getElementById('btn-onboarding-next');
+        const btnSkip = document.getElementById('btn-onboarding-skip');
+        const backdropEl = document.getElementById('onboarding-backdrop-click');
+        if (!rootEl || !ringEl || !cardEl) return;
+
+        const steps = [
+          {
+            targetId: 'header-lantern-switcher-group',
+            title: '1. Switch & Rotate 3D Lanterns',
+            desc: 'Tap any of the 3 buttons to switch between the Star, Sky, and Modern Lamp lanterns. Tap the selected lantern button again to toggle between "rotating lantern" and "standby lantern" modes!',
+            pad: 6,
+            radius: '9999px'
+          },
+          {
+            targetId: 'firework-controls-container',
+            title: '2. Burst Interactive Crackers',
+            desc: 'Tap any of the 7 traditional cracker buttons (Nag Goli, Phuljhadi, Chakri, Ladi, Sutli Bomb, Anar, or Sky Rocket) to trigger live 3D sparks and festive sound effects.',
+            pad: 8,
+            radius: '28px'
+          },
+          {
+            targetId: 'btn-header-create',
+            title: '3. Personalize & Share Your Wish',
+            desc: 'Tap "Send Wish" (or scroll down) to choose your language (English, मराठी, हिंदी), swipe through 10 quotes, select a 3D lantern, and share your secret surprise link on WhatsApp!',
+            pad: 6,
+            radius: '9999px'
+          }
+        ];
+
+        let currentStep = 0;
+
+        function positionGuideStep(stepIdx) {
+          const step = steps[stepIdx];
+          if (!step) return;
+          const target = document.getElementById(step.targetId);
+          if (!target) return;
+
+          const rect = target.getBoundingClientRect();
+          const pad = step.pad || 6;
+          const sTop = Math.max(4, rect.top - pad);
+          const sLeft = Math.max(4, rect.left - pad);
+          const sWidth = rect.width + pad * 2;
+          const sHeight = rect.height + pad * 2;
+
+          ringEl.style.top = `${sTop}px`;
+          ringEl.style.left = `${sLeft}px`;
+          ringEl.style.width = `${sWidth}px`;
+          ringEl.style.height = `${sHeight}px`;
+          ringEl.style.borderRadius = step.radius || '9999px';
+
+          badgeEl.textContent = `Step ${stepIdx + 1} of ${steps.length}`;
+          titleEl.textContent = step.title;
+          descEl.textContent = step.desc;
+
+          if (dotsEl) {
+            dotsEl.innerHTML = steps.map((_, i) =>
+              i === stepIdx
+                ? '<span class="w-2.5 h-2 rounded-full bg-amber-400 transition-all"></span>'
+                : '<span class="w-1.5 h-1.5 rounded-full bg-white/25 transition-all"></span>'
+            ).join('');
+          }
+
+          if (btnPrev) {
+            if (stepIdx === 0) btnPrev.classList.add('hidden');
+            else btnPrev.classList.remove('hidden');
+          }
+
+          if (btnNext) {
+            btnNext.textContent = stepIdx === steps.length - 1 ? 'Got It ✨' : 'Next →';
+          }
+
+          // Smartly position the floating card near the spotlighted tool
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          const cardW = Math.min(vw * 0.9, 330);
+          const cardH = cardEl.offsetHeight || 195;
+
+          let cLeft = rect.left + rect.width / 2 - cardW / 2;
+          cLeft = Math.max(12, Math.min(vw - cardW - 12, cLeft));
+
+          let cTop = sTop + sHeight + 14;
+          if (cTop + cardH > vh - 16) {
+            cTop = Math.max(16, sTop - cardH - 14);
+          }
+
+          cardEl.style.left = `${cLeft}px`;
+          cardEl.style.top = `${cTop}px`;
+        }
+
+        function closeGuide() {
+          rootEl.classList.add('hidden');
+          try {
+            localStorage.setItem(STORAGE_KEY, '1');
+          } catch (e) {}
+          window.removeEventListener('resize', handleResize);
+        }
+
+        function handleResize() {
+          if (!rootEl.classList.contains('hidden')) {
+            positionGuideStep(currentStep);
+          }
+        }
+
+        if (btnNext) {
+          btnNext.addEventListener('click', function () {
+            if (currentStep < steps.length - 1) {
+              currentStep++;
+              positionGuideStep(currentStep);
+            } else {
+              closeGuide();
+            }
+          });
+        }
+
+        if (btnPrev) {
+          btnPrev.addEventListener('click', function () {
+            if (currentStep > 0) {
+              currentStep--;
+              positionGuideStep(currentStep);
+            }
+          });
+        }
+
+        if (btnSkip) {
+          btnSkip.addEventListener('click', closeGuide);
+        }
+
+        if (backdropEl) {
+          backdropEl.addEventListener('click', closeGuide);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        setTimeout(function () {
+          rootEl.classList.remove('hidden');
+          positionGuideStep(0);
+        }, 850);
+      }
+
       document.addEventListener('DOMContentLoaded', function () {
         syncAndroidViewportHeight();
         Scene3D.init();
@@ -4825,12 +5117,30 @@ ${shareUrl}`;
         initQuoteCarouselInteractions();
 
         // Wire Title Bar 3 Lantern Switcher Buttons & Form 3 Lantern Options
-        document.querySelectorAll('.header-lantern-btn, .form-lantern-option').forEach(btn => {
+        document.querySelectorAll('.header-lantern-btn').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const chosenType = parseInt(this.getAttribute('data-lantern'), 10);
+            if (chosenType === currentLanternType) {
+              // Clicking the already-selected lantern button toggles automatic horizontal rotation mode
+              const isNowRotating = Scene3D.toggleAutoRotation();
+              syncHeaderLanternRotationVisuals();
+              showLanternModeTooltip(isNowRotating, this);
+            } else {
+              // Clicking a different lantern button switches to that lantern
+              selectLanternType(chosenType, true);
+            }
+          });
+        });
+
+        document.querySelectorAll('.form-lantern-option').forEach(btn => {
           btn.addEventListener('click', function () {
             const chosenType = parseInt(this.getAttribute('data-lantern'), 10);
             selectLanternType(chosenType, true);
           });
         });
+
+        // First-Visit Step-by-Step Interactive Guide to Use the Tools
+        initFirstVisitToolGuide();
 
         const q = getQueryParams();
         updateUIForWish(q.name, q.lang, q.quoteIndex, q.lanternType);
@@ -4994,5 +5304,50 @@ ${shareUrl}`;
 
     })();
   </script>
+
+  <!-- ===================================================================== -->
+  <!-- FIRST-VISIT STEP-BY-STEP INTERACTIVE TOOL GUIDE OVERLAY               -->
+  <!-- ===================================================================== -->
+  <div id="onboarding-guide-root" class="fixed inset-0 z-[90] hidden" role="dialog" aria-modal="true" aria-labelledby="onboarding-step-title">
+    <div id="onboarding-backdrop-click" class="fixed inset-0"></div>
+    <div id="onboarding-spotlight-ring" style="top: 12px; left: 50%; width: 110px; height: 40px;"></div>
+
+    <div id="onboarding-guide-card" class="rounded-2xl p-4 sm:p-5 text-white" style="top: 72px; left: 16px;">
+      <div class="flex items-center justify-between gap-2 mb-2">
+        <span id="onboarding-step-badge" class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-orange-500/20 border border-orange-400/40 text-amber-300">
+          Step 1 of 3
+        </span>
+        <button id="btn-onboarding-skip" type="button" class="text-[11px] font-medium text-white/60 hover:text-white transition-colors px-1.5 py-0.5">
+          Skip Guide ✕
+        </button>
+      </div>
+
+      <h3 id="onboarding-step-title" class="text-sm sm:text-base font-bold text-amber-200 mb-1.5">
+        Switch &amp; Rotate 3D Lanterns
+      </h3>
+      <p id="onboarding-step-desc" class="text-xs text-white/85 leading-relaxed mb-4">
+        Tap any of the 3 icons to switch between Star, Sky, and Modern Lamp lanterns. Tap the selected lantern icon again to toggle between "rotating lantern" and "standby lantern" modes!
+      </p>
+
+      <div class="flex items-center justify-between gap-2 pt-2 border-t border-white/10">
+        <!-- Step Dots -->
+        <div id="onboarding-step-dots" class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/25"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-white/25"></span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="btn-onboarding-prev" type="button" class="hidden px-2.5 py-1 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-white transition-colors">
+            Back
+          </button>
+          <button id="btn-onboarding-next" type="button" class="px-3.5 py-1.5 rounded-full text-xs font-bold btn-orange-luxury text-black shadow-md">
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
