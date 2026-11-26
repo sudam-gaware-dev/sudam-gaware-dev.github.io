@@ -2059,14 +2059,8 @@
         apiKey: "igk_sal2S0bhdrnPP3rnhqsSkto1lfgIXpk25TotsDSY",
         brideId: "payal8862",
         groomId: "krupaldavil7",
-        // Primary IgramAPI endpoints tried automatically in order
-        endpoints: [
-          (u) => `https://api.igramapi.com/v1/user/info?username=${encodeURIComponent(u)}`,
-          (u) => `https://api.igramapi.com/v1/profile?username=${encodeURIComponent(u)}`,
-          (u) => `https://api.igramapi.com/v1/users/${encodeURIComponent(u)}`,
-          (u) => `https://igramapi.com/api/v1/user/info?username=${encodeURIComponent(u)}`,
-          (u) => `https://igramapi.com/api/v1/profile?username=${encodeURIComponent(u)}`
-        ]
+        baseUrl: "https://api.igramapi.com/v1",
+        cacheTtlMs: 45 * 60 * 1000 // 45 mins to protect monthly credits
       },
       events: [
         {
@@ -2962,88 +2956,120 @@
 
 
     /* ============================================================
-       INSTAGRAM PROFILE PICTURE FETCHER (IgramAPI)
-       - Fetches bride & groom profile photos cleanly without displaying handles
-       - Caches resolved URLs in sessionStorage to save API credits
-       - Falls back gracefully to Marathi initials if offline/blocked
+       INSTAGRAM PROFILE PICTURE FETCHER (Official IGramAPI v1)
+       - Primary:  GET /v1/profiles/{username}/picture -> { url, is_hd }
+       - Fallback: GET /v1/profiles/{username}         -> { profile: { profile_picture_url } }
+       - Browser CDN Fallback: POST /v1/downloads      -> { type: "image", url }
+       - Handles are never rendered in the visible DOM
     ============================================================ */
-    function extractProfilePicUrls(obj, found = []) {
-      if (!obj || typeof obj !== "object") return found;
-      const priorityKeys = [
-        "profile_pic_url_hd",
-        "hd_profile_pic_url",
-        "profilePicUrlHd",
-        "profile_pic_url",
-        "profilePicUrl",
-        "profile_picture",
-        "avatar_hd",
-        "avatar_url",
-        "avatar",
-        "picture"
-      ];
-      for (const k of priorityKeys) {
-        if (typeof obj[k] === "string" && /^https?:\/\//i.test(obj[k])) {
-          if (!found.includes(obj[k])) found.push(obj[k]);
-        }
+    async function igramFetchJson(url, apiKey, options = {}) {
+      const res = await fetch(url, {
+        method: options.method || "GET",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          ...(options.body ? { "Content-Type": "application/json" } : {}),
+          "Accept": "application/json"
+        },
+        body: options.body ? JSON.stringify(options.body) : undefined,
+        mode: "cors"
+      });
+      if (!res.ok) {
+        let msg = `HTTP ${res.status}`;
+        try {
+          const errData = await res.json();
+          if (errData && errData.error && errData.error.message) msg = errData.error.message;
+        } catch (_) {}
+        throw new Error(msg);
       }
-      if (obj.hd_profile_pic_url_info && typeof obj.hd_profile_pic_url_info.url === "string") {
-        if (!found.includes(obj.hd_profile_pic_url_info.url)) {
-          found.unshift(obj.hd_profile_pic_url_info.url);
-        }
-      }
-      for (const val of Object.values(obj)) {
-        if (val && typeof val === "object") extractProfilePicUrls(val, found);
-      }
-      return found;
+      return res.json();
     }
 
-    async function fetchInstagramAvatarUrls(username, cfg) {
-      const headersList = [
-        { "x-api-key": cfg.apiKey, "Accept": "application/json" },
-        { "Authorization": `Bearer ${cfg.apiKey}`, "Accept": "application/json" },
-        { "X-API-Key": cfg.apiKey, "Authorization": `Bearer ${cfg.apiKey}`, "Accept": "application/json" }
-      ];
-
-      for (const buildUrl of cfg.endpoints) {
-        const baseUrl = buildUrl(username);
-        // Try header auth first, then query param auth if needed
-        const attempts = [
-          { url: baseUrl, headers: headersList[0] },
-          { url: baseUrl, headers: headersList[1] },
-          { url: `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}apikey=${encodeURIComponent(cfg.apiKey)}`, headers: { "Accept": "application/json" } }
-        ];
-        for (const attempt of attempts) {
-          try {
-            const res = await fetch(attempt.url, { method: "GET", headers: attempt.headers, mode: "cors" });
-            if (!res.ok) continue;
-            const data = await res.json();
-            const urls = extractProfilePicUrls(data);
-            if (urls.length > 0) return urls;
-          } catch (_) {
-            // Try next endpoint / auth scheme silently
-          }
+    async function fetchInstagramPictureUrl(username, cfg) {
+      // 1. Official IGramAPI Profile Picture Endpoint (HD)
+      try {
+        const picData = await igramFetchJson(
+          `${cfg.baseUrl}/profiles/${encodeURIComponent(username)}/picture`,
+          cfg.apiKey
+        );
+        const directUrl = picData?.url || picData?.profile_picture_url || picData?.data?.url;
+        if (typeof directUrl === "string" && /^https?:\/\//i.test(directUrl)) {
+          return directUrl;
         }
+      } catch (err) {
+        console.warn("[IGramAPI] /picture endpoint failed:", err.message);
       }
-      return [];
+
+      // 2. Fallback: Official IGramAPI Profile Endpoint
+      try {
+        const profData = await igramFetchJson(
+          `${cfg.baseUrl}/profiles/${encodeURIComponent(username)}`,
+          cfg.apiKey
+        );
+        const profileUrl =
+          profData?.profile?.profile_picture_url ||
+          profData?.profile_picture_url ||
+          profData?.url;
+        if (typeof profileUrl === "string" && /^https?:\/\//i.test(profileUrl)) {
+          return profileUrl;
+        }
+      } catch (err) {
+        console.warn("[IGramAPI] /profiles endpoint failed:", err.message);
+      }
+
+      return null;
     }
 
-    function applyAvatarUrls(wrapId, imgId, urls) {
+    async function resolveBrowserSafeImageUrl(cdnUrl, cfg) {
+      try {
+        const dlData = await igramFetchJson(`${cfg.baseUrl}/downloads`, cfg.apiKey, {
+          method: "POST",
+          body: { type: "image", url: cdnUrl }
+        });
+        return (
+          dlData?.download_url ||
+          dlData?.url ||
+          dlData?.file_url ||
+          dlData?.data?.download_url ||
+          dlData?.data?.url ||
+          null
+        );
+      } catch (err) {
+        console.warn("[IGramAPI] /downloads image relay failed:", err.message);
+        return null;
+      }
+    }
+
+    function loadAvatarWithFallback(wrapId, imgId, primaryUrl, cfg, cacheKey) {
       const wrap = document.getElementById(wrapId);
       const img = document.getElementById(imgId);
-      if (!wrap || !img || !urls || urls.length === 0) return;
+      if (!wrap || !img || !primaryUrl) return;
 
-      let idx = 0;
-      const tryLoad = () => {
-        if (idx >= urls.length) return;
-        img.referrerPolicy = "no-referrer";
-        img.onload = () => wrap.classList.add("has-photo");
-        img.onerror = () => {
-          idx++;
-          tryLoad();
-        };
-        img.src = urls[idx];
+      let triedRelay = false;
+
+      const setCached = (finalUrl) => {
+        try {
+          localStorage.setItem(cacheKey, JSON.stringify({ url: finalUrl, ts: Date.now() }));
+        } catch (_) {}
       };
-      tryLoad();
+
+      img.referrerPolicy = "no-referrer";
+      img.onload = () => {
+        wrap.classList.add("has-photo");
+        setCached(img.src);
+      };
+      img.onerror = async () => {
+        // If Instagram CDN blocks direct browser loading (CORP), request IGramAPI hosted copy
+        if (!triedRelay) {
+          triedRelay = true;
+          const safeUrl = await resolveBrowserSafeImageUrl(primaryUrl, cfg);
+          if (safeUrl && safeUrl !== primaryUrl) {
+            img.src = safeUrl;
+            return;
+          }
+        }
+        console.warn("[IGramAPI] Could not display avatar image in browser for", wrapId);
+      };
+      img.src = primaryUrl;
     }
 
     async function initCoupleInstagramPhotos() {
@@ -3051,27 +3077,28 @@
       if (!cfg || !cfg.apiKey) return;
 
       const targets = [
-        { key: "pk_ig_avatar_bride", handle: cfg.brideId, wrapId: "bride-avatar-wrap", imgId: "bride-avatar-img" },
-        { key: "pk_ig_avatar_groom", handle: cfg.groomId, wrapId: "groom-avatar-wrap", imgId: "groom-avatar-img" }
+        { cacheKey: "pk_ig_v12_bride", handle: cfg.brideId, wrapId: "bride-avatar-wrap", imgId: "bride-avatar-img" },
+        { cacheKey: "pk_ig_v12_groom", handle: cfg.groomId, wrapId: "groom-avatar-wrap", imgId: "groom-avatar-img" }
       ];
 
       await Promise.all(targets.map(async (item) => {
         if (!item.handle) return;
+
+        // Use fresh cached URL if available to save API credits
         try {
-          const cached = sessionStorage.getItem(item.key);
-          if (cached) {
-            const cachedUrls = JSON.parse(cached);
-            if (Array.isArray(cachedUrls) && cachedUrls.length > 0) {
-              applyAvatarUrls(item.wrapId, item.imgId, cachedUrls);
+          const raw = localStorage.getItem(item.cacheKey);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed?.url && (Date.now() - parsed.ts) < cfg.cacheTtlMs) {
+              loadAvatarWithFallback(item.wrapId, item.imgId, parsed.url, cfg, item.cacheKey);
               return;
             }
           }
         } catch (_) {}
 
-        const urls = await fetchInstagramAvatarUrls(item.handle, cfg);
-        if (urls.length > 0) {
-          try { sessionStorage.setItem(item.key, JSON.stringify(urls)); } catch (_) {}
-          applyAvatarUrls(item.wrapId, item.imgId, urls);
+        const picUrl = await fetchInstagramPictureUrl(item.handle, cfg);
+        if (picUrl) {
+          loadAvatarWithFallback(item.wrapId, item.imgId, picUrl, cfg, item.cacheKey);
         }
       }));
     }
