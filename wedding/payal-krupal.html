@@ -1,0 +1,2841 @@
+<!DOCTYPE html>
+<html lang="mr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>शुभविवाह — पायल आणि कृपाल | सस्नेह निमंत्रण</title>
+  <meta name="description" content="पायल (खेमदेवी) आणि कृपाल यांच्या शुभविवाह सोहळ्याचे सस्नेह निमंत्रण — तुळजाई बॅन्क्वेट हॉल, वर्धा." />
+
+  <!-- Authentic Marathi & Luxury Editorial Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet" />
+
+  <!-- Three.js (r128 stable CDN for broad mobile & desktop WebGL reliability) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --maroon: #701F32;
+      --burgundy: #481522;
+      --deep-wine: #2E0C15;
+      --gold: #C49A45;
+      --gold-light: #E6C983;
+      --gold-dark: #8F6B24;
+      --ivory: #FFF9ED;
+      --cream: #F1E6D2;
+      --saffron: #E89A32;
+      --brown: #38271F;
+      --brown-muted: #6E5548;
+      --font-mr-display: 'Tiro Devanagari Marathi', 'Noto Serif Devanagari', serif;
+      --font-mr-body: 'Noto Serif Devanagari', serif;
+      --font-en-display: 'Playfair Display', Georgia, serif;
+      --font-en-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      background-color: var(--ivory);
+      color: var(--brown);
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-mr-body);
+      background-color: var(--ivory);
+      color: var(--brown);
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.locked {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* Typography Helpers */
+    .font-mr-display { font-family: var(--font-mr-display); }
+    .font-mr-body { font-family: var(--font-mr-body); }
+    .font-en-display { font-family: var(--font-en-display); }
+    .font-en-body { font-family: var(--font-en-body); }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--maroon); }
+
+    /* Subtle Mandala & Silk Pattern Backgrounds */
+    .bg-silk-ivory {
+      background-color: var(--ivory);
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(196, 154, 69, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(112, 31, 50, 0.05) 0%, transparent 45%);
+    }
+
+    .bg-royal-maroon {
+      background-color: var(--burgundy);
+      background-image:
+        radial-gradient(ellipse at 50% 18%, rgba(112, 31, 50, 0.92) 0%, rgba(72, 21, 34, 0.98) 55%, rgba(46, 12, 21, 1) 100%);
+      color: var(--ivory);
+    }
+
+    /* Gold Hairline Framing & Corner Ornaments */
+    .peshwai-card {
+      position: relative;
+      background: linear-gradient(180deg, #FFFDF8 0%, var(--ivory) 100%);
+      border: 1px solid rgba(196, 154, 69, 0.45);
+      border-radius: 14px;
+      box-shadow: 0 20px 50px -18px rgba(56, 39, 31, 0.14), inset 0 0 0 6px rgba(196, 154, 69, 0.07);
+    }
+
+    .peshwai-card::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(196, 154, 69, 0.3);
+      border-radius: 9px;
+      pointer-events: none;
+    }
+
+    .peshwai-card-dark {
+      position: relative;
+      background: linear-gradient(160deg, rgba(112, 31, 50, 0.72) 0%, rgba(46, 12, 21, 0.88) 100%);
+      border: 1px solid rgba(196, 154, 69, 0.45);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.45);
+    }
+
+    .peshwai-card-dark::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(196, 154, 69, 0.22);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    /* Gold Shimmer Text */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #F3DC9E 0%, #C49A45 48%, #E9CE8A 75%, #B5872E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Ornamental Section Divider */
+    .ornament-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 18px auto 28px;
+      max-width: 320px;
+    }
+    .ornament-divider .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      position: relative;
+      padding: 84px 0;
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 60px 0; }
+    }
+
+    /* Buttons */
+    .btn-royal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 28px;
+      border-radius: 999px;
+      font-family: var(--font-mr-body);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      border: 1px solid var(--gold);
+      background: linear-gradient(135deg, var(--maroon) 0%, var(--burgundy) 100%);
+      color: var(--ivory);
+      box-shadow: 0 10px 26px -8px rgba(72, 21, 34, 0.45);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-royal:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px -8px rgba(72, 21, 34, 0.6);
+      border-color: var(--gold-light);
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 30px;
+      border-radius: 999px;
+      font-family: var(--font-mr-body);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 1px solid #F3DC9E;
+      background: linear-gradient(135deg, #D9B462 0%, #C49A45 55%, #A67C2E 100%);
+      color: var(--deep-wine);
+      box-shadow: 0 12px 30px -8px rgba(196, 154, 69, 0.5);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      box-shadow: 0 16px 36px -8px rgba(196, 154, 69, 0.65);
+    }
+
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 999px;
+      font-family: var(--font-mr-body);
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: 1px solid rgba(196, 154, 69, 0.7);
+      background: transparent;
+      color: var(--gold-light);
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-outline-gold:hover {
+      background: rgba(196, 154, 69, 0.14);
+      border-color: var(--gold-light);
+    }
+
+    /* ============================================================
+       1. CINEMATIC 3D OPENING SCREEN
+    ============================================================ */
+    #opening-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 20px 32px;
+      background: radial-gradient(ellipse at 50% 42%, #681B2E 0%, #3E101C 58%, #21070E 100%);
+      color: var(--ivory);
+      transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.95s ease;
+    }
+    #opening-overlay.hidden-overlay {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #opening-canvas-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      cursor: pointer;
+    }
+    .opening-border-frame {
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(196, 154, 69, 0.35);
+      border-radius: 16px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .opening-border-frame::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(196, 154, 69, 0.16);
+      border-radius: 12px;
+    }
+    .opening-top, .opening-bottom {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 620px;
+      width: 100%;
+    }
+    .opening-top-controls {
+      position: fixed;
+      top: 24px;
+      right: 26px;
+      z-index: 5;
+      display: flex;
+      gap: 10px;
+    }
+    .pill-control {
+      background: rgba(46, 12, 21, 0.65);
+      border: 1px solid rgba(196, 154, 69, 0.45);
+      color: var(--gold-light);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-family: var(--font-mr-body);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .pill-control:hover {
+      background: rgba(112, 31, 50, 0.85);
+      border-color: var(--gold-light);
+    }
+
+    /* ============================================================
+       2. NAVIGATION BAR
+    ============================================================ */
+    #main-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
+      padding: 16px 0;
+    }
+    #main-nav.scrolled {
+      background: rgba(46, 12, 21, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(196, 154, 69, 0.28);
+      padding: 11px 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--gold-light);
+    }
+    .nav-monogram {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-en-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: rgba(196, 154, 69, 0.12);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--ivory);
+      text-decoration: none;
+      font-size: 0.93rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color 0.2s ease;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--gold);
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(196, 154, 69, 0.48);
+      background: rgba(46, 12, 21, 0.55);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .icon-btn:hover {
+      background: rgba(196, 154, 69, 0.2);
+      border-color: var(--gold-light);
+    }
+    .mobile-menu-btn { display: none; }
+
+    #mobile-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: rgba(34, 8, 15, 0.96);
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #mobile-drawer.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    #mobile-drawer a {
+      color: var(--ivory);
+      text-decoration: none;
+      font-family: var(--font-mr-display);
+      font-size: 1.5rem;
+      transition: color 0.2s ease;
+    }
+    #mobile-drawer a:hover { color: var(--gold-light); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: grid; }
+    }
+
+    /* ============================================================
+       3. HERO SECTION
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 110px 0 80px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-toran {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.9;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 4;
+    }
+    .hero-3d-stage {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 50% 55%, rgba(196, 154, 69, 0.16) 0%, rgba(46, 12, 21, 0.25) 60%, transparent 78%);
+      border: 1px solid rgba(196, 154, 69, 0.22);
+      overflow: hidden;
+    }
+    .hero-3d-stage canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .hero-blessing-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      opacity: 0.92;
+      margin-bottom: 18px;
+    }
+    .hero-title {
+      font-family: var(--font-mr-display);
+      font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+      line-height: 1.2;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .hero-couple-names {
+      font-family: var(--font-mr-display);
+      font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+      line-height: 1.25;
+      color: var(--ivory);
+      margin: 14px 0 18px;
+    }
+    .hero-amp {
+      display: inline-block;
+      font-size: 0.65em;
+      color: var(--gold-light);
+      margin: 0 12px;
+      font-style: italic;
+    }
+    .hero-meta-pill {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 16px;
+      padding: 12px 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(196, 154, 69, 0.45);
+      background: rgba(46, 12, 21, 0.55);
+      backdrop-filter: blur(8px);
+      font-size: 1rem;
+      color: var(--ivory);
+      margin-bottom: 28px;
+    }
+    .hero-meta-pill span.sep { color: var(--gold); }
+
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-blessing-strip { justify-content: center; }
+      .hero-cta-row { justify-content: center; }
+      .hero-3d-stage { height: 390px; }
+    }
+
+    /* ============================================================
+       4. COUPLE INTRODUCTION
+    ============================================================ */
+    .couple-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .couple-card {
+      padding: 40px 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .couple-crest {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: radial-gradient(circle at 30% 30%, #FFFDF8, var(--cream));
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 26px -10px rgba(112, 31, 50, 0.25);
+      position: relative;
+    }
+    .couple-crest::after {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      border: 1px dashed rgba(196, 154, 69, 0.55);
+    }
+    .couple-role {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 999px;
+      background: rgba(112, 31, 50, 0.08);
+      border: 1px solid rgba(112, 31, 50, 0.22);
+      color: var(--maroon);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .couple-name-mr {
+      font-family: var(--font-mr-display);
+      font-size: 2rem;
+      color: var(--maroon);
+      line-height: 1.3;
+    }
+    .couple-subname {
+      font-size: 1rem;
+      color: var(--gold-dark);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .couple-name-en {
+      font-family: var(--font-en-display);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--brown-muted);
+      margin-bottom: 16px;
+    }
+    .couple-mid-emblem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .couple-mid-circle {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--maroon), var(--burgundy));
+      border: 2px solid var(--gold);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-en-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      box-shadow: 0 12px 28px -8px rgba(72, 21, 34, 0.4);
+    }
+    @media (max-width: 860px) {
+      .couple-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       5. INVITATION POEM & MESSAGE
+    ============================================================ */
+    .poem-card {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 52px 40px;
+      text-align: center;
+    }
+    .poem-lines {
+      font-family: var(--font-mr-display);
+      font-size: clamp(1.22rem, 2.3vw, 1.58rem);
+      line-height: 2;
+      color: var(--maroon);
+    }
+    @media (max-width: 600px) {
+      .poem-card { padding: 36px 22px; }
+    }
+
+    /* ============================================================
+       6. COUNTDOWN TIMER
+    ============================================================ */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 760px;
+      margin: 30px auto 0;
+    }
+    .countdown-box {
+      padding: 26px 14px;
+      border-radius: 16px;
+      background: rgba(46, 12, 21, 0.65);
+      border: 1px solid rgba(196, 154, 69, 0.42);
+      text-align: center;
+      box-shadow: 0 14px 36px -14px rgba(0, 0, 0, 0.4);
+    }
+    .countdown-num {
+      font-family: var(--font-en-display);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--gold-light);
+    }
+    .countdown-label {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      color: var(--cream);
+      opacity: 0.9;
+    }
+    @media (max-width: 560px) {
+      .countdown-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+
+    /* ============================================================
+       7. EVENTS & SCHEDULE
+    ============================================================ */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 24px;
+    }
+    .event-card {
+      padding: 32px 26px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 26px 54px -20px rgba(72, 21, 34, 0.2);
+    }
+    .event-icon-wrap {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--maroon), var(--burgundy));
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+    }
+    .event-meta {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(196, 154, 69, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.94rem;
+      color: var(--brown);
+    }
+    .no-gift-banner {
+      margin: 34px auto 0;
+      max-width: 520px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      background: linear-gradient(90deg, rgba(112, 31, 50, 0.06), rgba(196, 154, 69, 0.14), rgba(112, 31, 50, 0.06));
+      text-align: center;
+      font-weight: 600;
+      color: var(--maroon);
+      font-size: 1.02rem;
+    }
+
+    /* ============================================================
+       8. INTERACTIVE 3D CULTURAL HERITAGE SHOWCASE
+    ============================================================ */
+    .culture-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .culture-3d-frame {
+      position: relative;
+      height: 430px;
+      border-radius: 20px;
+      background: radial-gradient(circle at 50% 48%, rgba(196, 154, 69, 0.2) 0%, rgba(46, 12, 21, 0.85) 70%);
+      border: 1px solid rgba(196, 154, 69, 0.48);
+      overflow: hidden;
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.5);
+    }
+    .culture-3d-frame canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .culture-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .culture-tab {
+      padding: 9px 17px;
+      border-radius: 999px;
+      border: 1px solid rgba(196, 154, 69, 0.38);
+      background: rgba(46, 12, 21, 0.55);
+      color: var(--cream);
+      font-family: var(--font-mr-body);
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .culture-tab:hover {
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+    .culture-tab.active {
+      background: linear-gradient(135deg, #D9B462, #B88B32);
+      color: var(--deep-wine);
+      border-color: #F3DC9E;
+      font-weight: 600;
+    }
+    @media (max-width: 900px) {
+      .culture-layout { grid-template-columns: 1fr; }
+      .culture-3d-frame { height: 340px; }
+    }
+
+    /* ============================================================
+       9. VENUE & 3D KALASH
+    ============================================================ */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .venue-kalash-stage {
+      height: 220px;
+      width: 100%;
+      border-radius: 14px;
+      background: radial-gradient(circle at 50% 58%, rgba(196, 154, 69, 0.2) 0%, rgba(112, 31, 50, 0.08) 72%, transparent 100%);
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+    .venue-map-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(196, 154, 69, 0.5);
+      min-height: 400px;
+      box-shadow: 0 18px 44px -18px rgba(56, 39, 31, 0.18);
+    }
+    .venue-map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      border: 0;
+      display: block;
+    }
+    @media (max-width: 880px) {
+      .venue-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       10. FAMILY INVITATION SECTION
+    ============================================================ */
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 28px;
+    }
+    .family-block {
+      padding: 32px 28px;
+    }
+    .family-heading {
+      font-family: var(--font-mr-display);
+      font-size: 1.4rem;
+      color: var(--maroon);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .couple-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .couple-list li {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(196, 154, 69, 0.07);
+      font-size: 0.96rem;
+    }
+    .couple-list li span:first-child { text-align: right; }
+    .couple-list li span:nth-child(2) { color: var(--gold-dark); font-weight: 700; }
+    .couple-list li span:last-child { text-align: left; }
+
+    .kids-card {
+      margin-top: 26px;
+      padding: 30px 28px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(112, 31, 50, 0.96), rgba(72, 21, 34, 0.98));
+      color: var(--ivory);
+      border: 1px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 20px 44px -18px rgba(72, 21, 34, 0.45);
+    }
+
+    @media (max-width: 820px) {
+      .family-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .couple-list li { font-size: 0.88rem; gap: 6px; padding: 8px 8px; }
+    }
+
+    /* ============================================================
+       11. GALLERY & LIGHTBOX
+    ============================================================ */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .gallery-slot {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(196, 154, 69, 0.48);
+      background: linear-gradient(160deg, var(--cream), var(--ivory));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-slot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px -14px rgba(72, 21, 34, 0.22);
+    }
+    .gallery-slot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(24, 6, 11, 0.92);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #lightbox.open { opacity: 1; visibility: visible; }
+
+    /* ============================================================
+       12. RSVP FORM
+    ============================================================ */
+    .rsvp-card {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 44px 36px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--maroon);
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(196, 154, 69, 0.55);
+      background: #FFFDF9;
+      color: var(--brown);
+      font-family: var(--font-mr-body);
+      font-size: 0.96rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-control:focus {
+      border-color: var(--maroon);
+      box-shadow: 0 0 0 3px rgba(112, 31, 50, 0.12);
+    }
+    .rsvp-choice-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .rsvp-choice-btn {
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(196, 154, 69, 0.55);
+      background: var(--ivory);
+      color: var(--brown);
+      font-family: var(--font-mr-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .rsvp-choice-btn.selected {
+      background: linear-gradient(135deg, var(--maroon), var(--burgundy));
+      color: var(--ivory);
+      border-color: var(--gold);
+      box-shadow: 0 10px 24px -10px rgba(72, 21, 34, 0.5);
+    }
+    @media (max-width: 600px) {
+      .form-grid, .rsvp-choice-row { grid-template-columns: 1fr; }
+      .rsvp-card { padding: 30px 20px; }
+    }
+
+    /* ============================================================
+       SCROLL REVEAL ANIMATION
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { scroll-behavior: auto !important; }
+    }
+
+    /* Floating Audio Pill */
+    #floating-audio {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 95;
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 44px;
+    }
+    .section-kicker {
+      font-size: 0.86rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      font-weight: 600;
+      font-family: var(--font-en-body);
+    }
+    .bg-royal-maroon .section-kicker { color: var(--gold-light); }
+    .section-title {
+      font-family: var(--font-mr-display);
+      font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+      color: var(--maroon);
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+    .bg-royal-maroon .section-title { color: var(--ivory); }
+  </style>
+</head>
+
+<body class="locked">
+
+  <!-- ============================================================
+       1. CINEMATIC 3D OPENING ROYAL INVITATION ENVELOPE
+  ============================================================ -->
+  <div id="opening-overlay" role="dialog" aria-modal="true" aria-label="शुभविवाह निमंत्रण">
+    <div id="opening-canvas-wrap"></div>
+    <div class="opening-border-frame"></div>
+
+    <div class="opening-top-controls">
+      <button type="button" id="opening-sound-btn" class="pill-control" aria-label="संगीत चालू किंवा बंद करा">
+        <span id="opening-sound-label">संगीत: बंद</span>
+      </button>
+      <button type="button" id="skip-opening-btn" class="pill-control">पुढे जा →</button>
+    </div>
+
+    <div class="opening-top" style="margin-top: 26px;">
+      <p style="font-size: 0.88rem; color: var(--gold-light); letter-spacing: 0.04em;">
+        || श्री गणेशाय नमः || &nbsp;•&nbsp; || श्री गुरुदेव || &nbsp;•&nbsp; || श्री संत गजानन महाराज प्रसन्न ||
+      </p>
+      <h1 class="font-mr-display gold-gradient-text" style="font-size: clamp(2rem, 4.6vw, 3.1rem); margin-top: 8px; line-height: 1.25;">
+        सस्नेह निमंत्रण
+      </h1>
+    </div>
+
+    <div class="opening-bottom">
+      <p style="font-size: clamp(0.95rem, 2.1vw, 1.08rem); color: var(--cream); margin-bottom: 18px; line-height: 1.8;">
+        आमच्या शुभविवाह सोहळ्यास आपण सहकुटुंब उपस्थित राहून वधू-वरांना शुभाशीर्वाद द्यावेत, ही नम्र विनंती.
+      </p>
+      <button type="button" id="open-invite-btn" class="btn-gold">
+        <span>आमंत्रण पहा</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       2. MINIMAL STICKY NAVIGATION
+  ============================================================ -->
+  <nav id="main-nav" aria-label="मुख्य नेव्हिगेशन">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-brand">
+        <span class="nav-monogram">PK</span>
+        <span class="font-mr-display" style="font-size: 1.15rem; color: var(--ivory);">पायल व कृपाल</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#hero">मुख्यपृष्ठ</a></li>
+        <li><a href="#invitation">आमंत्रण</a></li>
+        <li><a href="#events">विवाह सोहळे</a></li>
+        <li><a href="#venue">स्थळ</a></li>
+        <li><a href="#family">परिवार</a></li>
+        <li><a href="#gallery">छायाचित्रे</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button type="button" id="nav-audio-btn" class="icon-btn" title="संगीत" aria-label="संगीत चालू किंवा बंद करा">
+          <svg id="nav-audio-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+        <button type="button" id="mobile-menu-open" class="icon-btn mobile-menu-btn" aria-label="मेनू उघडा">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" aria-hidden="true">
+    <button type="button" id="mobile-menu-close" class="icon-btn" style="position: absolute; top: 22px; right: 22px;" aria-label="मेनू बंद करा">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="#hero" class="drawer-link">मुख्यपृष्ठ</a>
+    <a href="#couple" class="drawer-link">वधू-वर</a>
+    <a href="#invitation" class="drawer-link">आमंत्रण</a>
+    <a href="#events" class="drawer-link">विवाह सोहळे</a>
+    <a href="#culture" class="drawer-link">विवाह परंपरा</a>
+    <a href="#venue" class="drawer-link">स्थळ</a>
+    <a href="#family" class="drawer-link">परिवार</a>
+    <a href="#gallery" class="drawer-link">छायाचित्रे</a>
+    <a href="#rsvp" class="drawer-link">RSVP</a>
+  </div>
+
+  <!-- ============================================================
+       3. HERO SECTION WITH 3D MAHARASHTRIAN SAMAI
+  ============================================================ -->
+  <header id="hero" class="bg-royal-maroon">
+    <!-- Decorative Traditional Mango-Leaf & Marigold Toran SVG -->
+    <svg class="hero-toran" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#8F6B24"/>
+          <stop offset="50%" stop-color="#F3DC9E"/>
+          <stop offset="100%" stop-color="#8F6B24"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,4 Q120,44 240,12 Q360,44 480,12 Q600,44 720,12 Q840,44 960,12 Q1080,44 1200,12 Q1320,44 1440,4" fill="none" stroke="url(#goldLine)" stroke-width="2.2"/>
+      <g fill="#E89A32">
+        <circle cx="120" cy="28" r="7"/><circle cx="360" cy="28" r="7"/><circle cx="600" cy="28" r="7"/>
+        <circle cx="840" cy="28" r="7"/><circle cx="1080" cy="28" r="7"/><circle cx="1320" cy="28" r="7"/>
+      </g>
+      <g fill="#C49A45">
+        <circle cx="240" cy="14" r="5"/><circle cx="480" cy="14" r="5"/><circle cx="720" cy="14" r="6"/>
+        <circle cx="960" cy="14" r="5"/><circle cx="1200" cy="14" r="5"/>
+      </g>
+    </svg>
+
+    <div class="container">
+      <div class="hero-grid">
+        <div class="reveal">
+          <div class="hero-blessing-strip">
+            <span>|| श्री गणेशाय नमः ||</span>
+            <span>|| श्री गुरुदेव ||</span>
+            <span>|| श्री संत गजानन महाराज प्रसन्न ||</span>
+          </div>
+
+          <p class="font-en-body" style="letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.78rem; color: var(--gold-light); margin-bottom: 8px;">
+            Royal Maharashtrian Wedding
+          </p>
+
+          <h2 class="hero-title gold-gradient-text">|| शुभविवाह ||</h2>
+
+          <div class="hero-couple-names">
+            <span id="hero-bride-name">पायल</span>
+            <span class="hero-amp">आणि</span>
+            <span id="hero-groom-name">कृपाल</span>
+          </div>
+
+          <p style="font-size: 1rem; color: var(--cream); opacity: 0.92; margin-bottom: 22px; max-width: 520px;">
+            चैत्र शुद्ध १०, शके १९४७ &nbsp;|&nbsp; सकाळी ११:२१ मि. शुभ मुहूर्तावर
+          </p>
+
+          <div class="hero-meta-pill">
+            <span>शुक्रवार, १८ एप्रिल २०२५</span>
+            <span class="sep">✦</span>
+            <span>तुळजाई बॅन्क्वेट हॉल, वर्धा</span>
+          </div>
+
+          <div class="hero-cta-row" style="display: flex; flex-wrap: wrap; gap: 14px;">
+            <a href="#events" class="btn-gold">विवाह मुहूर्त व सोहळे</a>
+            <a href="#rsvp" class="btn-outline-gold">आपली उपस्थिती कळवा</a>
+          </div>
+        </div>
+
+        <!-- Upgraded 3D Samai Stage -->
+        <div class="hero-3d-stage reveal" id="hero-samai-stage" aria-label="पारंपरिक महाराष्ट्रीयन सुवर्ण समई"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       4. COUPLE INTRODUCTION (वधू-वर परिचय)
+  ============================================================ -->
+  <section id="couple" class="bg-silk-ivory">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-kicker">The Bride &amp; Groom</p>
+        <h2 class="section-title">वधू - वर परिचय</h2>
+        <div class="ornament-divider">
+          <span class="line"></span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z"/></svg>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="couple-grid">
+        <!-- Bride Card -->
+        <article class="peshwai-card couple-card reveal">
+          <div class="couple-crest">
+            <span class="font-mr-display" style="font-size: 2rem; color: var(--maroon);">पा</span>
+          </div>
+          <span class="couple-role">|| वधू ||</span>
+          <h3 class="couple-name-mr">चि. सौ. कां. पायल</h3>
+          <p class="couple-subname">(खेमदेवी)</p>
+          <p class="couple-name-en">Payal (Khemdevi)</p>
+          <p style="font-size: 1rem; color: var(--brown); margin-bottom: 10px;">
+            <strong>सौ. कल्पना</strong> व <strong>श्री. भरत उद्धवराव झाडे</strong><br/>यांची तृतीय कन्या
+          </p>
+          <p style="font-size: 0.92rem; color: var(--brown-muted);">
+            रा. माऊली नगर, कारला रोड, वर्धा.
+          </p>
+        </article>
+
+        <!-- Center Monogram -->
+        <div class="couple-mid-emblem reveal">
+          <div class="couple-mid-circle">PK</div>
+        </div>
+
+        <!-- Groom Card -->
+        <article class="peshwai-card couple-card reveal">
+          <div class="couple-crest">
+            <span class="font-mr-display" style="font-size: 2rem; color: var(--maroon);">कृ</span>
+          </div>
+          <span class="couple-role">|| वर ||</span>
+          <h3 class="couple-name-mr">चि. कृपाल</h3>
+          <p class="couple-subname" style="visibility: hidden;">&nbsp;</p>
+          <p class="couple-name-en">Krupal</p>
+          <p style="font-size: 1rem; color: var(--brown); margin-bottom: 10px;">
+            <strong>श्री. संजयराव अभिमानजी दविले</strong><br/>यांचे ज्येष्ठ चिरंजीव
+          </p>
+          <p style="font-size: 0.92rem; color: var(--brown-muted);">
+            रा. पिंपळगांव (लोखंडी), ता. समुद्रपूर, जि. वर्धा.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. TRADITIONAL MARATHI WEDDING INVITATION POEM
+  ============================================================ -->
+  <section id="invitation" style="background-color: var(--cream);">
+    <div class="container">
+      <div class="peshwai-card poem-card reveal">
+        <p style="font-size: 0.92rem; color: var(--gold-dark); font-weight: 600; margin-bottom: 14px;">
+          || सस्नेह निमंत्रण ||
+        </p>
+
+        <div class="poem-lines">
+          वाट नवी स्वप्न नवे, स्वप्नाला साथ प्रेमाची,<br/>
+          विश्वासाच्या वाटेवरती साथ मिळते सुखाची,<br/>
+          अखंड राहो ऋणानुबंध <strong>पायल</strong> आणि <strong>कृपाल</strong> यांच्या संसाराची,<br/>
+          त्यासाठी गरज आहे आपल्या आशिर्वादाची...
+        </div>
+
+        <div class="ornament-divider" style="margin: 24px auto;">
+          <span class="line"></span>
+          <span style="color: var(--gold); font-size: 1.1rem;">❖</span>
+          <span class="line"></span>
+        </div>
+
+        <p style="font-size: 1.08rem; color: var(--brown); font-weight: 500;">
+          म्हणून लग्नात सहकुटुंब सहपरिवार जरूर यावे ही नम्र विनंती — <strong>झाडे परिवाराची...</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       6. LIVE COUNTDOWN SECTION
+  ============================================================ -->
+  <section id="countdown" class="bg-royal-maroon" style="padding: 72px 0;">
+    <div class="container" style="text-align: center;">
+      <div class="reveal">
+        <p class="section-kicker">Auspicious Countdown</p>
+        <h2 class="section-title" id="countdown-heading">मंगलक्षणांची प्रतीक्षा...</h2>
+        <p style="color: var(--cream); opacity: 0.88; margin-top: 8px; font-size: 0.98rem;">
+          शुक्रवार, १८ एप्रिल २०२५ &nbsp;|&nbsp; सकाळी ११:२१ मि. शुभ मुहूर्तावर
+        </p>
+
+        <div class="countdown-grid" id="countdown-grid">
+          <div class="countdown-box">
+            <div class="countdown-num" id="cd-days">00</div>
+            <div class="countdown-label">दिवस</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-num" id="cd-hours">00</div>
+            <div class="countdown-label">तास</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-num" id="cd-mins">00</div>
+            <div class="countdown-label">मिनिटे</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-num" id="cd-secs">00</div>
+            <div class="countdown-label">सेकंद</div>
+          </div>
+        </div>
+
+        <div id="countdown-complete" style="display: none; margin-top: 26px;">
+          <p class="font-mr-display gold-gradient-text" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">
+            आजचा दिवस मंगलमय!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       7. WEDDING EVENTS & SCHEDULE (विवाह सोहळे व मुहूर्त)
+  ============================================================ -->
+  <section id="events" class="bg-silk-ivory">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-kicker">Wedding Schedule</p>
+        <h2 class="section-title">विवाह मुहूर्त व सोहळे</h2>
+        <div class="ornament-divider">
+          <span class="line"></span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z"/></svg>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="events-grid" id="events-container"></div>
+
+      <div class="no-gift-banner reveal">
+        टिप : आहेर पद्धत बंद. (आपले शुभाशीर्वाद हीच आमच्यासाठी अनमोल भेट.)
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       8. INTERACTIVE 3D MAHARASHTRIAN CULTURAL EXPERIENCE
+  ============================================================ -->
+  <section id="culture" class="bg-royal-maroon">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-kicker">Maharashtrian Heritage</p>
+        <h2 class="section-title">महाराष्ट्रीयन विवाह परंपरा</h2>
+        <div class="ornament-divider">
+          <span class="line"></span>
+          <span style="color: var(--gold-light);">✦</span>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="culture-layout">
+        <div class="culture-3d-frame reveal" id="culture-3d-stage" aria-label="महाराष्ट्रीयन विवाह परंपरा त्रिमितीय दर्शन"></div>
+
+        <div class="reveal">
+          <div class="culture-tabs" id="culture-tabs"></div>
+
+          <div class="peshwai-card-dark" style="padding: 32px 28px;">
+            <p class="font-en-body" id="culture-en-title" style="font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 6px;"></p>
+            <h3 class="font-mr-display" id="culture-mr-title" style="font-size: 1.85rem; color: var(--ivory); margin-bottom: 14px;"></h3>
+            <p id="culture-desc" style="font-size: 1.02rem; color: var(--cream); line-height: 1.9;"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       9. VENUE & LOCATION WITH 3D WEDDING KALASH
+  ============================================================ -->
+  <section id="venue" class="bg-silk-ivory">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-kicker">Wedding Venue</p>
+        <h2 class="section-title">विवाह स्थळ</h2>
+        <div class="ornament-divider">
+          <span class="line"></span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z"/></svg>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="venue-grid">
+        <div class="peshwai-card reveal" style="padding: 30px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="venue-kalash-stage" id="venue-kalash-stage" aria-label="मंगल कलश"></div>
+            <p style="font-size: 0.88rem; color: var(--gold-dark); font-weight: 600; margin-bottom: 6px;">|| विवाह स्थळ ||</p>
+            <h3 class="font-mr-display" style="font-size: 1.7rem; color: var(--maroon); margin-bottom: 10px;">
+              तुळजाई बॅन्क्वेट हॉल
+            </h3>
+            <p style="font-size: 1.02rem; color: var(--brown); margin-bottom: 14px;">
+              आर्वी रोड, पिपरी (मेघे),<br/>वर्धा, ता. जि. वर्धा, महाराष्ट्र.
+            </p>
+            <p style="font-size: 0.95rem; color: var(--brown-muted); margin-bottom: 22px;">
+              <strong>मुहूर्त:</strong> शुक्रवार, १८ एप्रिल २०२५ | सकाळी ११:२१ वा.<br/>
+              <strong>स्वरुचिभोजन:</strong> लग्नानंतर लगेच...
+            </p>
+          </div>
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Tuljai+Banquet+Hall+Arvi+Road+Pipri+Meghe+Wardha+Maharashtra"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-royal"
+            style="width: 100%;"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Google Maps दिशानिर्देश मिळवा</span>
+          </a>
+        </div>
+
+        <div class="venue-map-wrap reveal">
+          <iframe
+            title="तुळजाई बॅन्क्वेट हॉल, वर्धा नकाशा"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Tuljai+Banquet+Hall,+Arvi+Road,+Pipri+Meghe,+Wardha,+Maharashtra&output=embed"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       10. FAMILY INVITATION SECTION (आपले स्नेहांकित)
+  ============================================================ -->
+  <section id="family" style="background-color: var(--cream);">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-kicker">With Warm Regards</p>
+        <h2 class="section-title">आपले स्नेहांकित</h2>
+        <div class="ornament-divider">
+          <span class="line"></span>
+          <span style="color: var(--gold-dark); font-size: 1.1rem;">❖</span>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <!-- आपले कृपाभिलाषी -->
+      <div class="peshwai-card reveal" style="max-width: 540px; margin: 0 auto; padding: 26px 24px; text-align: center;">
+        <p class="family-heading" style="margin-bottom: 6px;">|| आपले कृपाभिलाषी ||</p>
+        <p style="font-size: 1.2rem; font-weight: 600; color: var(--brown);">
+          श्री. उद्धवराव सुर्यभानजी झाडे
+        </p>
+      </div>
+
+      <!-- आपले विनीत & स्वागतोत्सुक -->
+      <div class="family-grid">
+        <div class="peshwai-card family-block reveal">
+          <h3 class="family-heading">|| आपले विनीत ||</h3>
+          <ul class="couple-list">
+            <li><span>सौ. कल्पनाताई</span><span>—</span><span>श्री. भरतराव उ. झाडे</span></li>
+            <li><span>सौ. वंदनाताई</span><span>—</span><span>श्री. प्रमोदराव उ. झाडे</span></li>
+            <li><span>सौ. रंजनाताई</span><span>—</span><span>श्री. सुरेशराव उ. झाडे</span></li>
+            <li><span>सौ. रश्मीताई</span><span>—</span><span>श्री. नरेशराव उ. झाडे</span></li>
+          </ul>
+        </div>
+
+        <div class="peshwai-card family-block reveal">
+          <h3 class="family-heading">|| स्वागतोत्सुक ||</h3>
+          <p style="text-align: center; font-weight: 600; color: var(--maroon); margin-bottom: 12px;">
+            श्रीमती सुनिताताई आनंदराव वरपुडे
+          </p>
+          <ul class="couple-list">
+            <li><span>सौ. विनिताताई</span><span>—</span><span>श्री. विपुलराव झिकार</span></li>
+            <li><span>सौ. मिनलताई</span><span>—</span><span>श्री. मनिषराव तिवाडे</span></li>
+            <li><span>सौ. मयुरीताई</span><span>—</span><span>श्री. योगेशराव बोटकुले</span></li>
+            <li><span>सौ. राणीताई</span><span>—</span><span>श्री. मधुसुदनराव माळोदे</span></li>
+            <li><span>सौ. भाग्यश्रीताई</span><span>—</span><span>श्री. अनिलराव चाफले</span></li>
+          </ul>
+          <p style="text-align: center; margin-top: 16px; font-weight: 600; color: var(--brown);">
+            चि. तेजस, मेहेरांश, रोहण आणि समस्त झाडे परिवार.
+          </p>
+        </div>
+      </div>
+
+      <!-- आमच्या मावशीच्या लग्नाला यायचं बर का ! -->
+      <div class="kids-card reveal">
+        <h3 class="font-mr-display gold-gradient-text" style="font-size: clamp(1.35rem, 2.8vw, 1.85rem); margin-bottom: 10px;">
+          आमच्या मावशीच्या लग्नाला यायचं बर का !
+        </h3>
+        <p style="font-size: 1.05rem; color: var(--cream); max-width: 720px; margin: 0 auto; line-height: 1.9;">
+          चि. विराज, श्री, समर्थ, कु. कृष्णाई, चि. देवव्रत, दिव्यांश, अथांग, तोशीत, स्वामी, वियोम.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       11. INTERACTIVE PHOTO GALLERY
+  ============================================================ -->
+  <section id="gallery" class="bg-silk-ivory">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-kicker">Cherished Moments</p>
+        <h2 class="section-title">आठवणींची झलक</h2>
+        <div class="ornament-divider">
+          <span class="line"></span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z"/></svg>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <button type="button" id="lightbox-close" class="icon-btn" style="position: absolute; top: 24px; right: 24px;" aria-label="बंद करा">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="lightbox-body" style="max-width: 820px; width: 100%; text-align: center; color: var(--ivory);"></div>
+  </div>
+
+  <!-- ============================================================
+       12. RSVP SECTION
+  ============================================================ -->
+  <section id="rsvp" style="background-color: var(--cream);">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-kicker">RSVP</p>
+        <h2 class="section-title">आपली उपस्थिती कळवा</h2>
+        <div class="ornament-divider">
+          <span class="line"></span>
+          <span style="color: var(--gold-dark);">❖</span>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="peshwai-card rsvp-card reveal">
+        <form id="rsvp-form" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="rsvp-name">आपले पूर्ण नाव *</label>
+              <input type="text" id="rsvp-name" class="form-control" placeholder="उदा. श्री. राजेश देशमुख" required />
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-phone">मोबाईल क्रमांक *</label>
+              <input type="tel" id="rsvp-phone" class="form-control" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required />
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-guests">एकूण उपस्थित सदस्य</label>
+              <select id="rsvp-guests" class="form-control">
+                <option value="1">१ सदस्य</option>
+                <option value="2" selected>२ सदस्य</option>
+                <option value="3">३ सदस्य</option>
+                <option value="4">४ सदस्य</option>
+                <option value="5+">५ किंवा अधिक सदस्य</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>उपस्थिती नोंदवा *</label>
+              <div class="rsvp-choice-row">
+                <button type="button" class="rsvp-choice-btn selected" data-status="मी नक्की येणार!">मी नक्की येणार!</button>
+                <button type="button" class="rsvp-choice-btn" data-status="उपस्थित राहू शकणार नाही">उपस्थित राहू शकणार नाही</button>
+              </div>
+            </div>
+
+            <div class="form-group full">
+              <label for="rsvp-msg">वधू-वरांसाठी शुभाशीर्वाद / संदेश (ऐच्छिक)</label>
+              <textarea id="rsvp-msg" rows="3" class="form-control" placeholder="आपले मनःपूर्वक शुभाशीर्वाद येथे लिहा..."></textarea>
+            </div>
+          </div>
+
+          <p id="rsvp-error" style="color: #A61C3C; font-size: 0.9rem; margin-top: 12px; display: none;"></p>
+
+          <div style="margin-top: 24px; text-align: center;">
+            <button type="submit" id="rsvp-submit-btn" class="btn-royal" style="min-width: 220px;">
+              <span>निमंत्रण स्वीकारा व पाठवा</span>
+            </button>
+          </div>
+        </form>
+
+        <div id="rsvp-success" style="display: none; text-align: center; padding: 20px 10px;">
+          <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(112, 31, 50, 0.1); border: 1.5px solid var(--gold); color: var(--maroon); display: grid; place-items: center; margin: 0 auto 16px; font-size: 1.6rem;">✓</div>
+          <h3 class="font-mr-display" style="font-size: 1.65rem; color: var(--maroon); margin-bottom: 8px;">
+            मनःपूर्वक धन्यवाद!
+          </h3>
+          <p id="rsvp-success-text" style="color: var(--brown); font-size: 1rem;"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       13. ROYAL FOOTER
+  ============================================================ -->
+  <footer class="bg-royal-maroon" style="padding: 68px 0 42px; text-align: center; border-top: 1px solid rgba(196, 154, 69, 0.35);">
+    <div class="container">
+      <p class="font-mr-display gold-gradient-text" style="font-size: clamp(1.3rem, 3vw, 1.85rem); margin-bottom: 14px;">
+        "आपली उपस्थिती आणि आशीर्वाद हीच आमच्यासाठी अनमोल भेट."
+      </p>
+
+      <p style="color: var(--gold-light); font-size: 0.95rem; margin-bottom: 4px;">सप्रेम निमंत्रक</p>
+      <p class="font-mr-display" style="font-size: 1.5rem; color: var(--ivory); margin-bottom: 20px;">
+        समस्त झाडे परिवार, वर्धा
+      </p>
+
+      <p style="color: var(--cream); opacity: 0.88; font-size: 0.94rem; margin-bottom: 24px;">
+        शुक्रवार, १८ एप्रिल २०२५ &nbsp;•&nbsp; सकाळी ११:२१ वा. &nbsp;•&nbsp; तुळजाई बॅन्क्वेट हॉल, आर्वी रोड, पिपरी (मेघे), वर्धा
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 30px;">
+        <button type="button" id="share-btn" class="btn-outline-gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span id="share-btn-label">निमंत्रण शेअर करा</span>
+        </button>
+        <a href="#hero" class="btn-outline-gold">वर जा ↑</a>
+      </div>
+
+      <div class="ornament-divider" style="margin: 12px auto 18px;">
+        <span class="line"></span>
+        <span style="color: var(--gold-light);">✦</span>
+        <span class="line"></span>
+      </div>
+
+      <p class="font-mr-display" style="font-size: 1.25rem; color: var(--gold-light);">
+        भेटूया मंगलमय क्षणी!
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Audio Control -->
+  <div id="floating-audio">
+    <button type="button" id="float-audio-btn" class="pill-control" aria-label="संगीत नियंत्रण">
+      <span id="float-audio-label">♪ संगीत</span>
+    </button>
+  </div>
+
+  <!-- ============================================================
+       CENTRALIZED CONFIGURATION & APPLICATION SCRIPT
+  ============================================================ -->
+  <script>
+    /* ============================================================
+       CENTRAL WEDDING CONFIGURATION (Easy to edit)
+    ============================================================ */
+    const WEDDING_CONFIG = {
+      brideNameMr: "पायल (खेमदेवी)",
+      groomNameMr: "कृपाल",
+      // Wedding ISO Date-Time for Countdown (18 April 2025, 11:21 AM IST)
+      weddingDateISO: "2025-04-18T11:21:00+05:30",
+
+      // Optional: Add a Google Apps Script Web App URL to save RSVPs directly to Google Sheets,
+      // or a 10-digit WhatsApp number (with 91 prefix, e.g. "9198XXXXXXXX") for direct WhatsApp RSVP.
+      rsvpWebhookUrl: "",
+      rsvpWhatsAppNumber: "",
+
+      events: [
+        {
+          mrTitle: "शुभविवाह मुहूर्त",
+          enTitle: "Wedding Ceremony",
+          date: "शुक्रवार, दि. १८/०४/२०२५ (चैत्र शुद्ध १०, शके १९४७)",
+          time: "सकाळी ११:२१ मि. शुभ मुहूर्तावर",
+          venue: "तुळजाई बॅन्क्वेट हॉल, आर्वी रोड, पिपरी (मेघे), वर्धा.",
+          desc: "मंगलाष्टकांच्या मंगल सुरात आणि आपल्या सर्वांच्या शुभाशीर्वादाने पायल व कृपाल यांचा शुभविवाह सोहळा संपन्न होईल.",
+          icon: "kalash"
+        },
+        {
+          mrTitle: "स्वरुचिभोजन",
+          enTitle: "Wedding Feast",
+          date: "शुक्रवार, दि. १८/०४/२०२५",
+          time: "लग्नानंतर लगेच...",
+          venue: "तुळजाई बॅन्क्वेट हॉल, आर्वी रोड, पिपरी (मेघे), वर्धा.",
+          desc: "विवाह सोहळ्यानंतर पारंपरिक महाराष्ट्रीयन स्नेहभोजनाचा आस्वाद घेण्यासाठी आपली स्नेहपूर्ण उपस्थिती प्रार्थनीय आहे.",
+          icon: "feast"
+        }
+      ],
+
+      cultureItems: [
+        {
+          id: "ganesh",
+          mr: "गणेश पूजन",
+          en: "Ganesh Pujan",
+          desc: "कोणत्याही शुभकार्याची सुरुवात विघ्नहर्ता श्री गणेशाच्या पूजनाने होते. विवाह सोहळा निर्विघ्नपणे पार पडावा यासाठी गणपती बाप्पाचे आवाहन करून आशीर्वाद घेतले जातात."
+        },
+        {
+          id: "sakharpuda",
+          mr: "साखरपुडा",
+          en: "Sakharpuda",
+          desc: "दोन कुटुंबांमधील नात्याचा गोडवा जपण्यासाठी वधू-वराला साखर भरवून व वस्त्रालंकार देऊन विवाहाचा संकल्प दृढ केला जातो."
+        },
+        {
+          id: "haldi",
+          mr: "हळदी समारंभ",
+          en: "Haldi Ceremony",
+          desc: "आंब्याच्या पानाने वधू-वराला सुगंधी हळद लावण्याचा हा आनंददायी विधी सौभाग्य, समृद्धी आणि नवजीवनाच्या तेजाचे प्रतीक मानला जातो."
+        },
+        {
+          id: "antarpat",
+          mr: "अंतरपाट",
+          en: "Antarpat",
+          desc: "मंगलाष्टकांच्या वेळी वधू आणि वर यांच्यामध्ये स्वस्तिक अंकित रेशमी अंतरपाट धरला जातो. शुभमुहूर्तावर तो बाजूला होताच दोघे एकमेकांना वरमाला अर्पण करतात."
+        },
+        {
+          id: "mangalashtak",
+          mr: "मंगलाष्टक",
+          en: "Mangalashtak",
+          desc: "लग्नमंडपात स्वरबद्ध गायली जाणारी मंगल श्लोक रचना म्हणजेच मंगलाष्टक. 'शुभमंगल सावधान!' या उद्घोषासह नवदांपत्याच्या नवजीवनाची सुरुवात होते."
+        },
+        {
+          id: "akshata",
+          mr: "अक्षता",
+          en: "Akshata",
+          desc: "हळद-कुंकवाने रंगवलेले अखंड तांदळाचे दाणे म्हणजे अक्षता. उपस्थित सर्व स्नेहीजन वधू-वरांवर अक्षता उधळून त्यांना अखंड सौभाग्याचे शुभाशीर्वाद देतात."
+        },
+        {
+          id: "mangalsutra",
+          mr: "मंगळसूत्र",
+          en: "Mangalsutra",
+          desc: "काळ्या मण्यांच्या आणि सुवर्ण वाटीच्या धाग्यात गुंफलेले मंगळसूत्र हे पती-पत्नीमधील अतुट प्रेम, विश्वास आणि जन्मोजन्मीच्या सहजीवनाचे पवित्र प्रतीक आहे."
+        }
+      ],
+
+      // Add real photo URLs inside `src` whenever ready (keeps tasteful ornamental frames until then)
+      gallery: [
+        { title: "वधू-वर छायाचित्र", subtitle: "Couple Portrait", src: "" },
+        { title: "साखरपुडा सोहळा", subtitle: "Engagement Moments", src: "" },
+        { title: "झाडे परिवार", subtitle: "Family Memories", src: "" },
+        { title: "विवाह तयारी", subtitle: "Wedding Celebrations", src: "" }
+      ]
+    };
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ============================================================
+       RENDER EVENTS & GALLERY FROM CONFIG
+    ============================================================ */
+    function renderEvents() {
+      const container = document.getElementById("events-container");
+      const icons = {
+        kalash: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9h8l1 4a5 5 0 0 1-10 0l1-4Z"/><path d="M9 9c0-2 1.5-3 3-3s3 1 3 3"/><path d="M12 3v3"/><path d="M7 20h10"/></svg>`,
+        feast: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M4 12h2M18 12h2"/></svg>`
+      };
+      container.innerHTML = WEDDING_CONFIG.events.map(ev => `
+        <article class="peshwai-card event-card reveal">
+          <div class="event-icon-wrap">${icons[ev.icon] || icons.kalash}</div>
+          <p class="font-en-body" style="font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600;">${ev.enTitle}</p>
+          <h3 class="font-mr-display" style="font-size: 1.65rem; color: var(--maroon); margin: 4px 0 10px;">${ev.mrTitle}</h3>
+          <p style="font-size: 0.96rem; color: var(--brown-muted);">${ev.desc}</p>
+          <div class="event-meta">
+            <div><strong>दिनांक:</strong> ${ev.date}</div>
+            <div><strong>वेळ:</strong> ${ev.time}</div>
+            <div><strong>स्थळ:</strong> ${ev.venue}</div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById("gallery-grid");
+      grid.innerHTML = WEDDING_CONFIG.gallery.map((item, idx) => `
+        <div class="gallery-slot reveal" data-idx="${idx}">
+          ${item.src
+            ? `<img src="${item.src}" alt="${item.title}" loading="lazy" />`
+            : `
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.4" style="margin-bottom: 12px;">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <circle cx="8.5" cy="10.5" r="1.5"/>
+                <path d="m21 15-5-5L5 19"/>
+              </svg>
+              <p class="font-mr-display" style="font-size: 1.15rem; color: var(--maroon);">${item.title}</p>
+              <p class="font-en-display" style="font-size: 0.85rem; font-style: italic; color: var(--brown-muted); margin-top: 4px;">${item.subtitle}</p>
+            `
+          }
+        </div>
+      `).join("");
+
+      const lightbox = document.getElementById("lightbox");
+      const lbBody = document.getElementById("lightbox-body");
+      grid.querySelectorAll(".gallery-slot").forEach(slot => {
+        slot.addEventListener("click", () => {
+          const item = WEDDING_CONFIG.gallery[Number(slot.dataset.idx)];
+          lbBody.innerHTML = item.src
+            ? `<img src="${item.src}" alt="${item.title}" style="max-height: 80vh; max-width: 100%; border-radius: 12px; border: 1px solid var(--gold);" /><p class="font-mr-display" style="margin-top: 14px; font-size: 1.3rem;">${item.title}</p>`
+            : `<div class="peshwai-card-dark" style="padding: 46px 28px;"><h3 class="font-mr-display gold-gradient-text" style="font-size: 1.8rem; margin-bottom: 10px;">${item.title}</h3><p style="color: var(--cream);">विवाह सोहळ्यातील सुंदर छायाचित्रे लवकरच येथे जोडली जातील.</p></div>`;
+          lightbox.classList.add("open");
+        });
+      });
+      document.getElementById("lightbox-close").addEventListener("click", () => lightbox.classList.remove("open"));
+      lightbox.addEventListener("click", (e) => { if (e.target === lightbox) lightbox.classList.remove("open"); });
+    }
+
+    /* ============================================================
+       LIVE COUNTDOWN
+    ============================================================ */
+    function initCountdown() {
+      const target = new Date(WEDDING_CONFIG.weddingDateISO).getTime();
+      const dEl = document.getElementById("cd-days");
+      const hEl = document.getElementById("cd-hours");
+      const mEl = document.getElementById("cd-mins");
+      const sEl = document.getElementById("cd-secs");
+      const grid = document.getElementById("countdown-grid");
+      const done = document.getElementById("countdown-complete");
+      const heading = document.getElementById("countdown-heading");
+
+      function update() {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          grid.style.display = "none";
+          done.style.display = "block";
+          heading.textContent = "शुभविवाह सोहळा";
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+        dEl.textContent = String(days).padStart(2, "0");
+        hEl.textContent = String(hours).padStart(2, "0");
+        mEl.textContent = String(mins).padStart(2, "0");
+        sEl.textContent = String(secs).padStart(2, "0");
+      }
+      update();
+      setInterval(update, 1000);
+    }
+
+    /* ============================================================
+       OPTIONAL WEB AUDIO TRADITIONAL AMBIANCE (Tanpura + Raag Bhupali)
+    ============================================================ */
+    const WeddingAudio = (() => {
+      let ctx = null;
+      let masterGain = null;
+      let playing = false;
+      let timer = null;
+      let droneOscs = [];
+      const bhupali = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 440.00, 392.00, 329.63, 293.66];
+      let noteIdx = 0;
+
+      function start() {
+        if (playing) return;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        if (!ctx) {
+          ctx = new AudioCtx();
+          masterGain = ctx.createGain();
+          masterGain.gain.value = 0.0;
+          masterGain.connect(ctx.destination);
+        }
+        if (ctx.state === "suspended") ctx.resume();
+
+        // Warm Tanpura Drone (Sa - Pa - Sa)
+        [130.81, 196.00, 261.63].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const filter = ctx.createBiquadFilter();
+          osc.type = i === 1 ? "triangle" : "sine";
+          osc.frequency.value = freq;
+          filter.type = "lowpass";
+          filter.frequency.value = 520;
+          gain.gain.value = i === 0 ? 0.12 : 0.06;
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(masterGain);
+          osc.start();
+          droneOscs.push(osc);
+        });
+
+        masterGain.gain.cancelScheduledValues(ctx.currentTime);
+        masterGain.gain.linearRampToValueAtTime(0.24, ctx.currentTime + 1.4);
+
+        // Soft Santoor / Flute Plucks
+        timer = setInterval(() => {
+          if (!ctx || !playing) return;
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = "triangle";
+          const f = bhupali[noteIdx % bhupali.length];
+          noteIdx++;
+          osc.frequency.setValueAtTime(f, now);
+          g.gain.setValueAtTime(0.001, now);
+          g.gain.exponentialRampToValueAtTime(0.11, now + 0.08);
+          g.gain.exponentialRampToValueAtTime(0.0008, now + 2.2);
+          osc.connect(g);
+          g.connect(masterGain);
+          osc.start(now);
+          osc.stop(now + 2.3);
+        }, 1650);
+
+        playing = true;
+        syncAudioUI();
+      }
+
+      function stop() {
+        if (!playing) return;
+        playing = false;
+        if (timer) clearInterval(timer);
+        if (masterGain && ctx) {
+          masterGain.gain.cancelScheduledValues(ctx.currentTime);
+          masterGain.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.4);
+        }
+        setTimeout(() => {
+          droneOscs.forEach(o => { try { o.stop(); } catch (_) {} });
+          droneOscs = [];
+        }, 450);
+        syncAudioUI();
+      }
+
+      function toggle() { playing ? stop() : start(); }
+
+      function syncAudioUI() {
+        const openLbl = document.getElementById("opening-sound-label");
+        const floatLbl = document.getElementById("float-audio-label");
+        const navIcon = document.getElementById("nav-audio-icon");
+        if (openLbl) openLbl.textContent = playing ? "संगीत: चालू" : "संगीत: बंद";
+        if (floatLbl) floatLbl.textContent = playing ? "♪ संगीत चालू" : "♪ संगीत बंद";
+        if (navIcon) {
+          navIcon.innerHTML = playing
+            ? `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`
+            : `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
+        }
+      }
+
+      return { start, stop, toggle, isPlaying: () => playing };
+    })();
+
+    /* ============================================================
+       THREE.JS HIGH-DETAIL PBR MATERIAL LIBRARY & HELPERS
+    ============================================================ */
+    const MATS = {};
+    function initMaterials() {
+      if (typeof THREE === "undefined") return;
+      MATS.antiqueGold = new THREE.MeshStandardMaterial({
+        color: 0xd9ad4c, metalness: 0.88, roughness: 0.24
+      });
+      MATS.brightGold = new THREE.MeshStandardMaterial({
+        color: 0xf2cf78, metalness: 0.92, roughness: 0.16
+      });
+      MATS.brass = new THREE.MeshStandardMaterial({
+        color: 0xc49234, metalness: 0.82, roughness: 0.30
+      });
+      MATS.royalMaroon = new THREE.MeshStandardMaterial({
+        color: 0x6b182c, metalness: 0.18, roughness: 0.52
+      });
+      MATS.silkIvory = new THREE.MeshStandardMaterial({
+        color: 0xfff5e0, metalness: 0.06, roughness: 0.65, side: THREE.DoubleSide
+      });
+      MATS.waxSeal = new THREE.MeshStandardMaterial({
+        color: 0x9b1d2e, metalness: 0.25, roughness: 0.38
+      });
+      MATS.marigold = new THREE.MeshStandardMaterial({
+        color: 0xf08c18, metalness: 0.05, roughness: 0.62
+      });
+      MATS.marigoldBright = new THREE.MeshStandardMaterial({
+        color: 0xffb324, metalness: 0.05, roughness: 0.58
+      });
+      MATS.mangoLeaf = new THREE.MeshStandardMaterial({
+        color: 0x2f6b2f, metalness: 0.08, roughness: 0.52, side: THREE.DoubleSide
+      });
+      MATS.coconut = new THREE.MeshStandardMaterial({
+        color: 0x6c4526, metalness: 0.05, roughness: 0.88
+      });
+      MATS.turmeric = new THREE.MeshStandardMaterial({
+        color: 0xf2a71b, metalness: 0.04, roughness: 0.86
+      });
+      MATS.kumkum = new THREE.MeshStandardMaterial({
+        color: 0xb81822, metalness: 0.05, roughness: 0.82
+      });
+      MATS.blackBead = new THREE.MeshStandardMaterial({
+        color: 0x161214, metalness: 0.55, roughness: 0.22
+      });
+      MATS.flame = new THREE.MeshBasicMaterial({ color: 0xffd260 });
+      MATS.flameCore = new THREE.MeshBasicMaterial({ color: 0xfff8dc });
+    }
+
+    function createRenderer(container) {
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.18;
+      container.appendChild(renderer.domElement);
+      return renderer;
+    }
+
+    function addStudioLights(scene) {
+      scene.add(new THREE.AmbientLight(0xfff1d6, 0.72));
+      const key = new THREE.DirectionalLight(0xffe6b3, 1.45);
+      key.position.set(4, 6, 5);
+      scene.add(key);
+      const rim = new THREE.DirectionalLight(0xe89a32, 0.85);
+      rim.position.set(-5, 3, -4);
+      scene.add(rim);
+      const fill = new THREE.PointLight(0xffd27d, 0.7, 16);
+      fill.position.set(0, -2, 4);
+      scene.add(fill);
+    }
+
+    function buildMarigoldFlower(scale = 1) {
+      const g = new THREE.Group();
+      const layers = [
+        { count: 10, radius: 0.20, y: 0.0, mat: MATS.marigold },
+        { count: 8, radius: 0.14, y: 0.06, mat: MATS.marigoldBright },
+        { count: 5, radius: 0.07, y: 0.11, mat: MATS.marigold }
+      ];
+      const petalGeo = new THREE.SphereGeometry(0.085, 8, 6);
+      layers.forEach(l => {
+        for (let i = 0; i < l.count; i++) {
+          const a = (i / l.count) * Math.PI * 2;
+          const p = new THREE.Mesh(petalGeo, l.mat);
+          p.scale.set(1, 0.55, 1.25);
+          p.position.set(Math.cos(a) * l.radius, l.y, Math.sin(a) * l.radius);
+          p.rotation.y = -a;
+          g.add(p);
+        }
+      });
+      g.scale.setScalar(scale);
+      return g;
+    }
+
+    /* ============================================================
+       3D OBJECT 1: ROYAL OPENING INVITATION ENVELOPE
+    ============================================================ */
+    let openingSceneCtrl = null;
+    function initOpening3D() {
+      const wrap = document.getElementById("opening-canvas-wrap");
+      if (!wrap || typeof THREE === "undefined") return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(40, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
+      camera.position.set(0, 0.25, 6.2);
+
+      const renderer = createRenderer(wrap);
+      addStudioLights(scene);
+
+      const envGroup = new THREE.Group();
+      scene.add(envGroup);
+
+      // Sculpted Maroon Envelope Body
+      const bodyGeo = new THREE.BoxGeometry(3.5, 2.3, 0.16);
+      const bodyMesh = new THREE.Mesh(bodyGeo, MATS.royalMaroon);
+      envGroup.add(bodyMesh);
+
+      // Gold Ornamental Trim Frame
+      const trimShape = new THREE.Shape();
+      const tw = 1.66, th = 1.06;
+      trimShape.moveTo(-tw, -th); trimShape.lineTo(tw, -th); trimShape.lineTo(tw, th); trimShape.lineTo(-tw, th); trimShape.closePath();
+      const hole = new THREE.Path();
+      hole.moveTo(-tw + 0.05, -th + 0.05); hole.lineTo(tw - 0.05, -th + 0.05); hole.lineTo(tw - 0.05, th - 0.05); hole.lineTo(-tw + 0.05, th - 0.05); hole.closePath();
+      trimShape.holes.push(hole);
+      const trimGeo = new THREE.ExtrudeGeometry(trimShape, { depth: 0.025, bevelEnabled: false });
+      const trimMesh = new THREE.Mesh(trimGeo, MATS.brightGold);
+      trimMesh.position.z = 0.082;
+      envGroup.add(trimMesh);
+
+      // Inner Ivory Invitation Card (slides out on open)
+      const cardGroup = new THREE.Group();
+      const cardMesh = new THREE.Mesh(new THREE.BoxGeometry(3.18, 2.0, 0.05), MATS.silkIvory);
+      cardGroup.add(cardMesh);
+      const cardGoldBorder = new THREE.Mesh(new THREE.BoxGeometry(3.04, 1.86, 0.055), MATS.antiqueGold);
+      cardGroup.add(cardGoldBorder);
+      const cardInnerFace = new THREE.Mesh(new THREE.BoxGeometry(2.96, 1.78, 0.058), MATS.silkIvory);
+      cardGroup.add(cardInnerFace);
+      // Golden Emblem inside card
+      const cardMedallion = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.035, 16, 40), MATS.brightGold);
+      cardMedallion.position.set(0, 0.25, 0.04);
+      cardGroup.add(cardMedallion);
+      cardGroup.position.set(0, 0, 0.03);
+      envGroup.add(cardGroup);
+
+      // Hinged Top Triangular Flap
+      const flapPivot = new THREE.Group();
+      flapPivot.position.set(0, 1.15, 0.09);
+      const flapShape = new THREE.Shape();
+      flapShape.moveTo(-1.75, 0);
+      flapShape.lineTo(1.75, 0);
+      flapShape.lineTo(0, -1.28);
+      flapShape.closePath();
+      const flapGeo = new THREE.ExtrudeGeometry(flapShape, { depth: 0.035, bevelEnabled: true, bevelThickness: 0.015, bevelSize: 0.015, bevelSegments: 3 });
+      const flapMesh = new THREE.Mesh(flapGeo, MATS.royalMaroon);
+      flapPivot.add(flapMesh);
+
+      // Gold Wax Seal & Embossed Emblem on Flap Tip
+      const sealGroup = new THREE.Group();
+      const wax = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.34, 0.07, 32), MATS.waxSeal);
+      wax.rotation.x = Math.PI / 2;
+      sealGroup.add(wax);
+      const sealRing = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.025, 12, 36), MATS.brightGold);
+      sealRing.position.z = 0.042;
+      sealGroup.add(sealRing);
+      const sealCore = new THREE.Mesh(new THREE.OctahedronGeometry(0.11, 1), MATS.brightGold);
+      sealCore.scale.set(1, 1, 0.45);
+      sealCore.position.z = 0.05;
+      sealGroup.add(sealCore);
+      sealGroup.position.set(0, -1.16, 0.06);
+      flapPivot.add(sealGroup);
+      envGroup.add(flapPivot);
+
+      // Floating Marigold Petals & Golden Motes
+      const petals = [];
+      const petalGeo = new THREE.SphereGeometry(0.08, 6, 5);
+      for (let i = 0; i < 34; i++) {
+        const m = new THREE.Mesh(petalGeo, i % 3 === 0 ? MATS.brightGold : (i % 2 === 0 ? MATS.marigold : MATS.marigoldBright));
+        m.scale.set(1.3, 0.35, 0.9);
+        m.position.set((Math.random() - 0.5) * 9, (Math.random() - 0.5) * 6, (Math.random() - 0.5) * 4 - 1);
+        m.userData = { speed: 0.004 + Math.random() * 0.007, drift: Math.random() * Math.PI * 2 };
+        scene.add(m);
+        petals.push(m);
+      }
+
+      let opening = false;
+      let openProgress = 0;
+      let active = true;
+      let rafId = null;
+
+      function animate(t) {
+        if (!active) return;
+        rafId = requestAnimationFrame(animate);
+        const sec = t * 0.001;
+
+        if (!opening) {
+          envGroup.position.y = Math.sin(sec * 1.4) * 0.1;
+          envGroup.rotation.y = Math.sin(sec * 0.6) * 0.14;
+          envGroup.rotation.x = Math.cos(sec * 0.5) * 0.05;
+        } else {
+          openProgress = Math.min(1, openProgress + 0.022);
+          const ease = 1 - Math.pow(1 - openProgress, 3);
+          flapPivot.rotation.x = -ease * Math.PI * 0.88;
+          cardGroup.position.y = ease * 1.45;
+          cardGroup.position.z = 0.03 + ease * 0.45;
+          camera.position.z = 6.2 - ease * 1.6;
+          envGroup.rotation.y *= 0.92;
+        }
+
+        petals.forEach(p => {
+          p.position.y -= p.userData.speed;
+          p.position.x += Math.sin(sec + p.userData.drift) * 0.003;
+          p.rotation.x += 0.015;
+          p.rotation.z += 0.01;
+          if (p.position.y < -3.5) p.position.y = 3.5;
+        });
+
+        renderer.render(scene, camera);
+      }
+      if (!prefersReducedMotion) rafId = requestAnimationFrame(animate);
+      else renderer.render(scene, camera);
+
+      const onResize = () => {
+        if (!active) return;
+        camera.aspect = wrap.clientWidth / wrap.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+      };
+      window.addEventListener("resize", onResize);
+
+      openingSceneCtrl = {
+        triggerOpen: (cb) => {
+          opening = true;
+          setTimeout(() => {
+            cb();
+            setTimeout(() => {
+              active = false;
+              if (rafId) cancelAnimationFrame(rafId);
+              window.removeEventListener("resize", onResize);
+              renderer.dispose();
+            }, 950);
+          }, 1050);
+        },
+        disposeImmediate: () => {
+          active = false;
+          if (rafId) cancelAnimationFrame(rafId);
+          window.removeEventListener("resize", onResize);
+          renderer.dispose();
+        }
+      };
+    }
+
+    /* ============================================================
+       3D OBJECT 2: HIGH-DETAIL MAHARASHTRIAN SAMAI (HERO)
+    ============================================================ */
+    function buildSamaiModel() {
+      const group = new THREE.Group();
+
+      // Lathed Brass Pedestal & Fluted Stem
+      const profile = [
+        new THREE.Vector2(0.0, 0.0),
+        new THREE.Vector2(0.82, 0.0),
+        new THREE.Vector2(0.84, 0.08),
+        new THREE.Vector2(0.68, 0.18),
+        new THREE.Vector2(0.55, 0.30),
+        new THREE.Vector2(0.24, 0.48),
+        new THREE.Vector2(0.16, 0.72),
+        new THREE.Vector2(0.26, 0.95),
+        new THREE.Vector2(0.14, 1.15),
+        new THREE.Vector2(0.11, 1.65),
+        new THREE.Vector2(0.22, 1.88),
+        new THREE.Vector2(0.12, 2.08),
+        new THREE.Vector2(0.18, 2.30),
+        new THREE.Vector2(0.76, 2.48),
+        new THREE.Vector2(0.82, 2.66),
+        new THREE.Vector2(0.74, 2.68),
+        new THREE.Vector2(0.60, 2.52),
+        new THREE.Vector2(0.15, 2.48),
+        new THREE.Vector2(0.12, 2.95),
+        new THREE.Vector2(0.20, 3.16),
+        new THREE.Vector2(0.08, 3.42),
+        new THREE.Vector2(0.0, 3.60)
+      ];
+      const bodyGeo = new THREE.LatheGeometry(profile, 48);
+      const bodyMesh = new THREE.Mesh(bodyGeo, MATS.antiqueGold);
+      group.add(bodyMesh);
+
+      // Decorative Engraved Rings
+      [0.48, 0.95, 1.88, 2.66].forEach((y, idx) => {
+        const r = idx === 3 ? 0.80 : (idx === 0 ? 0.25 : 0.24);
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(r, 0.025, 12, 42), MATS.brightGold);
+        ring.rotation.x = Math.PI / 2;
+        ring.position.y = y;
+        group.add(ring);
+      });
+
+      // 5 Spouts (Wick Grooves) + Flickering Flames
+      const flames = [];
+      for (let i = 0; i < 5; i++) {
+        const a = (i / 5) * Math.PI * 2;
+        const spout = new THREE.Mesh(new THREE.ConeGeometry(0.10, 0.28, 12), MATS.brightGold);
+        spout.rotation.z = -Math.PI / 2.2;
+        spout.rotation.y = -a;
+        spout.position.set(Math.cos(a) * 0.84, 2.62, Math.sin(a) * 0.84);
+        group.add(spout);
+
+        const fGroup = new THREE.Group();
+        const outerFlame = new THREE.Mesh(new THREE.ConeGeometry(0.075, 0.26, 12), MATS.flame);
+        outerFlame.position.y = 0.12;
+        const innerFlame = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.15, 10), MATS.flameCore);
+        innerFlame.position.y = 0.09;
+        fGroup.add(outerFlame, innerFlame);
+        fGroup.position.set(Math.cos(a) * 0.92, 2.68, Math.sin(a) * 0.92);
+        group.add(fGroup);
+        flames.push(fGroup);
+      }
+
+      // Warm Glow Light at the Oil Lamp Level
+      const lampLight = new THREE.PointLight(0xffb443, 2.1, 8);
+      lampLight.position.set(0, 2.95, 0);
+      group.add(lampLight);
+
+      // Marigold Garland Ring Around the Base
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        const flower = buildMarigoldFlower(0.68);
+        flower.position.set(Math.cos(a) * 0.92, 0.08, Math.sin(a) * 0.92);
+        group.add(flower);
+      }
+
+      group.position.y = -1.75;
+      return { group, flames, lampLight };
+    }
+
+    function initHeroSamai() {
+      const stage = document.getElementById("hero-samai-stage");
+      if (!stage || typeof THREE === "undefined") return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(38, stage.clientWidth / stage.clientHeight, 0.1, 100);
+      camera.position.set(0, 0.4, 6.2);
+
+      const renderer = createRenderer(stage);
+      addStudioLights(scene);
+
+      const { group: samai, flames, lampLight } = buildSamaiModel();
+      scene.add(samai);
+
+      // Subtle Golden Embers Rising
+      const embers = [];
+      const eGeo = new THREE.SphereGeometry(0.025, 6, 6);
+      for (let i = 0; i < 24; i++) {
+        const e = new THREE.Mesh(eGeo, MATS.brightGold);
+        e.position.set((Math.random() - 0.5) * 3.5, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 2);
+        e.userData = { speed: 0.004 + Math.random() * 0.006, phase: Math.random() * 6.28 };
+        scene.add(e);
+        embers.push(e);
+      }
+
+      let visible = true;
+      const io = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }, { threshold: 0.05 });
+      io.observe(stage);
+
+      function animate(t) {
+        requestAnimationFrame(animate);
+        if (!visible) return;
+        const sec = t * 0.001;
+        samai.rotation.y = sec * 0.34;
+        flames.forEach((f, i) => {
+          const flick = 1 + Math.sin(sec * 12 + i * 1.7) * 0.12;
+          f.scale.set(1, flick, 1);
+        });
+        lampLight.intensity = 1.95 + Math.sin(sec * 9) * 0.22;
+        embers.forEach(e => {
+          e.position.y += e.userData.speed;
+          e.position.x += Math.sin(sec + e.userData.phase) * 0.0025;
+          if (e.position.y > 2.3) e.position.y = -2.0;
+        });
+        renderer.render(scene, camera);
+      }
+      if (!prefersReducedMotion) requestAnimationFrame(animate);
+      else renderer.render(scene, camera);
+
+      window.addEventListener("resize", () => {
+        camera.aspect = stage.clientWidth / stage.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(stage.clientWidth, stage.clientHeight);
+      });
+    }
+
+    /* ============================================================
+       3D OBJECT 3: WEDDING KALASH (VENUE SECTION)
+    ============================================================ */
+    function buildKalashModel() {
+      const g = new THREE.Group();
+      const potProfile = [
+        new THREE.Vector2(0.0, 0.0),
+        new THREE.Vector2(0.45, 0.0),
+        new THREE.Vector2(0.50, 0.08),
+        new THREE.Vector2(0.76, 0.45),
+        new THREE.Vector2(0.82, 0.85),
+        new THREE.Vector2(0.64, 1.25),
+        new THREE.Vector2(0.40, 1.46),
+        new THREE.Vector2(0.56, 1.66),
+        new THREE.Vector2(0.52, 1.70),
+        new THREE.Vector2(0.36, 1.48)
+      ];
+      const pot = new THREE.Mesh(new THREE.LatheGeometry(potProfile, 44), MATS.brass);
+      g.add(pot);
+
+      // Decorative Mauli (Sacred Red-Gold Thread) around Kalash neck
+      const thread = new THREE.Mesh(new THREE.TorusGeometry(0.43, 0.032, 12, 36), MATS.waxSeal);
+      thread.rotation.x = Math.PI / 2;
+      thread.position.y = 1.46;
+      g.add(thread);
+      const goldBand = new THREE.Mesh(new THREE.TorusGeometry(0.81, 0.025, 12, 42), MATS.brightGold);
+      goldBand.rotation.x = Math.PI / 2;
+      goldBand.position.y = 0.85;
+      g.add(goldBand);
+
+      // 7 Radial Mango Leaves
+      const leafShape = new THREE.Shape();
+      leafShape.moveTo(0, 0);
+      leafShape.quadraticCurveTo(0.24, 0.36, 0, 0.92);
+      leafShape.quadraticCurveTo(-0.24, 0.36, 0, 0);
+      const leafGeo = new THREE.ShapeGeometry(leafShape, 12);
+      for (let i = 0; i < 7; i++) {
+        const a = (i / 7) * Math.PI * 2;
+        const leaf = new THREE.Mesh(leafGeo, MATS.mangoLeaf);
+        leaf.position.set(Math.cos(a) * 0.36, 1.56, Math.sin(a) * 0.36);
+        leaf.rotation.y = -a + Math.PI / 2;
+        leaf.rotation.x = 0.72;
+        g.add(leaf);
+      }
+
+      // Coconut resting on top
+      const coconut = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 20), MATS.coconut);
+      coconut.scale.set(0.95, 1.18, 0.95);
+      coconut.position.y = 1.92;
+      g.add(coconut);
+
+      g.position.y = -1.1;
+      return g;
+    }
+
+    function initVenueKalash() {
+      const stage = document.getElementById("venue-kalash-stage");
+      if (!stage || typeof THREE === "undefined") return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(36, stage.clientWidth / stage.clientHeight, 0.1, 100);
+      camera.position.set(0, 0.35, 4.4);
+
+      const renderer = createRenderer(stage);
+      addStudioLights(scene);
+
+      const kalash = buildKalashModel();
+      scene.add(kalash);
+
+      let visible = false;
+      const io = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }, { threshold: 0.05 });
+      io.observe(stage);
+
+      function animate(t) {
+        requestAnimationFrame(animate);
+        if (!visible) return;
+        kalash.rotation.y = t * 0.00055;
+        renderer.render(scene, camera);
+      }
+      if (!prefersReducedMotion) requestAnimationFrame(animate);
+      else renderer.render(scene, camera);
+
+      window.addEventListener("resize", () => {
+        camera.aspect = stage.clientWidth / stage.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(stage.clientWidth, stage.clientHeight);
+      });
+    }
+
+    /* ============================================================
+       3D OBJECT 4: INTERACTIVE CULTURAL ARTEFACTS SHOWCASE
+    ============================================================ */
+    function buildCultureArtefact(id) {
+      const g = new THREE.Group();
+
+      if (id === "ganesh") {
+        // Ornate Golden Medallion with Brass Pedestal
+        const disc = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.15, 0.14, 48), MATS.royalMaroon);
+        disc.rotation.x = Math.PI / 2;
+        g.add(disc);
+        const rim = new THREE.Mesh(new THREE.TorusGeometry(1.16, 0.08, 16, 48), MATS.brightGold);
+        g.add(rim);
+        // Sculpted Abstract Golden Ganesh Symbol Relief
+        const crown = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.45, 16), MATS.brightGold);
+        crown.position.set(0, 0.56, 0.12);
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.32, 24, 20), MATS.antiqueGold);
+        head.position.set(0, 0.18, 0.12);
+        const earL = new THREE.Mesh(new THREE.SphereGeometry(0.24, 16, 14), MATS.antiqueGold);
+        earL.scale.set(0.65, 1.1, 0.3); earL.position.set(-0.42, 0.18, 0.10);
+        const earR = earL.clone(); earR.position.x = 0.42;
+        const trunkCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(0, 0.12, 0.32),
+          new THREE.Vector3(0.02, -0.22, 0.36),
+          new THREE.Vector3(-0.22, -0.44, 0.30),
+          new THREE.Vector3(-0.34, -0.34, 0.24)
+        ]);
+        const trunk = new THREE.Mesh(new THREE.TubeGeometry(trunkCurve, 24, 0.085, 12, false), MATS.brightGold);
+        const tilak = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.16, 0.06), MATS.kumkum);
+        tilak.position.set(0, 0.25, 0.44);
+        g.add(crown, head, earL, earR, trunk, tilak);
+      } else if (id === "sakharpuda") {
+        // Ornate Velvet Ring Box & Brass Sugar Bowl
+        const tray = new THREE.Mesh(new THREE.CylinderGeometry(1.35, 1.22, 0.1, 44), MATS.brass);
+        tray.position.y = -0.45;
+        g.add(tray);
+        const boxBase = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.34, 0.95), MATS.royalMaroon);
+        boxBase.position.set(-0.28, -0.22, 0);
+        const boxLid = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.12, 0.95), MATS.royalMaroon);
+        boxLid.position.set(-0.28, 0.22, -0.44);
+        boxLid.rotation.x = -0.95;
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.04, 16, 36), MATS.brightGold);
+        ring.position.set(-0.28, 0.14, 0);
+        const gem = new THREE.Mesh(new THREE.OctahedronGeometry(0.09, 0), MATS.silkIvory);
+        gem.position.set(-0.28, 0.38, 0);
+        const bowl = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 16, 0, Math.PI * 2, Math.PI * 0.45, Math.PI * 0.55), MATS.antiqueGold);
+        bowl.position.set(0.62, -0.05, 0.15);
+        const sugar = new THREE.Mesh(new THREE.ConeGeometry(0.36, 0.25, 24), MATS.silkIvory);
+        sugar.position.set(0.62, -0.04, 0.15);
+        g.add(boxBase, boxLid, ring, gem, bowl, sugar);
+      } else if (id === "haldi") {
+        // Lathed Brass Urli Bowl with Turmeric Mound & Marigold Blooms
+        const urliProfile = [
+          new THREE.Vector2(0, 0), new THREE.Vector2(0.65, 0), new THREE.Vector2(1.05, 0.35),
+          new THREE.Vector2(1.12, 0.72), new THREE.Vector2(1.24, 0.80), new THREE.Vector2(1.02, 0.80),
+          new THREE.Vector2(0.92, 0.42), new THREE.Vector2(0, 0.32)
+        ];
+        const urli = new THREE.Mesh(new THREE.LatheGeometry(urliProfile, 44), MATS.brass);
+        urli.position.y = -0.5;
+        const haldiMound = new THREE.Mesh(new THREE.SphereGeometry(0.86, 28, 18), MATS.turmeric);
+        haldiMound.scale.set(1, 0.55, 1);
+        haldiMound.position.y = 0.08;
+        g.add(urli, haldiMound);
+        for (let i = 0; i < 6; i++) {
+          const a = (i / 6) * Math.PI * 2;
+          const fl = buildMarigoldFlower(0.65);
+          fl.position.set(Math.cos(a) * 1.15, 0.30, Math.sin(a) * 1.15);
+          g.add(fl);
+        }
+      } else if (id === "antarpat") {
+        // Flowing Silk Antarpat Drapery with Gold Zari Border & Swastik Crest
+        const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 2.5, 16), MATS.brightGold);
+        rod.rotation.z = Math.PI / 2;
+        rod.position.y = 0.92;
+        g.add(rod);
+        const clothGeo = new THREE.PlaneGeometry(2.15, 1.55, 24, 16);
+        const pos = clothGeo.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          const x = pos.getX(i), y = pos.getY(i);
+          pos.setZ(i, Math.sin(x * 3.0) * 0.07 + Math.cos(y * 2.2) * 0.04);
+        }
+        clothGeo.computeVertexNormals();
+        const cloth = new THREE.Mesh(clothGeo, MATS.silkIvory);
+        cloth.position.y = 0.1;
+        const borderTop = new THREE.Mesh(new THREE.BoxGeometry(2.16, 0.1, 0.03), MATS.brightGold);
+        borderTop.position.set(0, 0.84, 0.04);
+        const borderBot = borderTop.clone(); borderBot.position.y = -0.64;
+        const emblem = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.035, 14, 36), MATS.kumkum);
+        emblem.position.set(0, 0.1, 0.09);
+        const dot = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), MATS.brightGold);
+        dot.position.set(0, 0.1, 0.11);
+        g.add(cloth, borderTop, borderBot, emblem, dot);
+      } else if (id === "mangalashtak") {
+        // Pair of Traditional Brass Temple Bells on Arch
+        const arch = new THREE.Mesh(new THREE.TorusGeometry(1.15, 0.06, 14, 42, Math.PI), MATS.antiqueGold);
+        arch.position.y = -0.25;
+        g.add(arch);
+        const bellProfile = [
+          new THREE.Vector2(0, 0.95), new THREE.Vector2(0.12, 0.88), new THREE.Vector2(0.24, 0.60),
+          new THREE.Vector2(0.36, 0.25), new THREE.Vector2(0.48, 0.04), new THREE.Vector2(0.44, 0.0)
+        ];
+        const bellGeo = new THREE.LatheGeometry(bellProfile, 32);
+        [-0.52, 0.52].forEach(x => {
+          const bell = new THREE.Mesh(bellGeo, MATS.brightGold);
+          bell.position.set(x, -0.22, 0);
+          const clapper = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), MATS.brass);
+          clapper.position.set(x, -0.26, 0);
+          g.add(bell, clapper);
+        });
+      } else if (id === "akshata") {
+        // Traditional Brass Puja Thali with Diya, Kumkum, Haldi & Akshata Bowls
+        const thali = new THREE.Mesh(new THREE.CylinderGeometry(1.42, 1.28, 0.09, 48), MATS.brass);
+        thali.position.y = -0.22;
+        const rim = new THREE.Mesh(new THREE.TorusGeometry(1.40, 0.045, 12, 48), MATS.brightGold);
+        rim.rotation.x = Math.PI / 2; rim.position.y = -0.17;
+        g.add(thali, rim);
+        // Center Akshata Mound
+        const katori = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.38, 0.24, 28), MATS.antiqueGold);
+        katori.position.set(0, -0.05, 0);
+        const rice = new THREE.Mesh(new THREE.ConeGeometry(0.42, 0.34, 24), MATS.turmeric);
+        rice.position.set(0, 0.22, 0);
+        g.add(katori, rice);
+        // Kumkum, Haldi & Diya around it
+        const items = [
+          { x: -0.72, z: 0.36, mat: MATS.kumkum },
+          { x: 0.72, z: 0.36, mat: MATS.turmeric }
+        ];
+        items.forEach(it => {
+          const b = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.20, 0.16, 20), MATS.antiqueGold);
+          b.position.set(it.x, -0.09, it.z);
+          const p = new THREE.Mesh(new THREE.SphereGeometry(0.20, 16, 12), it.mat);
+          p.scale.set(1, 0.5, 1); p.position.set(it.x, 0.01, it.z);
+          g.add(b, p);
+        });
+        const diya = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.16, 0.16, 20), MATS.brightGold);
+        diya.position.set(0, -0.09, -0.76);
+        const flame = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.26, 12), MATS.flame);
+        flame.position.set(0, 0.14, -0.76);
+        g.add(diya, flame);
+      } else if (id === "mangalsutra") {
+        // Curved Black-Bead & Gold Mangalsutra with Twin Gold Vati Pendants
+        const pts = [];
+        for (let i = 0; i <= 32; i++) {
+          const t = (i / 32) * Math.PI * 1.45 - Math.PI * 0.725;
+          pts.push(new THREE.Vector3(Math.sin(t) * 1.05, Math.cos(t) * 1.05 + 0.2, 0));
+        }
+        const curve = new THREE.CatmullRomCurve3(pts);
+        const chain = new THREE.Mesh(new THREE.TubeGeometry(curve, 64, 0.025, 10, false), MATS.brightGold);
+        g.add(chain);
+        const beadGeo = new THREE.SphereGeometry(0.055, 12, 10);
+        for (let i = 2; i < 31; i++) {
+          const p = curve.getPoint(i / 32);
+          const isGold = i % 4 === 0;
+          const b = new THREE.Mesh(beadGeo, isGold ? MATS.brightGold : MATS.blackBead);
+          b.position.copy(p);
+          g.add(b);
+        }
+        // Twin Traditional Maharashtrian Gold Vati
+        [-0.24, 0.24].forEach(x => {
+          const vati = new THREE.Mesh(new THREE.SphereGeometry(0.21, 24, 16, 0, Math.PI * 2, 0, Math.PI * 0.62), MATS.brightGold);
+          vati.rotation.x = Math.PI / 2;
+          vati.position.set(x, -0.96, 0.05);
+          const centerDot = new THREE.Mesh(new THREE.SphereGeometry(0.055, 12, 12), MATS.kumkum);
+          centerDot.position.set(x, -0.96, 0.24);
+          g.add(vati, centerDot);
+        });
+      }
+
+      return g;
+    }
+
+    function initCultureShowcase() {
+      const stage = document.getElementById("culture-3d-stage");
+      const tabsWrap = document.getElementById("culture-tabs");
+      const enEl = document.getElementById("culture-en-title");
+      const mrEl = document.getElementById("culture-mr-title");
+      const descEl = document.getElementById("culture-desc");
+      if (!stage || !tabsWrap) return;
+
+      let currentMesh = null;
+      let scene, camera, renderer;
+      let isDragging = false, prevX = 0, targetRotY = 0;
+
+      if (typeof THREE !== "undefined") {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(38, stage.clientWidth / stage.clientHeight, 0.1, 100);
+        camera.position.set(0, 0.45, 4.3);
+        renderer = createRenderer(stage);
+        addStudioLights(scene);
+
+        stage.addEventListener("pointerdown", e => { isDragging = true; prevX = e.clientX; });
+        window.addEventListener("pointerup", () => { isDragging = false; });
+        window.addEventListener("pointermove", e => {
+          if (!isDragging) return;
+          targetRotY += (e.clientX - prevX) * 0.012;
+          prevX = e.clientX;
+        });
+
+        let visible = false;
+        const io = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }, { threshold: 0.05 });
+        io.observe(stage);
+
+        function animate() {
+          requestAnimationFrame(animate);
+          if (!visible || !currentMesh) return;
+          if (!isDragging && !prefersReducedMotion) targetRotY += 0.007;
+          currentMesh.rotation.y += (targetRotY - currentMesh.rotation.y) * 0.12;
+          renderer.render(scene, camera);
+        }
+        requestAnimationFrame(animate);
+
+        window.addEventListener("resize", () => {
+          camera.aspect = stage.clientWidth / stage.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(stage.clientWidth, stage.clientHeight);
+        });
+      }
+
+      function selectItem(item) {
+        enEl.textContent = item.en;
+        mrEl.textContent = item.mr;
+        descEl.textContent = item.desc;
+        tabsWrap.querySelectorAll(".culture-tab").forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.id === item.id);
+        });
+        if (scene) {
+          if (currentMesh) scene.remove(currentMesh);
+          currentMesh = buildCultureArtefact(item.id);
+          scene.add(currentMesh);
+          targetRotY = 0;
+          if (prefersReducedMotion && renderer) renderer.render(scene, camera);
+        }
+      }
+
+      tabsWrap.innerHTML = WEDDING_CONFIG.cultureItems.map(item =>
+        `<button type="button" class="culture-tab" data-id="${item.id}">${item.mr}</button>`
+      ).join("");
+      tabsWrap.querySelectorAll(".culture-tab").forEach((btn, idx) => {
+        btn.addEventListener("click", () => selectItem(WEDDING_CONFIG.cultureItems[idx]));
+      });
+      selectItem(WEDDING_CONFIG.cultureItems[0]);
+    }
+
+    /* ============================================================
+       RSVP FORM VALIDATION & REAL SUBMISSION (Webhook / WhatsApp)
+    ============================================================ */
+    function initRSVP() {
+      const form = document.getElementById("rsvp-form");
+      const errEl = document.getElementById("rsvp-error");
+      const successBox = document.getElementById("rsvp-success");
+      const successText = document.getElementById("rsvp-success-text");
+      const submitBtn = document.getElementById("rsvp-submit-btn");
+      let attendance = "मी नक्की येणार!";
+
+      document.querySelectorAll(".rsvp-choice-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".rsvp-choice-btn").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          attendance = btn.dataset.status;
+        });
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errEl.style.display = "none";
+
+        const name = document.getElementById("rsvp-name").value.trim();
+        const phone = document.getElementById("rsvp-phone").value.replace(/\D/g, "");
+        const guests = document.getElementById("rsvp-guests").value;
+        const msg = document.getElementById("rsvp-msg").value.trim();
+
+        if (name.length < 2) {
+          errEl.textContent = "कृपया आपले पूर्ण नाव प्रविष्ट करा.";
+          errEl.style.display = "block";
+          return;
+        }
+        if (phone.length !== 10) {
+          errEl.textContent = "कृपया वैध १० अंकी मोबाईल क्रमांक प्रविष्ट करा.";
+          errEl.style.display = "block";
+          return;
+        }
+
+        const payload = {
+          name, phone, guests, attendance, message: msg,
+          submittedAt: new Date().toISOString()
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "पाठवत आहोत...";
+
+        try {
+          if (WEDDING_CONFIG.rsvpWebhookUrl) {
+            const res = await fetch(WEDDING_CONFIG.rsvpWebhookUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error("Network error");
+          } else {
+            // Persist locally on guest's device & offer direct WhatsApp confirmation
+            const saved = JSON.parse(localStorage.getItem("pk_wedding_rsvp") || "[]");
+            saved.push(payload);
+            localStorage.setItem("pk_wedding_rsvp", JSON.stringify(saved));
+
+            if (WEDDING_CONFIG.rsvpWhatsAppNumber) {
+              const waText = encodeURIComponent(
+                `सस्नेह निमंत्रण RSVP (पायल व कृपाल विवाह)\nनाव: ${name}\nसदस्य: ${guests}\nउपस्थिती: ${attendance}${msg ? `\nशुभाशीर्वाद: ${msg}` : ""}`
+              );
+              window.open(`https://wa.me/${WEDDING_CONFIG.rsvpWhatsAppNumber}?text=${waText}`, "_blank", "noopener");
+            }
+          }
+
+          form.style.display = "none";
+          successBox.style.display = "block";
+          successText.textContent = `${name} जी, आपली नोंद (${attendance}) यशस्वीरित्या प्राप्त झाली आहे. झाडे परिवारातर्फे आपले मनःपूर्वक स्वागत!`;
+        } catch (err) {
+          errEl.textContent = "माहिती पाठवताना तांत्रिक अडचण आली. कृपया पुन्हा प्रयत्न करा.";
+          errEl.style.display = "block";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "निमंत्रण स्वीकारा व पाठवा";
+        }
+      });
+    }
+
+    /* ============================================================
+       UI INTERACTIONS, SCROLL REVEAL, SHARE & INITIALIZATION
+    ============================================================ */
+    document.addEventListener("DOMContentLoaded", () => {
+      initMaterials();
+      renderEvents();
+      renderGallery();
+      initCountdown();
+      initRSVP();
+      initOpening3D();
+
+      const overlay = document.getElementById("opening-overlay");
+      const openBtn = document.getElementById("open-invite-btn");
+      const skipBtn = document.getElementById("skip-opening-btn");
+      const canvasWrap = document.getElementById("opening-canvas-wrap");
+
+      let main3DStarted = false;
+      function enterMainSite(immediate = false) {
+        const revealSite = () => {
+          overlay.classList.add("hidden-overlay");
+          document.body.classList.remove("locked");
+          if (!main3DStarted) {
+            main3DStarted = true;
+            initHeroSamai();
+            initCultureShowcase();
+            initVenueKalash();
+          }
+        };
+
+        if (immediate || !openingSceneCtrl) {
+          if (openingSceneCtrl) openingSceneCtrl.disposeImmediate();
+          revealSite();
+        } else {
+          if (!WeddingAudio.isPlaying()) WeddingAudio.start();
+          openingSceneCtrl.triggerOpen(revealSite);
+        }
+      }
+
+      openBtn.addEventListener("click", () => enterMainSite(false));
+      canvasWrap.addEventListener("click", () => enterMainSite(false));
+      skipBtn.addEventListener("click", () => enterMainSite(true));
+
+      // Audio controls
+      document.getElementById("opening-sound-btn").addEventListener("click", () => WeddingAudio.toggle());
+      document.getElementById("nav-audio-btn").addEventListener("click", () => WeddingAudio.toggle());
+      document.getElementById("float-audio-btn").addEventListener("click", () => WeddingAudio.toggle());
+
+      // Sticky Navbar
+      const nav = document.getElementById("main-nav");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 40);
+      }, { passive: true });
+
+      // Mobile Drawer
+      const drawer = document.getElementById("mobile-drawer");
+      document.getElementById("mobile-menu-open").addEventListener("click", () => drawer.classList.add("open"));
+      document.getElementById("mobile-menu-close").addEventListener("click", () => drawer.classList.remove("open"));
+      drawer.querySelectorAll(".drawer-link").forEach(a => a.addEventListener("click", () => drawer.classList.remove("open")));
+
+      // Scroll Reveal Observer
+      const revObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach(el => revObserver.observe(el));
+
+      // Share Button
+      const shareBtn = document.getElementById("share-btn");
+      const shareLbl = document.getElementById("share-btn-label");
+      shareBtn.addEventListener("click", async () => {
+        const shareData = {
+          title: "शुभविवाह — पायल आणि कृपाल",
+          text: "पायल (खेमदेवी) आणि कृपाल यांच्या शुभविवाह सोहळ्याचे सस्नेह निमंत्रण — शुक्रवार, १८ एप्रिल २०२५, तुळजाई बॅन्क्वेट हॉल, वर्धा.",
+          url: window.location.href
+        };
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else {
+            await navigator.clipboard.writeText(window.location.href);
+            shareLbl.textContent = "लिंक कॉपी झाली!";
+            setTimeout(() => { shareLbl.textContent = "निमंत्रण शेअर करा"; }, 2200);
+          }
+        } catch (_) {}
+      });
+    });
+  </script>
+</body>
+</html>
