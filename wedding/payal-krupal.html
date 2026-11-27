@@ -18,6 +18,9 @@
 
   <!-- Three.js r128 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP & ScrollTrigger for Maharashtrian Heritage Scroll-Driven 3D Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
     :root {
@@ -1196,23 +1199,109 @@
     ============================================================ */
     .culture-layout {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1.08fr 0.92fr;
       gap: 30px;
       align-items: center;
     }
     .culture-3d-frame {
-      height: 410px;
+      position: relative;
+      height: 440px;
       border-radius: 24px;
-      /* Soft warm studio vignette makes rich 3D objects pop sharply on a white page */
-      background: radial-gradient(circle at 50% 48%, #FFFFFF 0%, #F4EFEA 68%, #E6DDD3 100%);
+      background: radial-gradient(circle at 50% 45%, #FFFFFF 0%, #F7F4F0 62%, #EAE3DA 100%);
       border: 1px solid #E5DDD5;
       overflow: hidden;
-      box-shadow: inset 0 0 36px rgba(45, 28, 16, 0.08), 0 18px 42px -24px rgba(27, 25, 38, 0.16);
+      box-shadow: inset 0 0 42px rgba(45, 28, 16, 0.07), 0 20px 46px -24px rgba(27, 25, 38, 0.18);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+    }
+    .culture-3d-frame.grab-active {
+      cursor: grab;
+      touch-action: none;
+    }
+    .culture-3d-frame.grabbing {
+      cursor: grabbing;
     }
     .culture-3d-frame canvas {
       width: 100% !important;
       height: 100% !important;
       display: block;
+      outline: none;
+      filter: saturate(1.12) contrast(1.04);
+    }
+    /* Minimal Floating Part Inspector Pill inside Heritage 3D Frame */
+    .heritage-part-pill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.90);
+      border: 1px solid rgba(139, 92, 246, 0.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink);
+      box-shadow: 0 8px 20px -10px rgba(27, 25, 38, 0.22);
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+    .heritage-part-pill.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .heritage-part-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gem-blue), var(--gem-pink));
+      flex-shrink: 0;
+    }
+    /* Compact Icon Controls Toolbar inside Heritage 3D Frame */
+    .heritage-toolbar {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(27, 25, 38, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 24px -12px rgba(27, 25, 38, 0.25);
+    }
+    .heritage-ctrl-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .heritage-ctrl-btn:hover {
+      background: var(--surface-soft);
+      color: var(--ink);
+    }
+    .heritage-ctrl-btn.is-active {
+      background: linear-gradient(120deg, var(--gem-blue), var(--gem-violet), var(--gem-pink));
+      color: var(--white);
+      box-shadow: 0 6px 14px -6px rgba(139, 92, 246, 0.55);
     }
     .culture-tabs {
       display: flex;
@@ -1241,7 +1330,7 @@
     }
     @media (max-width: 880px) {
       .culture-layout { grid-template-columns: 1fr; gap: 22px; }
-      .culture-3d-frame { height: 330px; }
+      .culture-3d-frame { height: 360px; }
       .culture-tabs { justify-content: center; }
     }
 
@@ -1262,6 +1351,9 @@
       border: 1px solid #E5DDD5;
       margin-bottom: 18px;
       overflow: hidden;
+    }
+    .venue-3d-stage canvas {
+      filter: saturate(1.12) contrast(1.04);
     }
     .venue-map-wrap {
       border-radius: 22px;
@@ -1853,7 +1945,26 @@
       </div>
 
       <div class="culture-layout">
-        <div class="culture-3d-frame reveal" id="culture-3d-stage" aria-label="महाराष्ट्रीयन विवाह परंपरा त्रिमितीय दर्शन"></div>
+        <div class="culture-3d-frame reveal" id="culture-3d-stage" aria-label="महाराष्ट्रीयन विवाह परंपरा त्रिमितीय दर्शन">
+          <div id="heritage-part-pill" class="heritage-part-pill" aria-live="polite">
+            <span class="heritage-part-dot"></span>
+            <span id="heritage-part-text"></span>
+          </div>
+          <div class="heritage-toolbar" role="toolbar" aria-label="3D दृश्य नियंत्रणे">
+            <button type="button" id="heritage-explode-btn" class="heritage-ctrl-btn ripple-btn" title="भाग वेगळे पहा" aria-label="भाग वेगळे पहा">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </button>
+            <button type="button" id="heritage-physics-btn" class="heritage-ctrl-btn ripple-btn" title="भौतिक हालचाल" aria-label="भौतिक हालचाल">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v14"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+            </button>
+            <button type="button" id="heritage-grab-btn" class="heritage-ctrl-btn ripple-btn" title="पकडून हलवा" aria-label="पकडून हलवा">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+            </button>
+            <button type="button" id="heritage-reset-btn" class="heritage-ctrl-btn ripple-btn" title="मूळ स्थिती" aria-label="मूळ स्थिती">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+          </div>
+        </div>
 
         <div class="reveal">
           <div class="culture-tabs" id="culture-tabs"></div>
@@ -2056,11 +2167,12 @@
     const WEDDING_CONFIG = {
       weddingDateISO: "2027-04-16T11:21:00+05:30",
       instagram: {
-        apiKey: "igk_sal2S0bhdrnPP3rnhqsSkto1lfgIXpk25TotsDSY",
-        brideId: "payal8862",
-        groomId: "krupaldavil7",
-        baseUrl: "https://api.igramapi.com/v1",
-        cacheTtlMs: 45 * 60 * 1000 // 45 mins to protect monthly credits
+        // Paste your deployed Cloudflare Worker URL below (e.g. "https://easode-ig-avatar.yourname.workers.dev")
+        // Your IGramAPI key stays safely on the Worker — zero CORS errors and zero key exposure!
+        proxyUrl: "",
+        // Optional: If you prefer static photos on easode.com (0 API credits), set paths here:
+        bridePhotoUrl: "",
+        groomPhotoUrl: ""
       },
       events: [
         {
@@ -2353,26 +2465,33 @@
     const TEX = {};
     const MATS = {};
 
+    // Critical Three.js r128 Color-Space Helper:
+    // Converts sRGB hex values into linear RGB so outputEncoding = sRGBEncoding
+    // renders rich, deep, saturated colors instead of washed-out double-gamma pastels.
+    function srgb(hex) {
+      return new THREE.Color(hex).convertSRGBToLinear();
+    }
+
     function createRichContrastEnvMap(renderer) {
       const pmrem = new THREE.PMREMGenerator(renderer);
       pmrem.compileEquirectangularShader();
       const envScene = new THREE.Scene();
-      // Deep espresso-charcoal studio walls create strong dark reflection bands on brass/gold
-      envScene.background = new THREE.Color(0x231610);
+      // Deep dark studio surround creates crisp contrast & rich metallic gold reflections
+      envScene.background = srgb(0x160d09);
 
-      const warmKey = new THREE.Mesh(new THREE.PlaneGeometry(10, 6), new THREE.MeshBasicMaterial({ color: 0xffe4a8 }));
+      const warmKey = new THREE.Mesh(new THREE.PlaneGeometry(9, 5), new THREE.MeshBasicMaterial({ color: srgb(0xffe099) }));
       warmKey.position.set(6, 5, 5); warmKey.lookAt(0, 0, 0);
 
-      const amberStrip = new THREE.Mesh(new THREE.PlaneGeometry(4, 10), new THREE.MeshBasicMaterial({ color: 0xffb347 }));
+      const amberStrip = new THREE.Mesh(new THREE.PlaneGeometry(3.5, 9), new THREE.MeshBasicMaterial({ color: srgb(0xff9f2e) }));
       amberStrip.position.set(-7, 2, 3); amberStrip.lookAt(0, 0, 0);
 
-      const topSoft = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), new THREE.MeshBasicMaterial({ color: 0xfff3dc }));
-      topSoft.position.set(0, 8, 0); topSoft.rotation.x = Math.PI / 2;
+      const topSoft = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.MeshBasicMaterial({ color: srgb(0xfff0d4) }));
+      topSoft.position.set(0, 8.5, 0); topSoft.rotation.x = Math.PI / 2;
 
-      const rimCool = new THREE.Mesh(new THREE.PlaneGeometry(6, 8), new THREE.MeshBasicMaterial({ color: 0x8fb8ff }));
-      rimCool.position.set(0, 2, -8); rimCool.lookAt(0, 0, 0);
+      const rimWarm = new THREE.Mesh(new THREE.PlaneGeometry(5, 7), new THREE.MeshBasicMaterial({ color: srgb(0xffd28a) }));
+      rimWarm.position.set(0, 2.5, -8); rimWarm.lookAt(0, 0, 0);
 
-      envScene.add(warmKey, amberStrip, topSoft, rimCool);
+      envScene.add(warmKey, amberStrip, topSoft, rimWarm);
       const rt = pmrem.fromScene(envScene, 0.03);
       pmrem.dispose();
       return rt.texture;
@@ -2412,6 +2531,7 @@
       }
       const tex = new THREE.CanvasTexture(c);
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.encoding = THREE.sRGBEncoding;
       return tex;
     }
 
@@ -2440,7 +2560,9 @@
       [[-28,-28],[28,-28],[28,28],[-28,28]].forEach(([dx, dy]) => {
         ctx.beginPath(); ctx.arc(cx + dx, cy + dy, 7, 0, Math.PI * 2); ctx.fill();
       });
-      return new THREE.CanvasTexture(c);
+      const tex = new THREE.CanvasTexture(c);
+      tex.encoding = THREE.sRGBEncoding;
+      return tex;
     }
 
     function createShadowTex() {
@@ -2462,41 +2584,41 @@
       TEX.antarpat = createAntarpatSilkTex();
       TEX.shadow = createShadowTex();
 
-      // Deep, Saturated, Natural Materials that POP vividly on white backgrounds
+      // Linearized, Rich, Deeply Saturated PBR Materials
       MATS.richGold = new THREE.MeshStandardMaterial({
-        color: 0xd99b26, metalness: 0.88, roughness: 0.24,
+        color: srgb(0xefb936), metalness: 0.90, roughness: 0.22, envMapIntensity: 1.45,
         bumpMap: TEX.bump, bumpScale: 0.015
       });
       MATS.antiqueBronze = new THREE.MeshStandardMaterial({
-        color: 0x9e6318, metalness: 0.84, roughness: 0.30,
+        color: srgb(0xb56d18), metalness: 0.86, roughness: 0.28, envMapIntensity: 1.35,
         bumpMap: TEX.bump, bumpScale: 0.020
       });
       MATS.copper = new THREE.MeshStandardMaterial({
-        color: 0xc25928, metalness: 0.85, roughness: 0.26,
+        color: srgb(0xd45b24), metalness: 0.86, roughness: 0.24, envMapIntensity: 1.35,
         bumpMap: TEX.bump, bumpScale: 0.018
       });
       MATS.teakWood = new THREE.MeshStandardMaterial({
-        map: TEX.wood, metalness: 0.08, roughness: 0.45
+        map: TEX.wood, metalness: 0.06, roughness: 0.48, envMapIntensity: 0.45
       });
       MATS.crimsonVelvet = new THREE.MeshStandardMaterial({
-        color: 0x9e112b, metalness: 0.06, roughness: 0.72
+        color: srgb(0xa80c28), metalness: 0.05, roughness: 0.74, envMapIntensity: 0.40
       });
       MATS.royalIndigo = new THREE.MeshStandardMaterial({
-        color: 0x2d1e5f, metalness: 0.08, roughness: 0.68
+        color: srgb(0x281866), metalness: 0.08, roughness: 0.68, envMapIntensity: 0.45
       });
       MATS.antarpatSilk = new THREE.MeshStandardMaterial({
-        map: TEX.antarpat, metalness: 0.14, roughness: 0.48, side: THREE.DoubleSide
+        map: TEX.antarpat, metalness: 0.12, roughness: 0.46, envMapIntensity: 0.55, side: THREE.DoubleSide
       });
-      MATS.marigoldDeep = new THREE.MeshStandardMaterial({ color: 0xea580c, roughness: 0.62 });
-      MATS.marigoldBright = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.56 });
-      MATS.mangoLeaf = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.40, side: THREE.DoubleSide });
-      MATS.haldi = new THREE.MeshStandardMaterial({ color: 0xe69500, roughness: 0.88 });
-      MATS.kumkum = new THREE.MeshStandardMaterial({ color: 0xc8102e, roughness: 0.84 });
-      MATS.sugarCrystal = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, metalness: 0.22, roughness: 0.14 });
-      MATS.onyx = new THREE.MeshStandardMaterial({ color: 0x111114, metalness: 0.72, roughness: 0.14 });
-      MATS.ruby = new THREE.MeshStandardMaterial({ color: 0xdc143c, metalness: 0.35, roughness: 0.12 });
-      MATS.flame = new THREE.MeshBasicMaterial({ color: 0xffa617 });
-      MATS.flameCore = new THREE.MeshBasicMaterial({ color: 0xfff8c9 });
+      MATS.marigoldDeep = new THREE.MeshStandardMaterial({ color: srgb(0xf25205), roughness: 0.64, envMapIntensity: 0.40 });
+      MATS.marigoldBright = new THREE.MeshStandardMaterial({ color: srgb(0xffa200), roughness: 0.58, envMapIntensity: 0.42 });
+      MATS.mangoLeaf = new THREE.MeshStandardMaterial({ color: srgb(0x168028), roughness: 0.38, envMapIntensity: 0.55, side: THREE.DoubleSide });
+      MATS.haldi = new THREE.MeshStandardMaterial({ color: srgb(0xf29f00), roughness: 0.86, envMapIntensity: 0.35 });
+      MATS.kumkum = new THREE.MeshStandardMaterial({ color: srgb(0xd40c24), roughness: 0.84, envMapIntensity: 0.35 });
+      MATS.sugarCrystal = new THREE.MeshStandardMaterial({ color: srgb(0xf5f8fc), metalness: 0.20, roughness: 0.14, envMapIntensity: 1.1 });
+      MATS.onyx = new THREE.MeshStandardMaterial({ color: srgb(0x0c0c10), metalness: 0.75, roughness: 0.14, envMapIntensity: 1.2 });
+      MATS.ruby = new THREE.MeshStandardMaterial({ color: srgb(0xe00b32), metalness: 0.32, roughness: 0.12, envMapIntensity: 1.3 });
+      MATS.flame = new THREE.MeshBasicMaterial({ color: srgb(0xff8c00) });
+      MATS.flameCore = new THREE.MeshBasicMaterial({ color: srgb(0xfff5b8) });
     }
 
     function createStudioRenderer(container, scene) {
@@ -2504,17 +2626,20 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.12;
+      renderer.toneMappingExposure = 1.04;
       renderer.outputEncoding = THREE.sRGBEncoding;
       container.appendChild(renderer.domElement);
 
       scene.environment = createRichContrastEnvMap(renderer);
-      scene.add(new THREE.AmbientLight(0xfff5e4, 0.48));
-      const key = new THREE.DirectionalLight(0xffe7ba, 1.45);
-      key.position.set(4, 6, 5);
+      scene.add(new THREE.HemisphereLight(srgb(0xfff8ec), srgb(0x4a2c1c), 0.58));
+      const key = new THREE.DirectionalLight(srgb(0xfff2dc), 1.95);
+      key.position.set(4.5, 6.5, 5.5);
       scene.add(key);
-      const rim = new THREE.DirectionalLight(0xd97706, 0.72);
-      rim.position.set(-5, 3, -4);
+      const fill = new THREE.DirectionalLight(srgb(0xffe6cc), 0.55);
+      fill.position.set(-4.5, 2.0, 4.0);
+      scene.add(fill);
+      const rim = new THREE.DirectionalLight(srgb(0xffa938), 0.95);
+      rim.position.set(-5, 3.5, -5);
       scene.add(rim);
       return renderer;
     }
@@ -2646,461 +2771,2128 @@
     }
 
     /* ============================================================
-       MEANING-ACCURATE, HIGH-DETAIL, SATURATED 3D RITUAL MODELS
+       MAHARASHTRIAN HERITAGE IMMERSIVE 3D EXPERIENCE (MODULAR)
+       1. Reference-Accurate Procedural 3D Models & PBR Textures
+       2. Real Physics Engine (Rapier3D WASM + Deterministic Rigid-Body Core)
+       3. Exploded-View Component Separation & Raycast Part Inspector
+       4. GSAP ScrollTrigger Reversible Scroll Choreography
+       5. Mobile-First Touch Gestures (Tap, Double-Tap, Swipe, Drag/Throw, Pinch)
     ============================================================ */
-    function buildRitualModel(id) {
-      const g = new THREE.Group();
+    const Heritage3D = (() => {
 
-      if (id === "ganesh") {
-        // Ganesh Pujan: Sculpted Bronze-Gold Ganesha Murti Relief on Crimson-Lotus Throne + Lit Diya
-        const throne = new THREE.Mesh(new THREE.CylinderGeometry(1.02, 1.18, 0.22, 40), MATS.crimsonVelvet);
-        throne.position.y = -0.84;
-        const goldRim = new THREE.Mesh(new THREE.TorusGeometry(1.03, 0.035, 12, 48), MATS.richGold);
-        goldRim.rotation.x = Math.PI / 2; goldRim.position.y = -0.73;
-        g.add(throne, goldRim);
+      /* ------------------------------------------------------------
+         MODULE A: HIGH-RESOLUTION PROCEDURAL PBR TEXTURES & MATERIALS
+      ------------------------------------------------------------ */
+      const H_TEX = {};
+      const H_MAT = {};
 
-        // Ornate Prabhavali (Temple Arch Halo)
-        const prabhavali = new THREE.Mesh(new THREE.TorusGeometry(0.95, 0.075, 16, 48, Math.PI * 1.25), MATS.antiqueBronze);
-        prabhavali.rotation.z = -Math.PI * 0.125;
-        prabhavali.position.set(0, 0.12, -0.18);
-        g.add(prabhavali);
+      function makeGaneshFaceTex() {
+        const c = document.createElement("canvas");
+        c.width = 512; c.height = 512;
+        const ctx = c.getContext("2d");
+        // Smooth porcelain ivory base
+        const bg = ctx.createRadialGradient(256, 230, 30, 256, 256, 260);
+        bg.addColorStop(0, "#FFF9F4");
+        bg.addColorStop(0.7, "#F9ECE3");
+        bg.addColorStop(1, "#EED8CB");
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, 512, 512);
 
-        // Sculpted Ganesha Murti
-        const belly = new THREE.Mesh(new THREE.SphereGeometry(0.42, 28, 22), MATS.richGold);
-        belly.scale.set(1.05, 0.92, 0.85); belly.position.set(0, -0.32, 0);
-        const head = new THREE.Mesh(new THREE.SphereGeometry(0.30, 28, 22), MATS.richGold);
-        head.position.set(0, 0.26, 0.04);
-        const mukut = new THREE.Mesh(new THREE.ConeGeometry(0.24, 0.48, 20), MATS.antiqueBronze);
-        mukut.position.set(0, 0.68, 0.04);
-        const earL = new THREE.Mesh(new THREE.SphereGeometry(0.24, 18, 16), MATS.antiqueBronze);
-        earL.scale.set(0.55, 1.12, 0.24); earL.position.set(-0.38, 0.26, 0);
-        const earR = earL.clone(); earR.position.x = 0.38;
-        const trunkCurve = new THREE.CatmullRomCurve3([
-          new THREE.Vector3(0, 0.22, 0.28), new THREE.Vector3(0.02, -0.08, 0.34),
-          new THREE.Vector3(-0.20, -0.26, 0.30), new THREE.Vector3(-0.30, -0.16, 0.24)
-        ]);
-        const trunk = new THREE.Mesh(new THREE.TubeGeometry(trunkCurve, 28, 0.078, 14, false), MATS.richGold);
-        const tilak = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.14, 0.04), MATS.kumkum);
-        tilak.position.set(0, 0.34, 0.34);
-        g.add(belly, head, mukut, earL, earR, trunk, tilak);
-
-        // Lit Brass Oil Diya in Front
-        const diya = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.13, 0.14, 24), MATS.copper);
-        diya.position.set(0, -0.66, 0.72);
-        const flame = new THREE.Mesh(new THREE.ConeGeometry(0.065, 0.22, 14), MATS.flame);
-        flame.position.set(0, -0.48, 0.72);
-        g.add(diya, flame);
-        addGroundShadow(g, 1.45, -0.96);
-
-      } else if (id === "sakharpuda") {
-        // Sakharpuda: Ornate Brass Sugar (Misri) Bowl + Royal Velvet Ring Box with Gold Solitaire
-        const tray = new THREE.Mesh(new THREE.CylinderGeometry(1.42, 1.26, 0.10, 56), MATS.antiqueBronze);
-        tray.position.y = -0.52;
-        g.add(tray);
-
-        // Brass Sugar Bowl filled with Crystalline Misri Cubes
-        const sBowl = new THREE.Mesh(new THREE.SphereGeometry(0.46, 28, 16, 0, Math.PI * 2, Math.PI * 0.45, Math.PI * 0.55), MATS.copper);
-        sBowl.position.set(0.56, -0.06, 0.12);
-        g.add(sBowl);
-        const cubeGeo = new THREE.BoxGeometry(0.14, 0.14, 0.14);
-        for (let i = 0; i < 12; i++) {
-          const a = (i / 12) * Math.PI * 2;
-          const r = i < 4 ? 0.10 : 0.24;
-          const c = new THREE.Mesh(cubeGeo, MATS.sugarCrystal);
-          c.position.set(0.56 + Math.cos(a) * r, i < 4 ? 0.08 : -0.02, 0.12 + Math.sin(a) * r);
-          c.rotation.set(i * 0.5, i * 0.8, 0.3);
-          g.add(c);
-        }
-
-        // Open Royal Velvet Ring Box + Gold Ring + Ruby/Diamond Crown
-        const boxBase = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.32, 0.92), MATS.crimsonVelvet);
-        boxBase.position.set(-0.42, -0.30, 0);
-        const boxLid = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.10, 0.92), MATS.crimsonVelvet);
-        boxLid.position.set(-0.42, 0.14, -0.42); boxLid.rotation.x = -0.95;
-        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.048, 18, 42), MATS.richGold);
-        ring.position.set(-0.42, 0.08, 0.02);
-        const gem = new THREE.Mesh(new THREE.OctahedronGeometry(0.11, 0), MATS.ruby);
-        gem.position.set(-0.42, 0.34, 0.02);
-        g.add(boxBase, boxLid, ring, gem);
-        addGroundShadow(g, 1.55, -0.60);
-
-      } else if (id === "haldi") {
-        // Haldi: Deep Hammered Copper Urli with Rich Saffron Haldi Paste, Mango Leaves & Marigolds
-        const urliProfile = [
-          new THREE.Vector2(0, 0), new THREE.Vector2(0.68, 0), new THREE.Vector2(1.08, 0.36),
-          new THREE.Vector2(1.16, 0.72), new THREE.Vector2(1.28, 0.82), new THREE.Vector2(1.02, 0.82),
-          new THREE.Vector2(0.92, 0.42), new THREE.Vector2(0, 0.32)
-        ];
-        const urli = new THREE.Mesh(new THREE.LatheGeometry(urliProfile, 56), MATS.copper);
-        urli.position.y = -0.52;
-        const paste = new THREE.Mesh(new THREE.SphereGeometry(0.90, 32, 20), MATS.haldi);
-        paste.scale.set(1, 0.52, 1); paste.position.y = 0.06;
-        g.add(urli, paste);
-
-        // Twin Fresh Mango Leaves dipped in the Haldi Urli
-        [-0.35, 0.35].forEach((x, idx) => {
-          const leaf = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.82, 10), MATS.mangoLeaf);
-          leaf.scale.set(1, 1, 0.14);
-          leaf.position.set(x, 0.56, -0.18);
-          leaf.rotation.z = idx === 0 ? 0.38 : -0.38;
-          leaf.rotation.x = -0.25;
-          g.add(leaf);
-        });
-        // Lush Marigolds around the Urli rim
-        for (let i = 0; i < 6; i++) {
-          const a = (i / 6) * Math.PI * 2;
-          const fl = buildLushMarigold(0.68);
-          fl.position.set(Math.cos(a) * 1.15, 0.28, Math.sin(a) * 1.15);
-          g.add(fl);
-        }
-        addGroundShadow(g, 1.5, -0.56);
-
-      } else if (id === "antarpat") {
-        // Antarpat: Rich Crimson-and-Gold Brocade Silk Banner with Painted Swastik & Wooden Poles
-        [-1.12, 1.12].forEach(x => {
-          const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.058, 0.058, 2.28, 18), MATS.teakWood);
-          const finT = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), MATS.richGold); finT.position.y = 1.18;
-          const finB = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), MATS.richGold); finB.position.y = -1.18;
-          const pG = new THREE.Group(); pG.add(pole, finT, finB); pG.position.x = x;
-          g.add(pG);
-        });
-        const clothGeo = new THREE.PlaneGeometry(2.14, 1.52, 28, 16);
-        const pos = clothGeo.attributes.position;
-        for (let i = 0; i < pos.count; i++) pos.setZ(i, Math.sin(pos.getX(i) * 2.8) * 0.075);
-        clothGeo.computeVertexNormals();
-        g.add(new THREE.Mesh(clothGeo, MATS.antarpatSilk));
-        for (let i = -4; i <= 4; i++) {
-          const tassel = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.24, 10), MATS.richGold);
-          tassel.position.set(i * 0.24, -0.88, 0.03);
-          g.add(tassel);
-        }
-
-      } else if (id === "mangalashtak") {
-        // Mangalashtak: Turned Teakwood & Brass Shehnai + Engraved Manjira Cymbals with Crimson Cord
-        const shProfile = [
-          new THREE.Vector2(0.03, 0.0), new THREE.Vector2(0.045, 0.35), new THREE.Vector2(0.075, 1.05),
-          new THREE.Vector2(0.11, 1.72), new THREE.Vector2(0.16, 2.05), new THREE.Vector2(0.38, 2.40),
-          new THREE.Vector2(0.34, 2.42), new THREE.Vector2(0.12, 2.04)
-        ];
-        const sh = new THREE.Mesh(new THREE.LatheGeometry(shProfile, 36), MATS.teakWood);
-        const flare = new THREE.Mesh(new THREE.CylinderGeometry(0.37, 0.15, 0.38, 36, 1, true), MATS.richGold);
-        flare.position.y = 2.22;
-        const reed = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.045, 0.22, 16), MATS.antiqueBronze);
-        reed.position.y = -0.10;
-        const shG = new THREE.Group(); shG.add(sh, flare, reed);
-        // Finger holes along Shehnai
-        for (let i = 0; i < 6; i++) {
-          const hole = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.04, 12), MATS.onyx);
-          hole.rotation.x = Math.PI / 2; hole.position.set(0, 0.55 + i * 0.20, 0.085);
-          shG.add(hole);
-        }
-        shG.position.set(-0.68, -0.78, 0); shG.rotation.z = -0.68;
-        g.add(shG);
-
-        // Pair of Brass Manjira Cymbals
-        const cymProfile = [
-          new THREE.Vector2(0, 0.16), new THREE.Vector2(0.13, 0.14), new THREE.Vector2(0.26, 0.04),
-          new THREE.Vector2(0.48, 0.0), new THREE.Vector2(0.46, -0.02)
-        ];
-        const cymGeo = new THREE.LatheGeometry(cymProfile, 36);
-        const c1 = new THREE.Mesh(cymGeo, MATS.richGold); c1.position.set(0.56, -0.34, 0.22); c1.rotation.x = 0.55;
-        const c2 = new THREE.Mesh(cymGeo, MATS.antiqueBronze); c2.position.set(0.84, -0.44, -0.22); c2.rotation.z = -0.42;
-        g.add(c1, c2);
-        addGroundShadow(g, 1.5, -0.92);
-
-      } else if (id === "akshata") {
-        // Akshata: Hammered Copper Tamhan (Puja Thali) with Heaped Golden Rice Grains, Kumkum/Haldi Katoris & Lit Diya
-        const thali = new THREE.Mesh(new THREE.CylinderGeometry(1.44, 1.28, 0.09, 56), MATS.copper);
-        thali.position.y = -0.24;
-        const rim = new THREE.Mesh(new THREE.TorusGeometry(1.42, 0.048, 14, 56), MATS.richGold);
-        rim.rotation.x = Math.PI / 2; rim.position.y = -0.19;
-        g.add(thali, rim);
-
-        const katori = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.40, 0.24, 32), MATS.antiqueBronze);
-        katori.position.set(0, -0.06, 0);
-        const rice = new THREE.Mesh(new THREE.ConeGeometry(0.44, 0.36, 28), MATS.haldi);
-        rice.position.set(0, 0.22, 0);
-        g.add(katori, rice);
-
-        // Textured Akshata Rice Grain Accents
-        const grGeo = new THREE.SphereGeometry(0.045, 6, 5);
-        for (let i = 0; i < 20; i++) {
-          const a = (i / 20) * Math.PI * 2;
-          const r = 0.14 + (i % 3) * 0.11;
-          const gr = new THREE.Mesh(grGeo, i % 3 === 0 ? MATS.kumkum : MATS.marigoldBright);
-          gr.scale.set(1.7, 0.65, 0.65);
-          gr.position.set(Math.cos(a) * r, 0.26 - r * 0.45, Math.sin(a) * r);
-          g.add(gr);
-        }
-
-        [{ x: -0.74, z: 0.36, mat: MATS.kumkum }, { x: 0.74, z: 0.36, mat: MATS.haldi }].forEach(it => {
-          const b = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.20, 0.16, 24), MATS.richGold);
-          b.position.set(it.x, -0.10, it.z);
-          const p = new THREE.Mesh(new THREE.SphereGeometry(0.20, 18, 14), it.mat);
-          p.scale.set(1, 0.5, 1); p.position.set(it.x, 0.0, it.z);
-          g.add(b, p);
+        // Soft rose-blush cheeks
+        [[176, 286], [336, 286]].forEach(([x, y]) => {
+          const g = ctx.createRadialGradient(x, y, 4, x, y, 42);
+          g.addColorStop(0, "rgba(240, 140, 152, 0.42)");
+          g.addColorStop(1, "rgba(240, 140, 152, 0)");
+          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 42, 0, Math.PI * 2); ctx.fill();
         });
 
-        const diya = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.16, 0.16, 24), MATS.richGold);
-        diya.position.set(0, -0.10, -0.78);
-        const flame = new THREE.Mesh(new THREE.ConeGeometry(0.075, 0.26, 14), MATS.flame);
-        flame.position.set(0, 0.12, -0.78);
-        g.add(diya, flame);
-        addGroundShadow(g, 1.6, -0.30);
+        // Expressive dark eyebrows
+        ctx.strokeStyle = "#241917"; ctx.lineWidth = 6.5; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(164, 212); ctx.quadraticCurveTo(194, 194, 222, 210); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(290, 210); ctx.quadraticCurveTo(318, 194, 348, 212); ctx.stroke();
 
-      } else if (id === "mangalsutra") {
-        // Mangalsutra: Double-Strand Onyx & Rich-Gold Mangalsutra with Twin Sculpted Vatis on Deep Indigo Velvet Stand
-        const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.74, 0.94, 1.58, 32), MATS.royalIndigo);
-        stand.scale.set(1.15, 1, 0.52); stand.position.set(0, -0.18, -0.18);
-        g.add(stand);
-
-        [0.86, 1.04].forEach((rad, tier) => {
-          const pts = [];
-          for (let i = 0; i <= 32; i++) {
-            const t = (i / 32) * Math.PI * 1.12 - Math.PI * 0.56;
-            pts.push(new THREE.Vector3(Math.sin(t) * rad, -Math.cos(t) * rad + 0.55 - tier * 0.08, 0.26));
-          }
-          const curve = new THREE.CatmullRomCurve3(pts);
-          g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 52, 0.018, 10, false), MATS.richGold));
-          const bGeo = new THREE.SphereGeometry(0.046, 12, 10);
-          for (let i = 2; i < 31; i++) {
-            const b = new THREE.Mesh(bGeo, i % 3 === 0 ? MATS.richGold : MATS.onyx);
-            b.position.copy(curve.getPoint(i / 32));
-            g.add(b);
-          }
+        // Expressive almond eyes with white sclera, dark iris & bright catchlights
+        [[196, 240], [316, 240]].forEach(([x, y]) => {
+          ctx.fillStyle = "#FFFFFF";
+          ctx.beginPath(); ctx.ellipse(x, y, 22, 16, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#1E1A24";
+          ctx.beginPath(); ctx.arc(x, y, 13, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#FFFFFF";
+          ctx.beginPath(); ctx.arc(x - 4, y - 4, 4.2, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.arc(x + 4, y + 3, 2, 0, Math.PI * 2); ctx.fill();
+          ctx.strokeStyle = "#1A1214"; ctx.lineWidth = 4;
+          ctx.beginPath(); ctx.ellipse(x, y - 1, 22, 16, 0, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke();
         });
 
-        [-0.27, 0.27].forEach(x => {
-          const vati = new THREE.Mesh(new THREE.SphereGeometry(0.20, 24, 16, 0, Math.PI * 2, 0, Math.PI * 0.62), MATS.richGold);
-          vati.rotation.x = Math.PI / 2; vati.position.set(x, -0.58, 0.29);
-          const dot = new THREE.Mesh(new THREE.SphereGeometry(0.048, 12, 12), MATS.ruby);
-          dot.position.set(x, -0.58, 0.48);
-          g.add(vati, dot);
-        });
-        const centerGem = new THREE.Mesh(new THREE.OctahedronGeometry(0.13, 1), MATS.ruby);
-        centerGem.scale.set(1, 1.2, 0.55); centerGem.position.set(0, -0.56, 0.37);
-        g.add(centerGem);
-        addGroundShadow(g, 1.4, -0.98);
+        // 3-Petal Crimson Forehead Tilak (Matching Reference 1000356601)
+        ctx.fillStyle = "#C8102E";
+        ctx.beginPath(); ctx.ellipse(256, 178, 5, 16, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(242, 186, 4.2, 12, -0.58, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(270, 186, 4.2, 12, 0.58, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(256, 200, 4.2, 0, Math.PI * 2); ctx.fill();
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
       }
 
-      return g;
-    }
+      function makeTrunkTilakTex() {
+        const c = document.createElement("canvas");
+        c.width = 256; c.height = 512;
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "#FAF0E9"; ctx.fillRect(0, 0, 256, 512);
+        // Fine vertical crimson line + horizontal traditional strokes on Ganesha's trunk
+        ctx.strokeStyle = "#C8102E"; ctx.lineWidth = 5; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(128, 70); ctx.lineTo(128, 255); ctx.stroke();
+        [105, 126, 148, 170, 192].forEach((y, i) => {
+          const w = 28 - i * 3;
+          ctx.lineWidth = 3.5;
+          ctx.beginPath(); ctx.moveTo(128 - w, y); ctx.quadraticCurveTo(128, y - 6, 128 + w, y); ctx.stroke();
+        });
+        const tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
 
-    function initCultureShowcase() {
-      const stage = document.getElementById("culture-3d-stage");
-      const tabsWrap = document.getElementById("culture-tabs");
-      const enEl = document.getElementById("culture-en-title");
-      const mrEl = document.getElementById("culture-mr-title");
-      const descEl = document.getElementById("culture-desc");
-      if (!stage || !tabsWrap) return;
+      function makeKalashOrnateTex() {
+        const c = document.createElement("canvas");
+        c.width = 1024; c.height = 512;
+        const ctx = c.getContext("2d");
+        // Gleaming antique gold brass gradient
+        const g = ctx.createLinearGradient(0, 0, 0, 512);
+        g.addColorStop(0, "#E5B74B");
+        g.addColorStop(0.25, "#F3CE6E");
+        g.addColorStop(0.55, "#CE962C");
+        g.addColorStop(0.85, "#E0AC3F");
+        g.addColorStop(1, "#9E6E1B");
+        ctx.fillStyle = g; ctx.fillRect(0, 0, 1024, 512);
 
-      let currentMesh = null, scene, camera, renderer;
-      let isDragging = false, prevX = 0, targetRotY = 0;
-
-      if (typeof THREE !== "undefined") {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(36, stage.clientWidth / stage.clientHeight, 0.1, 100);
-        camera.position.set(0, 0.30, 4.4);
-        renderer = createStudioRenderer(stage, scene);
-
-        stage.addEventListener("pointerdown", e => { isDragging = true; prevX = e.clientX; });
-        window.addEventListener("pointerup", () => { isDragging = false; });
-        window.addEventListener("pointermove", e => {
-          if (!isDragging) return;
-          targetRotY += (e.clientX - prevX) * 0.012;
-          prevX = e.clientX;
+        // Upper & Lower Ruby-Studded Beaded Bands (Matching Reference 1000356600)
+        [105, 385].forEach(y => {
+          ctx.fillStyle = "#8C5D12"; ctx.fillRect(0, y - 16, 1024, 32);
+          ctx.fillStyle = "#F7DC88"; ctx.fillRect(0, y - 18, 1024, 4); ctx.fillRect(0, y + 14, 1024, 4);
+          for (let x = 16; x < 1024; x += 32) {
+            ctx.fillStyle = "#FCE39A";
+            ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = "#C21226";
+            ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = "rgba(255,255,255,0.65)";
+            ctx.beginPath(); ctx.arc(x - 2, y - 2, 2.2, 0, Math.PI * 2); ctx.fill();
+          }
         });
 
-        let visible = false;
-        new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { threshold: 0.05 }).observe(stage);
+        // Two opposite Swastik Medallions + Flanking Embossed Golden Lotus Flowers
+        [256, 768].forEach(cx => {
+          const cy = 246;
+          // Beaded arch medallion frame
+          ctx.strokeStyle = "#8A5A10"; ctx.lineWidth = 7;
+          ctx.beginPath(); ctx.ellipse(cx, cy, 84, 96, 0, 0, Math.PI * 2); ctx.stroke();
+          ctx.strokeStyle = "#FCE49C"; ctx.lineWidth = 3;
+          ctx.setLineDash([6, 6]);
+          ctx.beginPath(); ctx.ellipse(cx, cy, 88, 100, 0, 0, Math.PI * 2); ctx.stroke();
+          ctx.setLineDash([]);
 
-        function animate() {
+          // Raised Crimson Swastik with Gold Shadow Outline
+          const drawSwastik = (ox, oy, color, lw) => {
+            ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.lineCap = "round"; ctx.lineJoin = "round";
+            const s = 42;
+            ctx.beginPath();
+            ctx.moveTo(cx + ox - s, cy + oy); ctx.lineTo(cx + ox + s, cy + oy);
+            ctx.moveTo(cx + ox, cy + oy - s); ctx.lineTo(cx + ox, cy + oy + s);
+            ctx.moveTo(cx + ox, cy + oy - s); ctx.lineTo(cx + ox + s * 0.92, cy + oy - s);
+            ctx.moveTo(cx + ox + s, cy + oy); ctx.lineTo(cx + ox + s, cy + oy + s * 0.92);
+            ctx.moveTo(cx + ox, cy + oy + s); ctx.lineTo(cx + ox - s * 0.92, cy + oy + s);
+            ctx.moveTo(cx + ox - s, cy + oy); ctx.lineTo(cx + ox - s, cy + oy - s * 0.92);
+            ctx.stroke();
+          };
+          drawSwastik(2, 2, "#6E3F08", 16);
+          drawSwastik(0, 0, "#C91024", 12);
+          // Four crimson dots
+          ctx.fillStyle = "#C91024";
+          [[-21, -21], [21, -21], [21, 21], [-21, 21]].forEach(([dx, dy]) => {
+            ctx.beginPath(); ctx.arc(cx + dx, cy + dy, 6.5, 0, Math.PI * 2); ctx.fill();
+          });
+
+          // Flanking Embossed Golden 8-Petal Flowers with Ruby Center
+          [cx - 134, cx + 134].forEach(fx => {
+            for (let p = 0; p < 8; p++) {
+              const a = (p / 8) * Math.PI * 2;
+              ctx.save(); ctx.translate(fx, cy); ctx.rotate(a);
+              ctx.fillStyle = "#F3CE6E"; ctx.strokeStyle = "#8A5A10"; ctx.lineWidth = 2;
+              ctx.beginPath(); ctx.ellipse(22, 0, 16, 7.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+              ctx.restore();
+            }
+            ctx.fillStyle = "#C91024"; ctx.beginPath(); ctx.arc(fx, cy, 9, 0, Math.PI * 2); ctx.fill();
+          });
+        });
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        tex.anisotropy = 4;
+        return tex;
+      }
+
+      function makeCoconutFiberTex() {
+        const c = document.createElement("canvas");
+        c.width = 512; c.height = 512;
+        const ctx = c.getContext("2d");
+        const bg = ctx.createLinearGradient(0, 0, 0, 512);
+        bg.addColorStop(0, "#D9141E");    // Crimson kumkum crown at top tip!
+        bg.addColorStop(0.16, "#B82018");
+        bg.addColorStop(0.24, "#9A5B2C");
+        bg.addColorStop(0.65, "#7E451E");
+        bg.addColorStop(1, "#5C2F12");
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, 512, 512);
+
+        // Realistic vertical fibrous coir strands
+        for (let i = 0; i < 650; i++) {
+          const x = Math.random() * 512;
+          const y0 = 60 + Math.random() * 140;
+          const len = 140 + Math.random() * 280;
+          ctx.strokeStyle = i % 2 === 0 ? "rgba(62, 28, 10, 0.42)" : "rgba(218, 152, 86, 0.36)";
+          ctx.lineWidth = 1 + Math.random() * 2.2;
+          ctx.beginPath();
+          ctx.moveTo(x, y0);
+          ctx.quadraticCurveTo(x + (Math.random() - 0.5) * 18, y0 + len * 0.5, x + (Math.random() - 0.5) * 14, y0 + len);
+          ctx.stroke();
+        }
+        // Kumkum speckles near tip
+        for (let i = 0; i < 180; i++) {
+          ctx.fillStyle = "rgba(220, 20, 32, 0.65)";
+          ctx.beginPath(); ctx.arc(Math.random() * 512, Math.random() * 125, 1.5 + Math.random() * 3, 0, Math.PI * 2); ctx.fill();
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function makeHaldiBowlTex() {
+        const c = document.createElement("canvas");
+        c.width = 512; c.height = 256;
+        const ctx = c.getContext("2d");
+        const g = ctx.createLinearGradient(0, 0, 0, 256);
+        g.addColorStop(0, "#EAB949"); g.addColorStop(0.5, "#CC9228"); g.addColorStop(1, "#9B6915");
+        ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 256);
+        // Upper engraved diamond-and-dot band (Matching Reference 1000356603)
+        ctx.fillStyle = "#8C5D12"; ctx.fillRect(0, 26, 512, 28);
+        ctx.strokeStyle = "#FBE294"; ctx.lineWidth = 2.5;
+        for (let x = 16; x < 512; x += 28) {
+          ctx.beginPath(); ctx.moveTo(x, 31); ctx.lineTo(x + 8, 40); ctx.lineTo(x, 49); ctx.lineTo(x - 8, 40); ctx.closePath(); ctx.stroke();
+          ctx.fillStyle = "#FBE294"; ctx.beginPath(); ctx.arc(x + 14, 40, 2.4, 0, Math.PI * 2); ctx.fill();
+        }
+        // Hammered dimple rows on belly
+        for (let row = 0; row < 6; row++) {
+          const y = 76 + row * 28;
+          for (let x = (row % 2) * 14; x < 512; x += 28) {
+            const rg = ctx.createRadialGradient(x - 3, y - 3, 1, x, y, 12);
+            rg.addColorStop(0, "rgba(255, 240, 180, 0.45)");
+            rg.addColorStop(0.7, "rgba(130, 82, 16, 0.25)");
+            rg.addColorStop(1, "rgba(130, 82, 16, 0)");
+            ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = THREE.RepeatWrapping; tex.repeat.set(2, 1);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function makeTurmericGranularTex() {
+        const c = document.createElement("canvas");
+        c.width = 512; c.height = 512;
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "#F4A408"; ctx.fillRect(0, 0, 512, 512);
+        for (let i = 0; i < 6500; i++) {
+          const x = Math.random() * 512, y = Math.random() * 512, r = 0.8 + Math.random() * 2.8;
+          ctx.fillStyle = i % 3 === 0 ? "#FFD22E" : (i % 3 === 1 ? "#DA7F00" : "#F6B412");
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(2, 2);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function makeHomakundWallTex() {
+        const c = document.createElement("canvas");
+        c.width = 512; c.height = 128;
+        const ctx = c.getContext("2d");
+        // Terracotta red altar wall (Matching Reference 1000356604)
+        ctx.fillStyle = "#D93829"; ctx.fillRect(0, 0, 512, 128);
+        // Subtle darker bottom trim
+        ctx.fillStyle = "#B9281B"; ctx.fillRect(0, 114, 512, 14);
+        // Repeating crisp white zigzag chevron + nested dots
+        const step = 64;
+        ctx.strokeStyle = "#FFF8F0"; ctx.lineWidth = 10; ctx.lineJoin = "miter";
+        ctx.beginPath();
+        for (let x = 0; x <= 512; x += step) {
+          ctx.lineTo(x, 102);
+          ctx.lineTo(x + step / 2, 28);
+        }
+        ctx.stroke();
+        ctx.fillStyle = "#FFF8F0";
+        for (let x = 0; x < 512; x += step) {
+          ctx.beginPath(); ctx.arc(x + step / 2, 82, 8, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.arc(x, 42, 7.5, 0, Math.PI * 2); ctx.fill();
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = THREE.RepeatWrapping; tex.repeat.set(2, 1);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function makeVatiFiligreeTex() {
+        const c = document.createElement("canvas");
+        c.width = 512; c.height = 512;
+        const ctx = c.getContext("2d");
+        const bg = ctx.createRadialGradient(256, 256, 20, 256, 256, 256);
+        bg.addColorStop(0, "#FFE58F"); bg.addColorStop(0.65, "#E0AC36"); bg.addColorStop(1, "#A67518");
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, 512, 512);
+        // Radial golden floral filigree petals with black enamel cuts (Matching Reference 1000356616)
+        for (let i = 0; i < 12; i++) {
+          const a = (i / 12) * Math.PI * 2;
+          ctx.save(); ctx.translate(256, 256); ctx.rotate(a);
+          ctx.fillStyle = i % 2 === 0 ? "#1C1814" : "#FFF2B2";
+          ctx.beginPath(); ctx.ellipse(135, 0, 52, 18, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.strokeStyle = "#8C5D10"; ctx.lineWidth = 4; ctx.stroke();
+          ctx.restore();
+        }
+        // Granulated gold bead rim
+        for (let i = 0; i < 32; i++) {
+          const a = (i / 32) * Math.PI * 2;
+          ctx.fillStyle = "#FFF0B3";
+          ctx.beginPath(); ctx.arc(256 + Math.cos(a) * 230, 256 + Math.sin(a) * 230, 12, 0, Math.PI * 2); ctx.fill();
+        }
+        // Central Ruby-Red Gem
+        ctx.fillStyle = "#B91C1C";
+        ctx.beginPath(); ctx.arc(256, 256, 56, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "rgba(255,255,255,0.55)";
+        ctx.beginPath(); ctx.arc(240, 240, 14, 0, Math.PI * 2); ctx.fill();
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function makeFlameGlowTex() {
+        const c = document.createElement("canvas");
+        c.width = 128; c.height = 128;
+        const ctx = c.getContext("2d");
+        const g = ctx.createRadialGradient(64, 64, 2, 64, 64, 62);
+        g.addColorStop(0, "rgba(255, 252, 220, 1)");
+        g.addColorStop(0.28, "rgba(255, 188, 52, 0.78)");
+        g.addColorStop(0.65, "rgba(240, 96, 12, 0.22)");
+        g.addColorStop(1, "rgba(240, 96, 12, 0)");
+        ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128);
+        return new THREE.CanvasTexture(c);
+      }
+
+      function initHeritageAssets() {
+        if (H_MAT._ready || typeof THREE === "undefined") return;
+        H_MAT._ready = true;
+
+        H_TEX.ganeshFace = makeGaneshFaceTex();
+        H_TEX.trunkTilak = makeTrunkTilakTex();
+        H_TEX.kalashOrnate = makeKalashOrnateTex();
+        H_TEX.coconutFiber = makeCoconutFiberTex();
+        H_TEX.haldiBowl = makeHaldiBowlTex();
+        H_TEX.turmeric = makeTurmericGranularTex();
+        H_TEX.homakundWall = makeHomakundWallTex();
+        H_TEX.vatiFiligree = makeVatiFiligreeTex();
+        H_TEX.flameGlow = makeFlameGlowTex();
+
+        H_MAT.ivoryPorcelain = new THREE.MeshStandardMaterial({ color: srgb(0xfcefe5), roughness: 0.34, metalness: 0.03, envMapIntensity: 0.42 });
+        H_MAT.ganeshFace = new THREE.MeshStandardMaterial({ map: H_TEX.ganeshFace, roughness: 0.32, metalness: 0.03, envMapIntensity: 0.40 });
+        H_MAT.trunkTilak = new THREE.MeshStandardMaterial({ map: H_TEX.trunkTilak, roughness: 0.34, metalness: 0.03, envMapIntensity: 0.40 });
+        H_MAT.blushPink = new THREE.MeshStandardMaterial({ color: srgb(0xf296a8), roughness: 0.46, metalness: 0.02, envMapIntensity: 0.38 });
+        H_MAT.lotusBasePink = new THREE.MeshStandardMaterial({ color: srgb(0xe88ca8), roughness: 0.38, metalness: 0.05, envMapIntensity: 0.45 });
+        H_MAT.coralShawl = new THREE.MeshStandardMaterial({ color: srgb(0xe65c72), roughness: 0.48, metalness: 0.04, envMapIntensity: 0.42 });
+        H_MAT.saffronDhoti = new THREE.MeshStandardMaterial({ color: srgb(0xf08a28), roughness: 0.44, metalness: 0.05, envMapIntensity: 0.45 });
+        H_MAT.goldOrnate = new THREE.MeshStandardMaterial({ color: srgb(0xf2be38), metalness: 0.90, roughness: 0.20, envMapIntensity: 1.45, bumpMap: TEX.bump, bumpScale: 0.01 });
+        H_MAT.goldBright = new THREE.MeshStandardMaterial({ color: srgb(0xffd75e), metalness: 0.94, roughness: 0.14, envMapIntensity: 1.55 });
+        H_MAT.burgundyGloss = new THREE.MeshStandardMaterial({ color: srgb(0x6b0820), metalness: 0.16, roughness: 0.11, envMapIntensity: 1.15 });
+        H_MAT.creamVelvet = new THREE.MeshStandardMaterial({ color: srgb(0xf6ecdc), metalness: 0.02, roughness: 0.88, envMapIntensity: 0.30 });
+        H_MAT.diamond = new THREE.MeshStandardMaterial({ color: srgb(0xffffff), metalness: 0.24, roughness: 0.02, envMapIntensity: 2.3 });
+        H_MAT.kalashOrnate = new THREE.MeshStandardMaterial({ map: H_TEX.kalashOrnate, metalness: 0.82, roughness: 0.22, envMapIntensity: 1.40, bumpMap: TEX.bump, bumpScale: 0.015 });
+        H_MAT.coconut = new THREE.MeshStandardMaterial({ map: H_TEX.coconutFiber, roughness: 0.86, metalness: 0.03, envMapIntensity: 0.38, bumpMap: TEX.bump, bumpScale: 0.025 });
+        H_MAT.haldiBowl = new THREE.MeshStandardMaterial({ map: H_TEX.haldiBowl, metalness: 0.84, roughness: 0.22, envMapIntensity: 1.40, bumpMap: TEX.bump, bumpScale: 0.02 });
+        H_MAT.turmeric = new THREE.MeshStandardMaterial({ map: H_TEX.turmeric, roughness: 0.90, metalness: 0.02, envMapIntensity: 0.32, bumpMap: H_TEX.turmeric, bumpScale: 0.028 });
+        H_MAT.brassPlate = new THREE.MeshStandardMaterial({ color: srgb(0xe0a224), metalness: 0.88, roughness: 0.24, envMapIntensity: 1.40, bumpMap: TEX.bump, bumpScale: 0.014 });
+        H_MAT.oilPool = new THREE.MeshStandardMaterial({ color: srgb(0xc46404), metalness: 0.16, roughness: 0.08, envMapIntensity: 1.1 });
+        H_MAT.mangoLeaf = new THREE.MeshStandardMaterial({ color: srgb(0x2e8c18), roughness: 0.32, metalness: 0.05, envMapIntensity: 0.55, side: THREE.DoubleSide });
+        H_MAT.hibiscusRed = new THREE.MeshStandardMaterial({ color: srgb(0xe30b1e), roughness: 0.48, envMapIntensity: 0.40, side: THREE.DoubleSide });
+        H_MAT.magentaLotus = new THREE.MeshStandardMaterial({ color: srgb(0xdc0c74), roughness: 0.46, envMapIntensity: 0.40, side: THREE.DoubleSide });
+        H_MAT.rosePetal = new THREE.MeshStandardMaterial({ color: srgb(0xde0f64), roughness: 0.44, envMapIntensity: 0.42, side: THREE.DoubleSide });
+        H_MAT.plumeriaWhite = new THREE.MeshStandardMaterial({ color: srgb(0xffffff), roughness: 0.42, envMapIntensity: 0.38, side: THREE.DoubleSide });
+        H_MAT.plumeriaYellow = new THREE.MeshStandardMaterial({ color: srgb(0xffc800), roughness: 0.46, envMapIntensity: 0.40 });
+        H_MAT.marigoldGold = new THREE.MeshStandardMaterial({ color: srgb(0xff9c00), roughness: 0.58, envMapIntensity: 0.38 });
+        H_MAT.marigoldDeep = new THREE.MeshStandardMaterial({ color: srgb(0xf24c00), roughness: 0.60, envMapIntensity: 0.38 });
+        H_MAT.mauliRed = new THREE.MeshStandardMaterial({ color: srgb(0xd60a24), roughness: 0.76, envMapIntensity: 0.32 });
+        H_MAT.mauliYellow = new THREE.MeshStandardMaterial({ color: srgb(0xffcc00), roughness: 0.76, envMapIntensity: 0.32 });
+        H_MAT.pearlWhite = new THREE.MeshStandardMaterial({ color: srgb(0xfffdf6), metalness: 0.25, roughness: 0.15, envMapIntensity: 1.1 });
+        H_MAT.homakundWall = new THREE.MeshStandardMaterial({ map: H_TEX.homakundWall, roughness: 0.58, metalness: 0.04, envMapIntensity: 0.36 });
+        H_MAT.homakundLedge = new THREE.MeshStandardMaterial({ color: srgb(0xf29638), roughness: 0.52, metalness: 0.05, envMapIntensity: 0.40 });
+        H_MAT.charredWood = new THREE.MeshStandardMaterial({ color: srgb(0x47210c), roughness: 0.88, metalness: 0.04, envMapIntensity: 0.30 });
+        H_MAT.porcelainWhite = new THREE.MeshStandardMaterial({ color: srgb(0xf8fafd), roughness: 0.14, metalness: 0.06, envMapIntensity: 0.85 });
+        H_MAT.riceOrange = new THREE.MeshStandardMaterial({ color: srgb(0xff6200), roughness: 0.52, envMapIntensity: 0.36 });
+        H_MAT.riceWhite = new THREE.MeshStandardMaterial({ color: srgb(0xf7f3e6), roughness: 0.52, envMapIntensity: 0.36 });
+        H_MAT.riceGreen = new THREE.MeshStandardMaterial({ color: srgb(0x4ca608), roughness: 0.52, envMapIntensity: 0.36 });
+        H_MAT.starAnise = new THREE.MeshStandardMaterial({ color: srgb(0x421c0a), roughness: 0.70, metalness: 0.06, envMapIntensity: 0.36 });
+        H_MAT.vatiFace = new THREE.MeshStandardMaterial({ map: H_TEX.vatiFiligree, metalness: 0.84, roughness: 0.18, envMapIntensity: 1.45 });
+        H_MAT.onyxBead = new THREE.MeshStandardMaterial({ color: srgb(0x0c0c10), metalness: 0.72, roughness: 0.14, envMapIntensity: 1.25 });
+        H_MAT.rubyGem = new THREE.MeshStandardMaterial({ color: srgb(0xd40826), metalness: 0.35, roughness: 0.10, envMapIntensity: 1.4 });
+        H_MAT.emeraldGem = new THREE.MeshStandardMaterial({ color: srgb(0x048a5c), metalness: 0.35, roughness: 0.12, envMapIntensity: 1.4 });
+      }
+
+      /* Shared Botanical Helpers */
+      function makeCurvedLeaf(len = 0.92, width = 0.28, arch = 0.30) {
+        const shape = new THREE.Shape();
+        shape.moveTo(0, 0);
+        shape.bezierCurveTo(width, len * 0.28, width * 0.82, len * 0.72, 0, len);
+        shape.bezierCurveTo(-width * 0.82, len * 0.72, -width, len * 0.28, 0, 0);
+        const geo = new THREE.ShapeGeometry(shape, 14);
+        const pos = geo.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          const x = pos.getX(i), y = pos.getY(i);
+          const t = y / len;
+          pos.setZ(i, -Math.pow(t, 1.9) * arch + Math.abs(x) * 0.12);
+        }
+        geo.computeVertexNormals();
+        return new THREE.Mesh(geo, H_MAT.mangoLeaf);
+      }
+
+      function makePlumeria(scale = 1) {
+        const g = new THREE.Group();
+        const petalGeo = new THREE.SphereGeometry(0.14, 12, 10);
+        for (let i = 0; i < 5; i++) {
+          const a = (i / 5) * Math.PI * 2;
+          const p = new THREE.Mesh(petalGeo, H_MAT.plumeriaWhite);
+          p.scale.set(0.62, 0.18, 1.45);
+          p.position.set(Math.cos(a) * 0.14, 0.03, Math.sin(a) * 0.14);
+          p.rotation.y = -a + Math.PI / 2;
+          p.rotation.x = -0.22;
+          g.add(p);
+        }
+        const throat = new THREE.Mesh(new THREE.SphereGeometry(0.085, 12, 10), H_MAT.plumeriaYellow);
+        throat.scale.set(1, 0.45, 1); throat.position.y = 0.035;
+        g.add(throat);
+        g.scale.setScalar(scale);
+        return g;
+      }
+
+      function makeHibiscus(scale = 1) {
+        const g = new THREE.Group();
+        const pGeo = new THREE.SphereGeometry(0.20, 14, 10);
+        for (let i = 0; i < 5; i++) {
+          const a = (i / 5) * Math.PI * 2;
+          const p = new THREE.Mesh(pGeo, H_MAT.hibiscusRed);
+          p.scale.set(0.88, 0.16, 1.32);
+          p.position.set(Math.cos(a) * 0.18, 0.04, Math.sin(a) * 0.18);
+          p.rotation.y = -a + Math.PI / 2; p.rotation.x = -0.28;
+          g.add(p);
+        }
+        const stamen = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.025, 0.34, 10), H_MAT.plumeriaYellow);
+        stamen.position.y = 0.18; stamen.rotation.x = 0.25;
+        const tip = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 8), H_MAT.marigoldGold);
+        tip.position.set(0, 0.34, 0.08);
+        g.add(stamen, tip);
+        g.scale.setScalar(scale);
+        return g;
+      }
+
+      function makeMagentaLotus(scale = 1) {
+        const g = new THREE.Group();
+        const pGeo = new THREE.SphereGeometry(0.16, 10, 8);
+        [
+          { n: 10, r: 0.24, y: 0.04, tilt: -0.45, sc: 1.0 },
+          { n: 8,  r: 0.17, y: 0.10, tilt: -0.22, sc: 0.85 },
+          { n: 6,  r: 0.09, y: 0.15, tilt: -0.05, sc: 0.65 }
+        ].forEach(ring => {
+          for (let i = 0; i < ring.n; i++) {
+            const a = (i / ring.n) * Math.PI * 2 + ring.y * 4;
+            const p = new THREE.Mesh(pGeo, H_MAT.magentaLotus);
+            p.scale.set(0.55 * ring.sc, 0.22, 1.45 * ring.sc);
+            p.position.set(Math.cos(a) * ring.r, ring.y, Math.sin(a) * ring.r);
+            p.rotation.y = -a + Math.PI / 2; p.rotation.x = ring.tilt;
+            g.add(p);
+          }
+        });
+        const center = new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 10), H_MAT.plumeriaYellow);
+        center.position.y = 0.14;
+        g.add(center);
+        g.scale.setScalar(scale);
+        return g;
+      }
+
+      function makeRosePetal(scale = 1) {
+        const p = new THREE.Mesh(new THREE.SphereGeometry(0.14, 12, 10), H_MAT.rosePetal);
+        p.scale.set(0.85, 0.18, 1.28);
+        p.scale.multiplyScalar(scale);
+        return p;
+      }
+
+      function makeMarigold(scale = 1, deep = false) {
+        const g = new THREE.Group();
+        const geo = new THREE.SphereGeometry(0.068, 8, 6);
+        const m1 = deep ? H_MAT.marigoldDeep : H_MAT.marigoldGold;
+        const m2 = deep ? H_MAT.marigoldGold : H_MAT.plumeriaYellow;
+        [
+          { n: 14, r: 0.18, y: 0.00, mat: m1 },
+          { n: 10, r: 0.12, y: 0.055, mat: m2 },
+          { n: 6,  r: 0.05, y: 0.10, mat: m1 }
+        ].forEach(ring => {
+          for (let i = 0; i < ring.n; i++) {
+            const a = (i / ring.n) * Math.PI * 2 + ring.y * 5;
+            const m = new THREE.Mesh(geo, ring.mat);
+            m.scale.set(0.92, 0.52, 1.28);
+            m.position.set(Math.cos(a) * ring.r, ring.y, Math.sin(a) * ring.r);
+            m.rotation.y = -a;
+            g.add(m);
+          }
+        });
+        g.scale.setScalar(scale);
+        return g;
+      }
+
+      function makeDynamicFlame(scale = 1) {
+        const g = new THREE.Group();
+        const outer = new THREE.Mesh(
+          new THREE.ConeGeometry(0.095, 0.34, 16),
+          new THREE.MeshBasicMaterial({ color: srgb(0xff7b00), transparent: true, opacity: 0.94 })
+        );
+        outer.position.y = 0.17;
+        const core = new THREE.Mesh(
+          new THREE.ConeGeometry(0.048, 0.21, 14),
+          new THREE.MeshBasicMaterial({ color: srgb(0xfff7c2) })
+        );
+        core.position.y = 0.12;
+        const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: H_TEX.flameGlow, color: 0xffc048, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
+        }));
+        glow.scale.set(0.75, 0.75, 1); glow.position.y = 0.16;
+        g.add(outer, core, glow);
+        g.scale.setScalar(scale);
+        return g;
+      }
+
+      function tagPart(mesh, partMeta) {
+        mesh.traverse(obj => { obj.userData.heritagePart = partMeta; });
+      }
+
+      /* ------------------------------------------------------------
+         MODULE B: 7 REFERENCE-ACCURATE 3D MODEL BUILDERS
+      ------------------------------------------------------------ */
+
+      // 1. GANESH PUJAN — Seated Ivory & Gold Baby Ganesha Idol (Ref: 1000356601)
+      function buildGaneshIdol() {
+        const root = new THREE.Group();
+        const parts = [];
+        const addPart = (mesh, nameMr, nameEn, explodeVec, opts = {}) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: opts.mass || 1.2,
+            restitution: opts.restitution || 0.16,
+            friction: opts.friction || 0.72,
+            radius: opts.radius || 0.45,
+            draggable: Boolean(opts.draggable)
+          };
+          tagPart(mesh, meta);
+          root.add(mesh);
+          parts.push(meta);
+          return meta;
+        };
+
+        // 1) Pastel Pink Sculpted Lotus Base
+        const baseGroup = new THREE.Group();
+        baseGroup.position.set(0, -1.02, 0);
+        const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.92, 0.98, 0.16, 40), H_MAT.lotusBasePink);
+        baseGroup.add(disc);
+        const pGeo = new THREE.SphereGeometry(0.24, 14, 10);
+        for (let i = 0; i < 14; i++) {
+          const a = (i / 14) * Math.PI * 2;
+          const pet = new THREE.Mesh(pGeo, H_MAT.lotusBasePink);
+          pet.scale.set(0.95, 0.46, 1.35);
+          pet.position.set(Math.cos(a) * 0.82, 0.04, Math.sin(a) * 0.82);
+          pet.rotation.y = -a + Math.PI / 2;
+          baseGroup.add(pet);
+        }
+        addPart(baseGroup, "कमळ आसन", "Lotus Base", [0, -0.42, 0], { mass: 2.2 });
+
+        // 2) Seated Ganesha Body, Crossed Saffron Dhoti, Coral Shawl & 4 Arms
+        const bodyGroup = new THREE.Group();
+        bodyGroup.position.set(0, -0.22, 0);
+
+        // Crossed Saffron-Orange Dhoti Legs
+        [-0.44, 0.44].forEach((x, idx) => {
+          const leg = new THREE.Mesh(new THREE.SphereGeometry(0.39, 24, 18), H_MAT.saffronDhoti);
+          leg.scale.set(1.25, 0.64, 0.92);
+          leg.position.set(x, -0.50, 0.14);
+          leg.rotation.z = idx === 0 ? -0.18 : 0.18;
+          const trim = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.025, 10, 28), H_MAT.goldOrnate);
+          trim.position.set(x * 0.85, -0.58, 0.32);
+          bodyGroup.add(leg, trim);
+        });
+        // Central coral-pink draped dhoti sash + golden waist buckle
+        const drape = new THREE.Mesh(new THREE.ConeGeometry(0.26, 0.52, 16), H_MAT.coralShawl);
+        drape.scale.set(1, 1, 0.5); drape.position.set(0, -0.52, 0.40);
+        const buckle = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.05, 20), H_MAT.goldOrnate);
+        buckle.rotation.x = Math.PI / 2; buckle.position.set(0, -0.34, 0.46);
+        // Cute front right foot resting on lotus
+        const foot = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 12), H_MAT.ivoryPorcelain);
+        foot.scale.set(0.85, 0.55, 1.35); foot.position.set(-0.22, -0.68, 0.46);
+
+        // Rounded Ivory Belly & Torso
+        const belly = new THREE.Mesh(new THREE.SphereGeometry(0.46, 28, 22), H_MAT.ivoryPorcelain);
+        belly.scale.set(1.04, 0.96, 0.86); belly.position.set(0, -0.08, 0.04);
+        const chest = new THREE.Mesh(new THREE.SphereGeometry(0.36, 24, 18), H_MAT.ivoryPorcelain);
+        chest.scale.set(1.06, 0.82, 0.78); chest.position.set(0, 0.22, 0.0);
+
+        // Draped Coral-Pink Shoulder Shawl
+        [-0.44, 0.44].forEach((x, idx) => {
+          const sh = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.09, 12, 24, Math.PI * 1.15), H_MAT.coralShawl);
+          sh.position.set(x, 0.16, 0.08);
+          sh.rotation.z = idx === 0 ? 0.6 : -0.6;
+          bodyGroup.add(sh);
+        });
+
+        // Front Blessing Right Hand (Abhaya Mudra) & Left Hand on Knee
+        const armFR = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.11, 0.44, 16), H_MAT.ivoryPorcelain);
+        armFR.position.set(-0.52, 0.05, 0.24); armFR.rotation.z = 0.45; armFR.rotation.x = 0.4;
+        const palmFR = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 14), H_MAT.ivoryPorcelain);
+        palmFR.scale.set(0.95, 1.25, 0.42); palmFR.position.set(-0.56, 0.24, 0.42);
+        const bangleFR = new THREE.Mesh(new THREE.TorusGeometry(0.105, 0.025, 10, 24), H_MAT.goldOrnate);
+        bangleFR.position.set(-0.54, 0.08, 0.36); bangleFR.rotation.x = Math.PI / 2;
+
+        const armFL = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.11, 0.46, 16), H_MAT.ivoryPorcelain);
+        armFL.position.set(0.52, -0.06, 0.22); armFL.rotation.z = -0.35; armFL.rotation.x = 0.45;
+        const palmFL = new THREE.Mesh(new THREE.SphereGeometry(0.125, 16, 14), H_MAT.ivoryPorcelain);
+        palmFL.scale.set(1.05, 0.72, 1.15); palmFL.position.set(0.54, -0.22, 0.38);
+        const bangleFL = new THREE.Mesh(new THREE.TorusGeometry(0.105, 0.025, 10, 24), H_MAT.goldOrnate);
+        bangleFL.position.set(0.53, -0.14, 0.32); bangleFL.rotation.x = Math.PI / 2;
+
+        // Upper Raised Back Arms
+        [-0.74, 0.74].forEach((x, idx) => {
+          const uArm = new THREE.Mesh(new THREE.CylinderGeometry(0.085, 0.10, 0.48, 16), H_MAT.ivoryPorcelain);
+          uArm.position.set(x, 0.24, -0.06); uArm.rotation.z = idx === 0 ? 0.55 : -0.55;
+          const uHand = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 12), H_MAT.ivoryPorcelain);
+          uHand.position.set(x * 1.15, 0.48, -0.02);
+          const uBangle = new THREE.Mesh(new THREE.TorusGeometry(0.095, 0.024, 10, 24), H_MAT.goldOrnate);
+          uBangle.position.set(x * 1.08, 0.36, -0.04); uBangle.rotation.x = Math.PI / 2;
+          bodyGroup.add(uArm, uHand, uBangle);
+        });
+
+        // Sculpted Head with Face Canvas Texture, Pink-Tinted Fan Ears, Curved Trunk & Tusks
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.41, 32, 26), H_MAT.ganeshFace);
+        head.position.set(0, 0.64, 0.04);
+        head.rotation.y = -Math.PI / 2; // Align front face texture to +Z!
+
+        // Large Fan Ears with Soft Pink Inner Shading
+        [-0.50, 0.50].forEach((x, idx) => {
+          const earOut = new THREE.Mesh(new THREE.SphereGeometry(0.32, 20, 16), H_MAT.ivoryPorcelain);
+          earOut.scale.set(0.88, 1.18, 0.22);
+          earOut.position.set(x, 0.66, -0.06);
+          earOut.rotation.y = idx === 0 ? 0.28 : -0.28;
+          earOut.rotation.z = idx === 0 ? 0.18 : -0.18;
+          const earIn = new THREE.Mesh(new THREE.SphereGeometry(0.24, 18, 14), H_MAT.blushPink);
+          earIn.scale.set(0.75, 0.98, 0.16);
+          earIn.position.set(x * 0.98, 0.64, -0.01);
+          earIn.rotation.copy(earOut.rotation);
+          bodyGroup.add(earOut, earIn);
+        });
+
+        // Curved Trunk Turning Right (Viewer's Right) with Red Tilak Texture
+        const trunkCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(0.00, 0.58, 0.38),
+          new THREE.Vector3(0.01, 0.34, 0.48),
+          new THREE.Vector3(0.12, 0.16, 0.45),
+          new THREE.Vector3(0.32, 0.20, 0.38),
+          new THREE.Vector3(0.36, 0.12, 0.34)
+        ]);
+        const trunk = new THREE.Mesh(new THREE.TubeGeometry(trunkCurve, 32, 0.105, 16, false), H_MAT.trunkTilak);
+        const trunkTip = new THREE.Mesh(new THREE.SphereGeometry(0.088, 14, 12), H_MAT.ivoryPorcelain);
+        trunkTip.position.set(0.36, 0.12, 0.34);
+
+        // Two Small White Tusks (Viewer's Left intact, Right slightly shorter)
+        const tuskL = new THREE.Mesh(new THREE.ConeGeometry(0.036, 0.16, 12), H_MAT.pearlWhite);
+        tuskL.position.set(-0.18, 0.44, 0.36); tuskL.rotation.z = 0.52; tuskL.rotation.x = 0.45;
+        const tuskR = new THREE.Mesh(new THREE.ConeGeometry(0.034, 0.11, 12), H_MAT.pearlWhite);
+        tuskR.position.set(0.18, 0.45, 0.36); tuskR.rotation.z = -0.52; tuskR.rotation.x = 0.45;
+
+        bodyGroup.add(drape, buckle, foot, belly, chest, armFR, palmFR, bangleFR, armFL, palmFL, bangleFL, head, trunk, trunkTip, tuskL, tuskR);
+        addPart(bodyGroup, "श्री गणेश मूर्ती", "Ganesha Idol", [0, 0, 0], { mass: 2.8 });
+
+        // 3) Layered Golden Necklaces (Separate Explodable Part)
+        const neckGroup = new THREE.Group();
+        neckGroup.position.set(0, 0.04, 0.24);
+        const hara1 = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.032, 12, 32, Math.PI), H_MAT.goldOrnate);
+        hara1.rotation.z = Math.PI; hara1.position.set(0, 0.16, 0.10);
+        const hara2 = new THREE.Mesh(new THREE.TorusGeometry(0.30, 0.028, 12, 36, Math.PI), H_MAT.goldBright);
+        hara2.rotation.z = Math.PI; hara2.position.set(0, 0.06, 0.16);
+        const pendant = new THREE.Mesh(new THREE.SphereGeometry(0.075, 16, 14), H_MAT.goldBright);
+        pendant.scale.set(1, 1, 0.55); pendant.position.set(0, -0.24, 0.18);
+        neckGroup.add(hara1, hara2, pendant);
+        addPart(neckGroup, "सुवर्ण हार", "Golden Necklace", [0, 0.04, 0.48], { mass: 0.4, draggable: true });
+
+        // 4) Ornate Gold Mukut Crown + Beaded Prabhavali Halo (Lifts Upward in Exploded View)
+        const crownGroup = new THREE.Group();
+        crownGroup.position.set(0, 0.80, -0.02);
+        const mukutProfile = [
+          new THREE.Vector2(0.00, 0.66), new THREE.Vector2(0.08, 0.58), new THREE.Vector2(0.16, 0.46),
+          new THREE.Vector2(0.24, 0.34), new THREE.Vector2(0.32, 0.20), new THREE.Vector2(0.39, 0.02),
+          new THREE.Vector2(0.36, 0.00)
+        ];
+        const mukut = new THREE.Mesh(new THREE.LatheGeometry(mukutProfile, 36), H_MAT.goldOrnate);
+        const crownRim = new THREE.Mesh(new THREE.TorusGeometry(0.38, 0.035, 12, 36), H_MAT.goldBright);
+        crownRim.rotation.x = Math.PI / 2; crownRim.position.y = 0.02;
+        // Pink Lotus Jewel + Teal Gem on Crown Front
+        const jewelPink = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.05, 18), H_MAT.magentaLotus);
+        jewelPink.rotation.x = Math.PI / 2; jewelPink.position.set(0, 0.16, 0.36);
+        const jewelTeal = new THREE.Mesh(new THREE.SphereGeometry(0.05, 12, 12), H_MAT.emeraldGem);
+        jewelTeal.position.set(0, 0.16, 0.39);
+        // Semicircular Golden Beaded Halo Behind Crown
+        const haloRing = new THREE.Mesh(new THREE.TorusGeometry(0.56, 0.048, 14, 48, Math.PI * 1.15), H_MAT.goldOrnate);
+        haloRing.rotation.z = -Math.PI * 0.075; haloRing.position.set(0, -0.06, -0.18);
+        for (let i = 0; i <= 14; i++) {
+          const a = -0.1 + (i / 14) * (Math.PI + 0.2);
+          const bead = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 8), H_MAT.goldBright);
+          bead.position.set(Math.cos(a) * 0.63, Math.sin(a) * 0.63 - 0.06, -0.18);
+          crownGroup.add(bead);
+        }
+        crownGroup.add(mukut, crownRim, jewelPink, jewelTeal, haloRing);
+        addPart(crownGroup, "सुवर्ण मुकुट व प्रभावळ", "Golden Mukut & Halo", [0, 0.56, 0], { mass: 0.7, draggable: true });
+
+        // 5) Twin Ornate Golden Emblems in Upper Hands
+        [-0.88, 0.88].forEach((x, idx) => {
+          const emb = new THREE.Group();
+          emb.position.set(x, 0.44, -0.02);
+          const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.28, 10), H_MAT.goldOrnate);
+          const top = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.28, 6), H_MAT.goldBright);
+          top.scale.set(1, 1, 0.32); top.position.y = 0.20;
+          emb.add(stem, top);
+          addPart(emb, idx === 0 ? "अंकुश" : "पाश", idx === 0 ? "Golden Ankush" : "Golden Pash", [idx === 0 ? -0.45 : 0.45, 0.22, 0], { mass: 0.25, draggable: true });
+        });
+
+        addGroundShadow(root, 1.35, -1.12);
+
+        return {
+          root, parts,
+          physicsMode: "rigid",
+          hasExplode: true,
+          cameraPos: [0, 0.25, 4.7],
+          onTapPart: (part, ctx) => {
+            ctx.pulseHalo = 1.0;
+            ctx.applyMainImpulse(0, 1.8, 0, 0.6);
+          },
+          updateVisuals: (t, dt, ctx) => {
+            if (ctx.pulseHalo > 0) {
+              ctx.pulseHalo = Math.max(0, ctx.pulseHalo - dt * 1.8);
+              crownGroup.scale.setScalar(1 + Math.sin(ctx.pulseHalo * Math.PI) * 0.06);
+            }
+          }
+        };
+      }
+
+      // 2. SAKHARPUDA — Deep Burgundy Glossy Ring Box & Gold Diamond Solitaire (Ref: 1000356602)
+      function buildRingBox() {
+        const root = new THREE.Group();
+        const parts = [];
+        const addPart = (mesh, nameMr, nameEn, explodeVec, opts = {}) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: opts.mass || 0.8,
+            restitution: opts.restitution || 0.35,
+            friction: opts.friction || 0.55,
+            radius: opts.radius || 0.35,
+            draggable: Boolean(opts.draggable)
+          };
+          tagPart(mesh, meta);
+          root.add(mesh);
+          parts.push(meta);
+          return meta;
+        };
+
+        function makeRoundedBox(w, h, d, r = 0.14, mat) {
+          const s = new THREE.Shape();
+          const hw = w / 2, hd = d / 2;
+          s.moveTo(-hw + r, -hd);
+          s.lineTo(hw - r, -hd); s.quadraticCurveTo(hw, -hd, hw, -hd + r);
+          s.lineTo(hw, hd - r); s.quadraticCurveTo(hw, hd, hw - r, hd);
+          s.lineTo(-hw + r, hd); s.quadraticCurveTo(-hw, hd, -hw, hd - r);
+          s.lineTo(-hw, -hd + r); s.quadraticCurveTo(-hw, -hd, -hw + r, -hd);
+          const geo = new THREE.ExtrudeGeometry(s, {
+            depth: h, bevelEnabled: true, bevelThickness: 0.055, bevelSize: 0.055, bevelSegments: 5
+          });
+          geo.rotateX(Math.PI / 2);
+          geo.center();
+          return new THREE.Mesh(geo, mat);
+        }
+
+        // 1) Glossy Deep Burgundy Base Shell
+        const baseShell = new THREE.Group();
+        baseShell.position.set(0, -0.52, 0.18);
+        const outerBase = makeRoundedBox(1.56, 0.44, 1.56, 0.16, H_MAT.burgundyGloss);
+        baseShell.add(outerBase);
+        addPart(baseShell, "मखमली अंगठी पेटी", "Burgundy Ring Box", [0, -0.22, 0], { mass: 1.5 });
+
+        // 2) Plush Cream Velvet Interior Cushions with Ring Slot
+        const cushionGroup = new THREE.Group();
+        cushionGroup.position.set(0, -0.28, 0.18);
+        const innerWell = makeRoundedBox(1.36, 0.16, 1.36, 0.11, H_MAT.creamVelvet);
+        const pillowFront = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 1.24, 24), H_MAT.creamVelvet);
+        pillowFront.rotation.z = Math.PI / 2; pillowFront.scale.set(1, 1, 1.75); pillowFront.position.set(0, 0.04, 0.28);
+        const pillowBack = pillowFront.clone(); pillowBack.position.set(0, 0.04, -0.26);
+        cushionGroup.add(innerWell, pillowFront, pillowBack);
+        addPart(cushionGroup, "मऊ मखमली उशी", "Velvet Ring Cushion", [0, 0.16, 0], { mass: 0.3 });
+
+        // 3) Mechanical Hinged Glossy Burgundy Lid (Opens & Closes Smoothly on Tap!)
+        const lidPivot = new THREE.Group();
+        lidPivot.position.set(0, -0.24, -0.60);
+        const lidOuter = makeRoundedBox(1.56, 0.34, 1.56, 0.16, H_MAT.burgundyGloss);
+        lidOuter.position.set(0, 0.18, 0.78);
+        const lidLiner = makeRoundedBox(1.34, 0.24, 1.34, 0.10, H_MAT.creamVelvet);
+        lidLiner.position.set(0, 0.08, 0.78);
+        const hingeBolster = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 1.30, 18), H_MAT.creamVelvet);
+        hingeBolster.rotation.z = Math.PI / 2; hingeBolster.position.set(0, 0.02, 0.12);
+        lidPivot.add(lidOuter, lidLiner, hingeBolster);
+        // Start open at ~102 deg matching Reference 1000356602
+        lidPivot.rotation.x = -1.72;
+        addPart(lidPivot, "झाकण (बिजागरी)", "Hinged Lacquer Lid", [0, 0.32, -0.32], { mass: 0.8 });
+
+        // 4) Yellow-Gold Solitaire Diamond Engagement Ring (Detachable & Physically Bouncy!)
+        const ringGroup = new THREE.Group();
+        ringGroup.position.set(0, 0.05, 0.22);
+        const band = new THREE.Mesh(new THREE.TorusGeometry(0.34, 0.042, 22, 56), H_MAT.goldBright);
+        band.rotation.y = 0.24;
+        ringGroup.add(band);
+
+        // 4 Cathedral Gold Prongs + Multi-Faceted Brilliant-Cut Solitaire Diamond
+        const setting = new THREE.Group();
+        setting.position.set(0, 0.38, 0);
+        for (let i = 0; i < 4; i++) {
+          const a = (i / 4) * Math.PI * 2 + Math.PI / 4;
+          const prong = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.022, 0.18, 10), H_MAT.goldBright);
+          prong.position.set(Math.cos(a) * 0.095, 0.04, Math.sin(a) * 0.095);
+          prong.rotation.z = -Math.cos(a) * 0.26;
+          prong.rotation.x = Math.sin(a) * 0.26;
+          setting.add(prong);
+        }
+        // Custom Brilliant-Cut Diamond (Pavilion Cone + Crown Frustum)
+        const pavilion = new THREE.Mesh(new THREE.ConeGeometry(0.145, 0.14, 12), H_MAT.diamond);
+        pavilion.rotation.x = Math.PI; pavilion.position.y = 0.02;
+        const crown = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.145, 0.065, 12), H_MAT.diamond);
+        crown.position.y = 0.12;
+        const sparkle = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: H_TEX.flameGlow, color: 0xffffff, transparent: true, opacity: 0.72, blending: THREE.AdditiveBlending, depthWrite: false
+        }));
+        sparkle.scale.set(0.42, 0.42, 1); sparkle.position.set(0.04, 0.16, 0.06);
+        setting.add(pavilion, crown, sparkle);
+        ringGroup.add(setting);
+        addPart(ringGroup, "हिऱ्याची सुवर्ण अंगठी", "Gold Diamond Solitaire", [0, 0.68, 0.22], { mass: 0.18, restitution: 0.48, radius: 0.36, draggable: true });
+
+        addGroundShadow(root, 1.55, -0.82);
+
+        const lidState = { open: true, angle: -1.72, target: -1.72, vel: 0 };
+
+        return {
+          root, parts,
+          physicsMode: "hinged-box",
+          hasExplode: true,
+          cameraPos: [1.55, 1.55, 3.85],
+          onTapPart: (part, ctx) => {
+            if (part.mesh === lidPivot || part.mesh === baseShell) {
+              lidState.open = !lidState.open;
+              lidState.target = lidState.open ? -1.72 : 0.0;
+            } else if (part.mesh === ringGroup) {
+              ctx.bouncePart(part, 0, 2.8, 0);
+            }
+          },
+          updateVisuals: (t, dt, ctx) => {
+            // Damped harmonic spring physics on the mechanical lid hinge
+            const k = 38.0, damp = 7.2;
+            const force = (lidState.target - lidState.angle) * k - lidState.vel * damp;
+            lidState.vel += force * dt;
+            lidState.angle += lidState.vel * dt;
+            lidPivot.rotation.x = lidState.angle;
+            // Subtle diamond sparkle breathing
+            sparkle.scale.setScalar(0.36 + Math.sin(t * 4.2) * 0.08);
+          }
+        };
+      }
+
+      // 3. HALDI CEREMONY — Hammered Brass Bowl, Conical Turmeric, Brass Plate, Lit Diya & Flowers (Ref: 1000356603)
+      function buildHaldiPlatter() {
+        const root = new THREE.Group();
+        const parts = [];
+        const addPart = (mesh, nameMr, nameEn, explodeVec, opts = {}) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: opts.mass || 0.8,
+            restitution: opts.restitution || 0.25,
+            friction: opts.friction || 0.6,
+            radius: opts.radius || 0.3,
+            draggable: Boolean(opts.draggable)
+          };
+          tagPart(mesh, meta);
+          root.add(mesh);
+          parts.push(meta);
+          return meta;
+        };
+
+        // 1) Embossed Circular Brass Plate
+        const plateProfile = [
+          new THREE.Vector2(0.00, 0.00), new THREE.Vector2(1.52, 0.00),
+          new THREE.Vector2(1.66, 0.06), new THREE.Vector2(1.68, 0.10),
+          new THREE.Vector2(1.60, 0.11), new THREE.Vector2(1.48, 0.05),
+          new THREE.Vector2(0.86, 0.05), new THREE.Vector2(0.84, 0.12),
+          new THREE.Vector2(0.00, 0.12)
+        ];
+        const plate = new THREE.Mesh(new THREE.LatheGeometry(plateProfile, 60), H_MAT.brassPlate);
+        plate.position.set(0, -0.74, 0);
+        addPart(plate, "पितळी ताट", "Embossed Brass Plate", [0, -0.35, 0], { mass: 2.5 });
+
+        // 2) Hammered Engraved Brass Haldi Bowl
+        const bowlProfile = [
+          new THREE.Vector2(0.00, 0.00), new THREE.Vector2(0.54, 0.00),
+          new THREE.Vector2(0.86, 0.18), new THREE.Vector2(1.06, 0.44),
+          new THREE.Vector2(1.10, 0.68), new THREE.Vector2(1.14, 0.74),
+          new THREE.Vector2(1.04, 0.74), new THREE.Vector2(0.98, 0.42),
+          new THREE.Vector2(0.00, 0.18)
+        ];
+        const bowl = new THREE.Mesh(new THREE.LatheGeometry(bowlProfile, 56), H_MAT.haldiBowl);
+        bowl.position.set(-0.08, -0.62, -0.10);
+        addPart(bowl, "नक्षीदार पितळी वाटी", "Hammered Brass Bowl", [0, 0.18, 0], { mass: 1.9 });
+
+        // 3) Tall Granular Conical Turmeric (Haldi) Mound
+        const coneGeo = new THREE.ConeGeometry(0.98, 1.05, 42, 16);
+        const cPos = coneGeo.attributes.position;
+        for (let i = 0; i < cPos.count; i++) {
+          const x = cPos.getX(i), y = cPos.getY(i), z = cPos.getZ(i);
+          const n = (Math.sin(x * 16 + y * 12) + Math.cos(z * 18 - y * 10)) * 0.025;
+          const rFactor = 1 - Math.max(0, (y + 0.52) / 1.05) * 0.08;
+          cPos.setXYZ(i, x * rFactor + n, y, z * rFactor + n);
+        }
+        coneGeo.computeVertexNormals();
+        const haldiMound = new THREE.Mesh(coneGeo, H_MAT.turmeric);
+        haldiMound.position.set(-0.08, 0.46, -0.10);
+        addPart(haldiMound, "शुभ हळदीचा ढीग", "Turmeric Mound", [0, 0.72, 0], { mass: 0.6, draggable: true });
+
+        // 4) Carved Brass Oil Diya with Live Flickering Flame (Front-Right on Plate)
+        const diyaGroup = new THREE.Group();
+        diyaGroup.position.set(0.84, -0.64, 0.58);
+        const diyaProf = [
+          new THREE.Vector2(0.00, 0.00), new THREE.Vector2(0.22, 0.00),
+          new THREE.Vector2(0.42, 0.16), new THREE.Vector2(0.46, 0.30),
+          new THREE.Vector2(0.42, 0.31), new THREE.Vector2(0.36, 0.18),
+          new THREE.Vector2(0.00, 0.10)
+        ];
+        const diyaCup = new THREE.Mesh(new THREE.LatheGeometry(diyaProf, 40), H_MAT.haldiBowl);
+        const oil = new THREE.Mesh(new THREE.CylinderGeometry(0.39, 0.36, 0.03, 32), H_MAT.oilPool);
+        oil.position.y = 0.22;
+        const wick = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.018, 0.10, 8), H_MAT.charredWood);
+        wick.position.y = 0.27;
+        const flame = makeDynamicFlame(1.05);
+        flame.position.y = 0.30;
+        const diyaLight = new THREE.PointLight(0xffb84d, 1.5, 5);
+        diyaLight.position.set(0, 0.55, 0);
+        diyaGroup.add(diyaCup, oil, wick, flame, diyaLight);
+        addPart(diyaGroup, "पितळी पणती", "Brass Oil Diya", [0.46, 0.22, 0.42], { mass: 0.55, restitution: 0.22, radius: 0.42, draggable: true });
+
+        // 5) Reference-Accurate Flowers: Pink Lotus (Left), White Plumerias (Front-Left & Far-Right), Orange Marigold (Back-Right) & Rose Petals
+        const lotus = makeMagentaLotus(1.18);
+        lotus.position.set(-1.38, -0.60, 0.08);
+        addPart(lotus, "गुलाबी कमळ", "Pink Lotus", [-0.52, 0.18, 0.08], { mass: 0.12, restitution: 0.38, radius: 0.3, draggable: true });
+
+        const plum1 = makePlumeria(1.25);
+        plum1.position.set(-1.02, -0.56, 0.68); plum1.rotation.set(0.38, 0.35, -0.15);
+        addPart(plum1, "चाफा फूल", "White Plumeria", [-0.36, 0.20, 0.38], { mass: 0.08, restitution: 0.42, radius: 0.24, draggable: true });
+
+        const plum2 = makePlumeria(1.08);
+        plum2.position.set(-0.56, -0.60, 1.02); plum2.rotation.set(0.45, -0.25, 0.1);
+        addPart(plum2, "चाफा फूल", "White Plumeria", [-0.18, 0.16, 0.46], { mass: 0.08, restitution: 0.42, radius: 0.22, draggable: true });
+
+        const marigold = makeMarigold(1.38, true);
+        marigold.position.set(1.12, -0.54, -0.05);
+        addPart(marigold, "झेंडूचे फूल", "Orange Marigold", [0.48, 0.24, -0.08], { mass: 0.14, restitution: 0.40, radius: 0.3, draggable: true });
+
+        const plum3 = makePlumeria(0.88);
+        plum3.position.set(1.48, -0.62, 0.48); plum3.rotation.set(0.35, -0.6, 0);
+        addPart(plum3, "चाफा फूल", "White Plumeria", [0.46, 0.12, 0.24], { mass: 0.07, restitution: 0.42, radius: 0.2, draggable: true });
+
+        // Cupped Magenta Rose Petals along front edge
+        const petalCoords = [
+          [-1.32, -0.66, 0.88], [-0.04, -0.64, 1.12], [0.44, -0.65, 1.18], [1.34, -0.65, 0.92]
+        ];
+        const petalGroup = new THREE.Group();
+        petalCoords.forEach(([x, y, z], i) => {
+          const rp = makeRosePetal(1.05);
+          rp.position.set(x, y, z); rp.rotation.set(0.18, i * 1.1, 0.12);
+          petalGroup.add(rp);
+        });
+        addPart(petalGroup, "गुलाब पाकळ्या", "Rose Petals", [0, 0.08, 0.48], { mass: 0.05, draggable: true });
+
+        addGroundShadow(root, 1.85, -0.76);
+
+        return {
+          root, parts,
+          physicsMode: "platter-loose",
+          hasExplode: true,
+          cameraPos: [0, 1.15, 4.75],
+          onTapPart: (part, ctx) => {
+            ctx.bouncePart(part, 0, part.mass < 0.3 ? 2.4 : 1.5, 0);
+          },
+          updateVisuals: (t) => {
+            const flick = 1 + Math.sin(t * 13.5) * 0.11 + Math.cos(t * 21.0) * 0.05;
+            flame.scale.set(1.05, 1.05 * flick, 1.05);
+            diyaLight.intensity = 1.45 + Math.sin(t * 10) * 0.22;
+          }
+        };
+      }
+
+      // 4. ANTARPAT / MANGAL KALASH — Ornate Swastik Brass Kalash, Marigolds, 5 Mango Leaves, Coconut & Red Hibiscus (Ref: 1000356600)
+      function buildWeddingKalash() {
+        const root = new THREE.Group();
+        const parts = [];
+        const addPart = (mesh, nameMr, nameEn, explodeVec, opts = {}) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: opts.mass || 1.2,
+            restitution: opts.restitution || 0.22,
+            friction: opts.friction || 0.65,
+            radius: opts.radius || 0.35,
+            draggable: Boolean(opts.draggable)
+          };
+          tagPart(mesh, meta);
+          root.add(mesh);
+          parts.push(meta);
+          return meta;
+        };
+
+        // 1) Ornate Gem-Studded Brass Kalash Pot with Red Swastik & Front Ruby-Pearl Brooch
+        const potGroup = new THREE.Group();
+        potGroup.position.set(0, -1.12, 0);
+        const potProf = [
+          new THREE.Vector2(0.00, 0.00), new THREE.Vector2(0.46, 0.00),
+          new THREE.Vector2(0.50, 0.08), new THREE.Vector2(0.45, 0.16),
+          new THREE.Vector2(0.76, 0.42), new THREE.Vector2(0.88, 0.72),
+          new THREE.Vector2(0.84, 1.02), new THREE.Vector2(0.62, 1.26),
+          new THREE.Vector2(0.46, 1.38), new THREE.Vector2(0.62, 1.54),
+          new THREE.Vector2(0.58, 1.58), new THREE.Vector2(0.42, 1.40)
+        ];
+        const potMesh = new THREE.Mesh(new THREE.LatheGeometry(potProf, 60), H_MAT.kalashOrnate);
+        potMesh.rotation.y = -Math.PI / 2; // Center the Swastik cleanly to +Z
+        // Front Neck Ruby Flower Brooch + Hanging White Pearl
+        const brooch = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.05, 16), H_MAT.goldBright);
+        brooch.rotation.x = Math.PI / 2; brooch.position.set(0, 1.36, 0.56);
+        const broochRuby = new THREE.Mesh(new THREE.SphereGeometry(0.075, 14, 12), H_MAT.rubyGem);
+        broochRuby.position.set(0, 1.36, 0.59);
+        const pearl = new THREE.Mesh(new THREE.SphereGeometry(0.06, 14, 12), H_MAT.pearlWhite);
+        pearl.position.set(0, 1.15, 0.72);
+        potGroup.add(potMesh, brooch, broochRuby, pearl);
+        addPart(potGroup, "स्वस्तिक मंगल कलश", "Ornate Swastik Kalash", [0, -0.15, 0], { mass: 3.0 });
+
+        // 2) Golden Marigold Neck Garland
+        const garlandGroup = new THREE.Group();
+        garlandGroup.position.set(0, 0.24, 0);
+        for (let i = 0; i < 9; i++) {
+          const a = (i / 9) * Math.PI * 2;
+          const m = makeMarigold(0.76, false);
+          m.position.set(Math.cos(a) * 0.54, 0, Math.sin(a) * 0.54);
+          garlandGroup.add(m);
+        }
+        addPart(garlandGroup, "झेंडूची माळ", "Marigold Neck Garland", [0, 0.26, 0], { mass: 0.22, draggable: true });
+
+        // 3) 5 Glossy Green Mango Leaves Fanning Outward
+        const leavesGroup = new THREE.Group();
+        leavesGroup.position.set(0, 0.42, 0);
+        const leafConfigs = [
+          { a: -1.15, tilt: 0.72, y: 0 },
+          { a: -0.58, tilt: 0.52, y: 0.04 },
+          { a: 0.58,  tilt: 0.52, y: 0.04 },
+          { a: 1.15,  tilt: 0.72, y: 0 },
+          { a: Math.PI, tilt: 0.60, y: 0.02 }
+        ];
+        leafConfigs.forEach(cfg => {
+          const lf = makeCurvedLeaf(1.06, 0.28, 0.26);
+          lf.position.set(Math.sin(cfg.a) * 0.32, cfg.y, Math.cos(cfg.a) * 0.32);
+          lf.rotation.y = cfg.a;
+          lf.rotation.x = cfg.tilt;
+          leavesGroup.add(lf);
+        });
+        addPart(leavesGroup, "आंब्याची पाने", "Mango Leaves", [0, 0.58, 0], { mass: 0.15 });
+
+        // 4) Pointed Fibrous Coconut with Crimson Kumkum Tip & Red-Yellow Mauli Thread
+        const cocoGroup = new THREE.Group();
+        cocoGroup.position.set(0, 0.88, 0);
+        const cocoProf = [
+          new THREE.Vector2(0.00, -0.52), new THREE.Vector2(0.32, -0.42),
+          new THREE.Vector2(0.48, -0.14), new THREE.Vector2(0.46, 0.18),
+          new THREE.Vector2(0.30, 0.52),  new THREE.Vector2(0.10, 0.78),
+          new THREE.Vector2(0.00, 0.88)
+        ];
+        const cocoMesh = new THREE.Mesh(new THREE.LatheGeometry(cocoProf, 40), H_MAT.coconut);
+        // Red & Yellow Mauli Thread Bands
+        const mauli1 = new THREE.Mesh(new THREE.TorusGeometry(0.47, 0.028, 12, 40), H_MAT.mauliRed);
+        mauli1.rotation.x = Math.PI / 2; mauli1.position.y = 0.06;
+        const mauli2 = new THREE.Mesh(new THREE.TorusGeometry(0.48, 0.024, 12, 40), H_MAT.mauliYellow);
+        mauli2.rotation.x = Math.PI / 2; mauli2.position.y = 0.00;
+        const mauli3 = new THREE.Mesh(new THREE.TorusGeometry(0.47, 0.026, 12, 40), H_MAT.mauliRed);
+        mauli3.rotation.x = Math.PI / 2; mauli3.position.y = -0.06;
+        cocoGroup.add(cocoMesh, mauli1, mauli2, mauli3);
+        addPart(cocoGroup, "श्रीफळ (नारळ व मौली)", "Sacred Coconut & Mauli", [0, 0.92, 0], { mass: 0.85, restitution: 0.28, radius: 0.46, draggable: true });
+
+        // 5) Base Marigolds, Red Hibiscus & Magenta Rose Petals
+        const baseFlowers = new THREE.Group();
+        baseFlowers.position.set(0, -1.04, 0);
+        const bm1 = makeMarigold(1.05, true); bm1.position.set(-0.98, 0.08, 0.25);
+        const bm2 = makeMarigold(0.95, false); bm2.position.set(-0.76, 0.05, 0.64);
+        const bm3 = makeMarigold(0.95, false); bm3.position.set(0.62, 0.05, 0.68);
+        const hib = makeHibiscus(1.25); hib.position.set(1.04, 0.14, 0.34); hib.rotation.set(0.55, -0.4, -0.2);
+        baseFlowers.add(bm1, bm2, bm3, hib);
+        [[-0.36, 0.02, 0.94], [0.12, 0.02, 0.96], [-1.18, 0.02, 0.62]].forEach(([x, y, z], i) => {
+          const rp = makeRosePetal(1.0); rp.position.set(x, y, z); rp.rotation.y = i * 0.9;
+          baseFlowers.add(rp);
+        });
+        addPart(baseFlowers, "जास्वंद व झेंडूची फुले", "Hibiscus & Marigolds", [0, -0.18, 0.45], { mass: 0.25, draggable: true });
+
+        addGroundShadow(root, 1.55, -1.14);
+
+        return {
+          root, parts,
+          physicsMode: "rigid",
+          hasExplode: true,
+          cameraPos: [0, 0.45, 5.1],
+          onTapPart: (part, ctx) => {
+            if (part.mesh === cocoGroup) ctx.bouncePart(part, 0, 2.3, 0);
+            else ctx.applyMainImpulse(0, 1.6, 0, 0.45);
+          },
+          updateVisuals: (t) => {
+            leavesGroup.rotation.y = Math.sin(t * 1.4) * 0.03;
+          }
+        };
+      }
+
+      // 5. MANGALASHTAK — Three-Tier Red & Ochre Homakund (Sacred Wedding Fire Altar) (Ref: 1000356604)
+      function buildHomakund() {
+        const root = new THREE.Group();
+        const parts = [];
+        const addPart = (mesh, nameMr, nameEn, explodeVec, opts = {}) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: opts.mass || 1.5,
+            restitution: opts.restitution || 0.14,
+            friction: opts.friction || 0.80,
+            radius: opts.radius || 0.5,
+            draggable: Boolean(opts.draggable)
+          };
+          tagPart(mesh, meta);
+          root.add(mesh);
+          parts.push(meta);
+          return meta;
+        };
+
+        // Helper for a hollow stepped altar tier with ochre top ledge + red chevron-patterned walls
+        function makeTier(size, height, yPos) {
+          const tg = new THREE.Group();
+          tg.position.y = yPos;
+          const mats = [
+            H_MAT.homakundWall, H_MAT.homakundWall,
+            H_MAT.homakundLedge, H_MAT.homakundLedge,
+            H_MAT.homakundWall, H_MAT.homakundWall
+          ];
+          const box = new THREE.Mesh(new THREE.BoxGeometry(size, height, size), mats);
+          tg.add(box);
+          return tg;
+        }
+
+        const tier1 = makeTier(2.50, 0.34, -0.96);
+        addPart(tier1, "पहिला थर (यज्ञकुंड)", "Altar Base Tier", [0, -0.40, 0], { mass: 2.5 });
+
+        const tier2 = makeTier(2.04, 0.32, -0.63);
+        addPart(tier2, "दुसरा थर (यज्ञकुंड)", "Altar Middle Tier", [0, -0.10, 0], { mass: 2.0 });
+
+        const tier3 = makeTier(1.58, 0.30, -0.32);
+        // Dark fire-pit hearth depression on top of tier 3
+        const pit = new THREE.Mesh(new THREE.BoxGeometry(1.24, 0.04, 1.24), H_MAT.charredWood);
+        pit.position.y = 0.14;
+        tier3.add(pit);
+        addPart(tier3, "मुख्य हवन कुंड", "Upper Hearth Tier", [0, 0.22, 0], { mass: 1.6 });
+
+        // Crossed Samidha Wood Logs
+        const logsGroup = new THREE.Group();
+        logsGroup.position.set(0, -0.06, 0);
+        const logGeo = new THREE.CylinderGeometry(0.065, 0.075, 1.05, 12);
+        [
+          { y: 0.02, ry: 0.35, rz: 1.48 },
+          { y: 0.06, ry: -0.45, rz: 1.42 },
+          { y: 0.10, ry: 1.15, rz: 1.52 },
+          { y: 0.08, ry: -1.25, rz: 1.45 }
+        ].forEach(l => {
+          const log = new THREE.Mesh(logGeo, H_MAT.charredWood);
+          log.position.y = l.y; log.rotation.y = l.ry; log.rotation.z = l.rz;
+          logsGroup.add(log);
+        });
+        addPart(logsGroup, "समिधा (यज्ञ काष्ठ)", "Sacred Samidha Logs", [0, 0.56, 0], { mass: 0.6, draggable: true });
+
+        // Multi-Layered Dynamic 3D Sacred Flames + Buoyant Ember Particles
+        const flameGroup = new THREE.Group();
+        flameGroup.position.set(0, 0.04, 0);
+        const tongues = [];
+        const flameDefs = [
+          { x: 0.00, z: 0.00, r: 0.44, h: 1.48, col: 0xff5a12, op: 0.92 },
+          { x: -0.24, z: 0.12, r: 0.30, h: 1.08, col: 0xff7b14, op: 0.88 },
+          { x: 0.26, z: -0.08, r: 0.28, h: 1.02, col: 0xff8c1a, op: 0.88 },
+          { x: -0.10, z: -0.22, r: 0.26, h: 0.96, col: 0xe63912, op: 0.82 },
+          { x: 0.02, z: 0.06, r: 0.28, h: 0.95, col: 0xffc824, op: 0.94 },
+          { x: 0.00, z: 0.08, r: 0.18, h: 0.58, col: 0xfffce0, op: 0.96 }
+        ];
+        flameDefs.forEach((f, idx) => {
+          const geo = new THREE.ConeGeometry(f.r, f.h, 16, 8);
+          geo.translate(0, f.h / 2, 0);
+          const basePos = new Float32Array(geo.attributes.position.array);
+          const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: srgb(f.col), transparent: true, opacity: f.op }));
+          m.position.set(f.x, 0, f.z);
+          m.userData = { basePos, phase: idx * 1.4, h: f.h };
+          flameGroup.add(m);
+          tongues.push(m);
+        });
+
+        const fireGlow = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: H_TEX.flameGlow, color: 0xff8c1a, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false
+        }));
+        fireGlow.scale.set(2.2, 2.2, 1); fireGlow.position.y = 0.65;
+        const fireLight = new THREE.PointLight(0xff7b1c, 2.6, 8);
+        fireLight.position.set(0, 0.95, 0.35);
+        flameGroup.add(fireGlow, fireLight);
+
+        // Buoyant Rising Ember Sparks
+        const embers = [];
+        const eGeo = new THREE.SphereGeometry(0.032, 6, 6);
+        const eMat = new THREE.MeshBasicMaterial({ color: srgb(0xffb703) });
+        for (let i = 0; i < 18; i++) {
+          const em = new THREE.Mesh(eGeo, eMat);
+          em.position.set((Math.random() - 0.5) * 0.8, Math.random() * 1.6, (Math.random() - 0.5) * 0.8);
+          em.userData = { vy: 0.65 + Math.random() * 0.75, phase: Math.random() * 6.28 };
+          flameGroup.add(em);
+          embers.push(em);
+        }
+
+        addPart(flameGroup, "पवित्र यज्ञाग्नी", "Sacred Wedding Flame", [0, 0.95, 0], { mass: 0.1 });
+        addGroundShadow(root, 1.9, -1.14);
+
+        return {
+          root, parts,
+          physicsMode: "fire-altar",
+          hasExplode: true,
+          cameraPos: [0, 0.85, 5.1],
+          onTapPart: (part, ctx) => {
+            // Stoke the sacred wedding fire on tap!
+            ctx.fireBoost = 1.0;
+          },
+          updateVisuals: (t, dt, ctx) => {
+            const boost = ctx.fireBoost || 0;
+            if (ctx.fireBoost > 0) ctx.fireBoost = Math.max(0, ctx.fireBoost - dt * 1.4);
+            const scaleBoost = 1 + boost * 0.32;
+            tongues.forEach(m => {
+              const pos = m.geometry.attributes.position;
+              const base = m.userData.basePos;
+              const ph = m.userData.phase;
+              const h = m.userData.h;
+              for (let i = 0; i < pos.count; i++) {
+                const bx = base[i * 3], by = base[i * 3 + 1], bz = base[i * 3 + 2];
+                const ht = by / h;
+                const swayX = Math.sin(t * 7.5 + ht * 5.0 + ph) * 0.14 * ht * ht * scaleBoost;
+                const swayZ = Math.cos(t * 6.2 + ht * 4.5 + ph) * 0.10 * ht * ht * scaleBoost;
+                pos.setXYZ(i, bx + swayX, by * scaleBoost, bz + swayZ);
+              }
+              pos.needsUpdate = true;
+            });
+            fireLight.intensity = 2.4 + Math.sin(t * 11) * 0.35 + boost * 1.8;
+            embers.forEach(em => {
+              em.position.y += em.userData.vy * (1 + boost * 1.5) * dt;
+              em.position.x += Math.sin(t * 3 + em.userData.phase) * 0.25 * dt;
+              if (em.position.y > 1.9) {
+                em.position.y = 0.15;
+                em.position.x = (Math.random() - 0.5) * 0.7;
+                em.position.z = (Math.random() - 0.5) * 0.7;
+              }
+            });
+          }
+        };
+      }
+
+      // 6. AKSHATA — White Porcelain Plate with Tricolor Saffron/White/Green 3D Rice Grains & Star Anise (Ref: 1000356615)
+      function buildTricolorAkshata() {
+        const root = new THREE.Group();
+        const parts = [];
+        const addPart = (mesh, nameMr, nameEn, explodeVec, opts = {}) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: opts.mass || 0.8,
+            restitution: opts.restitution || 0.24,
+            friction: opts.friction || 0.6,
+            radius: opts.radius || 0.35,
+            draggable: Boolean(opts.draggable)
+          };
+          tagPart(mesh, meta);
+          root.add(mesh);
+          parts.push(meta);
+          return meta;
+        };
+
+        // 1) Glossy White Porcelain Plate
+        const plateProf = [
+          new THREE.Vector2(0.00, 0.00), new THREE.Vector2(0.95, 0.00),
+          new THREE.Vector2(1.42, 0.10), new THREE.Vector2(1.66, 0.24),
+          new THREE.Vector2(1.62, 0.28), new THREE.Vector2(1.36, 0.15),
+          new THREE.Vector2(0.92, 0.07), new THREE.Vector2(0.00, 0.07)
+        ];
+        const plate = new THREE.Mesh(new THREE.LatheGeometry(plateProf, 60), H_MAT.porcelainWhite);
+        plate.position.set(0, -0.45, 0);
+        addPart(plate, "पांढरी थाळी", "Porcelain Plate", [0, -0.35, 0], { mass: 1.8 });
+
+        // 2) Three Diagonal Tricolor 3D Instanced Rice Grain Bands (Saffron-Orange, White, Vivid Green)
+        const grainGeo = new THREE.SphereGeometry(0.026, 7, 5);
+        grainGeo.scale(0.85, 0.72, 2.75); // Authentic elongated Basmati rice grain shape!
+
+        const bands = [
+          { nameMr: "भगव्या अक्षता", nameEn: "Saffron Akshata", mat: H_MAT.riceOrange, uMin: -1.26, uMax: -0.40, explode: [-0.36, 0.26, -0.26] },
+          { nameMr: "शुभ्र अक्षता",  nameEn: "White Akshata",   mat: H_MAT.riceWhite,  uMin: -0.40, uMax: 0.40,  explode: [0.00, 0.34, 0.00] },
+          { nameMr: "हिरव्या अक्षता", nameEn: "Green Akshata",   mat: H_MAT.riceGreen,  uMin: 0.40,  uMax: 1.26,  explode: [0.36, 0.26, 0.26] }
+        ];
+
+        const diagAngle = -Math.PI / 4; // Diagonal stripe orientation matching Reference 1000356615
+        const cosA = Math.cos(diagAngle), sinA = Math.sin(diagAngle);
+        const dummy = new THREE.Object3D();
+
+        bands.forEach(band => {
+          const bGroup = new THREE.Group();
+          bGroup.position.set(0, -0.34, 0);
+          const count = 230;
+          const inst = new THREE.InstancedMesh(grainGeo, band.mat, count);
+          let placed = 0, tries = 0;
+          while (placed < count && tries < 2500) {
+            tries++;
+            const u = band.uMin + Math.random() * (band.uMax - band.uMin);
+            const v = (Math.random() - 0.5) * 2.52;
+            const r2 = u * u + v * v;
+            if (r2 > 1.28 * 1.28) continue;
+            const wx = u * cosA - v * sinA;
+            const wz = u * sinA + v * cosA;
+            const moundH = Math.max(0.02, (1 - r2 / (1.32 * 1.32)) * 0.24) + Math.random() * 0.05;
+            dummy.position.set(wx, moundH, wz);
+            dummy.rotation.set((Math.random() - 0.5) * 0.8, Math.random() * Math.PI * 2, (Math.random() - 0.5) * 0.8);
+            dummy.scale.setScalar(0.85 + Math.random() * 0.35);
+            dummy.updateMatrix();
+            inst.setMatrixAt(placed++, dummy.matrix);
+          }
+          inst.count = placed;
+          inst.instanceMatrix.needsUpdate = true;
+          bGroup.add(inst);
+          addPart(bGroup, band.nameMr, band.nameEn, band.explode, { mass: 0.35 });
+        });
+
+        // 3) 8-Pointed Dark-Brown Star Anise Centerpiece (Chakra Phool — Ref 1000356615)
+        const aniseGroup = new THREE.Group();
+        aniseGroup.position.set(0, -0.04, 0);
+        const aniseCenter = new THREE.Mesh(new THREE.SphereGeometry(0.09, 12, 10), H_MAT.starAnise);
+        aniseCenter.scale.set(1, 0.55, 1);
+        aniseGroup.add(aniseCenter);
+        for (let i = 0; i < 8; i++) {
+          const a = (i / 8) * Math.PI * 2;
+          const pod = new THREE.Mesh(new THREE.ConeGeometry(0.075, 0.34, 8), H_MAT.starAnise);
+          pod.scale.set(1, 1, 0.52);
+          pod.rotation.z = -Math.PI / 2;
+          pod.rotation.y = -a;
+          pod.position.set(Math.cos(a) * 0.17, 0.01, Math.sin(a) * 0.17);
+          const seed = new THREE.Mesh(new THREE.SphereGeometry(0.036, 10, 8), H_MAT.charredWood);
+          seed.position.set(Math.cos(a) * 0.14, 0.045, Math.sin(a) * 0.14);
+          aniseGroup.add(pod, seed);
+        }
+        addPart(aniseGroup, "चक्रफूल", "Star Anise", [0, 0.72, 0], { mass: 0.12, restitution: 0.45, radius: 0.3, draggable: true });
+
+        addGroundShadow(root, 1.75, -0.48);
+
+        return {
+          root, parts,
+          physicsMode: "platter-loose",
+          hasExplode: true,
+          cameraPos: [0, 2.35, 3.85],
+          onTapPart: (part, ctx) => {
+            ctx.bouncePart(part, 0, 2.5, 0);
+          },
+          updateVisuals: () => {}
+        };
+      }
+
+      // 7. MANGALSUTRA — Delicate Gold-Chain & Black-Bead Mangalsutra with Twin Filigree Vatis (Ref: 1000356616)
+      function buildMangalsutra() {
+        const root = new THREE.Group();
+        const parts = [];
+        const addPart = (mesh, nameMr, nameEn, explodeVec, opts = {}) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: opts.mass || 0.3,
+            restitution: opts.restitution || 0.3,
+            friction: opts.friction || 0.5,
+            radius: opts.radius || 0.3,
+            draggable: Boolean(opts.draggable)
+          };
+          tagPart(mesh, meta);
+          root.add(mesh);
+          parts.push(meta);
+          return meta;
+        };
+
+        // Top Suspension Pin (allows authentic pendulum swing physics!)
+        const pendulumPivot = new THREE.Group();
+        pendulumPivot.position.set(0, 1.45, 0);
+        root.add(pendulumPivot);
+
+        // 1) Left & Right Delicate Gold Chain & Black Bead Arms (Exact V/U Silhouette from 1000356616)
+        const buildArm = (side) => {
+          const armGroup = new THREE.Group();
+          const pts = [
+            new THREE.Vector3(side * 1.15, 0.00, 0),
+            new THREE.Vector3(side * 1.04, -0.78, 0.04),
+            new THREE.Vector3(side * 0.84, -1.62, 0.06),
+            new THREE.Vector3(side * 0.54, -2.28, 0.04),
+            new THREE.Vector3(side * 0.34, -2.50, 0.02)
+          ];
+          const curve = new THREE.CatmullRomCurve3(pts);
+          const goldWire = new THREE.Mesh(new THREE.TubeGeometry(curve, 56, 0.014, 10, false), H_MAT.goldBright);
+          armGroup.add(goldWire);
+
+          // Alternating black onyx bead clusters, gold spherical spacers & decorative gold pipe beads
+          const beadGeo = new THREE.SphereGeometry(0.032, 10, 8);
+          const pipeGeo = new THREE.CylinderGeometry(0.026, 0.026, 0.22, 12);
+          for (let i = 1; i <= 42; i++) {
+            const t = i / 43;
+            const p = curve.getPoint(t);
+            const tan = curve.getTangent(t);
+            if (i === 14 || i === 15) {
+              if (i === 14) {
+                const pipe = new THREE.Mesh(pipeGeo, H_MAT.goldOrnate);
+                pipe.position.copy(p);
+                pipe.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan);
+                armGroup.add(pipe);
+              }
+              continue;
+            }
+            const isBlack = (i % 7 === 1 || i % 7 === 2 || (i > 26 && i < 36 && i % 2 === 0));
+            const b = new THREE.Mesh(beadGeo, isBlack ? H_MAT.onyxBead : H_MAT.goldBright);
+            b.position.copy(p);
+            if (!isBlack) b.scale.setScalar(0.82);
+            armGroup.add(b);
+          }
+          return armGroup;
+        };
+
+        const leftArm = buildArm(-1);
+        const rightArm = buildArm(1);
+        pendulumPivot.add(leftArm, rightArm);
+
+        // Register arms into parts (relative to pendulumPivot)
+        const registerChildPart = (mesh, nameMr, nameEn, explodeVec) => {
+          const meta = {
+            mesh, nameMr, nameEn,
+            homePos: mesh.position.clone(),
+            homeRot: mesh.rotation.clone(),
+            explodeVec: new THREE.Vector3(...explodeVec),
+            mass: 0.25, restitution: 0.3, friction: 0.5, radius: 0.3, draggable: false
+          };
+          tagPart(mesh, meta);
+          parts.push(meta);
+          return meta;
+        };
+        registerChildPart(leftArm, "मंगळसूत्र साखळी (डावी)", "Left Gold & Bead Strand", [-0.34, 0.08, 0]);
+        registerChildPart(rightArm, "मंगळसूत्र साखळी (उजवी)", "Right Gold & Bead Strand", [0.34, 0.08, 0]);
+
+        // 2) Horizontal Gold & Ruby Connector Bridge at Apex
+        const bridgeGroup = new THREE.Group();
+        bridgeGroup.position.set(0, -2.52, 0.02);
+        const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.68, 16), H_MAT.goldOrnate);
+        bar.rotation.z = Math.PI / 2;
+        bridgeGroup.add(bar);
+        [-0.20, 0, 0.20].forEach(x => {
+          const gem = new THREE.Mesh(new THREE.SphereGeometry(0.048, 12, 10), H_MAT.rubyGem);
+          gem.position.set(x, 0, 0.025);
+          bridgeGroup.add(gem);
+        });
+        pendulumPivot.add(bridgeGroup);
+        registerChildPart(bridgeGroup, "सुवर्ण मणी जोड", "Gold & Ruby Bridge", [0, -0.10, 0.24]);
+
+        // 3) Twin Dangling Circular Filigree Gold Vati Pendants with Secondary Swing Hinge!
+        const vatiPivots = [];
+        [-0.19, 0.19].forEach((x, idx) => {
+          const vp = new THREE.Group();
+          vp.position.set(x, -2.56, 0.03);
+          const loop = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.012, 8, 16), H_MAT.goldBright);
+          loop.position.y = -0.04;
+          const vatiDisc = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.18, 0.18, 0.065, 36),
+            [H_MAT.goldOrnate, H_MAT.vatiFace, H_MAT.goldOrnate]
+          );
+          vatiDisc.rotation.x = Math.PI / 2;
+          vatiDisc.position.y = -0.22;
+          // Raised Central Ruby Stone
+          const ruby = new THREE.Mesh(new THREE.SphereGeometry(0.044, 14, 12), H_MAT.rubyGem);
+          ruby.scale.set(1, 1, 0.65); ruby.position.set(0, -0.22, 0.038);
+          vp.add(loop, vatiDisc, ruby);
+          pendulumPivot.add(vp);
+          vatiPivots.push(vp);
+          registerChildPart(vp, idx === 0 ? "सुवर्ण वाटी (१)" : "सुवर्ण वाटी (२)", "Gold Filigree Vati", [idx === 0 ? -0.24 : 0.24, -0.34, 0.42]);
+        });
+
+        const pendState = { angle: 0.08, vel: 0, vatiAngle: 0, vatiVel: 0 };
+
+        return {
+          root, parts,
+          physicsMode: "pendulum",
+          hasExplode: true,
+          cameraPos: [0, -0.05, 4.95],
+          onTapPart: () => {
+            pendState.vel += (Math.random() > 0.5 ? 1 : -1) * 2.4;
+            pendState.vatiVel += (Math.random() > 0.5 ? 1 : -1) * 4.5;
+          },
+          onExternalImpulse: (vx) => {
+            pendState.vel = Math.max(-4.5, Math.min(4.5, pendState.vel + vx * 0.45));
+            pendState.vatiVel = Math.max(-7.0, Math.min(7.0, pendState.vatiVel - vx * 0.8));
+          },
+          updateVisuals: (t, dt) => {
+            // Real physical damped pendulum equation: alpha = -(g/L)*sin(theta) - c*omega
+            const gOverL = 11.5;
+            const alpha = -gOverL * Math.sin(pendState.angle) - 1.15 * pendState.vel;
+            pendState.vel += alpha * dt;
+            pendState.angle += pendState.vel * dt;
+            pendulumPivot.rotation.z = pendState.angle;
+
+            // Secondary coupled pendulum swing for the twin dangling gold vatis
+            const vAlpha = -24.0 * Math.sin(pendState.vatiAngle) - 2.2 * pendState.vatiVel - alpha * 0.55;
+            pendState.vatiVel += vAlpha * dt;
+            pendState.vatiAngle += pendState.vatiVel * dt;
+            vatiPivots.forEach((vp, i) => {
+              vp.rotation.z = pendState.vatiAngle * (i === 0 ? 1 : 0.92);
+            });
+          }
+        };
+      }
+
+      const MODEL_BUILDERS = {
+        ganesh: buildGaneshIdol,
+        sakharpuda: buildRingBox,
+        haldi: buildHaldiPlatter,
+        antarpat: buildWeddingKalash,
+        mangalashtak: buildHomakund,
+        akshata: buildTricolorAkshata,
+        mangalsutra: buildMangalsutra
+      };
+
+      /* ------------------------------------------------------------
+         MODULE C: PHYSICS ENGINE (RAPIER WASM + DETERMINISTIC RIGID-BODY SOLVER)
+      ------------------------------------------------------------ */
+      let RAPIER = null;
+      let rapierLoadAttempted = false;
+      async function tryLoadRapier() {
+        if (rapierLoadAttempted) return;
+        rapierLoadAttempted = true;
+        try {
+          const mod = await import("https://esm.sh/@dimforge/rapier3d-compat@0.12.0");
+          const lib = mod.default || mod;
+          if (lib && typeof lib.init === "function") {
+            await lib.init();
+            RAPIER = lib;
+          }
+        } catch (_) {
+          // Offline / CSP fallback uses the built-in deterministic rigid-body solver seamlessly
+        }
+      }
+
+      function createPhysicsController() {
+        let world = null;
+        const bodyState = {
+          y: 0, vy: 0,
+          rotY: 0, angVelY: 0,
+          rotX: 0, angVelX: 0,
+          floorY: 0,
+          mass: 2.2,
+          restitution: 0.24,
+          linearDamping: 0.985,
+          angularDamping: 0.955,
+          rapierBody: null
+        };
+        const partBodies = new Map();
+
+        function rebuildForModel(modelObj) {
+          partBodies.clear();
+          bodyState.y = 0; bodyState.vy = 0;
+          bodyState.rotY = 0; bodyState.angVelY = 0;
+          bodyState.rotX = 0; bodyState.angVelX = 0;
+          bodyState.rapierBody = null;
+
+          if (world) { try { world.free(); } catch (_) {} world = null; }
+
+          if (RAPIER) {
+            try {
+              world = new RAPIER.World({ x: 0.0, y: -9.81, z: 0.0 });
+              // Ground collider
+              const groundDesc = RAPIER.ColliderDesc.cuboid(6.0, 0.2, 6.0).setTranslation(0, -0.2, 0);
+              world.createCollider(groundDesc);
+              // Main assembly rigid body
+              const rbDesc = RAPIER.RigidBodyDesc.dynamic()
+                .setTranslation(0, 0.35, 0)
+                .setLinearDamping(0.35)
+                .setAngularDamping(1.8);
+              const rb = world.createRigidBody(rbDesc);
+              const colDesc = RAPIER.ColliderDesc.ball(0.35).setRestitution(0.26).setFriction(0.65);
+              world.createCollider(colDesc, rb);
+              bodyState.rapierBody = rb;
+            } catch (_) {
+              world = null;
+            }
+          }
+
+          modelObj.parts.forEach(p => {
+            partBodies.set(p, {
+              offset: new THREE.Vector3(),
+              vel: new THREE.Vector3(),
+              active: false
+            });
+          });
+        }
+
+        function applyDrop(modelObj) {
+          if (modelObj.physicsMode === "pendulum" && modelObj.onExternalImpulse) {
+            modelObj.onExternalImpulse(5.5);
+            return;
+          }
+          if (bodyState.rapierBody) {
+            bodyState.rapierBody.setTranslation({ x: 0, y: 1.45, z: 0 }, true);
+            bodyState.rapierBody.setLinvel({ x: 0, y: 0.4, z: 0 }, true);
+          } else {
+            bodyState.y = 1.15;
+            bodyState.vy = 0.2;
+          }
+          bodyState.angVelY += (Math.random() > 0.5 ? 1 : -1) * 1.4;
+        }
+
+        function bouncePart(part, vx, vy, vz) {
+          const pb = partBodies.get(part);
+          if (!pb) return;
+          pb.active = true;
+          pb.vel.set(vx, vy, vz);
+        }
+
+        function step(dt, modelObj, explodeAmount) {
+          const cdt = Math.min(dt, 0.033);
+
+          // Main assembly vertical drop & gravity
+          if (bodyState.rapierBody && world) {
+            world.step();
+            const tr = bodyState.rapierBody.translation();
+            bodyState.y = Math.max(0, tr.y - 0.35);
+          } else {
+            if (bodyState.y > 0.0005 || Math.abs(bodyState.vy) > 0.005) {
+              bodyState.vy += -9.81 * cdt;
+              bodyState.y += bodyState.vy * cdt;
+              if (bodyState.y <= 0) {
+                bodyState.y = 0;
+                if (Math.abs(bodyState.vy) > 0.35) {
+                  bodyState.vy = -bodyState.vy * bodyState.restitution;
+                } else {
+                  bodyState.vy = 0;
+                }
+              }
+            }
+          }
+
+          // Rotational inertia & friction damping
+          bodyState.rotY += bodyState.angVelY * cdt;
+          bodyState.rotX += bodyState.angVelX * cdt;
+          bodyState.angVelY *= Math.pow(bodyState.angularDamping, cdt * 60);
+          bodyState.angVelX *= Math.pow(bodyState.angularDamping, cdt * 60);
+          // Gently return vertical tilt toward neutral horizon
+          bodyState.rotX += (0 - bodyState.rotX) * Math.min(1, cdt * 2.4);
+          bodyState.rotX = Math.max(-0.55, Math.min(0.65, bodyState.rotX));
+
+          // Individual part bounce / drag-release physics + exploded-view interpolation
+          partBodies.forEach((pb, part) => {
+            if (pb.active) {
+              pb.vel.y += -9.81 * cdt;
+              pb.offset.addScaledVector(pb.vel, cdt);
+              // Floor constraint relative to home position
+              if (pb.offset.y <= 0) {
+                pb.offset.y = 0;
+                pb.vel.x *= part.friction;
+                pb.vel.z *= part.friction;
+                if (Math.abs(pb.vel.y) > 0.35) {
+                  pb.vel.y = -pb.vel.y * part.restitution;
+                } else {
+                  pb.vel.y = 0;
+                  // Spring-return gently horizontally after settling so model stays clean
+                  pb.offset.x *= Math.pow(0.92, cdt * 60);
+                  pb.offset.z *= Math.pow(0.92, cdt * 60);
+                  if (pb.offset.lengthSq() < 0.0004 && pb.vel.lengthSq() < 0.002) {
+                    pb.offset.set(0, 0, 0);
+                    pb.vel.set(0, 0, 0);
+                    pb.active = false;
+                  }
+                }
+              }
+              // Soft boundary walls inside stage
+              pb.offset.x = Math.max(-1.6, Math.min(1.6, pb.offset.x));
+              pb.offset.z = Math.max(-1.6, Math.min(1.6, pb.offset.z));
+            }
+
+            // Combine homePos + exploded offset + live physical offset
+            part.mesh.position.set(
+              part.homePos.x + part.explodeVec.x * explodeAmount + pb.offset.x,
+              part.homePos.y + part.explodeVec.y * explodeAmount + pb.offset.y,
+              part.homePos.z + part.explodeVec.z * explodeAmount + pb.offset.z
+            );
+          });
+        }
+
+        return { bodyState, partBodies, rebuildForModel, applyDrop, bouncePart, step };
+      }
+
+      /* ------------------------------------------------------------
+         MODULE D: MAIN HERITAGE CONTROLLER (SCENE + GESTURES + SCROLL)
+      ------------------------------------------------------------ */
+      function init() {
+        const stage = document.getElementById("culture-3d-stage");
+        const tabsWrap = document.getElementById("culture-tabs");
+        const enEl = document.getElementById("culture-en-title");
+        const mrEl = document.getElementById("culture-mr-title");
+        const descEl = document.getElementById("culture-desc");
+        const partPill = document.getElementById("heritage-part-pill");
+        const partText = document.getElementById("heritage-part-text");
+        const explodeBtn = document.getElementById("heritage-explode-btn");
+        const physicsBtn = document.getElementById("heritage-physics-btn");
+        const grabBtn = document.getElementById("heritage-grab-btn");
+        const resetBtn = document.getElementById("heritage-reset-btn");
+        const sectionEl = document.getElementById("culture");
+
+        if (!stage || !tabsWrap || typeof THREE === "undefined") return;
+
+        initHeritageAssets();
+        tryLoadRapier();
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(36, stage.clientWidth / stage.clientHeight, 0.1, 100);
+        camera.position.set(0, 0.35, 4.9);
+
+        const renderer = createStudioRenderer(stage, scene);
+        const physics = createPhysicsController();
+        const raycaster = new THREE.Raycaster();
+        const pointerNdc = new THREE.Vector2();
+
+        let currentModel = null;
+        let currentItemId = null;
+        let isExploded = false;
+        let explodeAmount = 0;
+        let grabMode = false;
+        let scrollProgress = 0;
+        let scrollRotOffset = 0;
+        let lastScrollY = window.scrollY;
+        let camDistTarget = 4.9;
+        let camDistCurrent = 4.9;
+        let camBasePos = new THREE.Vector3(0, 0.35, 4.9);
+        let pillTimer = null;
+
+        const visualCtx = {
+          pulseHalo: 0,
+          fireBoost: 0,
+          applyMainImpulse: (vx, vy, vz, spin) => {
+            if (physics.bodyState.rapierBody) {
+              physics.bodyState.rapierBody.applyImpulse({ x: vx, y: vy * 0.45, z: vz }, true);
+            } else {
+              physics.bodyState.vy = Math.max(physics.bodyState.vy, vy);
+            }
+            physics.bodyState.angVelY += spin || 0;
+          },
+          bouncePart: (part, vx, vy, vz) => physics.bouncePart(part, vx, vy, vz)
+        };
+
+        function showPartLabel(mr, en) {
+          if (!partPill || !partText) return;
+          partText.textContent = en ? `${mr} • ${en}` : mr;
+          partPill.classList.add("show");
+          if (pillTimer) clearTimeout(pillTimer);
+          pillTimer = setTimeout(() => partPill.classList.remove("show"), 2600);
+        }
+
+        function disposeGroup(group) {
+          if (!group) return;
+          group.traverse(obj => {
+            if (obj.geometry) obj.geometry.dispose();
+          });
+        }
+
+        function resetView() {
+          isExploded = false;
+          if (explodeBtn) explodeBtn.classList.remove("is-active");
+          physics.bodyState.rotY = 0;
+          physics.bodyState.rotX = 0;
+          physics.bodyState.angVelY = 0;
+          physics.bodyState.angVelX = 0;
+          physics.bodyState.y = 0;
+          physics.bodyState.vy = 0;
+          if (currentModel) {
+            camDistTarget = camBasePos.length();
+            physics.partBodies.forEach(pb => {
+              pb.offset.set(0, 0, 0); pb.vel.set(0, 0, 0); pb.active = false;
+            });
+          }
+        }
+
+        function selectItem(item) {
+          enEl.textContent = item.en;
+          mrEl.textContent = item.mr;
+          descEl.textContent = item.desc;
+          tabsWrap.querySelectorAll(".culture-tab").forEach(b => b.classList.toggle("active", b.dataset.id === item.id));
+
+          if (currentItemId === item.id) return;
+          currentItemId = item.id;
+
+          if (currentModel) {
+            scene.remove(currentModel.root);
+            disposeGroup(currentModel.root);
+          }
+
+          isExploded = false;
+          explodeAmount = 0;
+          if (explodeBtn) explodeBtn.classList.remove("is-active");
+
+          const builder = MODEL_BUILDERS[item.id] || buildGaneshIdol;
+          currentModel = builder();
+          scene.add(currentModel.root);
+
+          camBasePos.set(...currentModel.cameraPos);
+          camDistTarget = camBasePos.length();
+          camDistCurrent = camDistTarget;
+
+          physics.rebuildForModel(currentModel);
+          if (!prefersReducedMotion) {
+            // Subtle natural emergence settle
+            physics.bodyState.y = 0.24;
+            physics.bodyState.angVelY = 0.75;
+          }
+        }
+
+        // Toolbar Controls
+        if (explodeBtn) {
+          explodeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (!currentModel || !currentModel.hasExplode) return;
+            isExploded = !isExploded;
+            explodeBtn.classList.toggle("is-active", isExploded);
+          });
+        }
+        if (physicsBtn) {
+          physicsBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (!currentModel) return;
+            physics.applyDrop(currentModel);
+          });
+        }
+        if (grabBtn) {
+          grabBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            grabMode = !grabMode;
+            grabBtn.classList.toggle("is-active", grabMode);
+            stage.classList.toggle("grab-active", grabMode);
+          });
+        }
+        if (resetBtn) {
+          resetBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            resetView();
+          });
+        }
+
+        // Touch & Pointer Gesture Engine (Tap, Double-Tap, Horizontal Swipe/Rotate, Grab-Drag-Throw, Pinch-Zoom)
+        const activePointers = new Map();
+        let dragMode = null; // "rotate" | "part" | "pinch"
+        let grabbedPart = null;
+        let downX = 0, downY = 0, lastX = 0, lastY = 0, movedDist = 0;
+        let lastTapTime = 0, pinchStartDist = 0, pinchStartCam = 4.9;
+        let throwVx = 0, throwVy = 0;
+
+        function getRaycastPart(clientX, clientY) {
+          if (!currentModel) return null;
+          const rect = renderer.domElement.getBoundingClientRect();
+          pointerNdc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+          pointerNdc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+          raycaster.setFromCamera(pointerNdc, camera);
+          const hits = raycaster.intersectObjects(currentModel.root.children, true);
+          for (const h of hits) {
+            if (h.object && h.object.userData && h.object.userData.heritagePart) {
+              return h.object.userData.heritagePart;
+            }
+          }
+          return null;
+        }
+
+        renderer.domElement.addEventListener("pointerdown", (e) => {
+          activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+          if (activePointers.size === 2) {
+            dragMode = "pinch";
+            const pts = Array.from(activePointers.values());
+            pinchStartDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+            pinchStartCam = camDistTarget;
+            return;
+          }
+          downX = lastX = e.clientX;
+          downY = lastY = e.clientY;
+          movedDist = 0; throwVx = 0; throwVy = 0;
+
+          const hitPart = getRaycastPart(e.clientX, e.clientY);
+          if (grabMode && hitPart && hitPart.draggable) {
+            dragMode = "part";
+            grabbedPart = hitPart;
+            stage.classList.add("grabbing");
+          } else {
+            dragMode = "rotate";
+            grabbedPart = null;
+          }
+        });
+
+        window.addEventListener("pointermove", (e) => {
+          if (!activePointers.has(e.pointerId)) return;
+          activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+          if (dragMode === "pinch" && activePointers.size === 2) {
+            const pts = Array.from(activePointers.values());
+            const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+            if (pinchStartDist > 10) {
+              camDistTarget = Math.max(2.9, Math.min(7.2, pinchStartCam * (pinchStartDist / dist)));
+            }
+            return;
+          }
+
+          const dx = e.clientX - lastX;
+          const dy = e.clientY - lastY;
+          movedDist += Math.hypot(dx, dy);
+          lastX = e.clientX; lastY = e.clientY;
+
+          if (dragMode === "part" && grabbedPart) {
+            const pb = physics.partBodies.get(grabbedPart);
+            if (pb) {
+              pb.active = false;
+              pb.offset.x = Math.max(-1.4, Math.min(1.4, pb.offset.x + dx * 0.008));
+              pb.offset.y = Math.max(0, Math.min(1.6, pb.offset.y - dy * 0.008));
+              throwVx = dx * 0.14;
+              throwVy = -dy * 0.14;
+            }
+          } else if (dragMode === "rotate") {
+            // Only engage horizontal rotation cleanly so vertical page scroll stays smooth
+            if (Math.abs(dx) >= Math.abs(dy) * 0.5 || e.pointerType === "mouse") {
+              physics.bodyState.rotY += dx * 0.011;
+              physics.bodyState.angVelY = dx * 0.22;
+              if (e.pointerType === "mouse") {
+                physics.bodyState.rotX = Math.max(-0.45, Math.min(0.55, physics.bodyState.rotX + dy * 0.006));
+              }
+              if (currentModel && currentModel.onExternalImpulse) {
+                currentModel.onExternalImpulse(dx * 0.08);
+              }
+            }
+          }
+        }, { passive: true });
+
+        function endPointer(e) {
+          if (!activePointers.has(e.pointerId)) return;
+          activePointers.delete(e.pointerId);
+          stage.classList.remove("grabbing");
+
+          if (dragMode === "part" && grabbedPart) {
+            // Release grabbed part -> hand off velocity to real gravity & collisions!
+            physics.bouncePart(grabbedPart, throwVx, Math.max(0.5, throwVy), 0);
+            grabbedPart = null;
+          } else if (movedDist < 10 && dragMode !== "pinch") {
+            // Tap or Double-Tap detection
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              resetView();
+              lastTapTime = 0;
+            } else {
+              lastTapTime = now;
+              const tapped = getRaycastPart(e.clientX, e.clientY);
+              if (tapped && currentModel) {
+                showPartLabel(tapped.nameMr, tapped.nameEn);
+                if (currentModel.onTapPart) currentModel.onTapPart(tapped, visualCtx);
+              }
+            }
+          }
+          if (activePointers.size === 0) dragMode = null;
+        }
+        window.addEventListener("pointerup", endPointer);
+        window.addEventListener("pointercancel", endPointer);
+
+        // Smooth Mouse-Wheel Zoom (only when Ctrl pressed or explicit pinch-pad, preserving normal page scroll)
+        stage.addEventListener("wheel", (e) => {
+          if (!e.ctrlKey) return;
+          e.preventDefault();
+          camDistTarget = Math.max(2.9, Math.min(7.2, camDistTarget + e.deltaY * 0.006));
+        }, { passive: false });
+
+        // GSAP ScrollTrigger Integration (Reversible Scroll-Driven Emergence & Parallax)
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined" && sectionEl && !prefersReducedMotion) {
+          gsap.registerPlugin(ScrollTrigger);
+          ScrollTrigger.create({
+            trigger: sectionEl,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.65,
+            onUpdate: (self) => {
+              scrollProgress = self.progress;
+              scrollRotOffset = (self.progress - 0.5) * 0.95;
+              const vel = self.getVelocity();
+              if (currentModel && currentModel.onExternalImpulse && Math.abs(vel) > 80) {
+                currentModel.onExternalImpulse(Math.max(-1.2, Math.min(1.2, vel * 0.0005)));
+              }
+            }
+          });
+        } else {
+          window.addEventListener("scroll", () => {
+            if (!sectionEl) return;
+            const r = sectionEl.getBoundingClientRect();
+            const vh = window.innerHeight;
+            const p = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+            const dy = window.scrollY - lastScrollY;
+            lastScrollY = window.scrollY;
+            scrollProgress = p;
+            scrollRotOffset = (p - 0.5) * 0.85;
+            if (currentModel && currentModel.onExternalImpulse && Math.abs(dy) > 4) {
+              currentModel.onExternalImpulse(Math.max(-1.0, Math.min(1.0, dy * 0.02)));
+            }
+          }, { passive: true });
+        }
+
+        // Visibility-Gated Animation Loop (Zero GPU waste when scrolled away)
+        let isVisible = false;
+        let prevTime = performance.now();
+        new IntersectionObserver(entries => {
+          isVisible = entries[0].isIntersecting;
+          if (isVisible) prevTime = performance.now();
+        }, { threshold: 0.02 }).observe(stage);
+
+        function animate(now) {
           requestAnimationFrame(animate);
-          if (!visible || !currentMesh) return;
-          if (!isDragging && !prefersReducedMotion) targetRotY += 0.006;
-          currentMesh.rotation.y += (targetRotY - currentMesh.rotation.y) * 0.12;
+          if (!isVisible || !currentModel) return;
+
+          const dt = Math.min(0.05, Math.max(0.001, (now - prevTime) / 1000));
+          prevTime = now;
+          const t = now * 0.001;
+
+          // Smooth exploded-view transition
+          const targetExp = isExploded ? 1 : 0;
+          explodeAmount += (targetExp - explodeAmount) * Math.min(1, dt * 6.5);
+
+          // Step Physics
+          physics.step(dt, currentModel, explodeAmount);
+
+          // Gentle idle auto-orbit when untouched
+          if (!prefersReducedMotion && dragMode !== "rotate" && currentModel.physicsMode !== "pendulum") {
+            physics.bodyState.rotY += 0.28 * dt;
+          }
+
+          // Scroll-driven vertical emergence + rotation
+          const emergeY = prefersReducedMotion ? 0 : (Math.sin(scrollProgress * Math.PI) - 1) * 0.22;
+          currentModel.root.position.y = physics.bodyState.y + emergeY;
+          currentModel.root.rotation.y = physics.bodyState.rotY + scrollRotOffset;
+          currentModel.root.rotation.x = physics.bodyState.rotX;
+
+          // Smooth camera zoom & subtle scroll-coupled elevation arc
+          camDistCurrent += (camDistTarget - camDistCurrent) * Math.min(1, dt * 8);
+          const dir = camBasePos.clone().normalize();
+          camera.position.copy(dir.multiplyScalar(camDistCurrent));
+          camera.position.y += (scrollProgress - 0.5) * 0.35;
+          camera.lookAt(0, 0, 0);
+
+          if (currentModel.updateVisuals) {
+            currentModel.updateVisuals(t, dt, visualCtx);
+          }
+
           renderer.render(scene, camera);
         }
         requestAnimationFrame(animate);
 
+        // Responsive Resize
         window.addEventListener("resize", () => {
+          if (!stage.clientWidth || !stage.clientHeight) return;
           camera.aspect = stage.clientWidth / stage.clientHeight;
           camera.updateProjectionMatrix();
           renderer.setSize(stage.clientWidth, stage.clientHeight);
         });
+
+        // Populate Heritage Tabs (Preserving exact text & ripple styling)
+        tabsWrap.innerHTML = WEDDING_CONFIG.cultureItems.map(item =>
+          `<button type="button" class="culture-tab ripple-btn" data-id="${item.id}">${item.mr}</button>`
+        ).join("");
+        attachRipples(tabsWrap);
+        attachRipples(stage);
+        tabsWrap.querySelectorAll(".culture-tab").forEach((btn, idx) => {
+          btn.addEventListener("click", () => selectItem(WEDDING_CONFIG.cultureItems[idx]));
+        });
+        selectItem(WEDDING_CONFIG.cultureItems[0]);
       }
 
-      function selectItem(item) {
-        enEl.textContent = item.en;
-        mrEl.textContent = item.mr;
-        descEl.textContent = item.desc;
-        tabsWrap.querySelectorAll(".culture-tab").forEach(b => b.classList.toggle("active", b.dataset.id === item.id));
-        if (scene) {
-          if (currentMesh) scene.remove(currentMesh);
-          currentMesh = buildRitualModel(item.id);
-          scene.add(currentMesh);
-          targetRotY = 0;
-          if (prefersReducedMotion && renderer) renderer.render(scene, camera);
-        }
-      }
+      return { init };
+    })();
 
-      tabsWrap.innerHTML = WEDDING_CONFIG.cultureItems.map(item =>
-        `<button type="button" class="culture-tab ripple-btn" data-id="${item.id}">${item.mr}</button>`
-      ).join("");
-      attachRipples(tabsWrap);
-      tabsWrap.querySelectorAll(".culture-tab").forEach((btn, idx) => {
-        btn.addEventListener("click", () => selectItem(WEDDING_CONFIG.cultureItems[idx]));
-      });
-      selectItem(WEDDING_CONFIG.cultureItems[0]);
+    function initCultureShowcase() {
+      Heritage3D.init();
     }
-
 
     /* ============================================================
-       INSTAGRAM PROFILE PICTURE FETCHER (Official IGramAPI v1)
-       - Primary:  GET /v1/profiles/{username}/picture -> { url, is_hd }
-       - Fallback: GET /v1/profiles/{username}         -> { profile: { profile_picture_url } }
-       - Browser CDN Fallback: POST /v1/downloads      -> { type: "image", url }
-       - Handles are never rendered in the visible DOM
+       COUPLE PROFILE PICTURE LOADER (CORS-SAFE WORKER PROXY + STATIC FALLBACK)
+       - Loads directly via <img> from your Cloudflare Worker proxy (no CORS preflight,
+         API key and Instagram handles stay completely hidden server-side!)
+       - Supports direct static photo URLs (bridePhotoUrl / groomPhotoUrl) if provided
+       - Gracefully falls back to Marathi initials (पा / कृ) if not configured or offline
     ============================================================ */
-    async function igramFetchJson(url, apiKey, options = {}) {
-      const res = await fetch(url, {
-        method: options.method || "GET",
-        headers: {
-          "Authorization": `Bearer ${apiKey}`,
-          ...(options.body ? { "Content-Type": "application/json" } : {}),
-          "Accept": "application/json"
-        },
-        body: options.body ? JSON.stringify(options.body) : undefined,
-        mode: "cors"
-      });
-      if (!res.ok) {
-        let msg = `HTTP ${res.status}`;
-        try {
-          const errData = await res.json();
-          if (errData && errData.error && errData.error.message) msg = errData.error.message;
-        } catch (_) {}
-        throw new Error(msg);
-      }
-      return res.json();
-    }
-
-    async function fetchInstagramPictureUrl(username, cfg) {
-      // 1. Official IGramAPI Profile Picture Endpoint (HD)
-      try {
-        const picData = await igramFetchJson(
-          `${cfg.baseUrl}/profiles/${encodeURIComponent(username)}/picture`,
-          cfg.apiKey
-        );
-        const directUrl = picData?.url || picData?.profile_picture_url || picData?.data?.url;
-        if (typeof directUrl === "string" && /^https?:\/\//i.test(directUrl)) {
-          return directUrl;
-        }
-      } catch (err) {
-        console.warn("[IGramAPI] /picture endpoint failed:", err.message);
-      }
-
-      // 2. Fallback: Official IGramAPI Profile Endpoint
-      try {
-        const profData = await igramFetchJson(
-          `${cfg.baseUrl}/profiles/${encodeURIComponent(username)}`,
-          cfg.apiKey
-        );
-        const profileUrl =
-          profData?.profile?.profile_picture_url ||
-          profData?.profile_picture_url ||
-          profData?.url;
-        if (typeof profileUrl === "string" && /^https?:\/\//i.test(profileUrl)) {
-          return profileUrl;
-        }
-      } catch (err) {
-        console.warn("[IGramAPI] /profiles endpoint failed:", err.message);
-      }
-
-      return null;
-    }
-
-    async function resolveBrowserSafeImageUrl(cdnUrl, cfg) {
-      try {
-        const dlData = await igramFetchJson(`${cfg.baseUrl}/downloads`, cfg.apiKey, {
-          method: "POST",
-          body: { type: "image", url: cdnUrl }
-        });
-        return (
-          dlData?.download_url ||
-          dlData?.url ||
-          dlData?.file_url ||
-          dlData?.data?.download_url ||
-          dlData?.data?.url ||
-          null
-        );
-      } catch (err) {
-        console.warn("[IGramAPI] /downloads image relay failed:", err.message);
-        return null;
-      }
-    }
-
-    function loadAvatarWithFallback(wrapId, imgId, primaryUrl, cfg, cacheKey) {
+    function loadAvatarImage(wrapId, imgId, url) {
       const wrap = document.getElementById(wrapId);
       const img = document.getElementById(imgId);
-      if (!wrap || !img || !primaryUrl) return;
-
-      let triedRelay = false;
-
-      const setCached = (finalUrl) => {
-        try {
-          localStorage.setItem(cacheKey, JSON.stringify({ url: finalUrl, ts: Date.now() }));
-        } catch (_) {}
-      };
+      if (!wrap || !img || !url) return;
 
       img.referrerPolicy = "no-referrer";
-      img.onload = () => {
-        wrap.classList.add("has-photo");
-        setCached(img.src);
-      };
-      img.onerror = async () => {
-        // If Instagram CDN blocks direct browser loading (CORP), request IGramAPI hosted copy
-        if (!triedRelay) {
-          triedRelay = true;
-          const safeUrl = await resolveBrowserSafeImageUrl(primaryUrl, cfg);
-          if (safeUrl && safeUrl !== primaryUrl) {
-            img.src = safeUrl;
-            return;
-          }
-        }
-        console.warn("[IGramAPI] Could not display avatar image in browser for", wrapId);
-      };
-      img.src = primaryUrl;
+      img.onload = () => wrap.classList.add("has-photo");
+      img.onerror = () => wrap.classList.remove("has-photo");
+      img.src = url;
     }
 
-    async function initCoupleInstagramPhotos() {
+    function initCoupleInstagramPhotos() {
       const cfg = WEDDING_CONFIG.instagram;
-      if (!cfg || !cfg.apiKey) return;
+      if (!cfg) return;
 
-      const targets = [
-        { cacheKey: "pk_ig_v12_bride", handle: cfg.brideId, wrapId: "bride-avatar-wrap", imgId: "bride-avatar-img" },
-        { cacheKey: "pk_ig_v12_groom", handle: cfg.groomId, wrapId: "groom-avatar-wrap", imgId: "groom-avatar-img" }
-      ];
+      const cleanProxy = (cfg.proxyUrl || "").trim().replace(/\/+$/, "");
 
-      await Promise.all(targets.map(async (item) => {
-        if (!item.handle) return;
+      const brideUrl = (cfg.bridePhotoUrl || "").trim() || (cleanProxy ? `${cleanProxy}/?who=bride` : "");
+      const groomUrl = (cfg.groomPhotoUrl || "").trim() || (cleanProxy ? `${cleanProxy}/?who=groom` : "");
 
-        // Use fresh cached URL if available to save API credits
-        try {
-          const raw = localStorage.getItem(item.cacheKey);
-          if (raw) {
-            const parsed = JSON.parse(raw);
-            if (parsed?.url && (Date.now() - parsed.ts) < cfg.cacheTtlMs) {
-              loadAvatarWithFallback(item.wrapId, item.imgId, parsed.url, cfg, item.cacheKey);
-              return;
-            }
-          }
-        } catch (_) {}
-
-        const picUrl = await fetchInstagramPictureUrl(item.handle, cfg);
-        if (picUrl) {
-          loadAvatarWithFallback(item.wrapId, item.imgId, picUrl, cfg, item.cacheKey);
-        }
-      }));
+      if (brideUrl) loadAvatarImage("bride-avatar-wrap", "bride-avatar-img", brideUrl);
+      if (groomUrl) loadAvatarImage("groom-avatar-wrap", "groom-avatar-img", groomUrl);
     }
 
     /* ============================================================
